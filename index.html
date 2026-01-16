@@ -7,22 +7,32 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+<div class="container">
 
-<h1>Trova l’offerta giusta per te</h1>
+<h1>🔍 Trova l’offerta perfetta per te</h1>
+<p>Confrontiamo, analizziamo e ti guidiamo nella scelta migliore.
+<strong>Gratis, chiaro, senza stress.</strong></p>
 
-<ul>
-  <li><a href="comparatore.html">Confronta offerte</a></li>
-  <li><a href="chat.html">Chat con Daniel</a></li>
-  <li><a href="caf.html">CAF</a></li>
-  <li><a href="fotovoltaico.html">Fotovoltaico</a></li>
-  <li><a href="appuntamenti.html">Appuntamenti</a></li>
-</ul>
+<div class="card">
+  <h2>⚡ Luce, Gas, Internet</h2>
+  <p>Confronta tutte le offerte. Anche quelle che non vendiamo.
+  <strong>Ma ti consigliamo solo ciò che conviene davvero.</strong></p>
+  <a class="button" href="comparatore.html">Confronta ora</a>
+</div>
 
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js');
-}
-</script>
+<div class="card">
+  <h2>💬 Chat intelligente</h2>
+  <p>Parla subito con <strong>Daniel</strong>, il nostro consulente digitale.
+  Se vuoi, passi a una persona reale.</p>
+  <a class="button secondary" href="chat.html">Apri la chat</a>
+</div>
 
+<div class="card">
+  <h2>📄 CAF & ☀️ Fotovoltaico</h2>
+  <p>ISEE, 730, INPS e soluzioni green per risparmiare davvero.</p>
+  <a class="button" href="caf.html">Scopri i servizi</a>
+</div>
+
+</div>
 </body>
 </html>
