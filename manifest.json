@@ -1,0 +1,15 @@
+{
+  "name": "Consulenza Digitale",
+  "short_name": "Consulenza",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0a4fff",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
