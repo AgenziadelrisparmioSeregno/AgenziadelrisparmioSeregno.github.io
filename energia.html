@@ -2,30 +2,90 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Luce & Gas | Comparatore</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luce & Gas | Agenzia del Risparmio</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <div id="progress-container"><div id="progress-bar"></div></div>
+
     <nav>
         <a href="index.html">HOME</a>
-        <a href="energia.html" class="active">ENERGIA</a>
+        <a href="energia.html" class="active">LUCE & GAS</a>
+        <a href="telefonia.html">TELEFONIA & SKY</a>
         <a href="fotovoltaico.html">FOTOVOLTAICO</a>
         <a href="caf.html">CAF</a>
     </nav>
 
     <div class="container">
-        <h2 class="tech-font">Comparatore Tariffe</h2>
-        <div class="glass-card">
-            <p>Le nostre migliori offerte di oggi:</p>
-            <div style="border-left: 4px solid var(--neon-green); padding:15px; margin:10px 0; background:rgba(0,255,0,0.05)">
-                <strong>PARTNER TOP: 62€/mese</strong> - Assistenza Daniel inclusa
+        <header style="text-align: center; margin: 40px 0;">
+            <h1 class="tech-font" style="font-size: 2.2rem;">Risparmio <span style="color:var(--neon-blue)">Energetico</span></h1>
+            <p style="color: #888;">Analizziamo le tue bollette e troviamo la migliore tariffa Luce e Gas del momento.</p>
+        </header>
+
+        <div class="glass-card" style="margin-bottom: 40px; border-left: 4px solid var(--neon-blue); background: rgba(0, 243, 255, 0.02);">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px;">
+                <div style="flex: 2; min-width: 280px;">
+                    <h3 class="tech-font" style="font-size: 1.1rem;">Analisi Gratuita della Bolletta</h3>
+                    <p style="font-size: 0.9rem; color: #ccc; margin-top: 10px;">
+                        Inviaci una foto della tua ultima bolletta. Tutti i nostri consulenti sono formati per individuare costi nascosti e proporti il passaggio a una tariffa più conveniente senza costi di attivazione.
+                    </p>
+                </div>
+                <div style="flex: 1; min-width: 200px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <button class="btn" style="font-size: 0.7rem;" onclick="contactAgent('Daniel')">Daniel</button>
+                    <button class="btn" style="font-size: 0.7rem;" onclick="contactAgent('Daniele')">Daniele</button>
+                    <button class="btn" style="font-size: 0.7rem;" onclick="contactAgent('Luca')">Luca</button>
+                    <button class="btn" style="font-size: 0.7rem;" onclick="contactAgent('Andrea')">Andrea</button>
+                </div>
             </div>
-            <div style="padding:15px; color:#888;">
-                Competitore X: 94€/mese - Nessuna assistenza
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
+            
+            <div class="glass-card">
+                <h3 class="tech-font" style="color: #f1c40f;">⚡ Luce</h3>
+                <p style="font-size: 0.9rem; color: #aaa; margin: 15px 0;">Tariffe a prezzo fisso o indicizzato (PUN) per metterti al riparo dai rincari.</p>
+                <ul style="list-style: none; padding: 0; font-size: 0.85rem; color: #ccc; line-height: 2;">
+                    <li>✅ Energia 100% Green certificata</li>
+                    <li>✅ Zero costi di recesso o attivazione</li>
+                    <li>✅ Gestione pratiche voltura e subentro</li>
+                </ul>
             </div>
-            <button class="btn" onclick="contactAgent('Daniel')">Parla con Daniel</button>
+
+            <div class="glass-card">
+                <h3 class="tech-font" style="color: #3498db;">🔥 Gas</h3>
+                <p style="font-size: 0.9rem; color: #aaa; margin: 15px 0;">Soluzioni su misura per il riscaldamento domestico e l'acqua sanitaria.</p>
+                <ul style="list-style: none; padding: 0; font-size: 0.85rem; color: #ccc; line-height: 2;">
+                    <li>✅ Prezzo del Gas bloccato per 12 mesi</li>
+                    <li>✅ Nessun intervento tecnico al contatore</li>
+                    <li>✅ Fatturazione chiara e senza sorprese</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="faq-container" style="margin-top: 60px;">
+            <h2 class="tech-font" style="text-align: center; font-size: 1.1rem; margin-bottom: 30px;">Domande su Luce & Gas</h2>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">Cosa succede durante il passaggio? <span>+</span></div>
+                <div class="faq-answer">Assolutamente nulla. Non ci sono interruzioni di servizio, non bisogna cambiare i cavi e non serve l'intervento di un tecnico. È solo un passaggio amministrativo che gestiamo noi.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">Come faccio a sapere se sto risparmiando davvero? <span>+</span></div>
+                <div class="faq-answer">I nostri consulenti confrontano il tuo attuale costo della materia prima con le migliori offerte disponibili a terminale, mostrandoti il risparmio annuo stimato in euro.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">Posso fare il contratto per la mia azienda? <span>+</span></div>
+                <div class="faq-answer">Certamente. Gestiamo forniture Business per negozi, uffici e capannoni con tariffe dedicate ai grandi consumi.</div>
+            </div>
         </div>
     </div>
+
+    <footer style="margin-top: 60px; text-align: center; padding: 40px; opacity: 0.5; font-size: 0.8rem;">
+        © 2026 Agenzia del Risparmio - Consulenti Indipendenti Energia
+    </footer>
+
     <script src="chat.js"></script>
 </body>
 </html>
