@@ -1,4 +1,4 @@
-// 1. SCIA DEL MOUSE CANVAS
+// 1. SCIA DEL MOUSE
 const canvas = document.createElement('canvas');
 canvas.id = 'mouse-canvas';
 document.body.appendChild(canvas);
@@ -19,7 +19,6 @@ function animateMouse() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.strokeStyle = '#00f3ff';
     ctx.lineWidth = 2;
-    ctx.lineJoin = 'round';
     if (points.length > 1) {
         ctx.beginPath();
         ctx.moveTo(points[0].x, points[0].y);
@@ -36,50 +35,48 @@ function animateMouse() {
 }
 animateMouse();
 
-// 2. SIMULATORE SCANNER BOLLETTA
+// 2. SIMULAZIONE SCANNER
 function simulateScan() {
     const ui = document.getElementById('scan-ui');
     const result = document.getElementById('scan-result');
-    const btn = ui.querySelector('button');
-    
-    btn.innerHTML = "ANALIZZANDO DATA-PACK... ⚡";
-    btn.style.opacity = "0.5";
+    ui.innerHTML = "<p class='tech-font' style='color:var(--neon-blue)'>CRITTOGRAFIA E ANALISI...⚡</p>";
     
     setTimeout(() => {
         ui.style.display = "none";
         result.style.display = "block";
-        if(navigator.vibrate) navigator.vibrate(200);
     }, 3000);
 }
 
-// 3. NOTIFICHE LIVE (SOCIAL PROOF)
-const cities = ["Seregno", "Meda", "Giussano", "Lissone", "Carate Brianza"];
-const services = ["una bolletta Luce", "un contratto Fibra", "una pratica ISEE", "una consulenza Gas"];
-const agents = ["Daniel", "Daniele", "Luca", "Andrea"];
+// 3. PROGRESS BAR SCROLL
+window.onscroll = function() {
+    let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    let scrolled = (winScroll / height) * 100;
+    document.getElementById("progress-bar").style.width = scrolled + "%";
+};
 
+// 4. NOTIFICHE SOCIAL PROOF
 function showNotification() {
     const note = document.createElement('div');
-    const city = cities[Math.floor(Math.random()*cities.length)];
-    const service = services[Math.floor(Math.random()*services.length)];
-    const agent = agents[Math.floor(Math.random()*agents.length)];
-
-    note.style = `
-        position: fixed; bottom: 20px; left: 20px; 
-        background: rgba(0,0,0,0.95); border: 1px solid #00f3ff;
-        padding: 15px; border-radius: 12px; font-size: 0.75rem;
-        z-index: 10000; box-shadow: 0 0 20px rgba(0,243,255,0.2);
-        transition: 0.5s; transform: translateY(100px); opacity: 0;
-    `;
-    
-    note.innerHTML = `🚀 <b>${agent}</b> ha appena ottimizzato ${service} a <b>${city}</b>.`;
+    note.style = "position:fixed; bottom:20px; left:20px; background:rgba(0,0,0,0.9); border:1px solid var(--neon-blue); color:white; padding:15px; border-radius:10px; font-size:0.7rem; z-index:10000; transition:0.5s; opacity:0; transform:translateY(20px);";
+    note.innerHTML = "🚀 Daniel ha appena fatto risparmiare 200€ a un cliente di Seregno";
     document.body.appendChild(note);
-
-    setTimeout(() => { note.style.transform = "translateY(0)"; note.style.opacity = "1"; }, 100);
+    
+    setTimeout(() => { note.style.opacity = "1"; note.style.transform = "translateY(0)"; }, 100);
     setTimeout(() => { 
         note.style.opacity = "0"; 
-        note.style.transform = "translateY(20px)";
         setTimeout(() => note.remove(), 500);
-    }, 5000);
+    }, 4000);
 }
+setInterval(showNotification, 20000);
 
-setInterval(showNotification, 12000); // Mostra una notifica ogni 12 secondi
+// 5. FUNZIONE CONTATTO (WhatsApp)
+function contactAgent(name) {
+    const numbers = {
+        'Daniel': '393423218269',
+        'Daniele': '393491795387',
+        'Luca': '393277545377',
+        'Andrea': '393515910955'
+    };
+    window.location.href = `https://wa.me/${numbers[name]}?text=Ciao%20${name},%20ho%20visto%20il%20vostro%20sito...`;
+}
