@@ -30,82 +30,43 @@ body {
 
 @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-/* NAV */
-nav {
-    display: flex; justify-content: center; gap: 20px; padding: 20px;
-    background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
-    position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #111;
-}
-nav a { color: white; text-decoration: none; font-size: 0.8rem; font-family: 'Orbitron'; opacity: 0.6; transition: 0.3s; }
-nav a.active, nav a:hover { opacity: 1; color: var(--neon-blue); }
-
-/* CARDS & BENTO */
-.container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-.glass-card {
-    background: var(--glass); border: 1px solid var(--border);
-    border-radius: 15px; padding: 25px; transition: 0.4s; margin-bottom: 20px;
-}
-.glass-card:hover { border-color: var(--neon-blue); box-shadow: 0 0 25px rgba(0, 243, 255, 0.1); transform: translateY(-5px); }
-
-/* SCANNER DROP ZONE */
-#drop-zone {
-    border: 2px dashed #333; padding: 40px; border-radius: 15px;
-    text-align: center; cursor: pointer; transition: 0.3s;
-}
-#drop-zone:hover { border-color: var(--neon-blue); background: rgba(0, 243, 255, 0.05); }
-
-/* PARTNER SCROLL */
-.partner-container { overflow: hidden; white-space: nowrap; padding: 40px 0; }
-.partner-track { display: flex; gap: 60px; animation: scrollPartner 25s linear infinite; width: max-content; }
-.partner-logo { height: 30px; filter: grayscale(1) brightness(2); opacity: 0.6; }
-
-@keyframes scrollPartner { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-/* STATUS DOT & VOTO */
-.status-dot {
-    height: 8px; width: 8px; background: var(--neon-green);
-    border-radius: 50%; display: inline-block; margin-right: 8px;
-    box-shadow: 0 0 8px var(--neon-green); animation: pulse-green 2s infinite;
-}
-@keyframes pulse-green { 0% { transform: scale(0.9); opacity: 0.7; } 70% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.7; } }
-
-.grade-circle {
-    width: 80px; height: 80px; border-radius: 50%; border: 3px solid #ff4444;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.8rem; color: #ff4444; margin: 15px auto; font-family: 'Orbitron';
-}
-
-/* BOTTONI */
-.btn {
-    background: transparent; border: 1px solid var(--neon-blue);
-    color: var(--neon-blue); padding: 12px 24px; border-radius: 8px;
-    font-family: 'Orbitron'; cursor: pointer; transition: 0.3s; text-align: center; width: 100%;
-}
-.btn:hover { background: var(--neon-blue); color: black; box-shadow: 0 0 15px var(--neon-blue); }
-
-.faq-answer { border-top: 1px solid #222; margin-top: 15px; padding-top: 15px; color: #aaa; display: none; }
-
-canvas#mouse-canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; }
+/* NAV - DESIGN AGGIORNATO CON AREA CLIENTI A DESTRA */
 nav {
     display: flex;
     align-items: center;
     justify-content: center; /* Menu al centro */
-    position: relative;
+    position: sticky;
+    top: 0;
     padding: 15px 40px;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid #111;
 }
 
 .nav-links {
     display: flex;
-    gap: 20px;
+    gap: 25px;
 }
+
+.nav-links a { 
+    color: white; 
+    text-decoration: none; 
+    font-size: 0.75rem; 
+    font-family: 'Orbitron'; 
+    opacity: 0.6; 
+    transition: 0.3s; 
+}
+
+.nav-links a.active, .nav-links a:hover { opacity: 1; color: var(--neon-blue); }
 
 .area-clienti-btn {
     position: absolute;
-    right: 40px; /* Lo blocca a destra */
+    right: 40px;
     background: rgba(0, 255, 157, 0.1);
     border: 1px solid var(--neon-green);
     color: var(--neon-green);
-    padding: 8px 15px;
+    padding: 8px 18px;
     border-radius: 5px;
     font-size: 0.7rem;
     font-family: 'Orbitron';
@@ -117,4 +78,73 @@ nav {
     background: var(--neon-green);
     color: black;
     box-shadow: 0 0 15px var(--neon-green);
+}
+
+/* CARDS & BENTO */
+.container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+.glass-card {
+    background: var(--glass); 
+    border: 1px solid var(--border);
+    border-radius: 15px; 
+    padding: 25px; 
+    transition: 0.4s; 
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+}
+.glass-card:hover { border-color: var(--neon-blue); box-shadow: 0 0 25px rgba(0, 243, 255, 0.1); transform: translateY(-5px); }
+
+/* SCANNER & GRIGLIA AGENTI */
+.agent-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#drop-zone {
+    border: 2px dashed #333; padding: 40px; border-radius: 15px;
+    text-align: center; cursor: pointer; transition: 0.3s;
+}
+#drop-zone:hover { border-color: var(--neon-blue); background: rgba(0, 243, 255, 0.05); }
+
+/* GRADE CIRCLE */
+.grade-circle {
+    width: 80px; height: 80px; border-radius: 50%; border: 3px solid #ff4444;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; color: #ff4444; margin: 15px auto; font-family: 'Orbitron';
+}
+
+/* BOTTONI */
+.btn {
+    background: transparent; border: 1px solid var(--neon-blue);
+    color: var(--neon-blue); padding: 12px 24px; border-radius: 8px;
+    font-family: 'Orbitron'; cursor: pointer; transition: 0.3s; text-align: center; 
+    width: 100%; display: inline-block; text-decoration: none;
+}
+.btn:hover { background: var(--neon-blue); color: black; box-shadow: 0 0 15px var(--neon-blue); }
+
+.btn-andrea { border-color: var(--neon-green); color: var(--neon-green); }
+.btn-andrea:hover { background: var(--neon-green); color: black; box-shadow: 0 0 15px var(--neon-green); }
+
+/* MAPPA DARK */
+.map-container iframe {
+    filter: grayscale(1) invert(0.9) contrast(1.2);
+    border-radius: 15px;
+}
+
+/* FOOTER */
+footer {
+    margin-top: 80px;
+    padding: 40px 20px;
+    border-top: 1px solid #111;
+    background: rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+/* ANIMAZIONI */
+@keyframes pulse-green { 0% { transform: scale(0.9); opacity: 0.7; } 70% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.7; } }
+.status-dot {
+    height: 8px; width: 8px; background: var(--neon-green);
+    border-radius: 50%; display: inline-block; margin-right: 8px;
+    box-shadow: 0 0 8px var(--neon-green); animation: pulse-green 2s infinite;
 }
