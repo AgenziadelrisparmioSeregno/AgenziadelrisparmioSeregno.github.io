@@ -17,6 +17,7 @@
         td { padding: 10px; font-size: 0.8rem; border-bottom: 1px solid #111; }
         .logout-btn { background: none; border: 1px solid #ff4444; color: #ff4444; padding: 5px 12px; font-size: 0.6rem; cursor: pointer; border-radius: 4px; }
         .logout-btn:hover { background: #ff4444; color: white; }
+        label { font-size: 0.6rem; color: #666; text-transform: uppercase; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -32,24 +33,27 @@
     <div class="dash-container" style="display: grid; grid-template-columns: 1fr 2fr; gap: 30px;">
         
         <div class="admin-card">
-            <h3 class="tech-font" style="font-size: 0.9rem; margin-bottom: 20px; color: white;">NUOVA PRATICA</h3>
+            <h3 class="tech-font" style="font-size: 0.9rem; margin-bottom: 20px; color: white;">NUOVA PRATICA & MONITORAGGIO</h3>
             
-            <label style="font-size: 0.6rem; color: #666;">UID CLIENTE (Copia dalla dashboard o auth)</label>
-            <input type="text" id="clientUid" placeholder="Es: a8z7Xp29...">
+            <label>UID CLIENTE</label>
+            <input type="text" id="clientUid" placeholder="Incolla UID del cliente...">
             
-            <label style="font-size: 0.6rem; color: #666;">NOME SERVIZIO</label>
-            <input type="text" id="praticaNome" placeholder="Es: Luce Business / Fibra Fastweb">
+            <label>NOME SERVIZIO</label>
+            <input type="text" id="praticaNome" placeholder="Es: Luce Business / Fibra">
             
-            <label style="font-size: 0.6rem; color: #666;">CONSULENTE ASSEGNATO</label>
-            <input type="text" id="consulente" placeholder="Es: Daniel / Andrea">
+            <label>CONSULENTE ASSEGNATO</label>
+            <input type="text" id="consulente" placeholder="Es: Daniel">
             
-            <label style="font-size: 0.6rem; color: #666;">STATO PRATICA</label>
+            <label>STATO PRATICA</label>
             <select id="stato">
                 <option value="status-pending">IN ELABORAZIONE (Giallo)</option>
                 <option value="status-active">ATTIVO (Verde)</option>
             </select>
+
+            <label>SCADENZA TARIFFA (GIORNI RIMANENTI)</label>
+            <input type="number" id="scadenzaGiorni" placeholder="Es: 365" value="365">
             
-            <button class="btn-admin" onclick="savePratica()">PUBBLICA SUL PORTALE</button>
+            <button class="btn-admin" onclick="savePratica()">PUBBLICA DATI CLIENTE</button>
         </div>
 
         <div class="admin-card">
@@ -59,7 +63,7 @@
                     <tr>
                         <th>ID CLIENTE</th>
                         <th>SERVIZIO</th>
-                        <th>CONSULENTE</th>
+                        <th>SCADENZA</th>
                         <th>STATO</th>
                     </tr>
                 </thead>
@@ -88,9 +92,8 @@
         const auth = getAuth(app);
 
         // --- SISTEMA MULTI-ADMIN ---
-        // Aggiungi qui le email che devono poter gestire il portale
         const adminEmails = [
-            "latuamail@gmail.com", 
+            "latuamail@gmail.com", // <--- Inserisci la tua mail reale qui
             "daniel@esempio.it"
         ];
 
@@ -109,8 +112,9 @@
             const nome = document.getElementById('praticaNome').value.trim();
             const cons = document.getElementById('consulente').value.trim();
             const stat = document.getElementById('stato').value;
+            const scad = document.getElementById('scadenzaGiorni').value;
 
-            if(!uid || !nome || !cons) return alert("ERRORE: Compila tutti i campi prima di pubblicare.");
+            if(!uid || !nome || !cons) return alert("ERRORE: Compila tutti i campi obbligatori.");
 
             try {
                 await addDoc(collection(db, "pratiche"), {
@@ -118,9 +122,10 @@
                     nome: nome,
                     consulente: cons,
                     stato: stat,
+                    scadenza: scad,
                     data: new Date().toLocaleDateString('it-IT')
                 });
-                alert("DATI CARICATI: Il cliente vedrà la pratica nella sua area privata.");
+                alert("OPERAZIONE COMPLETATA: Dati inviati alla dashboard del cliente.");
                 location.reload();
             } catch (e) {
                 console.error("Errore salvataggio:", e);
@@ -131,7 +136,6 @@
         async function loadLogs() {
             const tbody = document.getElementById('log-body');
             try {
-                // Carica tutte le pratiche per il log
                 const querySnapshot = await getDocs(collection(db, "pratiche"));
                 tbody.innerHTML = ""; 
                 querySnapshot.forEach((doc) => {
@@ -139,7 +143,7 @@
                     tbody.innerHTML += `<tr>
                         <td style="font-size:0.6rem; color:#666;">${data.userId}</td>
                         <td style="color:white;">${data.nome}</td>
-                        <td style="color:#00f3ff;">${data.consulente}</td>
+                        <td style="color:#ff4444; font-weight:bold;">${data.scadenza || 'N/A'} GG</td>
                         <td style="color:${data.stato === 'status-active' ? '#00ff9d' : '#f1c40f'};">
                             ${data.stato === 'status-active' ? 'ATTIVO' : 'PENDING'}
                         </td>
