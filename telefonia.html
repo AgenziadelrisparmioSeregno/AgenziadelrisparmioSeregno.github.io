@@ -11,18 +11,32 @@
 
     <div id="progress-container"><div id="progress-bar"></div></div>
 
+    <div class="market-ticker">
+        <div class="ticker-content">
+            <span class="ticker-item">⚡ LUCE PUN: 0.118 €/kWh</span>
+            <span class="ticker-item">🔥 GAS PSV: 0.425 €/smc</span>
+            <span class="ticker-item">📱 FIBRA 2.5GB: DISPONIBILE</span>
+            <span class="ticker-item">📺 SKY STREAM: NUOVA OFFERTA</span>
+            <span class="ticker-item">⚡ LUCE PUN: 0.118 €/kWh</span>
+            <span class="ticker-item">🔥 GAS PSV: 0.425 €/smc</span>
+        </div>
+    </div>
+
     <nav>
-        <a href="index.html">HOME</a>
-        <a href="energia.html">LUCE & GAS</a>
-        <a href="telefonia.html" class="active">TELEFONIA & SKY</a>
-        <a href="fotovoltaico.html">FOTOVOLTAICO</a>
-        <a href="caf.html">CAF</a>
+        <div class="nav-links">
+            <a href="index.html">HOME</a>
+            <a href="energia.html">LUCE & GAS</a>
+            <a href="telefonia.html" class="active">TELEFONIA & SKY</a>
+            <a href="fotovoltaico.html">FOTOVOLTAICO</a>
+            <a href="contatti.html">CONTATTI</a>
+        </div>
+        <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
     </nav>
 
     <div class="container">
-        <header style="text-align: center; margin: 40px 0;">
+        <header style="text-align: center; margin: 60px 0;">
             <h1 class="tech-font" style="font-size: 2.2rem;">Connettività & <span style="color:var(--neon-blue)">Intrattenimento</span></h1>
-            <p style="color: #888;">Tutti i nostri consulenti sono esperti certificati per le migliori offerte Fibra, Mobile e Sky TV.</p>
+            <p style="color: #888; max-width: 700px; margin: 0 auto;">Analizziamo le infrastrutture di Seregno e dintorni per garantirti la miglior fibra ottica e il miglior 5G sul mercato.</p>
         </header>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
@@ -34,45 +48,71 @@
                 <ul style="list-style: none; padding: 0; font-size: 0.85rem; color: #ccc; line-height: 2;">
                     <li>🚀 Navigazione fino a 1 Gbps</li>
                     <li>📺 Il meglio dell'intrattenimento Sky</li>
-                    <li>🛠️ Configurazione assistita da noi</li>
+                    <li>🛠️ Configurazione assistita ADR</li>
                 </ul>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
-                    <button class="btn" style="font-size: 0.7rem;" onclick="contactAgent('Daniel')">Daniel</button>
-                    <button class="btn" style="font-size: 0.7rem;" onclick="contactAgent('Daniele')">Daniele</button>
-                    <button class="btn" style="font-size: 0.7rem;" onclick="contactAgent('Luca')">Luca</button>
-                    <button class="btn" style="font-size: 0.7rem;" onclick="contactAgent('Andrea')">Andrea</button>
+                <p style="font-size: 0.6rem; color: #555; margin-top: 15px;">SCEGLI UN CONSULENTE PER INFO:</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 5px;">
+                    <button class="btn" onclick="contactAgent('Daniel', 'Sky')">Daniel</button>
+                    <button class="btn" onclick="contactAgent('Daniele', 'Sky')">Daniele</button>
+                    <button class="btn" onclick="contactAgent('Luca', 'Sky')">Luca</button>
+                    <button class="btn btn-green" onclick="contactAgent('Andrea', 'Sky')">Andrea</button>
                 </div>
             </div>
 
             <div class="glass-card" style="border-top: 4px solid var(--neon-blue);">
                 <h3 class="tech-font">Fibra & Mobile 5G</h3>
-                <p style="font-size: 0.9rem; color: #aaa; margin: 15px 0;">Confrontiamo Fastweb, Vodafone, WindTre e Iliad per darti il prezzo più basso.</p>
+                <p style="font-size: 0.9rem; color: #aaa; margin: 15px 0;">Confrontiamo Fastweb, Vodafone, WindTre e Iliad per darti la copertura migliore.</p>
                 <div style="font-size: 2rem; font-weight: bold; margin-bottom: 20px;">da 22,95€ <small style="font-size: 0.8rem; color: #666;">/mese</small></div>
                 <ul style="list-style: none; padding: 0; font-size: 0.85rem; color: #ccc; line-height: 2;">
                     <li>📶 Portabilità del numero garantita</li>
                     <li>🌍 5G incluso per navigare ovunque</li>
-                    <li>❌ Zero vincoli e trasparenza totale</li>
+                    <li>❌ Zero vincoli e assistenza diretta</li>
                 </ul>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
-                    <button class="btn" style="font-size: 0.7rem;" onclick="contactAgent('Daniel')">Daniel</button>
-                    <button class="btn" style="font-size: 0.7rem;" onclick="contactAgent('Daniele')">Daniele</button>
-                    <button class="btn" style="font-size: 0.7rem;" onclick="contactAgent('Luca')">Luca</button>
-                    <button class="btn" style="font-size: 0.7rem;" onclick="contactAgent('Andrea')">Andrea</button>
+                <p style="font-size: 0.6rem; color: #555; margin-top: 15px;">SCEGLI UN CONSULENTE PER INFO:</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 5px;">
+                    <button class="btn" onclick="contactAgent('Daniel', 'Fibra')">Daniel</button>
+                    <button class="btn" onclick="contactAgent('Daniele', 'Fibra')">Daniele</button>
+                    <button class="btn" onclick="contactAgent('Luca', 'Fibra')">Luca</button>
+                    <button class="btn btn-green" onclick="contactAgent('Andrea', 'Fibra')">Andrea</button>
                 </div>
             </div>
 
         </div>
 
         <div class="glass-card" style="margin-top: 40px; text-align: center; border: 1px dashed var(--neon-blue);">
-            <h3 class="tech-font">Ogni consulente è al tuo servizio</h3>
-            <p>Sia per un contratto privato che per un'utenza Business, puoi scegliere il consulente che preferisci. Ci occupiamo tutti di ogni aspetto della tua connettività.</p>
+            <h3 class="tech-font" style="font-size: 1rem;">Supporto Business & Multi-Brand</h3>
+            <p style="font-size: 0.9rem;">Gestiamo switch complessi per uffici e aziende a Seregno. Un solo referente per tutte le tue SIM e linee dati.</p>
         </div>
     </div>
 
-    <footer style="margin-top: 60px; text-align: center; padding: 40px; opacity: 0.5; font-size: 0.8rem;">
-        © 2026 Agenzia del Risparmio - Gestione Multi-Brand
+    <footer style="margin-top: 100px; padding: 40px; border-top: 1px solid #111; text-align: center; background: rgba(0,0,0,0.5);">
+        <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
+            <a href="privacy.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">PRIVACY POLICY</a>
+            <a href="contatti.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">CONTATTI</a>
+        </div>
+        <p style="font-size: 0.6rem; color: #444;">© 2026 ADR SEREGNO - GESTIONE PROFESSIONALE CONNETTIVITÀ</p>
     </footer>
 
-    <script src="chat.js"></script>
+    <script>
+        // Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+
+        // Funzione WhatsApp Coordinata
+        function contactAgent(agente, servizio) {
+            const numeri = {
+                'Daniel': '393423218269',
+                'Daniele': '393491795387',
+                'Luca': '393277545377',
+                'Andrea': '393515910955'
+            };
+            const testo = `Ciao ${agente}, ho visto le offerte ${servizio} sul sito ADR e vorrei maggiori informazioni.`;
+            window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(testo)}`, '_blank');
+        }
+    </script>
 </body>
 </html>
