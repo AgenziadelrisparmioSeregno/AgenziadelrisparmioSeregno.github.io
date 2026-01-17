@@ -14,111 +14,36 @@
             --surface: rgba(255, 255, 255, 0.05);
         }
 
-        body {
-            background-color: var(--bg-deep);
-            color: white;
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            overflow-x: hidden;
-        }
-
+        body { background-color: var(--bg-deep); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
         h1, h2, .tech-font { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
-
-        /* Sfondo Animato 3D Mesh */
-        .bg-mesh {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(45deg, #02060c 25%, #05101c 50%, #02060c 75%);
-            z-index: -1; opacity: 0.5;
-        }
-
+        
+        .bg-mesh { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #02060c 25%, #05101c 50%, #02060c 75%); z-index: -1; opacity: 0.5; }
         .container { max-width: 1400px; margin: 0 auto; padding: 40px; }
 
-        /* HERO SECTION CON BOT CENTRALE */
-        .hero-ai {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-            min-height: 80vh;
-        }
-
-        .ai-core {
-            position: relative;
-            background: radial-gradient(circle, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            padding: 40px;
-            border: 1px solid var(--surface);
-            box-shadow: 0 0 50px rgba(0,0,0,1);
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            border: 1px solid var(--neon-green);
-            color: var(--neon-green);
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
-        }
-
+        .hero-ai { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; min-height: 85vh; }
+        .status-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--neon-green); color: var(--neon-green); margin-bottom: 20px; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
-        /* BOT CHAT BOX INTERNA */
-        .chat-container {
-            background: var(--surface);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 30px;
-            height: 500px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.05);
-        }
-
+        /* CHAT INTERFACE 3D */
+        .chat-container { background: var(--surface); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; height: 550px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         .chat-messages { flex: 1; padding: 25px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
-
-        .msg { padding: 15px 20px; border-radius: 15px; max-width: 80%; font-size: 0.95rem; line-height: 1.5; }
+        .msg { padding: 15px 20px; border-radius: 15px; max-width: 85%; font-size: 0.95rem; line-height: 1.5; position: relative; }
         .bot-msg { background: rgba(0, 243, 255, 0.1); border-left: 4px solid var(--neon-blue); align-self: flex-start; }
         .user-msg { background: var(--surface); align-self: flex-end; border-right: 4px solid var(--neon-green); }
 
-        /* COMPARATORE ALGORITMICO */
-        .comparison-engine {
-            display: none;
-            margin-top: 50px;
-            background: #000;
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid var(--neon-blue);
-        }
+        /* BUTTONS */
+        .btn-action { background: var(--neon-blue); color: #000; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; border: none; transition: 0.3s; text-decoration: none; display: inline-block; margin-top: 10px; text-align: center; }
+        .btn-action:hover { transform: translateY(-2px); box-shadow: 0 0 20px var(--neon-blue); }
+        
+        .consultant-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; }
+        .consultant-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 15px; border-radius: 15px; cursor: pointer; transition: 0.3s; text-align: left; }
+        .consultant-btn:hover { border-color: var(--neon-blue); background: rgba(0, 243, 255, 0.05); }
 
-        .offer-card {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px; border-bottom: 1px solid var(--surface);
-            transition: 0.3s;
-        }
-
-        .offer-card.our-choice {
-            background: linear-gradient(90deg, rgba(0, 243, 255, 0.05), transparent);
-            border-left: 4px solid var(--neon-blue);
-        }
-
-        .btn-action {
-            background: var(--neon-blue); color: #000; padding: 12px 25px;
-            border-radius: 8px; font-weight: bold; cursor: pointer; border: none;
-            transition: 0.3s;
-        }
-
-        .btn-action:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--neon-blue); }
-
-        .consultant-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .consultant-btn {
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            color: white; padding: 15px; border-radius: 15px; cursor: pointer; transition: 0.3s;
-        }
-        .consultant-btn:hover { background: var(--surface); border-color: var(--neon-blue); }
-
+        /* COMPARISON AREA */
+        .comparison-engine { display: none; margin-top: 50px; background: rgba(0,0,0,0.8); padding: 30px; border-radius: 25px; border: 1px solid var(--neon-blue); animation: fadeIn 0.8s; }
+        .offer-card { display: flex; justify-content: space-between; align-items: center; padding: 25px; border-bottom: 1px solid var(--surface); }
+        .our-choice { background: linear-gradient(90deg, rgba(0, 243, 255, 0.08), transparent); border-left: 5px solid var(--neon-green); }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -128,81 +53,82 @@
 <div class="container">
     <div class="hero-ai">
         <div>
-            <div class="status-badge">SISTEMA DI COMPARAZIONE ATTIVO V2.0</div>
-            <h1 style="font-size: 3.5rem;">Risparmio <span style="color: var(--neon-blue);">Intelligente</span></h1>
-            <p style="font-size: 1.1rem; color: #a0aab8; margin-bottom: 30px;">
-                Il primo algoritmo 3D che confronta le tariffe Luce e Gas in tempo reale. 
-                Scegli un consulente o lascia che l'AI trovi la tua offerta.
+            <div class="status-badge">ALGORITMO COMPARATIVO ONLINE</div>
+            <h1 style="font-size: 3.2rem;">Agenzia del <span style="color: var(--neon-blue);">Risparmio</span></h1>
+            <p style="color: #a0aab8; margin-bottom: 30px;">
+                Assistenza Premium per <b>Luce, Gas, Fotovoltaico e CAF</b>. 
+                Scegli il tuo consulente dedicato o confronta le tariffe in autonomia.
             </p>
             
             <div class="consultant-grid">
-                <button class="consultant-btn" onclick="selectConsultant('Daniel')">👨‍💼 DANIEL <br><small>Consulente Energetico & Telefonia</small></button>
-                <button class="consultant-btn" onclick="selectConsultant('Daniele')">👨‍💼 DANIELE <br><small>Consulente Energetico & Telefonia</small></button>
-                <button class="consultant-btn" onclick="selectConsultant('Andrea')">👨‍💼 ANDREA <br><small>Consulente Energetico & Telefonia & CAF</small></button>
-                <button class="consultant-btn" onclick="selectConsultant('Luca')">👨‍💼 LUCA <br><small>Consulente Energetico e Telefonia</small></button>
+                <button class="consultant-btn" onclick="selectAgent('Daniel', '3423218269')">👨‍💼 DANIEL <br><small>Energy Manager</small></button>
+                <button class="consultant-btn" onclick="selectAgent('Daniele', '3491795387')">👨‍💼 DANIELE <br><small>Tech Specialist</small></button>
+                <button class="consultant-btn" onclick="selectAgent('Andrea', '3515910955')">👨‍💼 ANDREA <br><small>Solar Expert</small></button>
+                <button class="consultant-btn" onclick="selectAgent('Luca', '3277545377')">👨‍💼 LUCA <br><small>CAF & Fiscal</small></button>
             </div>
             
-            <button class="btn-action" style="width: 100%; margin-top: 20px; background: transparent; border: 1px solid var(--neon-green); color: var(--neon-green);" onclick="startAuto()">
-                AVVIA COMPARATORE AUTONOMO
+            <button class="btn-action" style="width: 100%; margin-top: 20px; background: transparent; border: 1px solid var(--neon-green); color: var(--neon-green);" onclick="startComparison()">
+                AVVIA COMPARAZIONE AUTONOMA
             </button>
         </div>
 
-        <div class="ai-core">
+        <div class="ai-box">
             <div class="chat-container">
                 <div class="chat-messages" id="chatbox">
                     <div class="msg bot-msg">
-                        Sistemi pronti. Sono l'intelligenza collettiva dell'Agenzia del Risparmio. 
-                        Come posso guidarti oggi?
+                        Benvenuto nell'area riservata. Sono l'AI di Agenzia del Risparmio. <br><br>
+                        Posso aiutarti a confrontare le offerte o metterti in contatto con il team. Con chi desideri parlare?
                     </div>
                 </div>
                 <div style="padding: 20px; border-top: 1px solid var(--surface); display: flex; gap: 10px;">
-                    <input type="text" id="userInput" placeholder="Chiedi qualsiasi cosa..." style="flex:1; background:transparent; border:none; color:white; outline:none;">
-                    <button class="btn-action" onclick="userSendMessage()">INVIO</button>
+                    <input type="text" id="userInput" placeholder="Chiedi assistenza..." style="flex:1; background:transparent; border:none; color:white; outline:none;">
+                    <button class="btn-action" onclick="handleInput()" style="margin:0; padding: 10px 20px;">INVIA</button>
                 </div>
             </div>
         </div>
     </div>
 
     <div id="engine" class="comparison-engine">
-        <h2 style="margin-bottom: 20px; color: var(--neon-blue);">Comparazione in tempo reale</h2>
-        <div id="results-list"></div>
+        <h2 style="margin-bottom: 25px;">Analisi Tariffe 2026</h2>
+        <div id="results"></div>
     </div>
 </div>
 
 <script>
     const chatbox = document.getElementById('chatbox');
 
-    function addMsg(text, type) {
+    function addMessage(text, side) {
         const div = document.createElement('div');
-        div.className = `msg ${type}-msg`;
+        div.className = `msg ${side}-msg`;
         div.innerHTML = text;
         chatbox.appendChild(div);
         chatbox.scrollTop = chatbox.scrollHeight;
     }
 
-    function selectConsultant(name) {
-        addMsg(`Voglio parlare con ${name}`, 'user');
+    // LOGICA CONSULENTI
+    function selectAgent(name, phone) {
+        addMessage(`Vorrei parlare con ${name}`, 'user');
         setTimeout(() => {
-            addMsg(`🚨 <strong>ANALISI STATO:</strong> ${name} è attualmente impegnato in una consulenza privata.`, 'bot');
-            addMsg(`Per non farti perdere tempo, posso analizzare io i tuoi consumi ora, oppure posso prenotarti il primo slot libero con lui. Cosa preferisci?`, 'bot');
+            addMessage(`🚨 <b>NOTIFICA SISTEMA:</b> ${name} è attualmente in consulenza con un altro cliente.`, 'bot');
+            addMessage(`Per non attendere, puoi scrivergli direttamente su WhatsApp. Ti risponderà appena termina l'appuntamento: <br><br> <a href="https://wa.me/39${phone}?text=Ciao%20${name},%20ho%20bisogno%20di%20consulenza%20dal%20sito" class="btn-action" target="_blank">CONTATTA ${name.toUpperCase()}</a>`, 'bot');
         }, 800);
     }
 
-    function startAuto() {
-        addMsg("Avvio Algoritmo di Comparazione...", 'bot');
+    // ALGORITMO COMPARAZIONE (Tipo Switcho/Billoo)
+    function startComparison() {
+        addMessage("Avvio analisi dei mercati in corso...", 'bot');
         document.getElementById('engine').style.display = 'block';
-        
+        window.scrollTo({ top: document.getElementById('engine').offsetTop - 50, behavior: 'smooth' });
+
         const offers = [
-            { name: "La Nostra Migliore (Partner)", price: "68€", our: true, note: "Punteggio Trasparenza 10/10" },
-            { name: "Competitor Nazionale A", price: "92€", our: false, note: "Costi fissi elevati" },
-            { name: "La Nostra Eco (Partner)", price: "71€", our: true, note: "100% Green + Assistenza" },
-            { name: "Competitor Nazionale B", price: "105€", our: false, note: "Prezzo variabile rischioso" }
+            { name: "Partner: Risparmio Sicuro Gold", price: "64€", our: true, info: "Tariffa riservata Agenzia - Assistenza Diretta" },
+            { name: "Enel Flex (Stima)", price: "89€", our: false, info: "Costi di commercializzazione standard" },
+            { name: "Partner: Green Power 100%", price: "67€", our: true, info: "Energia certificata + Tutor dedicato" },
+            { name: "Plenitude Trend (Stima)", price: "95€", our: false, info: "Prezzo variabile di mercato" }
         ];
 
-        const list = document.getElementById('results-list');
+        const list = document.getElementById('results');
         list.innerHTML = "";
-        
-        offers.sort((a,b) => (a.our === b.our)? 0 : a.our? -1 : 1);
 
         offers.forEach((o, i) => {
             setTimeout(() => {
@@ -210,27 +136,32 @@
                 card.className = `offer-card ${o.our ? 'our-choice' : ''}`;
                 card.innerHTML = `
                     <div>
-                        <span style="color:${o.our ? 'var(--neon-blue)' : '#777'}">${o.our ? '⭐ CONSIGLIATA' : 'OFFERTA ESTERNA'}</span>
-                        <div style="font-size: 1.2rem; font-weight: bold;">${o.name}</div>
-                        <small style="color:#aaa">${o.note}</small>
+                        <b style="color:${o.our ? 'var(--neon-green)' : 'white'}">${o.our ? '⭐ LA NOSTRA SCELTA' : 'OFFERTA MERCATO'}</b>
+                        <div style="font-size:1.3rem; margin: 5px 0;">${o.name}</div>
+                        <small style="color:#777">${o.info}</small>
                     </div>
-                    <div style="text-align: right;">
-                        <div style="font-size: 1.8rem; font-weight: bold; color:${o.our ? 'var(--neon-green)' : 'white'}">${o.price}</div>
-                        <button class="btn-action" style="padding: 5px 15px; font-size: 0.8rem;">Dettagli</button>
+                    <div style="text-align:right">
+                        <div style="font-size:2rem; font-weight:bold;">${o.price}<span style="font-size:0.8rem">/mese</span></div>
+                        <button class="btn-action" onclick="addMessage('Ottima scelta! Un consulente verificherà la fattibilità tecnica.', 'bot')">ATTIVA ORA</button>
                     </div>
                 `;
                 list.appendChild(card);
-            }, i * 400);
+            }, i * 500);
         });
     }
 
-    function userSendMessage() {
+    function handleInput() {
         const input = document.getElementById('userInput');
-        if(input.value) {
-            addMsg(input.value, 'user');
-            input.value = "";
-            setTimeout(() => addMsg("Sto elaborando la tua richiesta attraverso i nostri database...", "bot"), 1000);
-        }
+        if(!input.value) return;
+        addMessage(input.value, 'user');
+        const val = input.value.toLowerCase();
+        input.value = "";
+
+        setTimeout(() => {
+            if(val.includes("caf")) addMessage("Per i servizi CAF (ISEE, 730, Bonus), ti collego con Luca, il nostro esperto fiscale.", "bot");
+            else if(val.includes("fote") || val.includes("solare")) addMessage("Per il fotovoltaico, Andrea analizzerà il tuo tetto tramite satellite. Clicca sul suo profilo.", "bot");
+            else addMessage("Ricevuto. Sto elaborando la tua richiesta nei nostri database...", "bot");
+        }, 1000);
     }
 </script>
 
