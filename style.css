@@ -1,9 +1,13 @@
+/* --- VARIABILI GLOBALI --- */
 :root {
     --neon-blue: #00f3ff;
     --neon-green: #00ff9d;
     --dark-bg: #050505;
+    --glass: rgba(255, 255, 255, 0.03);
+    --border: #222;
 }
 
+/* --- RESET & BASE --- */
 body {
     background-color: var(--dark-bg);
     color: white;
@@ -12,13 +16,17 @@ body {
     overflow-x: hidden;
 }
 
-.tech-font { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
+.tech-font { 
+    font-family: 'Orbitron', sans-serif; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+}
 
-/* PROGRESS BAR */
+/* --- PROGRESS BAR SCROLL --- */
 #progress-container { position: fixed; top: 0; width: 100%; height: 4px; z-index: 10001; }
 #progress-bar { height: 100%; background: var(--neon-blue); width: 0%; box-shadow: 0 0 10px var(--neon-blue); }
 
-/* MARKET TICKER */
+/* --- MARKET TICKER (Header animato) --- */
 .market-ticker {
     background: black;
     border-bottom: 1px solid var(--neon-blue);
@@ -39,27 +47,65 @@ body {
     100% { transform: translateX(-100%); }
 }
 
-/* NAV */
+/* --- NAVIGAZIONE STICKY --- */
 nav {
-    display: flex; justify-content: center; gap: 20px; padding: 20px;
-    background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
-    position: sticky; top: 4px; z-index: 1000;
+    display: flex; 
+    justify-content: center; 
+    gap: 20px; 
+    padding: 20px;
+    background: rgba(0,0,0,0.8); 
+    backdrop-filter: blur(10px);
+    position: sticky; 
+    top: 0; 
+    z-index: 1000;
+    border-bottom: 1px solid #111;
 }
-nav a { color: white; text-decoration: none; font-size: 0.8rem; font-family: 'Orbitron'; opacity: 0.6; transition: 0.3s; }
+nav a { 
+    color: white; 
+    text-decoration: none; 
+    font-size: 0.8rem; 
+    font-family: 'Orbitron'; 
+    opacity: 0.6; 
+    transition: 0.3s; 
+}
 nav a.active, nav a:hover { opacity: 1; color: var(--neon-blue); }
 
-/* CARDS & BENTO */
+/* --- CONTENITORI & CARTE (Bento Grid Style) --- */
 .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-.glass-card {
-    background: rgba(255,255,255,0.03); border: 1px solid #222;
-    border-radius: 15px; padding: 25px; transition: 0.4s; cursor: pointer;
-}
-.glass-card:hover { border-color: var(--neon-blue); box-shadow: 0 0 25px rgba(0, 243, 255, 0.1); }
 
-/* PALLINO LIVE */
+.glass-card {
+    background: var(--glass); 
+    border: 1px solid var(--border);
+    border-radius: 15px; 
+    padding: 25px; 
+    transition: 0.4s; 
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.glass-card:hover { 
+    border-color: var(--neon-blue); 
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.1); 
+    transform: translateY(-5px);
+}
+
+/* --- PARTNER LOGOS (Scrolling Infinito) --- */
+.partner-container { overflow: hidden; white-space: nowrap; padding: 40px 0; opacity: 0.7; }
+.partner-track { display: flex; gap: 60px; animation: scrollPartner 25s linear infinite; width: max-content; }
+.partner-logo { height: 30px; filter: grayscale(1) brightness(2); transition: 0.3s; }
+.partner-logo:hover { filter: grayscale(0) brightness(1); opacity: 1; }
+
+@keyframes scrollPartner {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* --- PALLINO LIVE STATUS --- */
 .status-dot {
-    height: 8px; width: 8px; background: var(--neon-green);
-    border-radius: 50%; display: inline-block; margin-right: 8px;
+    height: 8px; width: 8px; 
+    background: var(--neon-green);
+    border-radius: 50%; 
+    display: inline-block; 
+    margin-right: 8px;
     box-shadow: 0 0 8px var(--neon-green);
     animation: pulse-green 2s infinite;
 }
@@ -69,105 +115,50 @@ nav a.active, nav a:hover { opacity: 1; color: var(--neon-blue); }
     100% { transform: scale(0.9); opacity: 0.7; }
 }
 
-/* VOTO BOLLETTA */
+/* --- VOTO SCANNER BOLLETTA --- */
 .grade-circle {
-    width: 80px; height: 80px; border-radius: 50%; border: 3px solid #ff4444;
+    width: 80px; height: 80px; 
+    border-radius: 50%; 
+    border: 3px solid #ff4444;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.8rem; color: #ff4444; margin: 15px auto; font-family: 'Orbitron';
+    font-size: 1.8rem; color: #ff4444; 
+    margin: 15px auto; 
+    font-family: 'Orbitron';
 }
 
-/* UTILS */
+/* --- BOTTONI --- */
 .btn {
-    background: transparent; border: 1px solid var(--neon-blue);
-    color: var(--neon-blue); padding: 12px; border-radius: 8px;
-    font-family: 'Orbitron'; cursor: pointer; transition: 0.3s;
-}
-.btn:hover { background: var(--neon-blue); color: black; box-shadow: 0 0 15px var(--neon-blue); }
-
-canvas#mouse-canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; }
-:root {
-    --neon-blue: #00f3ff;
-    --neon-green: #00ff9d;
-    --dark-bg: #050505;
-}
-
-body {
-    background-color: var(--dark-bg);
-    color: white;
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    overflow-x: hidden;
-}
-
-.tech-font { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
-
-/* PROGRESS BAR */
-#progress-container { position: fixed; top: 0; width: 100%; height: 4px; z-index: 10001; }
-#progress-bar { height: 100%; background: var(--neon-blue); width: 0%; box-shadow: 0 0 10px var(--neon-blue); }
-
-/* MARKET TICKER */
-.market-ticker {
-    background: black;
-    border-bottom: 1px solid var(--neon-blue);
-    padding: 10px 0;
-    overflow: hidden;
-    position: relative;
-    z-index: 10;
-}
-.ticker-content {
+    background: transparent; 
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue); 
+    padding: 12px 24px; 
+    border-radius: 8px;
+    font-family: 'Orbitron'; 
+    cursor: pointer; 
+    transition: 0.3s;
+    text-align: center;
     display: inline-block;
-    white-space: nowrap;
-    animation: ticker 30s linear infinite;
+    width: 100%;
 }
-.ticker-item { display: inline-block; padding: 0 40px; font-family: 'Orbitron'; font-size: 0.8rem; }
-
-@keyframes ticker {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+.btn:hover { 
+    background: var(--neon-blue); 
+    color: black; 
+    box-shadow: 0 0 15px var(--neon-blue); 
 }
 
-/* NAV */
-nav {
-    display: flex; justify-content: center; gap: 20px; padding: 20px;
-    background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
-    position: sticky; top: 4px; z-index: 1000;
-}
-nav a { color: white; text-decoration: none; font-size: 0.8rem; font-family: 'Orbitron'; opacity: 0.6; transition: 0.3s; }
-nav a.active, nav a:hover { opacity: 1; color: var(--neon-blue); }
-
-/* CARDS */
-.container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-.glass-card {
-    background: rgba(255,255,255,0.03); border: 1px solid #222;
-    border-radius: 15px; padding: 25px; transition: 0.4s; margin-bottom: 20px;
-}
-.glass-card:hover { border-color: var(--neon-blue); box-shadow: 0 0 25px rgba(0, 243, 255, 0.1); }
-
-/* STATUS DOT (LIVE) */
-.status-dot {
-    height: 8px; width: 8px; background: var(--neon-green);
-    border-radius: 50%; display: inline-block; margin-right: 8px;
-    box-shadow: 0 0 8px var(--neon-green);
-    animation: pulse-green 2s infinite;
-}
-@keyframes pulse-green {
-    0% { transform: scale(0.9); opacity: 0.7; }
-    70% { transform: scale(1.2); opacity: 1; }
-    100% { transform: scale(0.9); opacity: 0.7; }
+/* --- CANVAS & UTILS --- */
+canvas#mouse-canvas { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    pointer-events: none; 
+    z-index: 9999; 
 }
 
-/* VOTO BOLLETTA */
-.grade-circle {
-    width: 80px; height: 80px; border-radius: 50%; border: 3px solid #ff4444;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.8rem; color: #ff4444; margin: 15px auto; font-family: 'Orbitron';
+.faq-answer {
+    border-top: 1px solid #222;
+    margin-top: 15px;
+    padding-top: 15px;
+    line-height: 1.6;
+    color: #aaa;
 }
-
-.btn {
-    background: transparent; border: 1px solid var(--neon-blue);
-    color: var(--neon-blue); padding: 12px; border-radius: 8px;
-    font-family: 'Orbitron'; cursor: pointer; transition: 0.3s;
-}
-.btn:hover { background: var(--neon-blue); color: black; box-shadow: 0 0 15px var(--neon-blue); }
-
-canvas#mouse-canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; }
