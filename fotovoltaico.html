@@ -6,81 +6,160 @@
     <title>Fotovoltaico | Agenzia del Risparmio</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .faq-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid #222;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            overflow: hidden;
+        }
+        .faq-item:hover { border-color: var(--neon-green); }
+        .faq-question {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Orbitron';
+            font-size: 0.8rem;
+            color: var(--neon-green);
+        }
+        .faq-answer {
+            padding: 0 20px 20px 20px;
+            display: none;
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 <body>
 
     <div id="progress-container"><div id="progress-bar"></div></div>
 
+    <div class="market-ticker">
+        <div class="ticker-content">
+            <span class="ticker-item">⚡ LUCE PUN: 0.118 €/kWh</span>
+            <span class="ticker-item">🔥 GAS PSV: 0.425 €/smc</span>
+            <span class="ticker-item">☀️ FOTOVOLTAICO: INCENTIVI 2026 ATTIVI</span>
+            <span class="ticker-item">🔋 ACCUMULO: TECNOLOGIA AL LITIO</span>
+            <span class="ticker-item">⚡ LUCE PUN: 0.118 €/kWh</span>
+            <span class="ticker-item">🔥 GAS PSV: 0.425 €/smc</span>
+        </div>
+    </div>
+
     <nav>
-        <a href="index.html">HOME</a>
-        <a href="energia.html">LUCE & GAS</a>
-        <a href="telefonia.html">TELEFONIA & SKY</a>
-        <a href="fotovoltaico.html" class="active">FOTOVOLTAICO</a>
-        <a href="caf.html">CAF</a>
+        <div class="nav-links">
+            <a href="index.html">HOME</a>
+            <a href="energia.html">LUCE & GAS</a>
+            <a href="telefonia.html">TELEFONIA & SKY</a>
+            <a href="fotovoltaico.html" class="active">FOTOVOLTAICO</a>
+            <a href="contatti.html">CONTATTI</a>
+        </div>
+        <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
     </nav>
 
     <div class="container">
-        <header style="text-align: center; margin: 40px 0;">
+        <header style="text-align: center; margin: 60px 0;">
             <h1 class="tech-font" style="font-size: 2.2rem; color: var(--neon-green);">Indipendenza <span style="color:white">Energetica</span></h1>
-            <p style="color: #888;">Produci la tua energia, abbatti le bollette e aumenta il valore della tua casa.</p>
+            <p style="color: #888; max-width: 700px; margin: 0 auto;">Produci la tua energia, abbatti le bollette e aumenta il valore della tua casa con le migliori tecnologie solari del 2026.</p>
         </header>
 
         <div class="glass-card" style="margin-bottom: 40px; border-left: 4px solid var(--neon-green); background: rgba(0, 255, 157, 0.02);">
-            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px;">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 30px;">
                 <div style="flex: 2; min-width: 280px;">
                     <h3 class="tech-font" style="font-size: 1.1rem; color: var(--neon-green);">Sopralluogo Tecnico Gratuito</h3>
                     <p style="font-size: 0.9rem; color: #ccc; margin-top: 10px;">
-                        Tutti i nostri consulenti sono a disposizione per un'analisi preliminare del tuo tetto. Valutiamo l'esposizione, il fabbisogno energetico e ti forniamo un piano di rientro economico personalizzato.
+                        Tutti i nostri consulenti sono a disposizione per un'analisi preliminare del tuo tetto. Valutiamo l'esposizione, il fabbisogno energetico e forniamo un piano di rientro economico personalizzato.
                     </p>
                 </div>
-                <div style="flex: 1; min-width: 200px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <button class="btn" style="font-size: 0.7rem; border-color: var(--neon-green);" onclick="contactAgent('Daniel')">Daniel</button>
-                    <button class="btn" style="font-size: 0.7rem; border-color: var(--neon-green);" onclick="contactAgent('Daniele')">Daniele</button>
-                    <button class="btn" style="font-size: 0.7rem; border-color: var(--neon-green);" onclick="contactAgent('Luca')">Luca</button>
-                    <button class="btn" style="font-size: 0.7rem; border-color: var(--neon-green);" onclick="contactAgent('Andrea')">Andrea</button>
+                <div style="flex: 1; min-width: 240px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <button class="btn btn-green" onclick="contactAgent('Daniel', 'Fotovoltaico')">Daniel</button>
+                    <button class="btn btn-green" onclick="contactAgent('Daniele', 'Fotovoltaico')">Daniele</button>
+                    <button class="btn btn-green" onclick="contactAgent('Luca', 'Fotovoltaico')">Luca</button>
+                    <button class="btn btn-green" style="background: var(--neon-green); color: black;" onclick="contactAgent('Andrea', 'Fotovoltaico')">Andrea</button>
                 </div>
             </div>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
-            
             <div class="glass-card">
-                <h4 class="tech-font" style="color: var(--neon-green);">Pannelli High-Tech</h4>
-                <p style="font-size: 0.85rem; color: #aaa; margin-top: 10px;">Utilizziamo solo moduli ad alta efficienza con garanzia di rendimento fino a 25 anni.</p>
+                <h4 class="tech-font" style="color: var(--neon-green); font-size: 0.9rem;">Pannelli High-Tech</h4>
+                <p style="font-size: 0.85rem; color: #aaa; margin-top: 10px;">Utilizziamo solo moduli monocristallini ad alta efficienza con garanzia di rendimento fino a 25 anni.</p>
             </div>
-
             <div class="glass-card">
-                <h4 class="tech-font" style="color: var(--neon-green);">Sistemi di Accumulo</h4>
-                <p style="font-size: 0.85rem; color: #aaa; margin-top: 10px;">Batterie di ultima generazione per utilizzare l'energia solare anche di notte.</p>
+                <h4 class="tech-font" style="color: var(--neon-green); font-size: 0.9rem;">Sistemi di Accumulo</h4>
+                <p style="font-size: 0.85rem; color: #aaa; margin-top: 10px;">Batterie di ultima generazione (LFP) per utilizzare l'energia solare anche di notte o durante i blackout.</p>
             </div>
-
             <div class="glass-card">
-                <h4 class="tech-font" style="color: var(--neon-green);">Pratiche Chiavi in Mano</h4>
-                <p style="font-size: 0.85rem; color: #aaa; margin-top: 10px;">Ci occupiamo noi di burocrazia, autorizzazioni comunali e connessione alla rete.</p>
+                <h4 class="tech-font" style="color: var(--neon-green); font-size: 0.9rem;">Pratiche Chiavi in Mano</h4>
+                <p style="font-size: 0.85rem; color: #aaa; margin-top: 10px;">Ci occupiamo noi di tutta la burocrazia: autorizzazioni comunali, ENEA e connessione alla rete GSE.</p>
             </div>
         </div>
 
-        <div class="faq-container" style="margin-top: 60px;">
-            <h2 class="tech-font" style="text-align: center; font-size: 1.1rem; margin-bottom: 30px;">Domande sul Fotovoltaico</h2>
+        <div class="faq-container" style="margin-top: 80px; max-width: 800px; margin-left: auto; margin-right: auto;">
+            <h2 class="tech-font" style="text-align: center; font-size: 1.1rem; margin-bottom: 40px;">Domande Frequenti</h2>
+            
             <div class="faq-item" onclick="toggleFaq(this)">
                 <div class="faq-question">Posso usufruire delle detrazioni fiscali? <span>+</span></div>
-                <div class="faq-answer">Sì, anche nel 2026 sono attivi gli incentivi per la riqualificazione energetica. Il nostro team ti supporterà in tutta la parte burocratica per ottenere il massimo recupero fiscale.</div>
+                <div class="faq-answer" style="display:none;">Sì, anche nel 2026 sono attivi gli incentivi per la riqualificazione energetica. Il nostro team ti supporterà in tutta la parte burocratica per ottenere il massimo recupero fiscale.</div>
             </div>
+
             <div class="faq-item" onclick="toggleFaq(this)">
                 <div class="faq-question">Quanto risparmio realmente in bolletta? <span>+</span></div>
-                <div class="faq-answer">Un impianto ben dimensionato può abbattere i costi della bolletta elettrica fino al 70-80%, specialmente se abbinato a un sistema di accumulo.</div>
+                <div class="faq-answer" style="display:none;">Un impianto ben dimensionato può abbattere i costi della bolletta elettrica fino al 70-80%, specialmente se abbinato a un sistema di accumulo correttamente calcolato sui tuoi consumi.</div>
             </div>
+
             <div class="faq-item" onclick="toggleFaq(this)">
                 <div class="faq-question">Cosa succede se c'è poco sole? <span>+</span></div>
-                <div class="faq-answer">I moderni pannelli producono energia anche con cielo coperto. Inoltre, la batteria di accumulo e lo scambio sul posto garantiscono continuità energetica.</div>
+                <div class="faq-answer" style="display:none;">I moderni pannelli producono energia anche con cielo coperto. Inoltre, la batteria di accumulo e lo scambio sul posto (o ritiro dedicato) garantiscono continuità energetica e risparmio economico costante.</div>
             </div>
         </div>
     </div>
 
-    <footer style="margin-top: 60px; text-align: center; padding: 40px; opacity: 0.5; font-size: 0.8rem;">
-        © 2026 Agenzia del Risparmio - Soluzioni Fotovoltaiche Certificate
+    <footer style="margin-top: 100px; padding: 40px; border-top: 1px solid #111; text-align: center; background: rgba(0,0,0,0.5);">
+        <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
+            <a href="privacy.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">PRIVACY POLICY</a>
+            <a href="contatti.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">CONTATTI</a>
+            <a href="leaderboard.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">CLASSIFICA</a>
+        </div>
+        <p style="font-size: 0.6rem; color: #444;">© 2026 ADR SEREGNO - PROGETTAZIONE IMPIANTI SOLARI CERTIFICATI</p>
     </footer>
 
-    <script src="chat.js"></script>
+    <script>
+        // Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+
+        // FAQ Toggle
+        function toggleFaq(element) {
+            const answer = element.querySelector('.faq-answer');
+            const span = element.querySelector('span');
+            if (answer.style.display === "block") {
+                answer.style.display = "none";
+                span.innerText = "+";
+            } else {
+                answer.style.display = "block";
+                span.innerText = "-";
+            }
+        }
+
+        // WhatsApp Agenti
+        function contactAgent(agente, servizio) {
+            const numeri = {
+                'Daniel': '393423218269',
+                'Daniele': '393491795387',
+                'Luca': '393277545377',
+                'Andrea': '393515910955'
+            };
+            const testo = `Ciao ${agente}, vorrei richiedere un sopralluogo gratuito per un impianto ${servizio}. Quando sei disponibile?`;
+            window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(testo)}`, '_blank');
+        }
+    </script>
 </body>
 </html>
