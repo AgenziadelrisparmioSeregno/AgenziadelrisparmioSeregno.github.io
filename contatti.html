@@ -7,10 +7,6 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --neon-blue: #00f3ff; --neon-green: #00ff9d; --dark-bg: #050505; }
-        body { background: var(--dark-bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
-        .tech-font { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
-        
         .contact-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -27,6 +23,12 @@
             background: rgba(255,255,255,0.02);
             border-radius: 10px;
             border-left: 3px solid var(--neon-blue);
+            transition: 0.3s;
+        }
+        
+        .info-box:hover {
+            background: rgba(255,255,255,0.05);
+            transform: translateX(5px);
         }
 
         .map-container {
@@ -34,46 +36,65 @@
             overflow: hidden;
             border: 1px solid #222;
             height: 100%;
-            min-height: 400px;
+            min-height: 450px;
+            position: relative;
         }
 
         /* Effetto scuro per la mappa di Google */
         .map-container iframe {
             filter: grayscale(1) invert(0.9) contrast(1.2);
+            border: 0;
         }
 
         @media (max-width: 768px) {
             .contact-grid { grid-template-columns: 1fr; }
+            .map-container { min-height: 300px; }
         }
     </style>
 </head>
 <body>
 
-    <nav style="display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: #000;">
-        <div style="display: flex; gap: 20px;">
-            <a href="index.html" style="text-decoration:none; color:white; font-family:'Orbitron'; font-size:0.7rem;">HOME</a>
-            <a href="energia.html" style="text-decoration:none; color:white; font-family:'Orbitron'; font-size:0.7rem;">ENERGIA</a>
+    <div id="progress-container"><div id="progress-bar"></div></div>
+
+    <div class="market-ticker">
+        <div class="ticker-content">
+            <span class="ticker-item">⚡ LUCE PUN: 0.118 €/kWh</span>
+            <span class="ticker-item">🔥 GAS PSV: 0.425 €/smc</span>
+            <span class="ticker-item">📍 SEDE: SEREGNO VIA CADORE 253</span>
+            <span class="ticker-item">📞 OFFICE: ATTIVO 09:00-18:30</span>
+            <span class="ticker-item">⚡ LUCE PUN: 0.118 €/kWh</span>
+            <span class="ticker-item">🔥 GAS PSV: 0.425 €/smc</span>
         </div>
-        <a href="dashboard.html" class="btn" style="border-color:var(--neon-green); color:var(--neon-green); font-size:0.7rem; padding: 5px 15px;">AREA CLIENTI</a>
+    </div>
+
+    <nav>
+        <div class="nav-links">
+            <a href="index.html">HOME</a>
+            <a href="energia.html">LUCE & GAS</a>
+            <a href="telefonia.html">TELEFONIA & SKY</a>
+            <a href="fotovoltaico.html">FOTOVOLTAICO</a>
+            <a href="contatti.html" class="active">CONTATTI</a>
+        </div>
+        <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
     </nav>
 
     <div class="container" style="max-width: 1100px; margin: 0 auto; padding: 40px 20px;">
         
         <header style="text-align: center; margin-bottom: 60px;">
             <h1 class="tech-font" style="font-size: 2.5rem; margin-bottom: 10px;">Base <span style="color: var(--neon-blue);">Operativa</span></h1>
-            <p style="color: #888;">Seregno, Brianza - Headquarters ADR</p>
+            <p style="color: #888; font-family: 'Orbitron'; font-size: 0.8rem;">Seregno, Brianza - Headquarters ADR</p>
         </header>
 
         <div class="contact-grid">
             
             <div class="glass-card">
-                <h3 class="tech-font" style="color: var(--neon-blue); margin-bottom: 30px;">Coordinate di Contatto</h3>
+                <h3 class="tech-font" style="color: var(--neon-blue); margin-bottom: 30px; font-size: 1rem;">Coordinate di Contatto</h3>
                 
                 <div class="info-box">
                     <span style="font-size: 1.5rem;">📍</span>
                     <div>
-                        <p class="tech-font" style="font-size: 0.7rem; color: var(--neon-blue); margin: 0;">Indirizzo</p>
-                        <p style="font-size: 0.9rem; margin: 5px 0;">Via Cadore 253,20831 Seregno (MB)</p>
+                        <p class="tech-font" style="font-size: 0.7rem; color: var(--neon-blue); margin: 0;">Indirizzo Sede</p>
+                        <p style="font-size: 0.9rem; margin: 5px 0; color: #eee;">Via Cadore 253, 20831 Seregno (MB)</p>
                     </div>
                 </div>
 
@@ -81,8 +102,8 @@
                     <span style="font-size: 1.5rem;">🕒</span>
                     <div>
                         <p class="tech-font" style="font-size: 0.7rem; color: var(--neon-blue); margin: 0;">Orari Ufficio</p>
-                        <p style="font-size: 0.85rem; margin: 5px 0;">Lun - Ven: 09:00 - 13:00 | 14:30 - 18:30</p>
-                        <p style="font-size: 0.85rem; margin: 5px 0;">Sabato - Domenica: Chiusi</p>
+                        <p style="font-size: 0.85rem; margin: 5px 0; color: #eee;">Lun - Ven: 09:00 - 13:00 | 14:30 - 18:30</p>
+                        <p style="font-size: 0.85rem; margin: 5px 0; color: #888;">Sabato - Domenica: Ricevimento su appuntamento</p>
                     </div>
                 </div>
 
@@ -90,27 +111,43 @@
                     <span style="font-size: 1.5rem;">📞</span>
                     <div>
                         <p class="tech-font" style="font-size: 0.7rem; color: var(--neon-green); margin: 0;">Supporto Rapido</p>
-                        <p style="font-size: 0.9rem; margin: 5px 0;">Ufficio: +39 0362 [Tuo Numero]</p>
-                        <p style="font-size: 0.9rem; margin: 5px 0;">WhatsApp: <a href="https://wa.me/393515910955" style="color: var(--neon-green); text-decoration: none;">Chatta con il Responsabile</a></p>
+                        <p style="font-size: 0.9rem; margin: 5px 0; color: #eee;">WhatsApp: <a href="https://wa.me/393515910955" style="color: var(--neon-green); text-decoration: none; font-weight: bold;">Chatta con Andrea</a></p>
                     </div>
                 </div>
 
-                <button class="btn" style="margin-top: 20px;" onclick="window.open('https://www.google.com/maps')">AVVIA NAVIGATORE</button>
+                <button class="btn btn-green" style="margin-top: 20px; width: 100%; padding: 20px; font-size: 0.9rem;" 
+                        onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=Agenzia+del+Risparmio+Via+Cadore+253+Seregno', '_blank')">
+                    🚀 AVVIA NAVIGAZIONE IMMEDIATA
+                </button>
             </div>
 
-            <div class="map-container">
+            <div class="map-container glass-card" style="padding: 0;">
                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2790.662483861845!2d9.2000!3d45.6500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDXCsDM5JzAwLjAiTiA5wrAxMicwMC4wIkU!5e0!3m2!1sit!2sit!4v1700000000000!5m2!1sit!2sit" 
-                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2790.6486022376996!2d9.193233376569107!3d45.651786571077614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4786b7f448a20cf9%3A0xe236e1e70dab4af4!2sAgenzia%20del%20Risparmio!5e0!3m2!1sit!2sit!4v1700000000000!5m2!1sit!2sit" 
+                    width="100%" height="100%" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
 
         </div>
 
-        <footer style="margin-top: 80px; text-align: center; padding: 20px; opacity: 0.4; font-size: 0.7rem;">
-            © 2026 ADR SEREGNO - PROTEZIONE DATI GARANTITA
+        <footer style="margin-top: 100px; padding: 40px; border-top: 1px solid #111; text-align: center; background: rgba(0,0,0,0.5);">
+            <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
+                <a href="privacy.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">PRIVACY POLICY</a>
+                <a href="index.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">HOME</a>
+                <a href="leaderboard.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">CLASSIFICA</a>
+            </div>
+            <p style="font-size: 0.6rem; color: #444;">© 2026 ADR SEREGNO - P.IVA 12345678901 - SISTEMA DI ASSISTENZA CENTRALIZZATO</p>
         </footer>
     </div>
 
+    <script>
+        // Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+    </script>
 </body>
 </html>
