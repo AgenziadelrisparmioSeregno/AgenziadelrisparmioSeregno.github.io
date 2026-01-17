@@ -103,3 +103,38 @@ nav a:hover, nav a.active { color: var(--neon-blue); }
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
 }
+/* Slider Partner */
+.partner-section {
+    padding: 40px 0;
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin: 50px 0;
+    overflow: hidden;
+}
+
+.partner-track {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+    width: max-content;
+    animation: scroll-partners 30s linear infinite;
+}
+
+.partner-logo {
+    height: 40px;
+    filter: grayscale(1) brightness(2); /* Rende i loghi bianchi/grigi per uno stile premium */
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+.partner-logo:hover {
+    filter: grayscale(0) brightness(1); /* Tornano colorati al passaggio del mouse */
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+@keyframes scroll-partners {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
