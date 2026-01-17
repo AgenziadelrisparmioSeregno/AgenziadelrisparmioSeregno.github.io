@@ -220,3 +220,34 @@ nav a:hover, nav a.active { color: var(--neon-blue); }
     padding: 0 20px 20px 20px; max-height: 200px; opacity: 1;
 }
 .faq-item.active { border-color: var(--neon-blue); }
+/* Stile Referral Card */
+.referral-card {
+    background: linear-gradient(135deg, rgba(0, 243, 255, 0.1) 0%, rgba(0, 255, 157, 0.05) 100%);
+    border: 2px dashed var(--neon-blue);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 40px 0;
+}
+
+.reward-badge {
+    background: var(--neon-blue);
+    color: black;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.copy-link-box {
+    background: rgba(0,0,0,0.3);
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    border: 1px solid #333;
+}
