@@ -1,4 +1,4 @@
-// 1. SCIA DEL MOUSE
+// 1. SCIA DEL MOUSE (Effetto Cyberpunk)
 const canvas = document.createElement('canvas');
 canvas.id = 'mouse-canvas';
 document.body.appendChild(canvas);
@@ -17,7 +17,7 @@ window.addEventListener('mousemove', (e) => {
 
 function animateMouse() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.strokeStyle = '#00f3ff';
+    ctx.strokeStyle = '#00f3ff'; // Colore Neon Blue
     ctx.lineWidth = 2;
     if (points.length > 1) {
         ctx.beginPath();
@@ -35,11 +35,11 @@ function animateMouse() {
 }
 animateMouse();
 
-// 2. SIMULAZIONE SCANNER
+// 2. SIMULAZIONE SCANNER BOLLETTA IA
 function simulateScan() {
     const ui = document.getElementById('scan-ui');
     const result = document.getElementById('scan-result');
-    ui.innerHTML = "<p class='tech-font' style='color:var(--neon-blue)'>CRITTOGRAFIA E ANALISI...⚡</p>";
+    ui.innerHTML = "<p class='tech-font' style='color:var(--neon-blue); font-size:0.8rem;'>CRITTOGRAFIA E ANALISI IN CORSO...⚡</p>";
     
     setTimeout(() => {
         ui.style.display = "none";
@@ -47,7 +47,7 @@ function simulateScan() {
     }, 3000);
 }
 
-// 3. PROGRESS BAR SCROLL
+// 3. PROGRESS BAR SCROLL (Top Bar)
 window.onscroll = function() {
     let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -55,22 +55,32 @@ window.onscroll = function() {
     document.getElementById("progress-bar").style.width = scrolled + "%";
 };
 
-// 4. NOTIFICHE SOCIAL PROOF
+// 4. NOTIFICHE SOCIAL PROOF DINAMICHE
+const notifications = [
+    "🚀 Daniel ha appena fatto risparmiare 200€ a un'azienda di Seregno",
+    "📱 Daniele ha attivato una Fibra 2.5GB a un nuovo cliente",
+    "🔥 Luca ha ottimizzato i costi Gas di un condominio",
+    "📋 Andrea ha completato con successo una pratica CAF",
+    "☀️ Nuovo impianto Fotovoltaico pianificato oggi a Meda"
+];
+
 function showNotification() {
     const note = document.createElement('div');
-    note.style = "position:fixed; bottom:20px; left:20px; background:rgba(0,0,0,0.9); border:1px solid var(--neon-blue); color:white; padding:15px; border-radius:10px; font-size:0.7rem; z-index:10000; transition:0.5s; opacity:0; transform:translateY(20px);";
-    note.innerHTML = "🚀 Daniel ha appena fatto risparmiare 200€ a un cliente di Seregno";
+    const randomText = notifications[Math.floor(Math.random() * notifications.length)];
+    
+    note.style = "position:fixed; bottom:20px; left:20px; background:rgba(0,0,0,0.9); border:1px solid var(--neon-blue); color:white; padding:15px; border-radius:10px; font-size:0.75rem; z-index:10000; transition:0.5s; opacity:0; transform:translateY(20px); font-family:'Inter', sans-serif;";
+    note.innerHTML = randomText;
     document.body.appendChild(note);
     
     setTimeout(() => { note.style.opacity = "1"; note.style.transform = "translateY(0)"; }, 100);
     setTimeout(() => { 
         note.style.opacity = "0"; 
         setTimeout(() => note.remove(), 500);
-    }, 4000);
+    }, 4500);
 }
-setInterval(showNotification, 20000);
+setInterval(showNotification, 15000); // Una notifica ogni 15 secondi
 
-// 5. FUNZIONE CONTATTO (WhatsApp)
+// 5. FUNZIONE CONTATTO (WhatsApp) - Numeri Personali Aggiornati
 function contactAgent(name) {
     const numbers = {
         'Daniel': '393423218269',
@@ -78,5 +88,22 @@ function contactAgent(name) {
         'Luca': '393277545377',
         'Andrea': '393515910955'
     };
-    window.location.href = `https://wa.me/${numbers[name]}?text=Ciao%20${name},%20ho%20visto%20il%20vostro%20sito...`;
+    
+    // Messaggio personalizzato: per Andrea aggiungiamo il CAF, per tutti gli altri consulenza generale
+    let baseMsg = `Ciao ${name}, ho visto il sito ADR e vorrei una consulenza per Luce, Gas, Telefonia o Fotovoltaico.`;
+    if (name === 'Andrea') {
+        baseMsg = `Ciao Andrea, vorrei una consulenza per Luce, Gas, Telefonia o per una pratica CAF.`;
+    }
+
+    window.location.href = `https://wa.me/${numbers[name]}?text=${encodeURIComponent(baseMsg)}`;
+}
+
+// 6. FAQ TOGGLE (Per l'index)
+function toggleFaq(element) {
+    const answer = element.querySelector('.faq-answer');
+    if (answer) {
+        const isHidden = answer.style.display === "none" || answer.style.display === "";
+        answer.style.display = isHidden ? "block" : "none";
+        element.querySelector('span:last-child').innerText = isHidden ? "-" : "+";
+    }
 }
