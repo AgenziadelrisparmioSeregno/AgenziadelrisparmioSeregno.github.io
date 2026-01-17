@@ -70,7 +70,7 @@ nav a {
 }
 nav a.active, nav a:hover { opacity: 1; color: var(--neon-blue); }
 
-/* --- CONTENITORI & CARTE (Bento Grid Style) --- */
+/* --- CONTENITORI & CARTE --- */
 .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
 
 .glass-card {
@@ -79,13 +79,27 @@ nav a.active, nav a:hover { opacity: 1; color: var(--neon-blue); }
     border-radius: 15px; 
     padding: 25px; 
     transition: 0.4s; 
-    cursor: pointer;
     margin-bottom: 20px;
 }
 .glass-card:hover { 
     border-color: var(--neon-blue); 
     box-shadow: 0 0 25px rgba(0, 243, 255, 0.1); 
     transform: translateY(-5px);
+}
+
+/* --- SCANNER & DROP ZONE (La riga aggiunta per il caricamento) --- */
+#drop-zone {
+    border: 2px dashed #333;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    background: rgba(255,255,255,0.01);
+}
+#drop-zone:hover {
+    border-color: var(--neon-blue);
+    background: rgba(0, 243, 255, 0.05);
 }
 
 /* --- PARTNER LOGOS (Scrolling Infinito) --- */
@@ -161,4 +175,11 @@ canvas#mouse-canvas {
     padding-top: 15px;
     line-height: 1.6;
     color: #aaa;
+    display: none; /* Inizia nascosto per il toggle JS */
+}
+
+/* --- REVIEWS --- */
+.review-card {
+    min-width: 300px;
+    margin-right: 20px;
 }
