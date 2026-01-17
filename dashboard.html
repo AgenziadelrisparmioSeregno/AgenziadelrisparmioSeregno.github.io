@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <script>
+    // SECURITY CHECK: Se l'utente non è loggato, caccialo via
+    if (localStorage.getItem("userLogged") !== "true") {
+        window.location.href = "login.html";
+    }
+
+    function logout() {
+        localStorage.removeItem("userLogged");
+        window.location.href = "index.html";
+    }
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Area Clienti | Agenzia del Risparmio</title>
