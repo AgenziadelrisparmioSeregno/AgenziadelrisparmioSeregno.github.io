@@ -1,23 +1,83 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <link rel="stylesheet" href="style.css">
-  <meta charset="UTF-8">
-  <title>CAF</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reparto CAF | Andrea - Agenzia del Risparmio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<h2>Servizi CAF</h2>
-<ul>
-  <li>ISEE</li>
-  <li>730</li>
-  <li>INPS</li>
-</ul>
+    <div id="progress-container"><div id="progress-bar"></div></div>
 
-<a href="chat.html">💬 Parla con Daniel</a><br><br>
-<a href="appuntamenti.html">📅 Prenota Appuntamento</a><br><br>
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="energia.html">LUCE & GAS</a>
+        <a href="telefonia.html">TELEFONIA & SKY</a>
+        <a href="fotovoltaico.html">FOTOVOLTAICO</a>
+        <a href="caf.html" class="active">CAF (ANDREA)</a>
+    </nav>
 
-<a href="index.html">⬅ Torna alla Home</a>
+    <div class="container">
+        <header style="text-align: center; margin: 40px 0;">
+            <h1 class="tech-font" style="font-size: 2.2rem; color: var(--neon-green);">Reparto <span style="color:white">CAF & Fiscale</span></h1>
+            <p style="color: #888;">Gestione pratiche ISEE, 730, Bonus e Successioni con Andrea.</p>
+        </header>
 
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+            
+            <div class="glass-card" style="border-top: 4px solid var(--neon-green);">
+                <h3 class="tech-font" style="font-size: 1rem; margin-bottom: 20px;">Servizi Disponibili</h3>
+                <ul style="list-style: none; padding: 0; color: #ccc; line-height: 2;">
+                    <li>✅ Elaborazione Modello ISEE 2026</li>
+                    <li>✅ Dichiarazione dei Redditi (730 / Unico)</li>
+                    <li>✅ Domande Bonus Sociale (Luce/Gas)</li>
+                    <li>✅ Pratiche IMU e TASI</li>
+                    <li>✅ Gestione Contratti Locazione</li>
+                    <li>✅ Consulenza Assegno Unico</li>
+                </ul>
+            </div>
+
+            <div class="glass-card" style="background: rgba(0, 255, 157, 0.05);">
+                <h3 class="tech-font" style="font-size: 1rem; margin-bottom: 20px;">Documenti per ISEE</h3>
+                <p style="font-size: 0.8rem; color: #888; margin-bottom: 15px;">Prepara questi documenti per velocizzare la pratica:</p>
+                <ul style="list-style: none; padding: 0; font-size: 0.9rem; color: #fff;">
+                    <li style="margin-bottom: 8px;">📁 Codice Fiscale e Documento d'Identità</li>
+                    <li style="margin-bottom: 8px;">📁 Saldo e Giacenza Media (al 31/12/24)</li>
+                    <li style="margin-bottom: 8px;">📁 Targa dei veicoli di proprietà</li>
+                    <li style="margin-bottom: 8px;">📁 Contratto di affitto registrato</li>
+                    <li style="margin-bottom: 8px;">📁 Certificazione Unica (CU) o Pensione</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="glass-card" style="margin-top: 40px; text-align: center; border: 1px dashed var(--neon-green);">
+            <h3 class="tech-font">Invia i documenti ad Andrea</h3>
+            <p style="margin: 15px 0;">Puoi fotografare i documenti e inviarli direttamente su WhatsApp.</p>
+            <button class="btn" onclick="contactAgent('Andrea')" style="background: var(--neon-green); color: black; padding: 15px 40px; font-weight: bold;">
+                APRI CHAT CON ANDREA
+            </button>
+            <p style="font-size: 0.7rem; color: #555; margin-top: 10px;">Riceverai conferma di ricezione entro 2 ore lavorative.</p>
+        </div>
+
+        <div class="faq-container" style="margin-top: 60px;">
+            <h2 class="tech-font" style="text-align: center; font-size: 1.1rem; margin-bottom: 30px;">FAQ CAF</h2>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">Quanto tempo ci vuole per l'ISEE? <span>+</span></div>
+                <div class="faq-answer">Solitamente Andrea elabora la richiesta in 24/48 ore dall'invio di tutti i documenti corretti.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">Posso richiedere il Bonus Bollette? <span>+</span></div>
+                <div class="faq-answer">Sì, se il tuo ISEE è entro le soglie di legge, Andrea può guidarti nell'attivazione del Bonus Sociale per abbattere i costi di Luce e Gas.</div>
+            </div>
+        </div>
+    </div>
+
+    <footer style="margin-top: 60px; text-align: center; padding: 40px; opacity: 0.5; font-size: 0.8rem;">
+        © 2026 Agenzia del Risparmio - Settore CAF e Patronato
+    </footer>
+
+    <script src="chat.js"></script>
 </body>
 </html>
