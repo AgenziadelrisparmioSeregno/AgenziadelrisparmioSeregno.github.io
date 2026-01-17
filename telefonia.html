@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Telefonia & Sky | Agenzia del Risparmio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="energia.html">LUCE & GAS</a>
+        <a href="telefonia.html" class="active">TELEFONIA & SKY</a>
+        <a href="fotovoltaico.html">FOTOVOLTAICO</a>
+        <a href="caf.html">CAF</a>
+    </nav>
+
+    <div class="container">
+        <h2 class="tech-font">Connettività e <span style="color:var(--neon-blue)">Intrattenimento</span></h2>
+        <div class="glass-card">
+            <h3>Offerte Sky e Fibra</h3>
+            <p>Tutti i nostri consulenti possono attivare le promozioni esclusive Sky Wifi, Sky TV e i migliori operatori Fibra/Mobile.</p>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:20px;">
+                <button class="btn" onclick="contactAgent('Daniel')">Chiedi a Daniel</button>
+                <button class="btn" onclick="contactAgent('Daniele')">Chiedi a Daniele</button>
+                <button class="btn" onclick="contactAgent('Luca')">Chiedi a Luca</button>
+                <button class="btn" onclick="contactAgent('Andrea')">Chiedi ad Andrea</button>
+            </div>
+        </div>
+    </div>
+    <script src="chat.js"></script>
+</body>
+</html>
