@@ -39,15 +39,20 @@
                     <h3 class="tech-font">Scanner Bolletta IA</h3>
                     <p style="font-size: 0.85rem; color: #888;">Analisi immediata per utenze domestiche e business.</p>
                     <div id="scan-ui">
-                        <button class="btn" onclick="simulateScan()" style="width: 100%; margin-top: 15px;">AVVIA ANALISI</button>
+                        <input type="file" id="bill-upload" accept=".pdf, image/*" style="display: none;" onchange="startAnalysis()">
+                        <button class="btn" onclick="document.getElementById('bill-upload').click()" style="width: 100%; margin-top: 15px;">SELEZIONA BOLLETTA</button>
                     </div>
                     <div id="scan-result" style="display: none; text-align: center;">
                         <div class="grade-circle">4</div>
                         <p style="color: #ff4444; font-size: 0.8rem; font-family:'Orbitron';">RILEVATE INEFFICIENZE</p>
+                        <button class="btn" onclick="contactAgent('Daniel')" style="font-size: 0.7rem; padding: 5px 10px; margin-top: 10px;">OTTIMIZZA ORA</button>
                     </div>
                 </div>
-                <div style="border: 1px dashed #333; padding: 20px; border-radius: 10px; text-align: center; color: #555;">
-                    <p style="font-size: 0.7rem;">CARICA PDF BOLLETTA</p>
+                <div id="drop-zone" onclick="document.getElementById('bill-upload').click()">
+                    <span id="file-name" style="font-size: 0.7rem; color: #888;">
+                        <span style="font-size: 2rem; display: block; margin-bottom: 10px;">📄</span>
+                        TRASCINA IL PDF QUI <br> O CLICCA PER CARICARE
+                    </span>
                 </div>
             </div>
         </div>
@@ -60,6 +65,8 @@
                 <img src="https://upload.wikimedia.org/wikipedia/it/e/ee/Logo_Iliad.svg" class="partner-logo" alt="Iliad">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Fastweb_logo.svg" class="partner-logo" alt="Fastweb">
                 <img src="https://upload.wikimedia.org/wikipedia/it/1/13/Logo_Eni_Plenitude.svg" class="partner-logo" alt="Plenitude">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Sky_logo_2020.svg" class="partner-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Enel_logo_2016.svg" class="partner-logo">
             </div>
         </div>
 
@@ -91,34 +98,29 @@
             </div>
         </div>
 
-        <div class="reviews-container" style="margin-bottom: 60px;">
-            <h2 class="tech-font" style="text-align: center; font-size: 1.1rem; margin-bottom: 30px;">Feedback Clienti</h2>
-            <div class="review-track">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 60px;">
+            <div class="reviews-container">
+                <h2 class="tech-font" style="font-size: 1.1rem; margin-bottom: 30px;">Feedback Clienti</h2>
                 <div class="review-card glass-card">
                     <div style="color: gold; margin-bottom: 5px;">★★★★★</div>
-                    <p>"Risparmio reale e consulenza umana. Daniel eccezionale."</p>
+                    <p style="font-size: 0.9rem;">"Risparmio reale e consulenza umana. Daniel eccezionale."</p>
                     <small>— Marco R. (Seregno)</small>
                 </div>
-                <div class="review-card glass-card">
-                    <div style="color: gold; margin-bottom: 5px;">★★★★★</div>
-                    <p>"Andrea mi ha risolto le pratiche CAF e il contratto gas in un colpo solo."</p>
-                    <small>— Laura G. (Meda)</small>
-                </div>
             </div>
-        </div>
 
-        <div class="faq-container" style="margin-bottom: 60px;">
-            <h2 class="tech-font" style="text-align: center; font-size: 1.1rem; margin-bottom: 40px;">Domande Frequenti</h2>
-            <div class="faq-item glass-card" onclick="toggleFaq(this)">
-                <div class="faq-question" style="display:flex; justify-content:space-between; cursor:pointer;">
-                    <span>Il servizio di consulenza è gratuito?</span> <span>+</span>
+            <div class="faq-container">
+                <h2 class="tech-font" style="font-size: 1.1rem; margin-bottom: 30px;">Domande Frequenti</h2>
+                <div class="faq-item glass-card" onclick="toggleFaq(this)">
+                    <div class="faq-question" style="display:flex; justify-content:space-between; cursor:pointer; font-size: 0.9rem;">
+                        <span>Il servizio è gratuito?</span> <span>+</span>
+                    </div>
+                    <div class="faq-answer">Sì, l'analisi della bolletta e la consulenza sono sempre a costo zero.</div>
                 </div>
-                <div class="faq-answer" style="display:none; margin-top:15px; color:#888;">Sì, l'analisi della bolletta e la consulenza per nuovi contratti sono sempre a costo zero.</div>
             </div>
         </div>
     </div>
 
-    <footer style="background: #000; border-top: 1px solid #222; padding: 40px 0; margin-top: 60px;">
+    <footer style="background: #000; border-top: 1px solid #222; padding: 40px 0;">
         <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px;">
             <div>
                 <h4 class="tech-font" style="font-size: 0.8rem;">ADR Seregno</h4>
