@@ -6,24 +6,37 @@
     <title>Accesso Criptato | ADR</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --neon-blue: #00f3ff; --dark-bg: #050505; }
-        body { background: var(--dark-bg); color: white; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .login-box { background: rgba(255, 255, 255, 0.03); border: 1px solid #222; padding: 40px; border-radius: 15px; width: 100%; max-width: 400px; box-shadow: 0 0 30px rgba(0, 243, 255, 0.05); }
+        :root { --neon-blue: #00f3ff; --dark-bg: #050505; --neon-green: #00ff9d; --neon-red: #ff4444; }
+        body { background: var(--dark-bg); color: white; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
+        
+        /* Background decorativo cyber */
+        body::before { content: ""; position: absolute; width: 200%; height: 200%; background: linear-gradient(rgba(0, 243, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 243, 255, 0.02) 1px, transparent 1px); background-size: 50px 50px; transform: rotate(15deg); z-index: -1; }
+
+        .login-box { background: rgba(255, 255, 255, 0.03); border: 1px solid #222; padding: 40px; border-radius: 15px; width: 100%; max-width: 400px; box-shadow: 0 0 30px rgba(0, 243, 255, 0.05); backdrop-filter: blur(10px); position: relative; }
         .tech-font { font-family: 'Orbitron'; text-transform: uppercase; letter-spacing: 2px; text-align: center; }
-        input { width: 100%; background: #111; border: 1px solid #333; padding: 12px; margin: 10px 0; color: white; border-radius: 5px; outline: none; box-sizing: border-box; font-family: 'Inter'; }
-        input:focus { border-color: var(--neon-blue); }
+        
+        input { width: 100%; background: #111; border: 1px solid #333; padding: 12px; margin: 10px 0; color: white; border-radius: 5px; outline: none; box-sizing: border-box; font-family: 'Inter'; transition: 0.3s; }
+        input:focus { border-color: var(--neon-blue); box-shadow: 0 0 10px rgba(0, 243, 255, 0.2); }
+        
         .btn-login { width: 100%; background: var(--neon-blue); color: black; border: none; padding: 12px; border-radius: 5px; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; margin-top: 20px; transition: 0.3s; }
         .btn-login:hover { box-shadow: 0 0 15px var(--neon-blue); transform: scale(1.02); }
+        .btn-login:disabled { background: #333; color: #666; cursor: not-allowed; }
+
         .toggle-link { color: #666; font-size: 0.8rem; text-align: center; margin-top: 20px; cursor: pointer; }
-        .toggle-link span { color: var(--neon-blue); }
-        #message { font-size: 0.7rem; text-align: center; margin-top: 10px; min-height: 1em; }
+        .toggle-link span { color: var(--neon-blue); font-weight: bold; }
+        
+        #message { font-size: 0.7rem; text-align: center; margin-top: 15px; min-height: 1.2em; font-family: monospace; }
+        
+        /* Badge Referral */
+        #ref-badge { display: none; background: rgba(0, 255, 157, 0.1); border: 1px solid var(--neon-green); color: var(--neon-green); padding: 5px; font-size: 0.6rem; border-radius: 4px; text-align: center; margin-bottom: 15px; font-family: 'Orbitron'; }
     </style>
 </head>
 <body>
 
 <div class="login-box">
+    <div id="ref-badge">LINK INVITO ATTIVO</div>
     <h2 class="tech-font" id="auth-title">LOGIN <span style="color:var(--neon-blue)">CLIENTE</span></h2>
-    <p id="auth-desc" style="font-size: 0.7rem; color: #555; text-align: center; margin-bottom: 25px;">SISTEMA DI AUTENTICAZIONE ADR-SHIELD</p>
+    <p id="auth-desc" style="font-size: 0.7rem; color: #555; text-align: center; margin-bottom: 25px;">SISTEMA DI AUTENTICAZIONE ADR-SHIELD v2.0</p>
 
     <input type="email" id="email" placeholder="Indirizzo Email">
     <input type="password" id="password" placeholder="Password">
@@ -37,12 +50,11 @@
 </div>
 
 <script type="module">
-    // Importa le funzioni necessarie dall'SDK Firebase
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } 
     from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // La tua configurazione Firebase
     const firebaseConfig = {
         apiKey: "AIzaSyAhhfS7NKTC9ujs7GDUm04b6fVEKHvlPAU",
         authDomain: "adr-seregno.firebaseapp.com",
@@ -53,66 +65,101 @@
         measurementId: "G-GM3L73YD68"
     };
 
-    // Inizializza Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getFirestore(app);
 
     let isLoginMode = true;
 
-    // Elementi DOM
+    // --- LOGICA REFERRAL ---
+    // Cattura l'ID di chi ha invitato dall'URL (?ref=ID_UTENTE)
+    const urlParams = new URLSearchParams(window.location.search);
+    const referrerId = urlParams.get('ref');
+    if (referrerId) {
+        localStorage.setItem('adr_referrer', referrerId);
+        document.getElementById('ref-badge').style.display = 'block';
+        // Se c'è un ref, forziamo la modalità registrazione per comodità
+        switchMode(false); 
+    }
+
     const authTitle = document.getElementById('auth-title');
     const authBtn = document.getElementById('auth-btn');
     const toggleLink = document.getElementById('toggle-auth');
     const toggleText = document.getElementById('toggle-text');
     const messageDiv = document.getElementById('message');
 
-    // Switch tra Login e Registrazione
-    toggleLink.addEventListener('click', () => {
-        isLoginMode = !isLoginMode;
+    function switchMode(login) {
+        isLoginMode = login;
         authTitle.innerHTML = isLoginMode ? 'LOGIN <span style="color:var(--neon-blue)">CLIENTE</span>' : 'REGISTRA <span style="color:var(--neon-blue)">ACCOUNT</span>';
         authBtn.innerText = isLoginMode ? 'ACCEDI AL TERMINALE' : 'CREA ACCOUNT SICURO';
         toggleText.innerText = isLoginMode ? 'Registrati ora' : 'Accedi qui';
         messageDiv.innerText = "";
-    });
+    }
 
-    // Gestione clic bottone principale
+    toggleLink.addEventListener('click', () => switchMode(!isLoginMode));
+
     authBtn.addEventListener('click', async () => {
-        const email = document.getElementById('email').value;
+        const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value;
-        messageDiv.style.color = "var(--neon-blue)";
-        messageDiv.innerText = "Processing...";
 
         if(!email || !password) {
-            messageDiv.style.color = "#ff4444";
-            messageDiv.innerText = "Inserire Email e Password.";
+            showMessage("Inserire credenziali complete.", "var(--neon-red)");
             return;
         }
 
+        authBtn.disabled = true;
+        showMessage("Verifica identità in corso...", "var(--neon-blue)");
+
         try {
             if (isLoginMode) {
-                // TENTATIVO DI LOGIN
                 await signInWithEmailAndPassword(auth, email, password);
-                localStorage.setItem("userLogged", "true"); // Per il Bodyguard
                 window.location.href = "dashboard.html";
             } else {
-                // TENTATIVO DI REGISTRAZIONE
-                await createUserWithEmailAndPassword(auth, email, password);
-                messageDiv.style.color = "#00ff9d";
-                messageDiv.innerText = "Account creato! Eseguo login...";
+                // REGISTRAZIONE + CREAZIONE PROFILO SU FIRESTORE
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Salviamo i dati iniziali dell'utente su Firestore
+                await setDoc(doc(db, "users", user.uid), {
+                    email: user.email,
+                    role: "client",
+                    createdAt: new Date().toISOString(),
+                    invitedBy: localStorage.getItem('adr_referrer') || "direct"
+                });
+
+                showMessage("Account creato con successo!", "var(--neon-green)");
                 setTimeout(() => { window.location.href = "dashboard.html"; }, 1500);
             }
         } catch (error) {
-            messageDiv.style.color = "#ff4444";
-            messageDiv.innerText = "ERRORE: " + error.message;
-            console.error(error.code, error.message);
+            authBtn.disabled = false;
+            handleErrors(error);
         }
     });
 
-    // Controllo se è già loggato
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            localStorage.setItem("userLogged", "true");
+    function showMessage(text, color) {
+        messageDiv.style.color = color;
+        messageDiv.innerText = text;
+    }
+
+    function handleErrors(error) {
+        console.error(error.code);
+        switch (error.code) {
+            case 'auth/email-already-in-use':
+                showMessage("Email già registrata. Accedi.", "var(--neon-red)");
+                break;
+            case 'auth/invalid-credential':
+                showMessage("Email o Password errati.", "var(--neon-red)");
+                break;
+            case 'auth/weak-password':
+                showMessage("Password troppo debole (min 6 car.).", "var(--neon-red)");
+                break;
+            default:
+                showMessage("Errore: " + error.message, "var(--neon-red)");
         }
+    }
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) localStorage.setItem("userLogged", "true");
     });
 </script>
 
