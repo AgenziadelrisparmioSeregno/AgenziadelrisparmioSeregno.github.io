@@ -4,10 +4,10 @@ let dati = {};
 const messaggi = document.getElementById("messaggi");
 
 const consulenti = {
-  "daniel": "39XXXXXXXXXX",
-  "daniele": "39XXXXXXXXXX",
-  "andrea": "39XXXXXXXXXX",
-  "luca": "39XXXXXXXXXX"
+  "daniel": "393423218269",
+  "daniele": "393491795387",
+  "andrea": "393515910955",
+  "luca": "393277545377"
 };
 
 function bot(testo) {
