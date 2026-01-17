@@ -1,38 +1,104 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <link rel="stylesheet" href="style.css">
   <meta charset="UTF-8">
-  <title>Consulenza & Comparazione</title>
-  <link rel="manifest" href="manifest.json">
+  <title>Comparatore Offerte Energia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f5f5;
+    }
+
+    header {
+      background: #2e7d32;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    section {
+      padding: 20px;
+      max-width: 1100px;
+      margin: auto;
+      background: white;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+
+    h2 {
+      color: #2e7d32;
+    }
+
+    .bot-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    iframe {
+      border: none;
+      width: 400px;
+      height: 600px;
+      max-width: 100%;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
 </head>
+
 <body>
-<div class="container">
 
-<h1>🔍 Trova l’offerta perfetta per te</h1>
-<p>Confrontiamo, analizziamo e ti guidiamo nella scelta migliore.
-<strong>Gratis, chiaro, senza stress.</strong></p>
+<header>
+  <h1>Confronta le migliori offerte Luce & Gas</h1>
+  <p>Risparmia subito e parla con un consulente</p>
+</header>
 
-<div class="card">
-  <h2>⚡ Luce, Gas, Internet</h2>
-  <p>Confronta tutte le offerte. Anche quelle che non vendiamo.
-  <strong>Ma ti consigliamo solo ciò che conviene davvero.</strong></p>
-  <a class="button" href="comparatore.html">Confronta ora</a>
-</div>
+<section>
+  <h2>🔍 Comparatore Offerte</h2>
+  <p>
+    Inserisci i tuoi dati e confronta le offerte disponibili.
+    Le soluzioni contrassegnate come <strong>Consigliate</strong>
+    sono quelle con il miglior rapporto prezzo/qualità.
+  </p>
 
-<div class="card">
-  <h2>💬 Chat intelligente</h2>
-  <p>Parla subito con <strong>Daniel</strong>, il nostro consulente digitale.
-  Se vuoi, passi a una persona reale.</p>
-  <a class="button secondary" href="chat.html">Apri la chat</a>
-</div>
+  <!-- QUI IN FUTURO PUOI METTERE IL COMPARATORE -->
+  <p><em>Comparatore in caricamento…</em></p>
+</section>
 
-<div class="card">
-  <h2>📄 CAF & ☀️ Fotovoltaico</h2>
-  <p>ISEE, 730, INPS e soluzioni green per risparmiare davvero.</p>
-  <a class="button" href="caf.html">Scopri i servizi</a>
-</div>
+<section>
+  <h2>💬 Parla con un consulente</h2>
+  <p>
+    Se siamo in appuntamento, il nostro assistente digitale
+    raccoglie le tue informazioni e ti mette subito in contatto
+    con il consulente che preferisci.
+  </p>
 
-</div>
+  <div class="bot-container">
+    <iframe src="bot/bot.html"></iframe>
+  </div>
+</section>
+
+<section>
+  <h2>📌 I nostri servizi</h2>
+  <ul>
+    <li>✔️ Offerte Luce & Gas</li>
+    <li>✔️ Servizi CAF</li>
+    <li>✔️ Impianti Fotovoltaici</li>
+    <li>✔️ Consulenza personalizzata</li>
+  </ul>
+</section>
+
+<footer>
+  © 2026 – Consulenza Energia • Tutti i diritti riservati  
+</footer>
+
 </body>
 </html>
