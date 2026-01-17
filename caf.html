@@ -6,30 +6,71 @@
     <title>Reparto CAF | Andrea - Agenzia del Risparmio</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Stile specifico per FAQ in questa pagina */
+        .faq-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid #222;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            overflow: hidden;
+        }
+        .faq-item:hover { border-color: var(--neon-green); }
+        .faq-question {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Orbitron';
+            font-size: 0.8rem;
+            color: var(--neon-green);
+        }
+        .faq-answer {
+            padding: 0 20px 20px 20px;
+            display: none;
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 <body>
 
     <div id="progress-container"><div id="progress-bar"></div></div>
 
+    <div class="market-ticker">
+        <div class="ticker-content">
+            <span class="ticker-item">📊 ISEE 2026: DISPONIBILE</span>
+            <span class="ticker-item">📅 SCADENZA 730: GIUGNO 2026</span>
+            <span class="ticker-item">💡 BONUS SOCIALE: ATTIVAZIONE IN CORSO</span>
+            <span class="ticker-item">👨‍💼 RESPONSABILE: ANDREA</span>
+            <span class="ticker-item">📊 ISEE 2026: DISPONIBILE</span>
+        </div>
+    </div>
+
     <nav>
-        <a href="index.html">HOME</a>
-        <a href="energia.html">LUCE & GAS</a>
-        <a href="telefonia.html">TELEFONIA & SKY</a>
-        <a href="fotovoltaico.html">FOTOVOLTAICO</a>
-        <a href="caf.html" class="active">CAF (ANDREA)</a>
+        <div class="nav-links">
+            <a href="index.html">HOME</a>
+            <a href="energia.html">LUCE & GAS</a>
+            <a href="telefonia.html">TELEFONIA & SKY</a>
+            <a href="fotovoltaico.html">FOTOVOLTAICO</a>
+            <a href="caf.html" class="active">CAF</a>
+        </div>
+        <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
     </nav>
 
     <div class="container">
-        <header style="text-align: center; margin: 40px 0;">
+        <header style="text-align: center; margin: 60px 0;">
             <h1 class="tech-font" style="font-size: 2.2rem; color: var(--neon-green);">Reparto <span style="color:white">CAF & Fiscale</span></h1>
-            <p style="color: #888;">Gestione pratiche ISEE, 730, Bonus e Successioni con Andrea.</p>
+            <p style="color: #888; max-width: 700px; margin: 0 auto;">Gestione pratiche ISEE, 730, Bonus e Successioni. Consulenza diretta con Andrea.</p>
         </header>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
             
             <div class="glass-card" style="border-top: 4px solid var(--neon-green);">
-                <h3 class="tech-font" style="font-size: 1rem; margin-bottom: 20px;">Servizi Disponibili</h3>
-                <ul style="list-style: none; padding: 0; color: #ccc; line-height: 2;">
+                <h3 class="tech-font" style="font-size: 1rem; margin-bottom: 20px; color: var(--neon-green);">Servizi Disponibili</h3>
+                <ul style="list-style: none; padding: 0; color: #ccc; line-height: 2; font-size: 0.9rem;">
                     <li>✅ Elaborazione Modello ISEE 2026</li>
                     <li>✅ Dichiarazione dei Redditi (730 / Unico)</li>
                     <li>✅ Domande Bonus Sociale (Luce/Gas)</li>
@@ -39,45 +80,85 @@
                 </ul>
             </div>
 
-            <div class="glass-card" style="background: rgba(0, 255, 157, 0.05);">
-                <h3 class="tech-font" style="font-size: 1rem; margin-bottom: 20px;">Documenti per ISEE</h3>
-                <p style="font-size: 0.8rem; color: #888; margin-bottom: 15px;">Prepara questi documenti per velocizzare la pratica:</p>
-                <ul style="list-style: none; padding: 0; font-size: 0.9rem; color: #fff;">
-                    <li style="margin-bottom: 8px;">📁 Codice Fiscale e Documento d'Identità</li>
-                    <li style="margin-bottom: 8px;">📁 Saldo e Giacenza Media (al 31/12/24)</li>
-                    <li style="margin-bottom: 8px;">📁 Targa dei veicoli di proprietà</li>
-                    <li style="margin-bottom: 8px;">📁 Contratto di affitto registrato</li>
-                    <li style="margin-bottom: 8px;">📁 Certificazione Unica (CU) o Pensione</li>
+            <div class="glass-card" style="background: rgba(0, 255, 157, 0.05); border: 1px solid var(--neon-green);">
+                <h3 class="tech-font" style="font-size: 1rem; margin-bottom: 20px;">Checklist ISEE</h3>
+                <p style="font-size: 0.8rem; color: #888; margin-bottom: 15px;">Documenti necessari (anche via foto):</p>
+                <ul style="list-style: none; padding: 0; font-size: 0.85rem; color: #fff;">
+                    <li style="margin-bottom: 8px;">📁 Documenti d'Identità di tutti i componenti</li>
+                    <li style="margin-bottom: 8px;">📁 Giacenza Media banca al 31/12/2024</li>
+                    <li style="margin-bottom: 8px;">📁 Targhe auto e moto di proprietà</li>
+                    <li style="margin-bottom: 8px;">📁 Contratto d'affitto (se non proprietari)</li>
+                    <li style="margin-bottom: 8px;">📁 Certificazione Unica / CU 2025</li>
                 </ul>
             </div>
         </div>
 
-        <div class="glass-card" style="margin-top: 40px; text-align: center; border: 1px dashed var(--neon-green);">
-            <h3 class="tech-font">Invia i documenti ad Andrea</h3>
-            <p style="margin: 15px 0;">Puoi fotografare i documenti e inviarli direttamente su WhatsApp.</p>
-            <button class="btn" onclick="contactAgent('Andrea')" style="background: var(--neon-green); color: black; padding: 15px 40px; font-weight: bold;">
-                APRI CHAT CON ANDREA
+        <div class="glass-card" style="margin-top: 40px; text-align: center; border: 1px dashed var(--neon-green); padding: 40px;">
+            <h3 class="tech-font" style="color: var(--neon-green);">Pratica Rapida via WhatsApp</h3>
+            <p style="margin: 15px 0; color: #aaa;">Invia le foto dei tuoi documenti ad Andrea. Pensiamo noi a caricarli nel sistema.</p>
+            <button class="btn" onclick="contactAndrea()" style="background: var(--neon-green); color: black; padding: 18px 45px; font-weight: bold; font-size: 1rem; cursor: pointer; border: none; border-radius: 5px;">
+                🚀 INVIA DOCUMENTI AD ANDREA
             </button>
-            <p style="font-size: 0.7rem; color: #555; margin-top: 10px;">Riceverai conferma di ricezione entro 2 ore lavorative.</p>
+            <p style="font-size: 0.7rem; color: #555; margin-top: 15px;">Servizio attivo Lun-Ven. Conferma ricezione in 120 minuti.</p>
         </div>
 
-        <div class="faq-container" style="margin-top: 60px;">
-            <h2 class="tech-font" style="text-align: center; font-size: 1.1rem; margin-bottom: 30px;">FAQ CAF</h2>
+        <div class="faq-container" style="margin-top: 60px; max-width: 800px; margin-left: auto; margin-right: auto;">
+            <h2 class="tech-font" style="text-align: center; font-size: 1.1rem; margin-bottom: 30px;">Domande Frequenti CAF</h2>
+            
             <div class="faq-item" onclick="toggleFaq(this)">
                 <div class="faq-question">Quanto tempo ci vuole per l'ISEE? <span>+</span></div>
-                <div class="faq-answer">Solitamente Andrea elabora la richiesta in 24/48 ore dall'invio di tutti i documenti corretti.</div>
+                <div class="faq-answer">Andrea elabora la richiesta solitamente in 24/48 ore lavorative dall'invio di tutta la documentazione completa.</div>
             </div>
+
             <div class="faq-item" onclick="toggleFaq(this)">
                 <div class="faq-question">Posso richiedere il Bonus Bollette? <span>+</span></div>
-                <div class="faq-answer">Sì, se il tuo ISEE è entro le soglie di legge, Andrea può guidarti nell'attivazione del Bonus Sociale per abbattere i costi di Luce e Gas.</div>
+                <div class="faq-answer">Sì! Se il tuo ISEE rispetta i limiti di legge, Andrea può aiutarti a verificare l'attivazione automatica o procedere con la richiesta per i bonus integrativi.</div>
             </div>
         </div>
     </div>
 
-    <footer style="margin-top: 60px; text-align: center; padding: 40px; opacity: 0.5; font-size: 0.8rem;">
-        © 2026 Agenzia del Risparmio - Settore CAF e Patronato
+    <a href="tel:+393515910955" class="mobile-call-btn" id="mobile-call">📞</a>
+
+    <footer style="margin-top: 80px; padding: 40px; border-top: 1px solid #111; text-align: center; background: rgba(0,0,0,0.5);">
+        <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
+            <a href="privacy.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">PRIVACY</a>
+            <a href="index.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">HOME</a>
+            <a href="contatti.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">SEDE</a>
+        </div>
+        <p style="font-size: 0.6rem; color: #444;">© 2026 ADR SEREGNO - SERVIZI FISCALI INTEGRATI</p>
     </footer>
 
+    <div id="bot-container-placeholder"></div>
+
+    <script>
+        // Funzione FAQ
+        function toggleFaq(element) {
+            const answer = element.querySelector('.faq-answer');
+            const span = element.querySelector('span');
+            if (answer.style.display === "block") {
+                answer.style.display = "none";
+                span.innerText = "+";
+            } else {
+                answer.style.display = "block";
+                span.innerText = "-";
+            }
+        }
+
+        // Funzione WhatsApp Andrea
+        function contactAndrea() {
+            const testo = "Ciao Andrea, ti scrivo dal sito ADR. Vorrei inviarti i documenti per una pratica CAF (ISEE/730).";
+            window.open(`https://wa.me/393515910955?text=${encodeURIComponent(testo)}`, '_blank');
+        }
+
+        // Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+    </script>
+    
     <script src="chat.js"></script>
 </body>
 </html>
