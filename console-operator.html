@@ -18,6 +18,8 @@
         .logout-btn { background: none; border: 1px solid #ff4444; color: #ff4444; padding: 5px 12px; font-size: 0.6rem; cursor: pointer; border-radius: 4px; }
         .logout-btn:hover { background: #ff4444; color: white; }
         label { font-size: 0.6rem; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+        .delete-btn { color: #ff4444; cursor: pointer; border: none; background: none; font-size: 0.8rem; }
+        .delete-btn:hover { color: white; }
     </style>
 </head>
 <body>
@@ -29,6 +31,21 @@
         </div>
         <button class="logout-btn" onclick="handleLogout()">LOGOUT</button>
     </header>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 20px;">
+        <div class="admin-card" style="padding: 15px; text-align: center; margin-bottom: 0;">
+            <p style="font-size: 0.6rem; color: #666; margin: 0;">TOTALE PRATICHE</p>
+            <h2 id="stat-total" style="margin: 5px 0; color: #00f3ff;">0</h2>
+        </div>
+        <div class="admin-card" style="padding: 15px; text-align: center; margin-bottom: 0;">
+            <p style="font-size: 0.6rem; color: #666; margin: 0;">ATTIVE</p>
+            <h2 id="stat-active" style="margin: 5px 0; color: #00ff9d;">0</h2>
+        </div>
+        <div class="admin-card" style="padding: 15px; text-align: center; margin-bottom: 0;">
+            <p style="font-size: 0.6rem; color: #666; margin: 0;">PENDING</p>
+            <h2 id="stat-pending" style="margin: 5px 0; color: #f1c40f;">0</h2>
+        </div>
+    </div>
 
     <div class="dash-container" style="display: grid; grid-template-columns: 1fr 2fr; gap: 30px;">
         
@@ -61,10 +78,11 @@
             <table style="width: 100%; border-collapse: collapse;">
                 <thead>
                     <tr>
-                        <th>ID CLIENTE</th>
+                        <th>CLIENTE</th>
                         <th>SERVIZIO</th>
                         <th>SCADENZA</th>
                         <th>STATO</th>
+                        <th>AZIONI</th>
                     </tr>
                 </thead>
                 <tbody id="log-body">
@@ -75,7 +93,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
         const firebaseConfig = {
@@ -91,11 +109,7 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
 
-        // --- SISTEMA MULTI-ADMIN ---
-        const adminEmails = [
-            "latuamail@gmail.com", // <--- Inserisci la tua mail reale qui
-            "daniel@esempio.it"
-        ];
+        const adminEmails = ["latuamail@gmail.com", "daniel@esempio.it"]; // Modifica con le tue mail vere
 
         onAuthStateChanged(auth, (user) => {
             if (!user || !adminEmails.includes(user.email)) {
@@ -123,35 +137,50 @@
                     consulente: cons,
                     stato: stat,
                     scadenza: scad,
-                    data: new Date().toLocaleDateString('it-IT')
+                    data: new Date().toLocaleDateString('it-IT'),
+                    timestamp: Date.now()
                 });
-                alert("OPERAZIONE COMPLETATA: Dati inviati alla dashboard del cliente.");
+                alert("OPERAZIONE COMPLETATA!");
                 location.reload();
-            } catch (e) {
-                console.error("Errore salvataggio:", e);
-                alert("Errore tecnico durante la pubblicazione.");
+            } catch (e) { alert("Errore: " + e.message); }
+        }
+
+        window.deletePratica = async function(id) {
+            if(confirm("Sei sicuro di voler eliminare questa pratica?")) {
+                await deleteDoc(doc(db, "pratiche", id));
+                location.reload();
             }
         }
 
         async function loadLogs() {
             const tbody = document.getElementById('log-body');
             try {
-                const querySnapshot = await getDocs(collection(db, "pratiche"));
+                const q = query(collection(db, "pratiche"), orderBy("timestamp", "desc"));
+                const querySnapshot = await getDocs(q);
                 tbody.innerHTML = ""; 
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
+                let total = 0, active = 0, pending = 0;
+
+                querySnapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const id = docSnap.id;
+                    total++;
+                    if(data.stato === 'status-active') active++; else pending++;
+
                     tbody.innerHTML += `<tr>
-                        <td style="font-size:0.6rem; color:#666;">${data.userId}</td>
+                        <td style="font-size:0.6rem; color:#666;">${data.userId.substring(0,8)}...</td>
                         <td style="color:white;">${data.nome}</td>
                         <td style="color:#ff4444; font-weight:bold;">${data.scadenza || 'N/A'} GG</td>
                         <td style="color:${data.stato === 'status-active' ? '#00ff9d' : '#f1c40f'};">
                             ${data.stato === 'status-active' ? 'ATTIVO' : 'PENDING'}
                         </td>
+                        <td><button class="delete-btn" onclick="deletePratica('${id}')">✕</button></td>
                     </tr>`;
                 });
-            } catch (e) {
-                console.error("Errore caricamento log:", e);
-            }
+
+                document.getElementById('stat-total').innerText = total;
+                document.getElementById('stat-active').innerText = active;
+                document.getElementById('stat-pending').innerText = pending;
+            } catch (e) { console.error("Errore log:", e); }
         }
 
         window.handleLogout = () => signOut(auth).then(() => window.location.href = "login.html");
