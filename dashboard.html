@@ -1,37 +1,89 @@
-<div class="container" style="margin-top: 50px;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-        <h2 class="tech-font">Bentornato, <span style="color: var(--neon-blue);">Cliente</span></h2>
-        <button class="btn" style="font-size: 0.7rem; background: #ff4444; border-color: #ff4444;">LOGOUT</button>
-    </div>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Cliente | Agenzia del Risparmio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-bg">
 
-    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
-        <div class="glass-card">
-            <h4 class="tech-font" style="font-size: 0.9rem; margin-bottom: 20px;">Stato Consulenze Attive</h4>
-            
-            <div style="border-left: 2px solid var(--neon-blue); padding-left: 20px; position: relative;">
-                <div style="margin-bottom: 20px;">
-                    <strong style="color: var(--neon-blue);">Consulenza Sky + Fibra (Daniel)</strong>
-                    <p style="font-size: 0.8rem; color: #888;">Stato: 🟢 Attivazione completata</p>
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <strong style="color: var(--neon-blue);">Pratica ISEE 2026 (Andrea)</strong>
-                    <p style="font-size: 0.8rem; color: #888;">Stato: 🟡 In elaborazione (Attesa DSU)</p>
-                </div>
-            </div>
+    <nav>
+        <span class="tech-font" style="color: var(--neon-blue); margin-left: 20px;">CLIENT PANEL</span>
+        <div style="margin-left: auto; display: flex; gap: 20px; align-items: center;">
+            <a href="index.html">Sito Pubblico</a>
+            <button class="btn" style="font-size: 0.7rem; background: #ff4444;">LOGOUT</button>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 40px;">
+        
+        <div style="margin-bottom: 40px;">
+            <h2 class="tech-font">Ciao, <span style="color: var(--neon-blue);">Mario Rossi</span></h2>
+            <p style="color: #666;">ID Cliente: #ADR-2026-9912</p>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 20px;">
-            <div class="glass-card" style="text-align: center;">
-                <h4 class="tech-font" style="font-size: 0.8rem;">I Tuoi Documenti</h4>
-                <p style="font-size: 0.7rem; color: #666; margin: 10px 0;">Recupera i contratti firmati.</p>
-                <button class="btn" style="width: 100%; font-size: 0.7rem;">VAI ALL'ARCHIVIO</button>
-            </div>
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
             
-            <div class="glass-card" style="text-align: center; border-color: var(--neon-green);">
-                <h4 class="tech-font" style="font-size: 0.8rem;">Supporto Dedicato</h4>
-                <p style="font-size: 0.7rem; color: #666; margin: 10px 0;">Riprendi la chat con il tuo consulente.</p>
-                <button class="btn" style="width: 100%; font-size: 0.7rem; background: var(--neon-green);">APRI WHATSAPP</button>
+            <div>
+                <div class="glass-card">
+                    <h3 class="tech-font" style="font-size: 1rem; margin-bottom: 25px;">Le tue Consulenze</h3>
+                    
+                    <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 10px; margin-bottom: 15px; border-left: 4px solid var(--neon-blue);">
+                        <div style="display:flex; justify-content:space-between;">
+                            <strong>SKY + FIBRA FASTWEB</strong>
+                            <span style="color: var(--neon-green);">ATTIVO</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #777; margin-top: 5px;">Consulente: Daniel | Data: 12/01/2026</p>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 10px; border-left: 4px solid #f1c40f;">
+                        <div style="display:flex; justify-content:space-between;">
+                            <strong>PRATICA ISEE 2026</strong>
+                            <span style="color: #f1c40f;">IN CORSO</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #777; margin-top: 5px;">Consulente: Andrea | Ultimo aggiornamento: Oggi</p>
+                    </div>
+                </div>
+
+                <div class="referral-card">
+                    <div class="reward-badge">PROGRAMMA REWARDS 2026</div>
+                    <h3 class="tech-font">Porta un Amico, Ricevi un Bonus</h3>
+                    <p style="color: #ccc; margin-top: 10px;">Per ogni amico che attiva una fornitura tramite il tuo link, ricevi un <br><strong>Buono Amazon da 25€</strong> o uno sconto in fattura.</p>
+                    
+                    <div class="copy-link-box">
+                        <code style="color: var(--neon-blue);">agenziarisparmio.it/ref=mario9912</code>
+                        <button class="btn" style="padding: 5px 15px; font-size: 0.7rem;">COPIA LINK</button>
+                    </div>
+                    <div style="margin-top: 20px; font-size: 0.8rem; color: #555;">
+                        Amici presentati: <strong>2</strong> | Bonus maturati: <strong>50€</strong>
+                    </div>
+                </div>
             </div>
+
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <div class="glass-card">
+                    <h4 class="tech-font" style="font-size: 0.8rem; margin-bottom: 15px;">Archivio Documenti</h4>
+                    <div style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 10px;">
+                        <a href="#" style="color: #888; text-decoration: none;">📄 Contratto_Luce.pdf</a>
+                        <a href="#" style="color: #888; text-decoration: none;">📄 Ricevuta_ISEE.pdf</a>
+                        <a href="#" style="color: #888; text-decoration: none;">📄 Termini_Sky.pdf</a>
+                    </div>
+                </div>
+
+                <div class="glass-card" style="border-color: var(--neon-green);">
+                    <h4 class="tech-font" style="font-size: 0.8rem; margin-bottom: 15px;">Il tuo Consulente</h4>
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; background: #333; border-radius: 50%; margin: 0 auto 10px;"></div>
+                        <strong>TEAM ADR</strong>
+                        <p style="font-size: 0.75rem; color: #666; margin-top: 5px;">Sempre pronti ad aiutarti.</p>
+                        <button class="btn" style="width: 100%; margin-top: 15px; background: var(--neon-green); color: black;">CHIEDI SUPPORTO</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-</div>
+
+</body>
+</html>
