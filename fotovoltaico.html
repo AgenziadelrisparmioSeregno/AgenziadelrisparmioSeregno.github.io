@@ -1,19 +1,86 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <link rel="stylesheet" href="style.css">
-  <meta charset="UTF-8">
-  <title>Fotovoltaico</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fotovoltaico | Agenzia del Risparmio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<h2>Impianti Fotovoltaici</h2>
-<p>Scopri quanto puoi risparmiare con un impianto su misura</p>
+    <div id="progress-container"><div id="progress-bar"></div></div>
 
-<a href="chat.html">💬 Parla con Daniel</a><br><br>
-<a href="appuntamenti.html">📅 Richiedi Consulenza</a><br><br>
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="energia.html">LUCE & GAS</a>
+        <a href="telefonia.html">TELEFONIA & SKY</a>
+        <a href="fotovoltaico.html" class="active">FOTOVOLTAICO</a>
+        <a href="caf.html">CAF</a>
+    </nav>
 
-<a href="index.html">⬅ Torna alla Home</a>
+    <div class="container">
+        <header style="text-align: center; margin: 40px 0;">
+            <h1 class="tech-font" style="font-size: 2.2rem; color: var(--neon-green);">Indipendenza <span style="color:white">Energetica</span></h1>
+            <p style="color: #888;">Produci la tua energia, abbatti le bollette e aumenta il valore della tua casa.</p>
+        </header>
 
+        <div class="glass-card" style="margin-bottom: 40px; border-left: 4px solid var(--neon-green); background: rgba(0, 255, 157, 0.02);">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px;">
+                <div style="flex: 2; min-width: 280px;">
+                    <h3 class="tech-font" style="font-size: 1.1rem; color: var(--neon-green);">Sopralluogo Tecnico Gratuito</h3>
+                    <p style="font-size: 0.9rem; color: #ccc; margin-top: 10px;">
+                        Tutti i nostri consulenti sono a disposizione per un'analisi preliminare del tuo tetto. Valutiamo l'esposizione, il fabbisogno energetico e ti forniamo un piano di rientro economico personalizzato.
+                    </p>
+                </div>
+                <div style="flex: 1; min-width: 200px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <button class="btn" style="font-size: 0.7rem; border-color: var(--neon-green);" onclick="contactAgent('Daniel')">Daniel</button>
+                    <button class="btn" style="font-size: 0.7rem; border-color: var(--neon-green);" onclick="contactAgent('Daniele')">Daniele</button>
+                    <button class="btn" style="font-size: 0.7rem; border-color: var(--neon-green);" onclick="contactAgent('Luca')">Luca</button>
+                    <button class="btn" style="font-size: 0.7rem; border-color: var(--neon-green);" onclick="contactAgent('Andrea')">Andrea</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
+            
+            <div class="glass-card">
+                <h4 class="tech-font" style="color: var(--neon-green);">Pannelli High-Tech</h4>
+                <p style="font-size: 0.85rem; color: #aaa; margin-top: 10px;">Utilizziamo solo moduli ad alta efficienza con garanzia di rendimento fino a 25 anni.</p>
+            </div>
+
+            <div class="glass-card">
+                <h4 class="tech-font" style="color: var(--neon-green);">Sistemi di Accumulo</h4>
+                <p style="font-size: 0.85rem; color: #aaa; margin-top: 10px;">Batterie di ultima generazione per utilizzare l'energia solare anche di notte.</p>
+            </div>
+
+            <div class="glass-card">
+                <h4 class="tech-font" style="color: var(--neon-green);">Pratiche Chiavi in Mano</h4>
+                <p style="font-size: 0.85rem; color: #aaa; margin-top: 10px;">Ci occupiamo noi di burocrazia, autorizzazioni comunali e connessione alla rete.</p>
+            </div>
+        </div>
+
+        <div class="faq-container" style="margin-top: 60px;">
+            <h2 class="tech-font" style="text-align: center; font-size: 1.1rem; margin-bottom: 30px;">Domande sul Fotovoltaico</h2>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">Posso usufruire delle detrazioni fiscali? <span>+</span></div>
+                <div class="faq-answer">Sì, anche nel 2026 sono attivi gli incentivi per la riqualificazione energetica. Il nostro team ti supporterà in tutta la parte burocratica per ottenere il massimo recupero fiscale.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">Quanto risparmio realmente in bolletta? <span>+</span></div>
+                <div class="faq-answer">Un impianto ben dimensionato può abbattere i costi della bolletta elettrica fino al 70-80%, specialmente se abbinato a un sistema di accumulo.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">Cosa succede se c'è poco sole? <span>+</span></div>
+                <div class="faq-answer">I moderni pannelli producono energia anche con cielo coperto. Inoltre, la batteria di accumulo e lo scambio sul posto garantiscono continuità energetica.</div>
+            </div>
+        </div>
+    </div>
+
+    <footer style="margin-top: 60px; text-align: center; padding: 40px; opacity: 0.5; font-size: 0.8rem;">
+        © 2026 Agenzia del Risparmio - Soluzioni Fotovoltaiche Certificate
+    </footer>
+
+    <script src="chat.js"></script>
 </body>
 </html>
