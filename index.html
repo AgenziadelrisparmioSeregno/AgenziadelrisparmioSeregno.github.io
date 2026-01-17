@@ -2,11 +2,13 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Agenzia del Risparmio | Multi-Service Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenzia del Risparmio | Dashboard Multi-Service</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <nav>
         <a href="index.html" class="active">HOME</a>
         <a href="energia.html">LUCE & GAS</a>
@@ -17,49 +19,101 @@
 
     <div class="container">
         <header style="text-align: center; margin-bottom: 50px;">
-            <h1 class="tech-font" style="font-size: 2.5rem;">Agenzia del <span style="color:var(--neon-blue)">Risparmio</span></h1>
-            <p>Consulenza Professionale Luce, Gas, Fotovoltaico, Telefonia e Sky.</p>
+            <h1 class="tech-font" style="font-size: 2.5rem; margin-bottom: 10px;">Agenzia del <span style="color:var(--neon-blue)">Risparmio</span></h1>
+            <p style="color: #a0aab8; font-size: 1.1rem;">Consulenza Professionale 2026: Luce, Gas, Fotovoltaico, Telefonia e Sky.</p>
         </header>
 
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
-            <div class="glass-card">
-                <small>Consulente Senior</small>
-                <h3>DANIEL</h3>
-                <p>Esperto Luce, Gas, Sky e Mobile.</p>
-                <button class="btn" onclick="contactAgent('Daniel')">CONTATTA</button>
-            </div>
-            <div class="glass-card">
-                <small>Consulente Senior</small>
-                <h3>DANIELE</h3>
-                <p>Specialista Risparmio e Telefonia.</p>
-                <button class="btn" onclick="contactAgent('Daniele')">CONTATTA</button>
-            </div>
-            <div class="glass-card">
-                <small>Consulente Senior</small>
-                <h3>LUCA</h3>
-                <p>Consulenza Energia e Business Strategist.</p>
-                <button class="btn" onclick="contactAgent('Luca')">CONTATTA</button>
-            </div>
-            <div class="glass-card" style="border-color: var(--neon-green);">
-                <small>Consulente & Resp. CAF</small>
-                <h3>ANDREA</h3>
-                <p>Energia, Telefonia + Servizi CAF.</p>
-                <button class="btn" style="background:var(--neon-green)" onclick="contactAgent('Andrea')">CONTATTA</button>
+        <div style="margin-bottom: 60px;">
+            <h3 class="tech-font" style="font-size: 0.9rem; text-align: center; color: var(--neon-blue); margin-bottom: 25px;">Energy Market Monitor (PUN & PSV)</h3>
+            <div class="market-widget">
+                <div class="market-card">
+                    <h4>PUN LUCE (Media F0)</h4>
+                    <div class="market-price">0.118 <small style="font-size: 0.8rem;">€/kWh</small></div>
+                    <div class="trend-down">▼ -2.4% vs mese prec.</div>
+                </div>
+                <div class="market-card">
+                    <h4>PSV GAS (Media)</h4>
+                    <div class="market-price">0.425 <small style="font-size: 0.8rem;">€/Smc</small></div>
+                    <div class="trend-up">▲ +1.1% variazione</div>
+                </div>
+                <div class="market-card">
+                    <h4>INDEX RISPARMIO</h4>
+                    <div class="market-price" style="color: var(--neon-green);">OTTIMO</div>
+                    <div style="font-size: 0.8rem;">Fase di mercato favorevole</div>
+                </div>
             </div>
         </div>
 
-        <div class="glass-card" style="margin-top: 40px; text-align: center;">
-            <h2 class="tech-font">I Nostri Servizi Partner</h2>
-            <p>Confrontiamo per te i migliori player: <strong>Eni, Enel, Sky, Vodafone, Fastweb e molti altri.</strong></p>
-            <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; opacity:0.6; font-weight:bold;">
-                <span>LUCE</span> • <span>GAS</span> • <span>FOTOVOLTAICO</span> • <span>INTERNET</span> • <span>MOBILE</span> • <span>SKY TV</span> • <span>CAF</span>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:20px;">
+            <div class="glass-card" onclick="contactAgent('Daniel')">
+                <small style="color: var(--neon-blue);">ENERGY MANAGER</small>
+                <h3 style="margin: 10px 0;">DANIEL</h3>
+                <p style="font-size: 0.9rem; color: #ccc;">Specialista Luce, Gas, Sky TV e Connettività Fibra.</p>
+                <button class="btn" style="width: 100%;">CONTATTA ORA</button>
+            </div>
+            
+            <div class="glass-card" onclick="contactAgent('Daniele')">
+                <small style="color: var(--neon-blue);">TECH ADVISOR</small>
+                <h3 style="margin: 10px 0;">DANIELE</h3>
+                <p style="font-size: 0.9rem; color: #ccc;">Analisi tecnica risparmio e soluzioni Telefonia Mobile/Fissa.</p>
+                <button class="btn" style="width: 100%;">CONTATTA ORA</button>
+            </div>
+
+            <div class="glass-card" onclick="contactAgent('Luca')">
+                <small style="color: var(--neon-blue);">BUSINESS STRATEGIST</small>
+                <h3 style="margin: 10px 0;">LUCA</h3>
+                <p style="font-size: 0.9rem; color: #ccc;">Ottimizzazione bollette Business e Consulenza Energia.</p>
+                <button class="btn" style="width: 100%;">CONTATTA ORA</button>
+            </div>
+
+            <div class="glass-card" style="border-color: var(--neon-green);" onclick="contactAgent('Andrea')">
+                <small style="color: var(--neon-green);">REP. CAF & SOLAR</small>
+                <h3 style="margin: 10px 0;">ANDREA</h3>
+                <p style="font-size: 0.9rem; color: #ccc;">Responsabile CAF, ISEE, 730 e Progetti Fotovoltaici.</p>
+                <button class="btn" style="width: 100%; background: var(--neon-green);">CONTATTA ORA</button>
+            </div>
+        </div>
+
+        <div class="reviews-container">
+            <h2 class="tech-font" style="text-align: center; margin-bottom: 40px; font-size: 1.2rem;">Social Proof & Feedback</h2>
+            <div class="review-track">
+                <div class="review-card">
+                    <div style="color: gold; margin-bottom: 10px;">★★★★★</div>
+                    <p>"Daniel mi ha unificato Sky e Luce. Risparmio vero e zero pensieri."</p>
+                    <small>— Marco R.</small>
+                </div>
+                <div class="review-card">
+                    <div style="color: gold; margin-bottom: 10px;">★★★★★</div>
+                    <p>"Andrea è il top. Mi ha seguito per il fotovoltaico e la pratica ISEE del CAF."</p>
+                    <small>— Laura G.</small>
+                </div>
+                <div class="review-card">
+                    <div style="color: gold; margin-bottom: 10px;">★★★★★</div>
+                    <p>"Daniele mi ha trovato una fibra velocissima. Assistenza ottima."</p>
+                    <small>— Stefano B.</small>
+                </div>
+                <div class="review-card">
+                    <div style="color: gold; margin-bottom: 10px;">★★★★★</div>
+                    <p>"Luca mi ha ridotto i costi del negozio del 30%. Professionale e onesto."</p>
+                    <small>— Giulia F.</small>
+                </div>
+                <div class="review-card">
+                    <div style="color: gold; margin-bottom: 10px;">★★★★★</div>
+                    <p>"Daniel mi ha unificato Sky e Luce. Risparmio vero e zero pensieri."</p>
+                    <small>— Marco R.</small>
+                </div>
+                <div class="review-card">
+                    <div style="color: gold; margin-bottom: 10px;">★★★★★</div>
+                    <p>"Andrea è il top. Mi ha seguito per il fotovoltaico e la pratica ISEE del CAF."</p>
+                    <small>— Laura G.</small>
+                </div>
             </div>
         </div>
     </div>
 
     <div id="live-notification">
         <div style="width:10px; height:10px; background:var(--neon-green); border-radius:50%; box-shadow: 0 0 10px var(--neon-green);"></div>
-        <span id="notif-body"></span>
+        <span id="notif-body">Inizializzazione sistema...</span>
     </div>
 
     <script src="chat.js"></script>
