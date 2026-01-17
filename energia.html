@@ -3,9 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luce & Gas | Agenzia del Risparmio</title>
+    <title>Analisi Energia IA | Agenzia del Risparmio</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Box Caricamento stile Switcho */
+        .upload-zone {
+            border: 2px dashed var(--neon-blue);
+            padding: 50px 20px;
+            text-align: center;
+            border-radius: 20px;
+            background: rgba(0, 243, 255, 0.02);
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            margin: 30px 0;
+        }
+        .upload-zone:hover { background: rgba(0, 243, 255, 0.08); border-color: var(--neon-green); }
+
+        /* Linea di Scansione IA */
+        .scan-line {
+            position: absolute;
+            top: -100%; left: 0; width: 100%; height: 5px;
+            background: var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue);
+            display: none;
+            z-index: 10;
+        }
+        @keyframes scanning {
+            0% { top: 0%; }
+            50% { top: 100%; }
+            100% { top: 0%; }
+        }
+
+        /* Semaforo del Risparmio */
+        .savings-meter {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        .meter-bar {
+            height: 10px; width: 60px; border-radius: 5px; background: #333;
+        }
+        .meter-red { background: #ff4444; box-shadow: 0 0 10px #ff4444; }
+        .meter-yellow { background: #f1c40f; }
+        .meter-green { background: #00ff9d; }
+    </style>
 </head>
 <body>
 
@@ -21,71 +66,88 @@
 
     <div class="container">
         <header style="text-align: center; margin: 40px 0;">
-            <h1 class="tech-font" style="font-size: 2.2rem;">Risparmio <span style="color:var(--neon-blue)">Energetico</span></h1>
-            <p style="color: #888;">Analizziamo le tue bollette e troviamo la migliore tariffa Luce e Gas del momento.</p>
+            <h1 class="tech-font" style="font-size: 2.2rem;">Scanner <span style="color:var(--neon-blue)">Bollette IA</span></h1>
+            <p style="color: #888;">Carica la tua bolletta: l'algoritmo ADR rileva istantaneamente i costi nascosti.</p>
         </header>
 
-        <div class="glass-card" style="margin-bottom: 40px; border-left: 4px solid var(--neon-blue); background: rgba(0, 243, 255, 0.02);">
-            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px;">
-                <div style="flex: 2; min-width: 280px;">
-                    <h3 class="tech-font" style="font-size: 1.1rem;">Analisi Gratuita della Bolletta</h3>
-                    <p style="font-size: 0.9rem; color: #ccc; margin-top: 10px;">
-                        Inviaci una foto della tua ultima bolletta. Tutti i nostri consulenti sono formati per individuare costi nascosti e proporti il passaggio a una tariffa più conveniente senza costi di attivazione.
-                    </p>
-                </div>
-                <div style="flex: 1; min-width: 200px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <button class="btn" style="font-size: 0.7rem;" onclick="contactAgent('Daniel')">Daniel</button>
-                    <button class="btn" style="font-size: 0.7rem;" onclick="contactAgent('Daniele')">Daniele</button>
-                    <button class="btn" style="font-size: 0.7rem;" onclick="contactAgent('Luca')">Luca</button>
-                    <button class="btn" style="font-size: 0.7rem;" onclick="contactAgent('Andrea')">Andrea</button>
-                </div>
-            </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
+        <div class="glass-card reveal active">
+            <h3 class="tech-font" style="text-align: center; font-size: 1rem;">Analisi Certificata 2026</h3>
             
-            <div class="glass-card">
-                <h3 class="tech-font" style="color: #f1c40f;">⚡ Luce</h3>
-                <p style="font-size: 0.9rem; color: #aaa; margin: 15px 0;">Tariffe a prezzo fisso o indicizzato (PUN) per metterti al riparo dai rincari.</p>
-                <ul style="list-style: none; padding: 0; font-size: 0.85rem; color: #ccc; line-height: 2;">
-                    <li>✅ Energia 100% Green certificata</li>
-                    <li>✅ Zero costi di recesso o attivazione</li>
-                    <li>✅ Gestione pratiche voltura e subentro</li>
-                </ul>
+            <div class="upload-zone" id="drop-zone" onclick="simulateScan()">
+                <div class="scan-line" id="scanner"></div>
+                <div id="upload-content">
+                    <span style="font-size: 4rem; display: block; margin-bottom: 10px;">📂</span>
+                    <p id="upload-text" class="tech-font" style="font-size: 0.9rem;">Trascina qui il PDF della bolletta o Clicca</p>
+                    <p style="color: #555; font-size: 0.75rem; margin-top: 10px;">Supportiamo: Enel, Eni, Iren, A2A e tutti i fornitori nazionali.</p>
+                </div>
             </div>
 
-            <div class="glass-card">
-                <h3 class="tech-font" style="color: #3498db;">🔥 Gas</h3>
-                <p style="font-size: 0.9rem; color: #aaa; margin: 15px 0;">Soluzioni su misura per il riscaldamento domestico e l'acqua sanitaria.</p>
-                <ul style="list-style: none; padding: 0; font-size: 0.85rem; color: #ccc; line-height: 2;">
-                    <li>✅ Prezzo del Gas bloccato per 12 mesi</li>
-                    <li>✅ Nessun intervento tecnico al contatore</li>
-                    <li>✅ Fatturazione chiara e senza sorprese</li>
-                </ul>
+            <div id="result-area" style="display: none; text-align: center; padding: 20px;">
+                <h4 class="tech-font" style="color: var(--neon-green);">RISULTATO ANALISI: TARIFFA FUORI MERCATO</h4>
+                <div class="savings-meter">
+                    <div class="meter-bar meter-red"></div>
+                    <div class="meter-bar meter-yellow"></div>
+                    <div class="meter-bar"></div>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.9rem;">Stai pagando circa <b style="color: var(--neon-blue);">240€ in più</b> all'anno rispetto alla nostra miglior tariffa.</p>
             </div>
         </div>
 
-        <div class="faq-container" style="margin-top: 60px;">
-            <h2 class="tech-font" style="text-align: center; font-size: 1.1rem; margin-bottom: 30px;">Domande su Luce & Gas</h2>
-            <div class="faq-item" onclick="toggleFaq(this)">
-                <div class="faq-question">Cosa succede durante il passaggio? <span>+</span></div>
-                <div class="faq-answer">Assolutamente nulla. Non ci sono interruzioni di servizio, non bisogna cambiare i cavi e non serve l'intervento di un tecnico. È solo un passaggio amministrativo che gestiamo noi.</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 40px;">
+            <div class="glass-card reveal">
+                <h4 class="tech-font" style="color: #f1c40f;">LUCE INDEX</h4>
+                <p style="font-size: 0.8rem; color: #888;">Prezzo all'ingrosso PUN + 0€ spread per i primi 12 mesi.</p>
+                <button class="btn" style="width: 100%; margin-top: 15px;" onclick="contactAgent('Daniel')">ANALISI CON DANIEL</button>
             </div>
-            <div class="faq-item" onclick="toggleFaq(this)">
-                <div class="faq-question">Come faccio a sapere se sto risparmiando davvero? <span>+</span></div>
-                <div class="faq-answer">I nostri consulenti confrontano il tuo attuale costo della materia prima con le migliori offerte disponibili a terminale, mostrandoti il risparmio annuo stimato in euro.</div>
-            </div>
-            <div class="faq-item" onclick="toggleFaq(this)">
-                <div class="faq-question">Posso fare il contratto per la mia azienda? <span>+</span></div>
-                <div class="faq-answer">Certamente. Gestiamo forniture Business per negozi, uffici e capannoni con tariffe dedicate ai grandi consumi.</div>
+            <div class="glass-card reveal">
+                <h4 class="tech-font" style="color: #3498db;">GAS SICURO</h4>
+                <p style="font-size: 0.8rem; color: #888;">Blocca il prezzo del Gas prima dell'inverno. Gestione totale ADR.</p>
+                <button class="btn" style="width: 100%; margin-top: 15px;" onclick="contactAgent('Daniele')">ANALISI CON DANIELE</button>
             </div>
         </div>
+
+        <div class="glass-card reveal" style="margin-top: 30px; border: 1px solid rgba(255, 68, 68, 0.3); background: rgba(255, 68, 68, 0.02);">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span style="font-size: 1.5rem;">⚠️</span>
+                <div>
+                    <strong style="color: #ff4444;">MARKET ALERT:</strong>
+                    <span style="font-size: 0.85rem; color: #ccc;"> Previsto aumento delle componenti fisse del 4% dal prossimo mese. Blocca ora la tua tariffa.</span>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <footer style="margin-top: 60px; text-align: center; padding: 40px; opacity: 0.5; font-size: 0.8rem;">
-        © 2026 Agenzia del Risparmio - Consulenti Indipendenti Energia
+    <footer style="margin-top: 80px; padding: 40px; text-align: center; opacity: 0.3;">
+        © 2026 Agenzia del Risparmio - Tecnologia di Comparazione Indipendente
     </footer>
 
     <script src="chat.js"></script>
+    <script>
+        function simulateScan() {
+            const scanner = document.getElementById('scanner');
+            const content = document.getElementById('upload-content');
+            const result = document.getElementById('result-area');
+            const text = document.getElementById('upload-text');
+
+            // Avvia animazione
+            scanner.style.display = 'block';
+            scanner.style.animation = 'scanning 2s infinite linear';
+            text.innerHTML = "IDENTIFICAZIONE FORNITORE... ANALISI POD/PDR...";
+
+            setTimeout(() => {
+                // Ferma scansione e mostra risultato
+                scanner.style.display = 'none';
+                content.style.display = 'none';
+                result.style.display = 'block';
+
+                // Dopo 4 secondi reindirizza o invita al contatto
+                setTimeout(() => {
+                    alert("Ottimo! Ora un consulente ADR verificherà i dati per confermare il risparmio.");
+                    contactAgent('Luca');
+                }, 3000);
+            }, 4000);
+        }
+    </script>
 </body>
 </html>
