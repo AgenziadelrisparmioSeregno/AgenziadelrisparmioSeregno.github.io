@@ -46,10 +46,16 @@
         @keyframes scrollPartner { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* BUTTONS */
-        .btn { background: transparent; border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 10px; border-radius: 5px; cursor: pointer; font-family: 'Orbitron'; font-size: 0.7rem; transition: 0.3s; width: 100%; }
+        .btn { background: transparent; border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 10px; border-radius: 5px; cursor: pointer; font-family: 'Orbitron'; font-size: 0.7rem; transition: 0.3s; width: 100%; text-align: center; text-decoration: none; display: block; box-sizing: border-box; }
         .btn:hover { background: var(--neon-blue); color: black; box-shadow: 0 0 15px var(--neon-blue); }
         .agent-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
         .btn-green { border-color: var(--neon-green); color: var(--neon-green); }
+
+        /* MOBILE CALL BUTTON */
+        .mobile-call-btn { display: none; }
+        @media (max-width: 768px) {
+            .mobile-call-btn { display: flex; position: fixed; bottom: 20px; left: 20px; background: var(--neon-green); color: black; width: 60px; height: 60px; border-radius: 50%; justify-content: center; align-items: center; text-decoration: none; font-size: 1.5rem; z-index: 10000; box-shadow: 0 0 15px rgba(0, 255, 157, 0.4); }
+        }
     </style>
 </head>
 <body>
@@ -64,8 +70,6 @@
             <span class="ticker-item">📉 TREND: RISPARMIO ATTIVO 2026</span>
             <span class="ticker-item">⚡ LUCE PUN: 0.118 €/kWh</span>
             <span class="ticker-item">🔥 GAS PSV: 0.425 €/smc</span>
-            <span class="ticker-item">📱 FIBRA: 2.5GB ATTIVA</span>
-            <span class="ticker-item">📉 TREND: RISPARMIO ATTIVO 2026</span>
         </div>
     </div>
 
@@ -75,6 +79,7 @@
             <a href="telefonia.html">TELEFONIA</a>
             <a href="fotovoltaico.html">FOTOVOLTAICO</a>
             <a href="contatti.html">CONTATTI</a>
+            <a href="caf.html">CAF</a>
         </div>
         <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
     </nav>
@@ -124,7 +129,61 @@
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Fastweb_logo.svg" class="partner-logo">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Sky_logo_2020.svg" class="partner-logo">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Enel_logo_2016.svg" class="partner-logo">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Vodafone_2017_logo.svg" class="partner-logo">
+            </div>
+        </div>
+
+        <section style="margin-top: 80px; margin-bottom: 80px;">
+            <h2 class="tech-font" style="text-align: center; color: var(--neon-blue); margin-bottom: 50px;">Specialisti <span style="color:white">Operativi</span></h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                
+                <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-green);">
+                    <div style="width: 80px; height: 80px; background: #111; border-radius: 50%; margin: 0 auto 15px; border: 2px solid var(--neon-green); display: flex; align-items: center; justify-content: center; font-size: 2rem;">👨‍💼</div>
+                    <h4 class="tech-font" style="font-size: 0.9rem; margin: 5px 0;">ANDREA</h4>
+                    <p style="font-size: 0.7rem; color: var(--neon-green); font-weight: bold; margin-bottom: 10px;">RESP. CAF & FISCALE</p>
+                    <p style="font-size: 0.7rem; color: #888;">Esperto in gestione ISEE e pratiche fiscali complesse.</p>
+                </div>
+
+                <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-blue);">
+                    <div style="width: 80px; height: 80px; background: #111; border-radius: 50%; margin: 0 auto 15px; border: 2px solid var(--neon-blue); display: flex; align-items: center; justify-content: center; font-size: 2rem;">⚡</div>
+                    <h4 class="tech-font" style="font-size: 0.9rem; margin: 5px 0;">DANIEL</h4>
+                    <p style="font-size: 0.7rem; color: var(--neon-blue); font-weight: bold; margin-bottom: 10px;">ENERGY SPECIALIST</p>
+                    <p style="font-size: 0.7rem; color: #888;">Specializzato nell'abbattimento costi Luce e Gas.</p>
+                </div>
+
+                <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-blue);">
+                    <div style="width: 80px; height: 80px; background: #111; border-radius: 50%; margin: 0 auto 15px; border: 2px solid var(--neon-blue); display: flex; align-items: center; justify-content: center; font-size: 2rem;">📡</div>
+                    <h4 class="tech-font" style="font-size: 0.9rem; margin: 5px 0;">DANIELE</h4>
+                    <p style="font-size: 0.7rem; color: var(--neon-blue); font-weight: bold; margin-bottom: 10px;">TELCO & SKY</p>
+                    <p style="font-size: 0.7rem; color: #888;">Il punto di riferimento per Fibra, Mobile e Intrattenimento.</p>
+                </div>
+
+                <div class="glass-card" style="text-align: center; border-bottom: 3px solid #ff00ff;">
+                    <div style="width: 80px; height: 80px; background: #111; border-radius: 50%; margin: 0 auto 15px; border: 2px solid #ff00ff; display: flex; align-items: center; justify-content: center; font-size: 2rem;">☀️</div>
+                    <h4 class="tech-font" style="font-size: 0.9rem; margin: 5px 0;">LUCA</h4>
+                    <p style="font-size: 0.7rem; color: #ff00ff; font-weight: bold; margin-bottom: 10px;">GREEN TECH</p>
+                    <p style="font-size: 0.7rem; color: #888;">Consulente tecnico per Fotovoltaico e Rinnovabili.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <div id="bot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; font-family: 'Inter', sans-serif;">
+        <div id="bot-launcher" onclick="toggleBot()" style="width: 60px; height: 60px; background: var(--neon-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px var(--neon-blue);">
+            <span>🤖</span>
+        </div>
+        <div id="bot-window" style="display: none; width: 300px; height: 400px; background: #0a0a0a; border: 1px solid var(--neon-blue); border-radius: 15px; flex-direction: column; overflow: hidden; position: absolute; bottom: 80px; right: 0;">
+            <div style="background: var(--neon-blue); color: black; padding: 10px; font-family: 'Orbitron'; font-size: 0.7rem; font-weight: bold; display: flex; justify-content: space-between;">
+                <span>SISTEMA ADR-1</span>
+                <span onclick="toggleBot()" style="cursor: pointer;">X</span>
+            </div>
+            <div id="bot-messages" style="flex: 1; padding: 10px; overflow-y: auto; font-size: 0.8rem; color: #ccc;">
+                <div style="background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 10px;">Ciao! I colleghi sono in appuntamento. Posso aiutarti io?</div>
+            </div>
+            <div style="padding: 10px; border-top: 1px solid #222; display: flex; gap: 5px;">
+                <input type="text" id="user-input" placeholder="Scrivi..." style="flex: 1; background: #111; border: 1px solid #333; color: white; padding: 5px; border-radius: 4px;">
+                <button onclick="botReply()" style="background: var(--neon-blue); border: none; padding: 5px 10px; cursor: pointer;">></button>
             </div>
         </div>
     </div>
@@ -165,9 +224,31 @@
             const testo = `Ciao ${agente}, ho analizzato la bolletta (${nomeFileSelezionato}) su ADR. Voto: 4. Possiamo fissare un appuntamento?`;
             window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(testo)}`, '_blank');
         }
+
+        // Bot Logic
+        let botStep = "base";
+        function toggleBot() {
+            const win = document.getElementById('bot-window');
+            win.style.display = win.style.display === 'none' ? 'flex' : 'none';
+        }
+        function botReply() {
+            const input = document.getElementById('user-input');
+            const msg = input.value.trim();
+            if(!msg) return;
+            const container = document.getElementById('bot-messages');
+            container.innerHTML += `<div style="text-align:right; color:var(--neon-blue); margin-bottom:10px;">${msg}</div>`;
+            input.value = "";
+            setTimeout(() => {
+                if(botStep === "base") {
+                    container.innerHTML += `<div style="background:#1a1a1a; padding:8px; border-radius:8px; margin-bottom:10px;">Capisco. Vuoi fissare un appuntamento con un consulente?</div>`;
+                    botStep = "ask";
+                } else {
+                    container.innerHTML += `<div style="background:#1a1a1a; padding:8px; border-radius:8px; margin-bottom:10px;">Ti sto trasferendo su WhatsApp...</div>`;
+                    window.open('https://wa.me/393515910955?text=Vorrei fissare un appuntamento tramite ADR-1', '_blank');
+                }
+            }, 1000);
+        }
     </script>
-    <a href="tel:+393515910955" class="mobile-call-btn">
-    📞
-</a>
+    <a href="tel:+393515910955" class="mobile-call-btn">📞</a>
 </body>
 </html>
