@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADR | Terminale Operatore</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #050505; color: #00f3ff; font-family: 'Courier New', monospace; padding: 20px; }
+        .admin-card { background: #111; border: 1px solid #00f3ff; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+        input, select { background: #000; border: 1px solid #00f3ff; color: #00f3ff; padding: 10px; margin: 5px 0; width: 100%; }
+        .btn-admin { background: #00f3ff; color: #000; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; width: 100%; }
+        th { text-align: left; color: #666; font-size: 0.7rem; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+
+    <h1 class="tech-font">SISTEMA <span style="color: white;">GESTIONALE ADR</span></h1>
+    <p style="color: #444; margin-bottom: 30px;">ACCESSO OPERATORE LIVELLO 1</p>
+
+    <div class="dash-container" style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px;">
+        
+        <div class="admin-card">
+            <h3 class="tech-font" style="font-size: 0.8rem;">Inserimento Dati</h3>
+            <input type="text" id="clientUid" placeholder="Copia qui l'ID Cliente">
+            <input type="text" id="praticaNome" placeholder="Nome Servizio (es. Luce)">
+            <input type="text" id="consulente" placeholder="Consulente (es. Daniel)">
+            <select id="stato">
+                <option value="status-active">ATTIVO</option>
+                <option value="status-pending">IN ELABORAZIONE</option>
+            </select>
+            <button class="btn-admin" onclick="savePratica()">PUBBLICA DATI</button>
+        </div>
+
+        <div class="admin-card">
+            <h3 class="tech-font" style="font-size: 0.8rem;">Log Attività Recenti</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                <thead>
+                    <tr>
+                        <th>ID CLIENTE</th>
+                        <th>SERVIZIO</th>
+                        <th>STATO</th>
+                    </tr>
+                </thead>
+                <tbody id="log-body">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAhhfS7NKTC9ujs7GDUm04b6fVEKHvlPAU",
+            authDomain: "adr-seregno.firebaseapp.com",
+            projectId: "adr-seregno",
+            storageBucket: "adr-seregno.firebasestorage.app",
+            messagingSenderId: "893004573642",
+            appId: "1:893004573642:web:f04e6f4ce48903547f7d33"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // PROTEZIONE ADMIN: Solo la tua mail può restare qui
+        const adminEmail = "TUAMAIL@GMAIL.COM"; // <--- METTI LA TUA MAIL QUI
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user || user.email !== adminEmail) {
+                alert("ACCESSO NEGATO: Non sei un operatore autorizzato.");
+                window.location.href = "login.html";
+            }
+            loadLogs();
+        });
+
+        window.savePratica = async function() {
+            const uid = document.getElementById('clientUid').value;
+            const nome = document.getElementById('praticaNome').value;
+            const cons = document.getElementById('consulente').value;
+            const stat = document.getElementById('stato').value;
+
+            if(!uid || !nome) return alert("Inserire ID e Nome Pratica");
+
+            try {
+                await addDoc(collection(db, "pratiche"), {
+                    userId: uid,
+                    nome: nome,
+                    consulente: cons,
+                    stato: stat,
+                    data: new Date().toLocaleDateString()
+                });
+                alert("PRATICA PUBBLICATA CON SUCCESSO");
+                location.reload();
+            } catch (e) {
+                console.error("Errore:", e);
+            }
+        }
+
+        async function loadLogs() {
+            const querySnapshot = await getDocs(collection(db, "pratiche"));
+            const tbody = document.getElementById('log-body');
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                tbody.innerHTML += `<tr>
+                    <td style="font-size:0.6rem;">${data.userId}</td>
+                    <td>${data.nome}</td>
+                    <td>${data.stato}</td>
+                </tr>`;
+            });
+        }
+    </script>
+</body>
+</html>
