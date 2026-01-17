@@ -234,3 +234,34 @@ footer {
 .partner-track img {
     height: 20px; /* Più piccole su mobile */
 }
+/* Tasto Chiama Ora - Solo Mobile */
+.mobile-call-btn {
+    display: none; /* Nasconde di default */
+}
+
+@media (max-width: 768px) {
+    .mobile-call-btn {
+        display: flex;
+        position: fixed;
+        bottom: 20px;
+        left: 20px; /* Lo mettiamo a sinistra così non copre il ChatBot a destra */
+        background: #00ff9d; /* Verde Neon per distinguersi dal blu */
+        color: black;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        font-size: 1.5rem;
+        box-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
+        z-index: 10000;
+        animation: pulse-green 2s infinite;
+    }
+}
+
+@keyframes pulse-green {
+    0% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(0, 255, 157, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0); }
+}
