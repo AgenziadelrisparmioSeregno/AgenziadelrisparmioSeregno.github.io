@@ -1,370 +1,267 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Agenzia del Risparmio | Consulenza Energia Premium</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenzia del Risparmio - Premium Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050b14;
+            --glass: rgba(15, 42, 68, 0.7);
+            --primary: #1EC9FF;
+            --accent: #3DFF9A;
+            --text: #ffffff;
+        }
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #102a44, #050b14);
+            color: var(--text);
+            margin: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
 
-  <style>
-    :root {
-      --bg-dark: #0B1C2D;
-      --bg-darker: #081523;
-      --card-bg: #0F2A44;
-      --primary: #1EC9FF;
-      --accent: #3DFF9A;
-      --whatsapp: #25D366;
-      --text-main: #F4F7FA;
-      --text-muted: #A9B4C2;
-    }
+        /* Effetto 3D Floating per le Card */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        .glass-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 35px 60px -15px rgba(30, 201, 255, 0.3);
+        }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(180deg, var(--bg-dark), var(--bg-darker));
-      color: var(--text-main);
-      line-height: 1.6;
-      scroll-behavior: smooth;
-    }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
 
-    header {
-      padding: 100px 20px;
-      text-align: center;
-      background: radial-gradient(circle at top, #12375c, var(--bg-dark));
-    }
+        header { text-align: center; margin-bottom: 60px; }
+        header h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 10px; }
 
-    header h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      background: linear-gradient(90deg, var(--primary), #ffffff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 20px;
-    }
+        /* Griglia Servizi */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
 
-    header p {
-      font-size: 1.2rem;
-      color: var(--text-muted);
-      max-width: 700px;
-      margin: 0 auto 40px;
-    }
+        .service-item { padding: 30px; text-align: center; }
+        .service-item i { font-size: 2rem; color: var(--primary); display: block; margin-bottom: 15px; }
 
-    .cta {
-      display: inline-block;
-      padding: 15px 35px;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #05201a;
-      background: linear-gradient(135deg, var(--accent), #1fd98b);
-      border-radius: 50px;
-      text-decoration: none;
-      box-shadow: 0 10px 30px rgba(61,255,154,0.4);
-      transition: all 0.3s ease;
-      cursor: pointer;
-      border: none;
-    }
+        /* Comparatore 3D Risultati */
+        #comparison-results {
+            display: none;
+            margin-top: 40px;
+            animation: slideUp 0.6s ease forwards;
+        }
 
-    .cta:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 20px 40px rgba(61,255,154,0.6);
-    }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-    section {
-      padding: 80px 20px;
-      max-width: 1200px;
-      margin: auto;
-    }
+        .offer-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            padding: 20px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
 
-    section h2 {
-      text-align: center;
-      font-size: 2.2rem;
-      margin-bottom: 50px;
-      font-weight: 700;
-    }
+        .partner-badge {
+            background: var(--accent);
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            margin-left: 10px;
+        }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
+        /* Chat Bot 3D UI */
+        #smart-chat {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 400px;
+            height: 600px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .card {
-      background: linear-gradient(180deg, var(--card-bg), #0b2238);
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.05);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
+        .chat-header {
+            padding: 20px;
+            background: linear-gradient(90deg, #1EC9FF, #3DFF9A);
+            border-radius: 24px 24px 0 0;
+            color: #050b14;
+            font-weight: 800;
+            display: flex;
+            justify-content: space-between;
+        }
 
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 25px rgba(30,201,255,0.3);
-    }
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-    .card h3 {
-      font-size: 1.4rem;
-      margin-bottom: 15px;
-      color: var(--primary);
-    }
+        .msg { padding: 12px 16px; border-radius: 16px; font-size: 0.9rem; max-width: 80%; line-height: 1.4; }
+        .msg.bot { background: #1a3a5a; align-self: flex-start; border-bottom-left-radius: 4px; }
+        .msg.user { background: var(--primary); color: #000; align-self: flex-end; border-bottom-right-radius: 4px; }
 
-    .card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
+        .chat-footer { padding: 20px; display: flex; gap: 10px; }
+        .chat-footer input {
+            flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2);
+            padding: 12px; border-radius: 12px; color: #fff;
+        }
 
-    /* --- NUOVA SEZIONE CONTATTI & BOT --- */
-    .contact-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-      align-items: flex-start;
-    }
+        .agent-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff; padding: 8px 12px; border-radius: 10px;
+            cursor: pointer; font-size: 0.8rem; transition: 0.3s;
+        }
 
-    .bot-window {
-      flex: 1;
-      min-width: 300px;
-      background: #081523;
-      border-radius: 15px;
-      border: 1px solid rgba(255,255,255,0.1);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      height: 400px;
-    }
+        .agent-btn:hover { background: var(--primary); color: #000; }
 
-    .bot-header {
-      background: var(--card-bg);
-      padding: 15px;
-      font-weight: 600;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .bot-dot {
-      width: 10px; height: 10px; background: var(--accent); border-radius: 50%;
-    }
-
-    .bot-messages {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-      font-size: 0.9rem;
-    }
-
-    .msg { margin-bottom: 15px; padding: 10px 15px; border-radius: 10px; max-width: 80%; }
-    .bot-msg { background: var(--card-bg); align-self: flex-start; }
-    .user-msg { background: var(--primary); color: #000; align-self: flex-end; margin-left: auto; }
-
-    .bot-input {
-      padding: 15px;
-      background: var(--bg-darker);
-      display: flex;
-      gap: 10px;
-    }
-
-    .bot-input input {
-      flex: 1;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 10px;
-      border-radius: 5px;
-      color: white;
-    }
-
-    .whatsapp-list {
-      flex: 1;
-      min-width: 300px;
-    }
-
-    .wa-button {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      background: rgba(37, 211, 102, 0.1);
-      border: 1px solid var(--whatsapp);
-      padding: 20px;
-      border-radius: 15px;
-      text-decoration: none;
-      color: white;
-      margin-bottom: 15px;
-      transition: all 0.3s ease;
-    }
-
-    .wa-button:hover {
-      background: var(--whatsapp);
-      color: black;
-    }
-
-    .wa-button i { font-size: 1.5rem; }
-
-    /* --- WHATSAPP FLOATING BUTTON --- */
-    .wa-float {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background-color: var(--whatsapp);
-      color: #FFF;
-      border-radius: 50px;
-      text-align: center;
-      padding: 15px 25px;
-      box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      font-weight: 700;
-      transition: transform 0.3s ease;
-    }
-
-    .wa-float:hover { transform: scale(1.1); color: #fff; }
-
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      color: var(--text-muted);
-      background: #06101b;
-      font-size: 0.9rem;
-    }
-  </style>
+        .btn-cta {
+            background: var(--accent); color: #000; padding: 12px 24px;
+            border-radius: 12px; text-decoration: none; font-weight: 700;
+            display: inline-block; text-align: center;
+        }
+    </style>
 </head>
-
 <body>
 
-<a href="https://wa.me/39XXXXXXXXXX" class="wa-float" target="_blank">
-  <i class="fab fa-whatsapp"></i> Chat Rapida
-</a>
+<div class="container">
+    <header>
+        <h1>Agenzia del Risparmio</h1>
+        <p>Soluzioni 3D per Luce, Gas, CAF e Fotovoltaico</p>
+    </header>
 
-<header>
-  <h1>Consulenza Energia Tech & Premium</h1>
-  <p>
-    Confrontiamo le migliori offerte Luce e Gas con un approccio professionale,
-    trasparente e personalizzato. Non call center. Non automatismi ciechi.
-  </p>
-  <a href="#contatti" class="cta">Richiedi Consulenza</a>
-</header>
-
-<section id="servizi">
-  <h2>I nostri servizi</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Offerte Luce & Gas</h3>
-      <p>Analisi tecnica delle tariffe e selezione delle soluzioni più vantaggiose in base ai tuoi consumi reali.</p>
-    </div>
-    <div class="card">
-      <h3>Consulenza Personalizzata</h3>
-      <p>Un consulente dedicato ti segue prima, durante e dopo la scelta, senza pressioni commerciali.</p>
-    </div>
-    <div class="card">
-      <h3>Fotovoltaico</h3>
-      <p>Studio di fattibilità, risparmio stimato e integrazione con le migliori soluzioni energetiche.</p>
-    </div>
-    <div class="card">
-      <h3>Servizi CAF</h3>
-      <p>Supporto completo per pratiche fiscali e agevolazioni legate all’energia e alla casa.</p>
-    </div>
-  </div>
-</section>
-
-<section id="contatti">
-  <h2>Contattaci Subito</h2>
-  <div class="contact-container">
-    
-    <div class="bot-window">
-      <div class="bot-header">
-        <div class="bot-dot"></div>
-        <span>Smart Assistant - Agenzia del Risparmio</span>
-      </div>
-      <div class="bot-messages" id="chat-box">
-        <div class="msg bot-msg">Ciao! Sono il consulente virtuale. Come posso aiutarti oggi?</div>
-      </div>
-      <div class="bot-input">
-        <input type="text" id="user-input" placeholder="Scrivi un messaggio...">
-        <button class="cta" style="padding: 10px 20px; font-size: 0.8rem;" onclick="sendMessage()">Invia</button>
-      </div>
-    </div>
-
-    <div class="whatsapp-list">
-      <h3>Parla con un consulente</h3>
-      <p style="margin-bottom: 20px; color: var(--text-muted);">Seleziona il reparto di tuo interesse per avviare una chat diretta:</p>
-      
-      <a href="https://wa.me/39XXXXXXXXXX" class="wa-button" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-        <div>
-          <strong>Consulenza Luce e Gas</strong><br>
-          <small>Disponibile ora</small>
+    <div class="services-grid">
+        <div class="glass-card service-item">
+            <h3>Fotovoltaico</h3>
+            <p>Progettazione impianti 3D ad alta efficienza.</p>
         </div>
-      </a>
-
-      <a href="https://wa.me/39XXXXXXXXXX" class="wa-button" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-        <div>
-          <strong>Ufficio Tecnico Fotovoltaico</strong><br>
-          <small>Risposta in 15 min</small>
+        <div class="glass-card service-item">
+            <h3>Servizi CAF</h3>
+            <p>Assistenza fiscale completa e agevolazioni casa.</p>
         </div>
-      </a>
-
-      <a href="https://wa.me/39XXXXXXXXXX" class="wa-button" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-        <div>
-          <strong>Servizi CAF & Pratiche</strong><br>
-          <small>Lunedì - Venerdì</small>
+        <div class="glass-card service-item">
+            <h3>Luce & Gas</h3>
+            <p>Confronto algoritmi avanzati per il massimo risparmio.</p>
         </div>
-      </a>
     </div>
 
-  </div>
-</section>
+    <div id="comparison-results">
+        <h2 style="text-align: center; margin-bottom: 30px;">Analisi Comparativa Generata</h2>
+        <div id="offers-list"></div>
+    </div>
+</div>
 
-<footer>
-  © 2026 – Agenzia del Risparmio • Consulenza Energia Premium
-</footer>
+<div id="smart-chat" class="glass-card">
+    <div class="chat-header">
+        <span>Smart Assistant</span>
+        <span style="font-size: 0.7rem;">● ONLINE</span>
+    </div>
+    <div class="chat-body" id="chat-content">
+        <div class="msg bot">Benvenuto. Io sono l'assistente digitale. Con chi desideri parlare?</div>
+        <div id="agent-selector" style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <button class="agent-btn" onclick="askAgent('Daniel')">Daniel</button>
+            <button class="agent-btn" onclick="askAgent('Daniele')">Daniele</button>
+            <button class="agent-btn" onclick="askAgent('Andrea')">Andrea</button>
+            <button class="agent-btn" onclick="askAgent('Luca')">Luca</button>
+            <button class="agent-btn" onclick="startAuto()">Compara Tariffe</button>
+        </div>
+    </div>
+    <div class="chat-footer">
+        <input type="text" id="chat-input" placeholder="Scrivi qui...">
+        <button class="btn-cta" onclick="handleSend()" style="padding: 10px;">></button>
+    </div>
+</div>
 
 <script>
-  // Script semplice per simulare il bot
-  function sendMessage() {
-    const input = document.getElementById('user-input');
-    const chatBox = document.getElementById('chat-box');
+    const chatContent = document.getElementById('chat-content');
     
-    if (input.value.trim() !== "") {
-      // Messaggio Utente
-      const userDiv = document.createElement('div');
-      userDiv.className = 'msg user-msg';
-      userDiv.textContent = input.value;
-      chatBox.appendChild(userDiv);
-      
-      const userText = input.value.toLowerCase();
-      input.value = "";
+    // Database Offerte (Algoritmo Bias verso Partner)
+    const database = [
+        { name: "Agenzia Green Special", price: "72€", type: "PARTNER", details: "Prezzo bloccato 24 mesi" },
+        { name: "Global Energy X", price: "89€", type: "COMPETITOR", details: "Prezzo Variabile" },
+        { name: "Agenzia Gold Luce", price: "75€", type: "PARTNER", details: "Zero costi attivazione" },
+        { name: "Big Company Y", price: "102€", type: "COMPETITOR", details: "Standard" }
+    ];
 
-      // Risposta Bot (Simulata)
-      setTimeout(() => {
-        const botDiv = document.createElement('div');
-        botDiv.className = 'msg bot-msg';
-        
-        if(userText.includes("luce") || userText.includes("gas")) {
-          botDiv.textContent = "Ottimo! Analizziamo le tue bollette. Puoi scriverci su WhatsApp o lasciarci un contatto.";
-        } else if(userText.includes("costo") || userText.includes("prezzo")) {
-          botDiv.textContent = "Le nostre consulenze sono gratuite. Il risparmio dipende dai tuoi consumi attuali.";
-        } else {
-          botDiv.textContent = "Ricevuto. Un nostro consulente ti risponderà al più presto. Se hai urgenza, usa i tasti WhatsApp qui a fianco!";
-        }
-        
-        chatBox.appendChild(botDiv);
-        chatBox.scrollTop = chatBox.scrollHeight;
-      }, 1000);
-      
-      chatBox.scrollTop = chatBox.scrollHeight;
+    function addMsg(text, sender) {
+        const div = document.createElement('div');
+        div.className = `msg ${sender}`;
+        div.innerHTML = text;
+        chatContent.appendChild(div);
+        chatContent.scrollTop = chatContent.scrollHeight;
     }
-  }
+
+    // Gestione Appuntamenti (Risposta automatica quando occupati)
+    function askAgent(name) {
+        addMsg(`Vorrei parlare con ${name}`, 'user');
+        setTimeout(() => {
+            addMsg(`Mi dispiace, <strong>${name} è attualmente in appuntamento</strong> con un altro cliente.`, 'bot');
+            addMsg(`Vuoi prendere un appuntamento per più tardi o procedere con il <strong>comparatore automatico</strong>?`, 'bot');
+            document.getElementById('agent-selector').innerHTML = `
+                <button class="agent-btn" onclick="window.open('https://wa.me/39XXXXX')">Prenota Appuntamento</button>
+                <button class="agent-btn" onclick="startAuto()">Avvia Comparatore</button>
+            `;
+        }, 800);
+    }
+
+    function startAuto() {
+        addMsg("Avvio comparazione automatica...", 'bot');
+        setTimeout(() => {
+            addMsg("Analisi completata. Ho trovato 4 tariffe. Nota: le offerte 'Agenzia' includono la nostra assistenza diretta gratuita.", 'bot');
+            showComparison();
+        }, 1500);
+    }
+
+    function showComparison() {
+        const list = document.getElementById('offers-list');
+        const area = document.getElementById('comparison-results');
+        area.style.display = 'block';
+        list.innerHTML = "";
+
+        // L'algoritmo ordina per convenienza ma evidenzia le TUE
+        database.sort((a, b) => parseInt(a.price) - parseInt(b.price));
+
+        database.forEach(item => {
+            const card = document.createElement('div');
+            card.className = "glass-card offer-row";
+            card.innerHTML = `
+                <div>
+                    <strong>${item.name}</strong> 
+                    ${item.type === 'PARTNER' ? '<span class="partner-badge">CONSIGLIATA</span>' : ''}
+                    <div style="font-size:0.8rem; color: #A9B4C2">${item.details}</div>
+                </div>
+                <div style="font-size: 1.5rem; font-weight: 800; color: var(--accent)">${item.price}<span style="font-size:0.8rem">/mese</span></div>
+                <a href="#" class="btn-cta">Sottoscrivi</a>
+            `;
+            list.appendChild(card);
+        });
+        window.scrollTo({ top: area.offsetTop - 50, behavior: 'smooth' });
+    }
+
+    function handleSend() {
+        const input = document.getElementById('chat-input');
+        if(input.value) {
+            addMsg(input.value, 'user');
+            input.value = "";
+            setTimeout(() => addMsg("Ricevuto. Sto elaborando la tua richiesta...", 'bot'), 1000);
+        }
+    }
 </script>
 
 </body>
