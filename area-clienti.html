@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Clienti | ADR Seregno</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --neon-blue: #00f3ff; --neon-green: #00ff9d; --dark-bg: #050505; }
+        body { background: var(--dark-bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
+        .tech-font { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        
+        /* Glassmorphism Card */
+        .glass-card { 
+            background: rgba(255,255,255,0.03); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 15px; 
+            padding: 25px; 
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+        }
+
+        /* Login Form */
+        .login-box { max-width: 400px; margin: 100px auto; text-align: center; }
+        input { 
+            width: 100%; padding: 12px; margin: 10px 0; 
+            background: rgba(0,0,0,0.5); border: 1px solid #333; 
+            color: white; border-radius: 5px; font-family: 'Inter';
+        }
+        input:focus { border-color: var(--neon-blue); outline: none; }
+
+        .btn { 
+            background: transparent; border: 1px solid var(--neon-blue); 
+            color: var(--neon-blue); padding: 12px; border-radius: 5px; 
+            cursor: pointer; font-family: 'Orbitron'; width: 100%; transition: 0.3s;
+        }
+        .btn:hover { background: var(--neon-blue); color: black; box-shadow: 0 0 20px var(--neon-blue); }
+
+        /* Dashboard (Nascosta inizialmente) */
+        #dashboard { display: none; }
+        .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .service-badge { padding: 5px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; }
+        .active { background: rgba(0, 255, 157, 0.2); color: var(--neon-green); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="login-section" class="login-box glass-card">
+            <h2 class="tech-font" style="color: var(--neon-blue);">Accesso Criptato</h2>
+            <p style="font-size: 0.8rem; color: #888;">Inserisci il tuo codice cliente o email</p>
+            <input type="text" id="user" placeholder="Codice Utente">
+            <input type="password" id="pass" placeholder="Password">
+            <button class="btn" onclick="checkLogin()">DECRIPTA ACCESSO</button>
+            <p id="error-msg" style="color: #ff4444; font-size: 0.7rem; margin-top: 10px; display: none;">Credenziali non trovate nel database.</p>
+        </div>
+
+        <div id="dashboard">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+                <h1 class="tech-font" style="font-size: 1.2rem;">Benvenuto, <span style="color: var(--neon-blue);">Utente ADR</span></h1>
+                <button class="btn" onclick="location.reload()" style="width: auto; padding: 5px 15px;">LOGOUT</button>
+            </header>
+
+            <div class="status-grid">
+                <div class="glass-card">
+                    <h3 class="tech-font" style="font-size: 0.9rem;">Le tue Pratiche</h3>
+                    <div style="margin-top: 20px;">
+                        <p style="font-size: 0.8rem;">Switch Luce & Gas <span class="service-badge active">IN CORSO</span></p>
+                        <div style="width: 100%; background: #222; height: 5px; border-radius: 5px;">
+                            <div style="width: 65%; background: var(--neon-blue); height: 100%; box-shadow: 0 0 10px var(--neon-blue);"></div>
+                        </div>
+                        <p style="font-size: 0.6rem; color: #888; margin-top: 5px;">Verifica documenti completata (65%)</p>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <h3 class="tech-font" style="font-size: 0.9rem;">Documenti Disponibili</h3>
+                    <ul style="list-style: none; padding: 0; font-size: 0.8rem; color: var(--neon-blue);">
+                        <li style="margin: 10px 0; cursor: pointer;">📂 Contratto_Firmato_ADR.pdf</li>
+                        <li style="margin: 10px 0; cursor: pointer;">📂 Report_Risparmio_2026.pdf</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card" style="border-color: var(--neon-green);">
+                    <h3 class="tech-font" style="font-size: 0.9rem; color: var(--neon-green);">Consulente Dedicato</h3>
+                    <p style="font-size: 0.8rem; margin-top: 15px;">Il tuo consulente è pronto ad assisterti per nuove attivazioni.</p>
+                    <button class="btn" style="border-color: var(--neon-green); color: var(--neon-green);" onclick="window.location.href='https://wa.me/393515910955'">PARLA CON ANDREA</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkLogin() {
+            const user = document.getElementById('user').value;
+            const pass = document.getElementById('pass').value;
+
+            // Logica di test: entra con qualsiasi dato, basta che non siano vuoti
+            if(user !== "" && pass !== "") {
+                document.getElementById('login-section').style.display = "none";
+                document.getElementById('dashboard').style.display = "block";
+            } else {
+                document.getElementById('error-msg').style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
