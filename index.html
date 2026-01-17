@@ -12,10 +12,10 @@
 
     <div class="market-ticker">
         <div class="ticker-content">
-            <span class="ticker-item">⚡ LUCE PUN: <span style="color:var(--neon-green)">0.118 €/kWh</span></span>
-            <span class="ticker-item">🔥 GAS PSV: <span style="color:var(--neon-green)">0.425 €/smc</span></span>
-            <span class="ticker-item">📉 TREND: <span style="color:var(--neon-blue)">RISPARMIO ATTIVO 2026</span></span>
-            <span class="ticker-item">📱 FIBRA: <span style="color:var(--neon-blue)">2.5GB ATTIVA</span></span>
+            <span class="ticker-item">⚡ LUCE PUN: 0.118 €/kWh</span>
+            <span class="ticker-item">🔥 GAS PSV: 0.425 €/smc</span>
+            <span class="ticker-item">📱 FIBRA: 2.5GB ATTIVA</span>
+            <span class="ticker-item">📉 TREND: RISPARMIO ATTIVO 2026</span>
         </div>
     </div>
 
@@ -30,108 +30,75 @@
     <div class="container">
         <header style="text-align: center; margin-bottom: 40px; padding-top: 20px;">
             <h1 class="tech-font" style="font-size: 2.5rem;">AGENZIA DEL <span style="color:var(--neon-blue)">RISPARMIO</span></h1>
-            <p style="color: #a0aab8;">Consulenza Completa per Privati e Aziende a Seregno.</p>
+            <p style="color: #a0aab8;">Consulenza Strategica per Privati e Aziende.</p>
         </header>
 
         <div class="glass-card" style="margin-bottom: 40px;">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: center;">
                 <div>
                     <h3 class="tech-font">Scanner Bolletta IA</h3>
-                    <p style="font-size: 0.85rem; color: #888;">Analisi immediata per utenze domestiche e business.</p>
+                    <p style="font-size: 0.85rem; color: #888;">Analisi immediata dei costi fissi e variabili.</p>
+                    
                     <div id="scan-ui">
                         <input type="file" id="bill-upload" accept=".pdf, image/*" style="display: none;" onchange="startAnalysis()">
-                        <button class="btn" onclick="document.getElementById('bill-upload').click()" style="width: 100%; margin-top: 15px;">SELEZIONA BOLLETTA</button>
+                        <button class="btn" onclick="document.getElementById('bill-upload').click()">CARICA BOLLETTA</button>
                     </div>
+
                     <div id="scan-result" style="display: none; text-align: center;">
                         <div class="grade-circle">4</div>
-                        <p style="color: #ff4444; font-size: 0.8rem; font-family:'Orbitron';">RILEVATE INEFFICIENZE</p>
-                        <button class="btn" onclick="contactAgent('Daniel')" style="font-size: 0.7rem; padding: 5px 10px; margin-top: 10px;">OTTIMIZZA ORA</button>
+                        <p style="color: #ff4444; font-size: 0.8rem; font-family:'Orbitron';">VOTO: INSUFFICIENTE</p>
+                        <button class="btn" onclick="contactAgent('Daniel')" style="font-size: 0.7rem; margin-top: 10px;">OTTIMIZZA ORA</button>
                     </div>
                 </div>
+
                 <div id="drop-zone" onclick="document.getElementById('bill-upload').click()">
-                    <span id="file-name" style="font-size: 0.7rem; color: #888;">
-                        <span style="font-size: 2rem; display: block; margin-bottom: 10px;">📄</span>
-                        TRASCINA IL PDF QUI <br> O CLICCA PER CARICARE
+                    <span id="file-name" style="font-size: 0.75rem; color: #888;">
+                        <span style="font-size: 2.5rem; display: block; margin-bottom: 10px;">📄</span>
+                        <b>CLICCA QUI</b> PER SELEZIONARE <br> IL PDF O LA FOTO
                     </span>
                 </div>
             </div>
         </div>
 
-        <div class="partner-container" style="margin-bottom: 60px;">
+        <div class="partner-container">
             <div class="partner-track">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Sky_logo_2020.svg" class="partner-logo" alt="Sky">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Enel_logo_2016.svg" class="partner-logo" alt="Enel">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Vodafone_2017_logo.svg" class="partner-logo" alt="Vodafone">
-                <img src="https://upload.wikimedia.org/wikipedia/it/e/ee/Logo_Iliad.svg" class="partner-logo" alt="Iliad">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Fastweb_logo.svg" class="partner-logo" alt="Fastweb">
-                <img src="https://upload.wikimedia.org/wikipedia/it/1/13/Logo_Eni_Plenitude.svg" class="partner-logo" alt="Plenitude">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Sky_logo_2020.svg" class="partner-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Enel_logo_2016.svg" class="partner-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Vodafone_2017_logo.svg" class="partner-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/it/e/ee/Logo_Iliad.svg" class="partner-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Fastweb_logo.svg" class="partner-logo">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Sky_logo_2020.svg" class="partner-logo">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Enel_logo_2016.svg" class="partner-logo">
             </div>
         </div>
 
-        <h2 class="tech-font" style="text-align: center; font-size: 1rem; margin-bottom: 30px;">I Nostri Consulenti Senior</h2>
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px; margin-bottom: 60px;">
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
             <div class="glass-card" onclick="contactAgent('Daniel')">
-                <small style="color:var(--neon-blue)"><span class="status-dot"></span> DISPONIBILE</small>
+                <small style="color:var(--neon-blue)"><span class="status-dot"></span> ONLINE</small>
                 <h3>DANIEL</h3>
-                <p style="font-size:0.75rem; color:#888;">Specialista Luce, Gas, Sky, Telco e Foto.</p>
-                <button class="btn" style="width: 100%; margin-top:10px;">PARLA CON DANIEL</button>
+                <p style="font-size:0.75rem; color:#888;">Luce, Gas, Telco, Sky, Foto.</p>
+                <button class="btn">CHAT WHATSAPP</button>
             </div>
             <div class="glass-card" onclick="contactAgent('Daniele')">
-                <small style="color:var(--neon-blue)"><span class="status-dot"></span> DISPONIBILE</small>
+                <small style="color:var(--neon-blue)"><span class="status-dot"></span> ONLINE</small>
                 <h3>DANIELE</h3>
-                <p style="font-size:0.75rem; color:#888;">Specialista Luce, Gas, Sky, Telco e Foto.</p>
-                <button class="btn" style="width: 100%; margin-top:10px;">PARLA CON DANIELE</button>
+                <p style="font-size:0.75rem; color:#888;">Luce, Gas, Telco, Sky, Foto.</p>
+                <button class="btn">CHAT WHATSAPP</button>
             </div>
             <div class="glass-card" onclick="contactAgent('Luca')">
-                <small style="color:var(--neon-blue)"><span class="status-dot"></span> DISPONIBILE</small>
+                <small style="color:var(--neon-blue)"><span class="status-dot"></span> ONLINE</small>
                 <h3>LUCA</h3>
-                <p style="font-size:0.75rem; color:#888;">Specialista Luce, Gas, Sky, Telco e Foto.</p>
-                <button class="btn" style="width: 100%; margin-top:10px;">PARLA CON LUCA</button>
+                <p style="font-size:0.75rem; color:#888;">Luce, Gas, Telco, Sky, Foto.</p>
+                <button class="btn">CHAT WHATSAPP</button>
             </div>
             <div class="glass-card" style="border-color: var(--neon-green);" onclick="contactAgent('Andrea')">
-                <small style="color:var(--neon-green)"><span class="status-dot"></span> SPECIALIST</small>
+                <small style="color:var(--neon-green)"><span class="status-dot"></span> SENIOR</small>
                 <h3>ANDREA</h3>
-                <p style="font-size:0.75rem; color:#888;">Luce, Gas, Sky, Telco, Foto + <b>Resp. CAF</b>.</p>
-                <button class="btn" style="width: 100%; margin-top:10px; background: var(--neon-green); color:black;">PARLA CON ANDREA</button>
-            </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 60px;">
-            <div class="reviews-container">
-                <h2 class="tech-font" style="font-size: 1.1rem; margin-bottom: 30px;">Feedback Clienti</h2>
-                <div class="review-card glass-card">
-                    <div style="color: gold; margin-bottom: 5px;">★★★★★</div>
-                    <p style="font-size: 0.9rem;">"Risparmio reale e consulenza umana. Daniel eccezionale."</p>
-                    <small>— Marco R. (Seregno)</small>
-                </div>
-            </div>
-
-            <div class="faq-container">
-                <h2 class="tech-font" style="font-size: 1.1rem; margin-bottom: 30px;">Domande Frequenti</h2>
-                <div class="faq-item glass-card" onclick="toggleFaq(this)">
-                    <div class="faq-question" style="display:flex; justify-content:space-between; cursor:pointer; font-size: 0.9rem;">
-                        <span>Il servizio è gratuito?</span> <span>+</span>
-                    </div>
-                    <div class="faq-answer">Sì, l'analisi della bolletta e la consulenza sono sempre a costo zero.</div>
-                </div>
+                <p style="font-size:0.75rem; color:#888;">Luce, Gas + <b>Resp. CAF</b>.</p>
+                <button class="btn" style="background:var(--neon-green); color:black;">CONTATTA CAF</button>
             </div>
         </div>
     </div>
-
-    <footer style="background: #000; border-top: 1px solid #222; padding: 40px 0;">
-        <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px;">
-            <div>
-                <h4 class="tech-font" style="font-size: 0.8rem;">ADR Seregno</h4>
-                <p style="font-size: 0.8rem; color: #666;">Via Cadore, 253<br>Seregno (MB)</p>
-            </div>
-            <div>
-                <h4 class="tech-font" style="font-size: 0.8rem;">Contatti</h4>
-                <p style="font-size: 0.8rem; color: #666;">info@agenziadelrisparmio.it<br>+39 342 321 8269</p>
-            </div>
-        </div>
-    </footer>
 
     <script src="chat.js"></script>
 </body>
