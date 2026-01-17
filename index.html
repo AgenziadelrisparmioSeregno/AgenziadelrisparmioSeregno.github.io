@@ -1,55 +1,130 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>Comparatore Offerte Energia</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agenzia del Risparmio | Consulenza Energia Premium</title>
+
+  <!-- FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    :root {
+      --bg-dark: #0B1C2D;
+      --bg-darker: #081523;
+      --card-bg: #0F2A44;
+      --primary: #1EC9FF;
+      --accent: #3DFF9A;
+      --text-main: #F4F7FA;
+      --text-muted: #A9B4C2;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      background: #f5f5f5;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, var(--bg-dark), var(--bg-darker));
+      color: var(--text-main);
+      line-height: 1.6;
     }
 
     header {
-      background: #2e7d32;
-      color: white;
-      padding: 20px;
+      padding: 100px 20px;
       text-align: center;
+      background: radial-gradient(circle at top, #12375c, var(--bg-dark));
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--primary), #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+
+    .cta {
+      display: inline-block;
+      padding: 15px 35px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #05201a;
+      background: linear-gradient(135deg, var(--accent), #1fd98b);
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(61,255,154,0.4);
+      transition: all 0.3s ease;
+    }
+
+    .cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(61,255,154,0.6);
     }
 
     section {
-      padding: 20px;
-      max-width: 1100px;
+      padding: 80px 20px;
+      max-width: 1200px;
       margin: auto;
-      background: white;
-      margin-top: 20px;
-      border-radius: 10px;
     }
 
-    h2 {
-      color: #2e7d32;
+    section h2 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 50px;
+      font-weight: 700;
     }
 
-    .bot-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
     }
 
-    iframe {
-      border: none;
-      width: 400px;
-      height: 600px;
-      max-width: 100%;
+    .card {
+      background: linear-gradient(180deg, var(--card-bg), #0b2238);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow:
+        0 20px 40px rgba(0,0,0,0.4),
+        inset 0 0 0 1px rgba(255,255,255,0.05);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow:
+        0 30px 60px rgba(0,0,0,0.6),
+        0 0 25px rgba(30,201,255,0.3);
+    }
+
+    .card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
     }
 
     footer {
       text-align: center;
-      padding: 20px;
-      color: #777;
-      font-size: 14px;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      background: #06101b;
+      font-size: 0.9rem;
     }
   </style>
 </head>
@@ -57,47 +132,53 @@
 <body>
 
 <header>
-  <h1>Confronta le migliori offerte Luce & Gas</h1>
-  <p>Risparmia subito e parla con un consulente</p>
+  <h1>Consulenza Energia Tech & Premium</h1>
+  <p>
+    Confrontiamo le migliori offerte Luce e Gas con un approccio professionale,
+    trasparente e personalizzato. Non call center. Non automatismi ciechi.
+  </p>
+  <a href="#servizi" class="cta">Inizia il confronto</a>
 </header>
 
-<section>
-  <h2>🔍 Comparatore Offerte</h2>
-  <p>
-    Inserisci i tuoi dati e confronta le offerte disponibili.
-    Le soluzioni contrassegnate come <strong>Consigliate</strong>
-    sono quelle con il miglior rapporto prezzo/qualità.
-  </p>
+<section id="servizi">
+  <h2>I nostri servizi</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Offerte Luce & Gas</h3>
+      <p>
+        Analisi tecnica delle tariffe e selezione delle soluzioni più vantaggiose
+        in base ai tuoi consumi reali.
+      </p>
+    </div>
 
-  <!-- QUI IN FUTURO PUOI METTERE IL COMPARATORE -->
-  <p><em>Comparatore in caricamento…</em></p>
-</section>
+    <div class="card">
+      <h3>Consulenza Personalizzata</h3>
+      <p>
+        Un consulente dedicato ti segue prima, durante e dopo la scelta,
+        senza pressioni commerciali.
+      </p>
+    </div>
 
-<section>
-  <h2>💬 Parla con un consulente</h2>
-  <p>
-    Se siamo in appuntamento, il nostro assistente digitale
-    raccoglie le tue informazioni e ti mette subito in contatto
-    con il consulente che preferisci.
-  </p>
+    <div class="card">
+      <h3>Fotovoltaico</h3>
+      <p>
+        Studio di fattibilità, risparmio stimato e integrazione con le migliori
+        soluzioni energetiche.
+      </p>
+    </div>
 
-  <div class="bot-container">
-    <iframe src="bot/bot.html"></iframe>
+    <div class="card">
+      <h3>Servizi CAF</h3>
+      <p>
+        Supporto completo per pratiche fiscali e agevolazioni legate
+        all’energia e alla casa.
+      </p>
+    </div>
   </div>
 </section>
 
-<section>
-  <h2>📌 I nostri servizi</h2>
-  <ul>
-    <li>✔️ Offerte Luce & Gas</li>
-    <li>✔️ Servizi CAF</li>
-    <li>✔️ Impianti Fotovoltaici</li>
-    <li>✔️ Consulenza personalizzata</li>
-  </ul>
-</section>
-
 <footer>
-  © 2026 – Consulenza Energia • Tutti i diritti riservati  
+  © 2026 – Agenzia del Risparmio • Consulenza Energia Premium
 </footer>
 
 </body>
