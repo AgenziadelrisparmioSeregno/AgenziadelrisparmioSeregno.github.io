@@ -148,3 +148,89 @@ footer {
     border-radius: 50%; display: inline-block; margin-right: 8px;
     box-shadow: 0 0 8px var(--neon-green); animation: pulse-green 2s infinite;
 }
+/* --- OTTIMIZZAZIONE MOBILE ADR --- */
+
+/* 1. Gestione Contenitore Generale */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px; /* Ridotto per mobile */
+    box-sizing: border-box;
+}
+
+/* 2. Navbar Responsive */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column; /* Impila logo e tasti */
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap; /* Permette ai link di andare a capo */
+        justify-content: center;
+        gap: 10px;
+    }
+
+    nav a {
+        font-size: 0.6rem; /* Testo leggermente più piccolo */
+    }
+
+    .area-clienti-btn {
+        position: static; /* Rimuove il posizionamento assoluto */
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* Intestazione */
+    header h1 {
+        font-size: 1.6rem !important; /* Ridimensiona il titolo principale */
+    }
+}
+
+/* 3. Griglie delle Card (Scanner e Servizi) */
+@media (max-width: 768px) {
+    /* Fa sì che le griglie diventino a colonna singola */
+    .contact-grid, 
+    .agent-grid, 
+    div[style*="display: grid"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    .glass-card {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    /* Scanner in Home: mette lo slot del file sotto il bottone */
+    #ui-home-default {
+        margin-bottom: 20px;
+    }
+}
+
+/* 4. ChatBot Responsive */
+@media (max-width: 480px) {
+    #bot-window {
+        width: calc(100vw - 40px); /* Quasi tutta la larghezza dello schermo */
+        height: 400px;
+        bottom: 80px;
+        right: 20px;
+    }
+    
+    #bot-launcher {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* 5. Miglioramento Ticker */
+.market-ticker {
+    font-size: 0.7rem;
+}
+
+/* 6. Fix per le immagini Partner */
+.partner-track img {
+    height: 20px; /* Più piccole su mobile */
+}
