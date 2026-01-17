@@ -251,3 +251,15 @@ nav a:hover, nav a.active { color: var(--neon-blue); }
     margin-top: 15px;
     border: 1px solid #333;
 }
+/* Classifica Referral */
+.leaderboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+.leaderboard-grid .glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+}
