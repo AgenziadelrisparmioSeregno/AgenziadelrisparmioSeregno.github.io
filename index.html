@@ -3,263 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenzia del Risparmio - Premium Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Agenzia del Risparmio | Next-Gen Energy</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #050b14;
-            --glass: rgba(15, 42, 68, 0.7);
-            --primary: #1EC9FF;
-            --accent: #3DFF9A;
-            --text: #ffffff;
+            --neon-blue: #00f3ff;
+            --neon-green: #39ff14;
+            --bg-deep: #02060c;
+            --surface: rgba(255, 255, 255, 0.05);
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: radial-gradient(circle at top right, #102a44, #050b14);
-            color: var(--text);
+            background-color: var(--bg-deep);
+            color: white;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             overflow-x: hidden;
-            min-height: 100vh;
         }
 
-        /* Effetto 3D Floating per le Card */
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        h1, h2, .tech-font { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* Sfondo Animato 3D Mesh */
+        .bg-mesh {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, #02060c 25%, #05101c 50%, #02060c 75%);
+            z-index: -1; opacity: 0.5;
         }
 
-        .glass-card:hover {
-            transform: translateY(-10px) rotateX(5deg);
-            box-shadow: 0 35px 60px -15px rgba(30, 201, 255, 0.3);
-        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px; }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-
-        header { text-align: center; margin-bottom: 60px; }
-        header h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 10px; }
-
-        /* Griglia Servizi */
-        .services-grid {
+        /* HERO SECTION CON BOT CENTRALE */
+        .hero-ai {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .service-item { padding: 30px; text-align: center; }
-        .service-item i { font-size: 2rem; color: var(--primary); display: block; margin-bottom: 15px; }
-
-        /* Comparatore 3D Risultati */
-        #comparison-results {
-            display: none;
-            margin-top: 40px;
-            animation: slideUp 0.6s ease forwards;
-        }
-
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-        .offer-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            padding: 20px;
-            margin-bottom: 15px;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
             align-items: center;
+            min-height: 80vh;
         }
 
-        .partner-badge {
-            background: var(--accent);
-            color: #000;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            margin-left: 10px;
+        .ai-core {
+            position: relative;
+            background: radial-gradient(circle, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            padding: 40px;
+            border: 1px solid var(--surface);
+            box-shadow: 0 0 50px rgba(0,0,0,1);
         }
 
-        /* Chat Bot 3D UI */
-        #smart-chat {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 400px;
-            height: 600px;
-            z-index: 1000;
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        /* BOT CHAT BOX INTERNA */
+        .chat-container {
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            height: 500px;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.05);
         }
 
-        .chat-header {
-            padding: 20px;
-            background: linear-gradient(90deg, #1EC9FF, #3DFF9A);
-            border-radius: 24px 24px 0 0;
-            color: #050b14;
-            font-weight: 800;
-            display: flex;
-            justify-content: space-between;
+        .chat-messages { flex: 1; padding: 25px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+
+        .msg { padding: 15px 20px; border-radius: 15px; max-width: 80%; font-size: 0.95rem; line-height: 1.5; }
+        .bot-msg { background: rgba(0, 243, 255, 0.1); border-left: 4px solid var(--neon-blue); align-self: flex-start; }
+        .user-msg { background: var(--surface); align-self: flex-end; border-right: 4px solid var(--neon-green); }
+
+        /* COMPARATORE ALGORITMICO */
+        .comparison-engine {
+            display: none;
+            margin-top: 50px;
+            background: #000;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--neon-blue);
         }
 
-        .chat-body {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        .offer-card {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px; border-bottom: 1px solid var(--surface);
+            transition: 0.3s;
         }
 
-        .msg { padding: 12px 16px; border-radius: 16px; font-size: 0.9rem; max-width: 80%; line-height: 1.4; }
-        .msg.bot { background: #1a3a5a; align-self: flex-start; border-bottom-left-radius: 4px; }
-        .msg.user { background: var(--primary); color: #000; align-self: flex-end; border-bottom-right-radius: 4px; }
-
-        .chat-footer { padding: 20px; display: flex; gap: 10px; }
-        .chat-footer input {
-            flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2);
-            padding: 12px; border-radius: 12px; color: #fff;
+        .offer-card.our-choice {
+            background: linear-gradient(90deg, rgba(0, 243, 255, 0.05), transparent);
+            border-left: 4px solid var(--neon-blue);
         }
 
-        .agent-btn {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: #fff; padding: 8px 12px; border-radius: 10px;
-            cursor: pointer; font-size: 0.8rem; transition: 0.3s;
+        .btn-action {
+            background: var(--neon-blue); color: #000; padding: 12px 25px;
+            border-radius: 8px; font-weight: bold; cursor: pointer; border: none;
+            transition: 0.3s;
         }
 
-        .agent-btn:hover { background: var(--primary); color: #000; }
+        .btn-action:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--neon-blue); }
 
-        .btn-cta {
-            background: var(--accent); color: #000; padding: 12px 24px;
-            border-radius: 12px; text-decoration: none; font-weight: 700;
-            display: inline-block; text-align: center;
+        .consultant-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .consultant-btn {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            color: white; padding: 15px; border-radius: 15px; cursor: pointer; transition: 0.3s;
         }
+        .consultant-btn:hover { background: var(--surface); border-color: var(--neon-blue); }
+
     </style>
 </head>
 <body>
 
+<div class="bg-mesh"></div>
+
 <div class="container">
-    <header>
-        <h1>Agenzia del Risparmio</h1>
-        <p>Soluzioni 3D per Luce, Gas, CAF e Fotovoltaico</p>
-    </header>
+    <div class="hero-ai">
+        <div>
+            <div class="status-badge">SISTEMA DI COMPARAZIONE ATTIVO V2.0</div>
+            <h1 style="font-size: 3.5rem;">Risparmio <span style="color: var(--neon-blue);">Intelligente</span></h1>
+            <p style="font-size: 1.1rem; color: #a0aab8; margin-bottom: 30px;">
+                Il primo algoritmo 3D che confronta le tariffe Luce e Gas in tempo reale. 
+                Scegli un consulente o lascia che l'AI trovi la tua offerta.
+            </p>
+            
+            <div class="consultant-grid">
+                <button class="consultant-btn" onclick="selectConsultant('Daniel')">👨‍💼 DANIEL <br><small>Energy Specialist</small></button>
+                <button class="consultant-btn" onclick="selectConsultant('Daniele')">👨‍💼 DANIELE <br><small>Tech Advisor</small></button>
+                <button class="consultant-btn" onclick="selectConsultant('Andrea')">👨‍💼 ANDREA <br><small>Solar Expert</small></button>
+                <button class="consultant-btn" onclick="selectConsultant('Luca')">👨‍💼 LUCA <br><small>Tax & CAF</small></button>
+            </div>
+            
+            <button class="btn-action" style="width: 100%; margin-top: 20px; background: transparent; border: 1px solid var(--neon-green); color: var(--neon-green);" onclick="startAuto()">
+                AVVIA COMPARATORE AUTONOMO
+            </button>
+        </div>
 
-    <div class="services-grid">
-        <div class="glass-card service-item">
-            <h3>Fotovoltaico</h3>
-            <p>Progettazione impianti 3D ad alta efficienza.</p>
-        </div>
-        <div class="glass-card service-item">
-            <h3>Servizi CAF</h3>
-            <p>Assistenza fiscale completa e agevolazioni casa.</p>
-        </div>
-        <div class="glass-card service-item">
-            <h3>Luce & Gas</h3>
-            <p>Confronto algoritmi avanzati per il massimo risparmio.</p>
+        <div class="ai-core">
+            <div class="chat-container">
+                <div class="chat-messages" id="chatbox">
+                    <div class="msg bot-msg">
+                        Sistemi pronti. Sono l'intelligenza collettiva dell'Agenzia del Risparmio. 
+                        Come posso guidarti oggi?
+                    </div>
+                </div>
+                <div style="padding: 20px; border-top: 1px solid var(--surface); display: flex; gap: 10px;">
+                    <input type="text" id="userInput" placeholder="Chiedi qualsiasi cosa..." style="flex:1; background:transparent; border:none; color:white; outline:none;">
+                    <button class="btn-action" onclick="userSendMessage()">INVIO</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div id="comparison-results">
-        <h2 style="text-align: center; margin-bottom: 30px;">Analisi Comparativa Generata</h2>
-        <div id="offers-list"></div>
-    </div>
-</div>
-
-<div id="smart-chat" class="glass-card">
-    <div class="chat-header">
-        <span>Smart Assistant</span>
-        <span style="font-size: 0.7rem;">● ONLINE</span>
-    </div>
-    <div class="chat-body" id="chat-content">
-        <div class="msg bot">Benvenuto. Io sono l'assistente digitale. Con chi desideri parlare?</div>
-        <div id="agent-selector" style="display: flex; flex-wrap: wrap; gap: 8px;">
-            <button class="agent-btn" onclick="askAgent('Daniel')">Daniel</button>
-            <button class="agent-btn" onclick="askAgent('Daniele')">Daniele</button>
-            <button class="agent-btn" onclick="askAgent('Andrea')">Andrea</button>
-            <button class="agent-btn" onclick="askAgent('Luca')">Luca</button>
-            <button class="agent-btn" onclick="startAuto()">Compara Tariffe</button>
-        </div>
-    </div>
-    <div class="chat-footer">
-        <input type="text" id="chat-input" placeholder="Scrivi qui...">
-        <button class="btn-cta" onclick="handleSend()" style="padding: 10px;">></button>
+    <div id="engine" class="comparison-engine">
+        <h2 style="margin-bottom: 20px; color: var(--neon-blue);">Comparazione in tempo reale</h2>
+        <div id="results-list"></div>
     </div>
 </div>
 
 <script>
-    const chatContent = document.getElementById('chat-content');
-    
-    // Database Offerte (Algoritmo Bias verso Partner)
-    const database = [
-        { name: "Agenzia Green Special", price: "72€", type: "PARTNER", details: "Prezzo bloccato 24 mesi" },
-        { name: "Global Energy X", price: "89€", type: "COMPETITOR", details: "Prezzo Variabile" },
-        { name: "Agenzia Gold Luce", price: "75€", type: "PARTNER", details: "Zero costi attivazione" },
-        { name: "Big Company Y", price: "102€", type: "COMPETITOR", details: "Standard" }
-    ];
+    const chatbox = document.getElementById('chatbox');
 
-    function addMsg(text, sender) {
+    function addMsg(text, type) {
         const div = document.createElement('div');
-        div.className = `msg ${sender}`;
+        div.className = `msg ${type}-msg`;
         div.innerHTML = text;
-        chatContent.appendChild(div);
-        chatContent.scrollTop = chatContent.scrollHeight;
+        chatbox.appendChild(div);
+        chatbox.scrollTop = chatbox.scrollHeight;
     }
 
-    // Gestione Appuntamenti (Risposta automatica quando occupati)
-    function askAgent(name) {
-        addMsg(`Vorrei parlare con ${name}`, 'user');
+    function selectConsultant(name) {
+        addMsg(`Voglio parlare con ${name}`, 'user');
         setTimeout(() => {
-            addMsg(`Mi dispiace, <strong>${name} è attualmente in appuntamento</strong> con un altro cliente.`, 'bot');
-            addMsg(`Vuoi prendere un appuntamento per più tardi o procedere con il <strong>comparatore automatico</strong>?`, 'bot');
-            document.getElementById('agent-selector').innerHTML = `
-                <button class="agent-btn" onclick="window.open('https://wa.me/39XXXXX')">Prenota Appuntamento</button>
-                <button class="agent-btn" onclick="startAuto()">Avvia Comparatore</button>
-            `;
+            addMsg(`🚨 <strong>ANALISI STATO:</strong> ${name} è attualmente impegnato in una consulenza privata.`, 'bot');
+            addMsg(`Per non farti perdere tempo, posso analizzare io i tuoi consumi ora, oppure posso prenotarti il primo slot libero con lui. Cosa preferisci?`, 'bot');
         }, 800);
     }
 
     function startAuto() {
-        addMsg("Avvio comparazione automatica...", 'bot');
-        setTimeout(() => {
-            addMsg("Analisi completata. Ho trovato 4 tariffe. Nota: le offerte 'Agenzia' includono la nostra assistenza diretta gratuita.", 'bot');
-            showComparison();
-        }, 1500);
-    }
+        addMsg("Avvio Algoritmo di Comparazione...", 'bot');
+        document.getElementById('engine').style.display = 'block';
+        
+        const offers = [
+            { name: "La Nostra Migliore (Partner)", price: "68€", our: true, note: "Punteggio Trasparenza 10/10" },
+            { name: "Competitor Nazionale A", price: "92€", our: false, note: "Costi fissi elevati" },
+            { name: "La Nostra Eco (Partner)", price: "71€", our: true, note: "100% Green + Assistenza" },
+            { name: "Competitor Nazionale B", price: "105€", our: false, note: "Prezzo variabile rischioso" }
+        ];
 
-    function showComparison() {
-        const list = document.getElementById('offers-list');
-        const area = document.getElementById('comparison-results');
-        area.style.display = 'block';
+        const list = document.getElementById('results-list');
         list.innerHTML = "";
+        
+        offers.sort((a,b) => (a.our === b.our)? 0 : a.our? -1 : 1);
 
-        // L'algoritmo ordina per convenienza ma evidenzia le TUE
-        database.sort((a, b) => parseInt(a.price) - parseInt(b.price));
-
-        database.forEach(item => {
-            const card = document.createElement('div');
-            card.className = "glass-card offer-row";
-            card.innerHTML = `
-                <div>
-                    <strong>${item.name}</strong> 
-                    ${item.type === 'PARTNER' ? '<span class="partner-badge">CONSIGLIATA</span>' : ''}
-                    <div style="font-size:0.8rem; color: #A9B4C2">${item.details}</div>
-                </div>
-                <div style="font-size: 1.5rem; font-weight: 800; color: var(--accent)">${item.price}<span style="font-size:0.8rem">/mese</span></div>
-                <a href="#" class="btn-cta">Sottoscrivi</a>
-            `;
-            list.appendChild(card);
+        offers.forEach((o, i) => {
+            setTimeout(() => {
+                const card = document.createElement('div');
+                card.className = `offer-card ${o.our ? 'our-choice' : ''}`;
+                card.innerHTML = `
+                    <div>
+                        <span style="color:${o.our ? 'var(--neon-blue)' : '#777'}">${o.our ? '⭐ CONSIGLIATA' : 'OFFERTA ESTERNA'}</span>
+                        <div style="font-size: 1.2rem; font-weight: bold;">${o.name}</div>
+                        <small style="color:#aaa">${o.note}</small>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 1.8rem; font-weight: bold; color:${o.our ? 'var(--neon-green)' : 'white'}">${o.price}</div>
+                        <button class="btn-action" style="padding: 5px 15px; font-size: 0.8rem;">Dettagli</button>
+                    </div>
+                `;
+                list.appendChild(card);
+            }, i * 400);
         });
-        window.scrollTo({ top: area.offsetTop - 50, behavior: 'smooth' });
     }
 
-    function handleSend() {
-        const input = document.getElementById('chat-input');
+    function userSendMessage() {
+        const input = document.getElementById('userInput');
         if(input.value) {
             addMsg(input.value, 'user');
             input.value = "";
-            setTimeout(() => addMsg("Ricevuto. Sto elaborando la tua richiesta...", 'bot'), 1000);
+            setTimeout(() => addMsg("Sto elaborando la tua richiesta attraverso i nostri database...", "bot"), 1000);
         }
     }
 </script>
