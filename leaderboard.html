@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Classifica Referral | Agenzia del Risparmio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-bg">
+
+    <nav>
+        <span class="tech-font" style="color: var(--neon-blue); margin-left: 20px;">CLASSIFICA REFERRAL</span>
+        <div style="margin-left: auto; display: flex; gap: 20px; align-items: center;">
+            <a href="dashboard.html">La Tua Dashboard</a>
+            <a href="index.html">Sito Pubblico</a>
+            <button class="btn" style="font-size: 0.7rem; background: #ff4444;">LOGOUT</button>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 40px;">
+        <h2 class="tech-font" style="text-align: center; margin-bottom: 20px;">Top Referrals del Mese</h2>
+        <p style="text-align: center; color: #888; margin-bottom: 40px;">Più amici porti, più sali in classifica e più bonus ricevi\! Fino a 100€ per il primo classificato.</p>
+
+        <div class="leaderboard-grid">
+            
+            <div class="glass-card" style="border-top: 5px solid gold; padding: 30px; position: relative;">
+                <span style="position: absolute; top: 10px; right: 20px; font-size: 2.5rem; color: gold; font-weight: bold;">🥇</span>
+                <h3 class="tech-font" style="font-size: 1.5rem; color: gold;">1. Rossi_Ezio</h3>
+                <p style="font-size: 1rem; color: #ccc;">Amici Presentati: <strong>12</strong></p>
+                <p style="font-size: 0.8rem; color: #888;">Bonus Totale: <strong>300€</strong></p>
+            </div>
+
+            <div class="glass-card" style="border-top: 5px solid silver; padding: 30px; position: relative;">
+                <span style="position: absolute; top: 10px; right: 20px; font-size: 2.5rem; color: silver; font-weight: bold;">🥈</span>
+                <h3 class="tech-font" style="font-size: 1.5rem; color: silver;">2. Bianchi_Laura</h3>
+                <p style="font-size: 1rem; color: #ccc;">Amici Presentati: <strong>9</strong></p>
+                <p style="font-size: 0.8rem; color: #888;">Bonus Totale: <strong>225€</strong></p>
+            </div>
+
+            <div class="glass-card" style="border-top: 5px solid #cd7f32; padding: 30px; position: relative;">
+                <span style="position: absolute; top: 10px; right: 20px; font-size: 2.5rem; color: #cd7f32; font-weight: bold;">🥉</span>
+                <h3 class="tech-font" style="font-size: 1.5rem; color: #cd7f32;">3. Verdi_Giulia</h3>
+                <p style="font-size: 1rem; color: #ccc;">Amici Presentati: <strong>7</strong></p>
+                <p style="font-size: 0.8rem; color: #888;">Bonus Totale: <strong>175€</strong></p>
+            </div>
+
+        </div>
+
+        <div class="glass-card" style="margin-top: 40px; text-align: center;">
+            <p style="font-size: 1.1rem; color: var(--neon-blue);">Il tuo posto in classifica:</p>
+            <h4 class="tech-font" style="font-size: 1.8rem; margin-top: 10px;">5. Mario Rossi</h4>
+            <p style="font-size: 0.9rem; color: #888;">Amici Presentati: <strong>2</strong> | Bonus: <strong>50€</strong></p>
+            <button class="btn" style="width: 100%; max-width: 300px; margin-top: 20px;" onclick="window.location.href='dashboard.html'">INVITA UN AMICO</button>
+        </div>
+    </div>
+    <footer style="margin-top: 60px; text-align: center; padding: 40px; opacity: 0.5; font-size: 0.8rem;">
+        © 2026 Agenzia del Risparmio - Programma Referral
+    </footer>
+</body>
+</html>
