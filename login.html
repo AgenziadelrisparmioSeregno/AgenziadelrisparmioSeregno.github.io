@@ -2,19 +2,62 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Login | Agenzia del Risparmio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accesso Criptato | ADR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --neon-blue: #00f3ff; --dark-bg: #050505; }
+        body { background: var(--dark-bg); color: white; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .login-box { background: rgba(255,255,255,0.03); border: 1px solid #222; padding: 40px; border-radius: 15px; width: 100%; max-width: 400px; box-shadow: 0 0 30px rgba(0, 243, 255, 0.05); }
+        .tech-font { font-family: 'Orbitron'; text-transform: uppercase; letter-spacing: 2px; text-align: center; }
+        input { width: 100%; background: #111; border: 1px solid #333; padding: 12px; margin: 10px 0; color: white; border-radius: 5px; outline: none; box-sizing: border-box; }
+        input:focus { border-color: var(--neon-blue); }
+        .btn-login { width: 100%; background: var(--neon-blue); color: black; border: none; padding: 12px; border-radius: 5px; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+        .btn-login:hover { box-shadow: 0 0 15px var(--neon-blue); transform: scale(1.02); }
+        .toggle-link { color: #666; font-size: 0.8rem; text-align: center; margin-top: 20px; cursor: pointer; }
+        .toggle-link span { color: var(--neon-blue); }
+    </style>
 </head>
-<body style="display: flex; align-items: center; justify-content: center; height: 100vh;">
-    <div class="glass-card" style="width: 100%; max-width: 400px; text-align: center;">
-        <h2 class="tech-font" style="color: var(--neon-blue); margin-bottom: 30px;">ACCESSO PORTALE</h2>
-        <form style="display: flex; flex-direction: column; gap: 15px;">
-            <input type="email" placeholder="Email" style="padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid #333; color: white; border-radius: 5px;">
-            <input type="password" placeholder="Password" style="padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid #333; color: white; border-radius: 5px;">
-            <button type="button" class="btn" onclick="window.location.href='dashboard.html'" style="width: 100%;">ENTRA NELL'AREA CLIENTI</button>
-        </form>
-        <p style="font-size: 0.8rem; margin-top: 20px; color: #666;">Non hai ancora un account? <br> <span style="color: var(--neon-blue);">Registrati con il tuo consulente dopo la prima pratica.</span></p>
+<body>
+
+<div class="login-box">
+    <h2 class="tech-font" id="auth-title">LOGIN <span style="color:var(--neon-blue)">CLIENTE</span></h2>
+    <p id="auth-desc" style="font-size: 0.7rem; color: #555; text-align: center; margin-bottom: 25px;">SISTEMA DI AUTENTICAZIONE ADR-SHIELD</p>
+
+    <input type="email" id="email" placeholder="Indirizzo Email">
+    <input type="password" id="password" placeholder="Password di Sicurezza">
+    
+    <button class="btn-login" onclick="handleAuth()" id="auth-btn">ACCEDI AL TERMINALE</button>
+
+    <div class="toggle-link" onclick="toggleAuth()">
+        Non hai un account? <span id="toggle-text">Registrati ora</span>
     </div>
+</div>
+
+<script>
+    let isLogin = true;
+
+    function toggleAuth() {
+        isLogin = !isLogin;
+        document.getElementById('auth-title').innerHTML = isLogin ? 'LOGIN <span style="color:var(--neon-blue)">CLIENTE</span>' : 'REGISTRA <span style="color:var(--neon-blue)">ACCOUNT</span>';
+        document.getElementById('auth-btn').innerText = isLogin ? 'ACCEDI AL TERMINALE' : 'CREA ACCOUNT SICURO';
+        document.getElementById('toggle-text').innerText = isLogin ? 'Registrati ora' : 'Accedi qui';
+    }
+
+    function handleAuth() {
+        const email = document.getElementById('email').value;
+        const pass = document.getElementById('password').value;
+
+        if(!email || !pass) { alert("Inserire credenziali valide."); return; }
+
+        // QUI COLLEGEREMO FIREBASE. 
+        // Per ora simuliamo l'accesso sicuro.
+        console.log("Tentativo di " + (isLogin ? "Login" : "Registrazione") + " per: " + email);
+        alert("Inizializzazione crittografia... Verrai reindirizzato.");
+        localStorage.setItem("userLogged", "true"); // Dummy session
+        window.location.href = "dashboard.html";
+    }
+</script>
+
 </body>
 </html>
