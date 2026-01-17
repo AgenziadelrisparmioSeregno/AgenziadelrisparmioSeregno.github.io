@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatti | ADR Seregno</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --neon-blue: #00f3ff; --neon-green: #00ff9d; --dark-bg: #050505; }
+        body { background: var(--dark-bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
+        .tech-font { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .info-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 10px;
+            border-left: 3px solid var(--neon-blue);
+        }
+
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #222;
+            height: 100%;
+            min-height: 400px;
+        }
+
+        /* Effetto scuro per la mappa di Google */
+        .map-container iframe {
+            filter: grayscale(1) invert(0.9) contrast(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav style="display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: #000;">
+        <div style="display: flex; gap: 20px;">
+            <a href="index.html" style="text-decoration:none; color:white; font-family:'Orbitron'; font-size:0.7rem;">HOME</a>
+            <a href="energia.html" style="text-decoration:none; color:white; font-family:'Orbitron'; font-size:0.7rem;">ENERGIA</a>
+        </div>
+        <a href="dashboard.html" class="btn" style="border-color:var(--neon-green); color:var(--neon-green); font-size:0.7rem; padding: 5px 15px;">AREA CLIENTI</a>
+    </nav>
+
+    <div class="container" style="max-width: 1100px; margin: 0 auto; padding: 40px 20px;">
+        
+        <header style="text-align: center; margin-bottom: 60px;">
+            <h1 class="tech-font" style="font-size: 2.5rem; margin-bottom: 10px;">Base <span style="color: var(--neon-blue);">Operativa</span></h1>
+            <p style="color: #888;">Seregno, Brianza - Headquarters ADR</p>
+        </header>
+
+        <div class="contact-grid">
+            
+            <div class="glass-card">
+                <h3 class="tech-font" style="color: var(--neon-blue); margin-bottom: 30px;">Coordinate di Contatto</h3>
+                
+                <div class="info-box">
+                    <span style="font-size: 1.5rem;">📍</span>
+                    <div>
+                        <p class="tech-font" style="font-size: 0.7rem; color: var(--neon-blue); margin: 0;">Indirizzo</p>
+                        <p style="font-size: 0.9rem; margin: 5px 0;">Via [Inserisci Via], 20831 Seregno (MB)</p>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <span style="font-size: 1.5rem;">🕒</span>
+                    <div>
+                        <p class="tech-font" style="font-size: 0.7rem; color: var(--neon-blue); margin: 0;">Orari Ufficio</p>
+                        <p style="font-size: 0.85rem; margin: 5px 0;">Lun - Ven: 09:00 - 13:00 | 14:30 - 18:30</p>
+                        <p style="font-size: 0.85rem; margin: 5px 0;">Sabato - Domenica: Chiusi</p>
+                    </div>
+                </div>
+
+                <div class="info-box" style="border-left-color: var(--neon-green);">
+                    <span style="font-size: 1.5rem;">📞</span>
+                    <div>
+                        <p class="tech-font" style="font-size: 0.7rem; color: var(--neon-green); margin: 0;">Supporto Rapido</p>
+                        <p style="font-size: 0.9rem; margin: 5px 0;">Ufficio: +39 0362 [Tuo Numero]</p>
+                        <p style="font-size: 0.9rem; margin: 5px 0;">WhatsApp: <a href="https://wa.me/393515910955" style="color: var(--neon-green); text-decoration: none;">Chatta con il Responsabile</a></p>
+                    </div>
+                </div>
+
+                <button class="btn" style="margin-top: 20px;" onclick="window.open('https://www.google.com/maps')">AVVIA NAVIGATORE</button>
+            </div>
+
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2790.662483861845!2d9.2000!3d45.6500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDXCsDM5JzAwLjAiTiA5wrAxMicwMC4wIkU!5e0!3m2!1sit!2sit!4v1700000000000!5m2!1sit!2sit" 
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+        </div>
+
+        <footer style="margin-top: 80px; text-align: center; padding: 20px; opacity: 0.4; font-size: 0.7rem;">
+            © 2026 ADR SEREGNO - PROTEZIONE DATI GARANTITA
+        </footer>
+    </div>
+
+</body>
+</html>
