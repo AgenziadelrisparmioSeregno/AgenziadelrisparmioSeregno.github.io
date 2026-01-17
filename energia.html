@@ -67,88 +67,84 @@
     <div class="container">
         <header style="text-align: center; margin: 40px 0;">
             <h1 class="tech-font" style="font-size: 2.2rem;">Scanner <span style="color:var(--neon-blue)">Bollette IA</span></h1>
-            <p style="color: #888;">Carica la tua bolletta: l'algoritmo ADR rileva istantaneamente i costi nascosti.</p>
+            <p style="color: #888;">Analisi algoritmica dei costi energetici per privati e business.</p>
         </header>
 
-        <div class="glass-card">
+        <div class="glass-card reveal active">
             <h3 class="tech-font" style="text-align: center; font-size: 1rem;">Analisi Certificata 2026</h3>
             
-            <input type="file" id="bill-upload-energy" accept=".pdf, image/*" style="display: none;" onchange="handleEnergyScan()">
+            <input type="file" id="real-file-input" accept=".pdf, image/*" style="display: none;" onchange="handleRealFile(this)">
 
-            <div class="upload-zone" id="drop-zone" onclick="document.getElementById('bill-upload-energy').click()">
+            <div class="upload-zone" id="drop-zone" onclick="document.getElementById('real-file-input').click()">
                 <div class="scan-line" id="scanner"></div>
                 <div id="upload-content">
                     <span style="font-size: 4rem; display: block; margin-bottom: 10px;">📂</span>
                     <p id="upload-text" class="tech-font" style="font-size: 0.9rem;">Trascina qui il PDF della bolletta o Clicca</p>
-                    <p style="color: #555; font-size: 0.75rem; margin-top: 10px;">Supportiamo tutti i fornitori nazionali (Enel, Eni, A2A, ecc.)</p>
+                    <p id="file-selected-name" style="color: var(--neon-green); font-size: 0.8rem; margin-top: 10px; display:none;"></p>
+                    <p style="color: #555; font-size: 0.75rem; margin-top: 10px;">Analisi compatibile con tutti i fornitori nazionali.</p>
                 </div>
             </div>
 
             <div id="result-area" style="display: none; text-align: center; padding: 20px;">
-                <h4 class="tech-font" style="color: var(--neon-green);">RISULTATO ANALISI: TARIFFA FUORI MERCATO</h4>
+                <h4 class="tech-font" style="color: var(--neon-green);">RISULTATO: TARIFFA FUORI MERCATO</h4>
                 <div class="savings-meter">
                     <div class="meter-bar meter-red"></div>
                     <div class="meter-bar meter-yellow"></div>
                     <div class="meter-bar"></div>
                 </div>
-                <p style="margin-top: 15px; font-size: 0.9rem;">Stai pagando circa <b style="color: var(--neon-blue);">240€ in più</b> all'anno rispetto alla nostra miglior tariffa.</p>
-                <button class="btn" style="width: auto; padding: 10px 30px; margin-top: 15px;" onclick="contactAgent('Daniel')">FISSA APPUNTAMENTO</button>
+                <p style="margin-top: 15px; font-size: 0.9rem;">Rilevato sovrapprezzo di circa <b style="color: var(--neon-blue);">240€/anno</b>.</p>
+                <button class="btn" style="width: auto; padding: 10px 30px; margin-top: 20px;" onclick="contactAgent('Daniel')">OTTIMIZZA ORA CON DANIEL</button>
             </div>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 40px;">
             <div class="glass-card">
                 <h4 class="tech-font" style="color: #f1c40f;">LUCE INDEX</h4>
-                <p style="font-size: 0.8rem; color: #888;">Prezzo all'ingrosso PUN + 0€ spread per i primi 12 mesi.</p>
-                <button class="btn" style="width: 100%; margin-top: 15px;" onclick="contactAgent('Daniel')">ANALISI CON DANIEL</button>
+                <p style="font-size: 0.8rem; color: #888;">Prezzo PUN puro senza spread per 12 mesi.</p>
+                <button class="btn" style="width: 100%; margin-top: 15px;" onclick="contactAgent('Daniel')">CONSULENZA LUCE</button>
             </div>
             <div class="glass-card">
                 <h4 class="tech-font" style="color: #3498db;">GAS SICURO</h4>
-                <p style="font-size: 0.8rem; color: #888;">Blocca il prezzo del Gas prima dell'inverno. Gestione totale ADR.</p>
-                <button class="btn" style="width: 100%; margin-top: 15px;" onclick="contactAgent('Daniele')">ANALISI CON DANIELE</button>
+                <p style="font-size: 0.8rem; color: #888;">Tariffa a prezzo bloccato contro i rincari invernali.</p>
+                <button class="btn" style="width: 100%; margin-top: 15px;" onclick="contactAgent('Daniele')">CONSULENZA GAS</button>
             </div>
         </div>
-
-        <div class="glass-card" style="margin-top: 30px; border: 1px solid rgba(255, 68, 68, 0.3); background: rgba(255, 68, 68, 0.02);">
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <span style="font-size: 1.5rem;">⚠️</span>
-                <div>
-                    <strong style="color: #ff4444;">MARKET ALERT:</strong>
-                    <span style="font-size: 0.85rem; color: #ccc;"> Previsto aumento delle componenti fisse del 4% dal prossimo mese. Blocca ora la tua tariffa.</span>
-                </div>
-            </div>
-        </div>
-
     </div>
 
-    <footer style="margin-top: 80px; padding: 40px; text-align: center; opacity: 0.3;">
-        © 2026 Agenzia del Risparmio - Tecnologia di Comparazione Indipendente
+    <footer style="margin-top: 80px; padding: 40px; text-align: center; opacity: 0.3; font-size: 0.7rem;">
+        © 2026 ADR SEREGNO - TECNOLOGIA DI COMPARAZIONE INDIPENDENTE
     </footer>
 
     <script src="chat.js"></script>
     <script>
-        function handleEnergyScan() {
-            const fileInput = document.getElementById('bill-upload-energy');
-            const scanner = document.getElementById('scanner');
-            const content = document.getElementById('upload-content');
-            const result = document.getElementById('result-area');
-            const text = document.getElementById('upload-text');
+        // LOGICA CARICAMENTO E SCANSIONE
+        function handleRealFile(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const scanner = document.getElementById('scanner');
+                const text = document.getElementById('upload-text');
+                const fileNameDisplay = document.getElementById('file-selected-name');
+                const content = document.getElementById('upload-content');
+                const result = document.getElementById('result-area');
 
-            if (fileInput.files.length > 0) {
-                // 1. Avvia animazione visiva
+                // 1. Mostra il nome del file caricato
+                text.style.display = 'none';
+                fileNameDisplay.innerText = "FILE RICEVUTO: " + file.name;
+                fileNameDisplay.style.display = 'block';
+
+                // 2. Avvia animazione laser
                 scanner.style.display = 'block';
                 scanner.style.animation = 'scanning 2s infinite linear';
-                text.innerHTML = "IDENTIFICAZIONE FORNITORE... ANALISI COSTI FISSI...";
-
-                // 2. Simulazione tempo di calcolo
+                
+                // 3. Simula analisi (4 secondi)
                 setTimeout(() => {
                     scanner.style.display = 'none';
                     content.style.display = 'none';
                     result.style.display = 'block';
-
-                    // 3. Notifica di completamento
+                    
+                    // Alert finale di conferma
                     setTimeout(() => {
-                        alert("Scansione completata! Abbiamo trovato un potenziale risparmio di 240€. Daniel è pronto ad aiutarti.");
+                        alert("Analisi completata con successo! Contatta Daniel per i dettagli del risparmio.");
                     }, 500);
                 }, 4000);
             }
