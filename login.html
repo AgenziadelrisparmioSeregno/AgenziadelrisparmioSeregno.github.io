@@ -8,14 +8,15 @@
     <style>
         :root { --neon-blue: #00f3ff; --dark-bg: #050505; }
         body { background: var(--dark-bg); color: white; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .login-box { background: rgba(255,255,255,0.03); border: 1px solid #222; padding: 40px; border-radius: 15px; width: 100%; max-width: 400px; box-shadow: 0 0 30px rgba(0, 243, 255, 0.05); }
+        .login-box { background: rgba(255, 255, 255, 0.03); border: 1px solid #222; padding: 40px; border-radius: 15px; width: 100%; max-width: 400px; box-shadow: 0 0 30px rgba(0, 243, 255, 0.05); }
         .tech-font { font-family: 'Orbitron'; text-transform: uppercase; letter-spacing: 2px; text-align: center; }
-        input { width: 100%; background: #111; border: 1px solid #333; padding: 12px; margin: 10px 0; color: white; border-radius: 5px; outline: none; box-sizing: border-box; }
+        input { width: 100%; background: #111; border: 1px solid #333; padding: 12px; margin: 10px 0; color: white; border-radius: 5px; outline: none; box-sizing: border-box; font-family: 'Inter'; }
         input:focus { border-color: var(--neon-blue); }
         .btn-login { width: 100%; background: var(--neon-blue); color: black; border: none; padding: 12px; border-radius: 5px; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; margin-top: 20px; transition: 0.3s; }
         .btn-login:hover { box-shadow: 0 0 15px var(--neon-blue); transform: scale(1.02); }
         .toggle-link { color: #666; font-size: 0.8rem; text-align: center; margin-top: 20px; cursor: pointer; }
         .toggle-link span { color: var(--neon-blue); }
+        #message { font-size: 0.7rem; text-align: center; margin-top: 10px; min-height: 1em; }
     </style>
 </head>
 <body>
@@ -25,38 +26,94 @@
     <p id="auth-desc" style="font-size: 0.7rem; color: #555; text-align: center; margin-bottom: 25px;">SISTEMA DI AUTENTICAZIONE ADR-SHIELD</p>
 
     <input type="email" id="email" placeholder="Indirizzo Email">
-    <input type="password" id="password" placeholder="Password di Sicurezza">
+    <input type="password" id="password" placeholder="Password">
     
-    <button class="btn-login" onclick="handleAuth()" id="auth-btn">ACCEDI AL TERMINALE</button>
+    <button class="btn-login" id="auth-btn">ACCEDI AL TERMINALE</button>
+    <div id="message"></div>
 
-    <div class="toggle-link" onclick="toggleAuth()">
+    <div class="toggle-link" id="toggle-auth">
         Non hai un account? <span id="toggle-text">Registrati ora</span>
     </div>
 </div>
 
-<script>
-    let isLogin = true;
+<script type="module">
+    // Importa le funzioni necessarie dall'SDK Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } 
+    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    function toggleAuth() {
-        isLogin = !isLogin;
-        document.getElementById('auth-title').innerHTML = isLogin ? 'LOGIN <span style="color:var(--neon-blue)">CLIENTE</span>' : 'REGISTRA <span style="color:var(--neon-blue)">ACCOUNT</span>';
-        document.getElementById('auth-btn').innerText = isLogin ? 'ACCEDI AL TERMINALE' : 'CREA ACCOUNT SICURO';
-        document.getElementById('toggle-text').innerText = isLogin ? 'Registrati ora' : 'Accedi qui';
-    }
+    // La tua configurazione Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyAhhfS7NKTC9ujs7GDUm04b6fVEKHvlPAU",
+        authDomain: "adr-seregno.firebaseapp.com",
+        projectId: "adr-seregno",
+        storageBucket: "adr-seregno.firebasestorage.app",
+        messagingSenderId: "893004573642",
+        appId: "1:893004573642:web:f04e6f4ce48903547f7d33",
+        measurementId: "G-GM3L73YD68"
+    };
 
-    function handleAuth() {
+    // Inizializza Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    let isLoginMode = true;
+
+    // Elementi DOM
+    const authTitle = document.getElementById('auth-title');
+    const authBtn = document.getElementById('auth-btn');
+    const toggleLink = document.getElementById('toggle-auth');
+    const toggleText = document.getElementById('toggle-text');
+    const messageDiv = document.getElementById('message');
+
+    // Switch tra Login e Registrazione
+    toggleLink.addEventListener('click', () => {
+        isLoginMode = !isLoginMode;
+        authTitle.innerHTML = isLoginMode ? 'LOGIN <span style="color:var(--neon-blue)">CLIENTE</span>' : 'REGISTRA <span style="color:var(--neon-blue)">ACCOUNT</span>';
+        authBtn.innerText = isLoginMode ? 'ACCEDI AL TERMINALE' : 'CREA ACCOUNT SICURO';
+        toggleText.innerText = isLoginMode ? 'Registrati ora' : 'Accedi qui';
+        messageDiv.innerText = "";
+    });
+
+    // Gestione clic bottone principale
+    authBtn.addEventListener('click', async () => {
         const email = document.getElementById('email').value;
-        const pass = document.getElementById('password').value;
+        const password = document.getElementById('password').value;
+        messageDiv.style.color = "var(--neon-blue)";
+        messageDiv.innerText = "Processing...";
 
-        if(!email || !pass) { alert("Inserire credenziali valide."); return; }
+        if(!email || !password) {
+            messageDiv.style.color = "#ff4444";
+            messageDiv.innerText = "Inserire Email e Password.";
+            return;
+        }
 
-        // QUI COLLEGEREMO FIREBASE. 
-        // Per ora simuliamo l'accesso sicuro.
-        console.log("Tentativo di " + (isLogin ? "Login" : "Registrazione") + " per: " + email);
-        alert("Inizializzazione crittografia... Verrai reindirizzato.");
-        localStorage.setItem("userLogged", "true"); // Dummy session
-        window.location.href = "dashboard.html";
-    }
+        try {
+            if (isLoginMode) {
+                // TENTATIVO DI LOGIN
+                await signInWithEmailAndPassword(auth, email, password);
+                localStorage.setItem("userLogged", "true"); // Per il Bodyguard
+                window.location.href = "dashboard.html";
+            } else {
+                // TENTATIVO DI REGISTRAZIONE
+                await createUserWithEmailAndPassword(auth, email, password);
+                messageDiv.style.color = "#00ff9d";
+                messageDiv.innerText = "Account creato! Eseguo login...";
+                setTimeout(() => { window.location.href = "dashboard.html"; }, 1500);
+            }
+        } catch (error) {
+            messageDiv.style.color = "#ff4444";
+            messageDiv.innerText = "ERRORE: " + error.message;
+            console.error(error.code, error.message);
+        }
+    });
+
+    // Controllo se è già loggato
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            localStorage.setItem("userLogged", "true");
+        }
+    });
 </script>
 
 </body>
