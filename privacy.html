@@ -1,19 +1,108 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy & Trasparenza | ADR Seregno</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --neon-blue: #00f3ff; --neon-green: #00ff9d; --dark-bg: #050505; }
+        body { background: var(--dark-bg); color: white; font-family: 'Inter', sans-serif; margin: 0; line-height: 1.6; }
+        .tech-font { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
+        
+        .privacy-container { max-width: 850px; margin: 60px auto; padding: 20px; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: var(--neon-blue);
+        }
+
+        .icon-box {
+            font-size: 1.5rem;
+            background: rgba(0, 243, 255, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid var(--neon-blue);
+        }
+
+        .highlight-box {
+            background: rgba(0, 255, 157, 0.05);
+            border-left: 4px solid var(--neon-green);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-family: 'Orbitron';
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+        .back-link:hover { text-shadow: 0 0 10px var(--neon-blue); transform: translateX(-5px); }
+    </style>
+</head>
 <body>
-<div class="container">
-<h1>Privacy & Trasparenza</h1>
 
-<div class="card">
-<p>
-Questo sito confronta offerte di diversi operatori.
-Alcune offerte possono essere oggetto di partnership commerciale.
-I criteri di comparazione tengono conto anche della qualità del servizio.
-</p>
+    <div class="privacy-container">
+        <div class="glass-card">
+            <header style="text-align: center; margin-bottom: 50px;">
+                <h1 class="tech-font" style="font-size: 2rem; margin-bottom: 10px;">Protocollo <span style="color: var(--neon-blue);">Trasparenza</span></h1>
+                <p style="color: #888; font-size: 0.9rem;">Documento di conformità ADR - Aggiornamento 2026</p>
+            </header>
 
-<p>
-I dati non vengono venduti né ceduti a terzi.
-</p>
-</div>
+            <div class="section-header">
+                <div class="icon-box">📊</div>
+                <h3 class="tech-font" style="font-size: 1rem; margin: 0;">Criteri di Comparazione</h3>
+            </div>
+            <p>Il nostro algoritmo confronta le offerte dei principali operatori nazionali basandosi su dati in tempo reale. Alcune tariffe mostrate possono derivare da <strong>partnership commerciali</strong>, tuttavia l'ordinamento tiene conto prioritariamente del risparmio economico effettivo e della qualità certificata del servizio clienti dell'operatore.</p>
 
-<a href="index.html">⬅ Torna alla Home</a>
-</div>
+            <div class="section-header">
+                <div class="icon-box">🛡️</div>
+                <h3 class="tech-font" style="font-size: 1rem; margin: 0;">Protezione dei Dati</h3>
+            </div>
+            <p>In conformità con il GDPR, ADR Seregno adotta protocolli di crittografia avanzati. I documenti caricati (bollette, documenti d'identità) vengono elaborati esclusivamente per le finalità di switch energetico e consulenza.</p>
+            
+            <div class="highlight-box">
+                <p style="margin: 0; font-size: 0.95rem;">
+                    <strong style="color: var(--neon-green);">GARANZIA ADR:</strong> I tuoi dati non vengono venduti, scambiati o ceduti a società di telemarketing terze. La gestione rimane interna ai nostri database protetti.
+                </p>
+            </div>
+
+            <div class="section-header">
+                <div class="icon-box">⚖️</div>
+                <h3 class="tech-font" style="font-size: 1rem; margin: 0;">Indipendenza</h3>
+            </div>
+            <p>La nostra consulenza è volta all'ottimizzazione dei costi del cliente. Ogni proposta viene validata dal nostro team senior (Daniel, Daniele, Luca, Andrea) per garantire che il passaggio al nuovo fornitore sia sempre vantaggioso.</p>
+
+            <hr style="border: 0; border-top: 1px solid #222; margin-top: 40px;">
+
+            <div style="text-align: center;">
+                <a href="index.html" class="back-link">⬅ TORNA ALLA BASE OPERATIVA</a>
+            </div>
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding-bottom: 40px; opacity: 0.3; font-size: 0.7rem;">
+        ADR SEREGNO - RESPONSABILE TRATTAMENTO DATI: ANDREA
+    </footer>
+
 </body>
+</html>
