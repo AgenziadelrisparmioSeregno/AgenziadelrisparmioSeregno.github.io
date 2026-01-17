@@ -6,6 +6,39 @@
     <title>ADR | Agenzia del Risparmio Seregno</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Griglia Agenti per lo Scanner */
+        .scan-agent-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 15px;
+        }
+        .btn-scan-whatsapp {
+            background: transparent;
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            font-family: 'Orbitron';
+            font-size: 0.65rem;
+            padding: 10px 2px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-scan-whatsapp:hover {
+            background: var(--neon-blue);
+            color: black;
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+        .btn-scan-andrea {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+        .btn-scan-andrea:hover {
+            background: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+    </style>
 </head>
 <body>
     <div id="progress-container"><div id="progress-bar"></div></div>
@@ -21,7 +54,8 @@
 
     <nav>
         <a href="index.html" class="active">HOME</a>
-         <a href="telefonia.html">TELEFONIA & SKY</a>
+        <a href="energia.html">LUCE & GAS</a>
+        <a href="telefonia.html">TELEFONIA & SKY</a>
         <a href="fotovoltaico.html">FOTOVOLTAICO</a>
         <a href="caf.html">CAF (ANDREA)</a>
     </nav>
@@ -29,31 +63,40 @@
     <div class="container">
         <header style="text-align: center; margin-bottom: 40px; padding-top: 20px;">
             <h1 class="tech-font" style="font-size: 2.5rem;">AGENZIA DEL <span style="color:var(--neon-blue)">RISPARMIO</span></h1>
-            <p style="color: #a0aab8;">Consulenza Strategica per Privati e Aziende.</p>
+            <p style="color: #a0aab8;">Consulenza Strategica Professionale a Seregno.</p>
         </header>
 
         <div class="glass-card" style="margin-bottom: 40px;">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: center;">
                 <div>
                     <h3 class="tech-font">Scanner Bolletta IA</h3>
-                    <p style="font-size: 0.85rem; color: #888;">Analisi immediata dei costi fissi e variabili.</p>
+                    <p style="font-size: 0.85rem; color: #888;">Analisi immediata per utenze domestiche e business.</p>
                     
-                    <div id="scan-ui">
-                        <input type="file" id="bill-upload" accept=".pdf, image/*" style="display: none;" onchange="startAnalysis()">
-                        <button class="btn" onclick="document.getElementById('bill-upload').click()">CARICA BOLLETTA</button>
+                    <div id="scan-ui-home">
+                        <input type="file" id="bill-upload-home" accept=".pdf, image/*" style="display: none;" onchange="startHomeAnalysis()">
+                        <button class="btn" onclick="document.getElementById('bill-upload-home').click()" style="width: 100%; margin-top: 15px;">
+                            SELEZIONA BOLLETTA
+                        </button>
                     </div>
 
-                    <div id="scan-result" style="display: none; text-align: center;">
+                    <div id="scan-result-home" style="display: none; text-align: center;">
                         <div class="grade-circle">4</div>
                         <p style="color: #ff4444; font-size: 0.8rem; font-family:'Orbitron';">VOTO: INSUFFICIENTE</p>
-                        <button class="btn" onclick="contactAgent('Daniel')" style="font-size: 0.7rem; margin-top: 10px;">OTTIMIZZA ORA</button>
+                        
+                        <p style="font-size: 0.65rem; color: #fff; margin-top: 15px; font-family: 'Orbitron';">SCEGLI CON CHI PARLARE:</p>
+                        <div class="scan-agent-selector">
+                            <button class="btn-scan-whatsapp" onclick="inviaWhatsAppHome('Daniel')">DANIEL</button>
+                            <button class="btn-scan-whatsapp" onclick="inviaWhatsAppHome('Daniele')">DANIELE</button>
+                            <button class="btn-scan-whatsapp" onclick="inviaWhatsAppHome('Luca')">LUCA</button>
+                            <button class="btn-scan-whatsapp btn-scan-andrea" onclick="inviaWhatsAppHome('Andrea')">ANDREA</button>
+                        </div>
                     </div>
                 </div>
 
-                <div id="drop-zone" onclick="document.getElementById('bill-upload').click()">
-                    <span id="file-name" style="font-size: 0.75rem; color: #888;">
+                <div id="drop-zone-home" onclick="document.getElementById('bill-upload-home').click()" style="border: 2px dashed #333; padding: 40px; border-radius: 15px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.01);">
+                    <span id="file-name-home" style="font-size: 0.7rem; color: #888;">
                         <span style="font-size: 2.5rem; display: block; margin-bottom: 10px;">📄</span>
-                        <b>CLICCA QUI</b> PER SELEZIONARE <br> IL PDF O LA FOTO
+                        <b style="color:var(--neon-blue)">CLICCA QUI</b> PER CARICARE <br> IL TUO PDF O FOTO
                     </span>
                 </div>
             </div>
@@ -75,30 +118,60 @@
             <div class="glass-card" onclick="contactAgent('Daniel')">
                 <small style="color:var(--neon-blue)"><span class="status-dot"></span> ONLINE</small>
                 <h3>DANIEL</h3>
-                <p style="font-size:0.75rem; color:#888;">Luce, Gas, Telco, Sky, Foto.</p>
                 <button class="btn">CHAT WHATSAPP</button>
             </div>
             <div class="glass-card" onclick="contactAgent('Daniele')">
                 <small style="color:var(--neon-blue)"><span class="status-dot"></span> ONLINE</small>
                 <h3>DANIELE</h3>
-                <p style="font-size:0.75rem; color:#888;">Luce, Gas, Telco, Sky, Foto.</p>
                 <button class="btn">CHAT WHATSAPP</button>
             </div>
             <div class="glass-card" onclick="contactAgent('Luca')">
                 <small style="color:var(--neon-blue)"><span class="status-dot"></span> ONLINE</small>
                 <h3>LUCA</h3>
-                <p style="font-size:0.75rem; color:#888;">Luce, Gas, Telco, Sky, Foto.</p>
                 <button class="btn">CHAT WHATSAPP</button>
             </div>
             <div class="glass-card" style="border-color: var(--neon-green);" onclick="contactAgent('Andrea')">
-                <small style="color:var(--neon-green)"><span class="status-dot"></span> ONLINE</small>
+                <small style="color:var(--neon-green)"><span class="status-dot"></span> RESPONSABILE</small>
                 <h3>ANDREA</h3>
-                <p style="font-size:0.75rem; color:#888;">Luce, Gas + <b>Resp. CAF</b>.</p>
-                <button class="btn" style="background:var(--neon-green); color:black;">CONTATTA CAF</button>
+                <button class="btn" style="background:var(--neon-green); color:black;">CONTATTA ANDREA</button>
             </div>
         </div>
     </div>
 
     <script src="chat.js"></script>
+    <script>
+        let nomeFileHome = "";
+
+        function startHomeAnalysis() {
+            const fileInput = document.getElementById('bill-upload-home');
+            const fileNameDisplay = document.getElementById('file-name-home');
+            const ui = document.getElementById('scan-ui-home');
+            const result = document.getElementById('scan-result-home');
+            const dropZone = document.getElementById('drop-zone-home');
+
+            if (fileInput.files.length > 0) {
+                nomeFileHome = fileInput.files[0].name;
+                fileNameDisplay.innerHTML = `<span style="color:var(--neon-green)">RICEVUTO:</span><br>${nomeFileHome}`;
+                dropZone.style.borderColor = "var(--neon-green)";
+                ui.innerHTML = `<p class="tech-font" style="color:var(--neon-blue); font-size:0.7rem; margin-top:20px;">SCANSIONE IA IN CORSO...⚡</p>`;
+                
+                setTimeout(() => {
+                    ui.style.display = "none";
+                    result.style.display = "block";
+                }, 3000);
+            }
+        }
+
+        function inviaWhatsAppHome(agente) {
+            const numeri = {
+                'Daniel': '393423218269',
+                'Daniele': '393491795387',
+                'Luca': '393277545377',
+                'Andrea': '393515910955'
+            };
+            const msg = `Ciao ${agente}, ho caricato la bolletta in Home (File: ${nomeFileHome}). Il sistema ADR ha dato voto 4. Vorrei fissare un appuntamento con te. Ti allego il file.`;
+            window.location.href = `https://wa.me/${numeri[agente]}?text=${encodeURIComponent(msg)}`;
+        }
+    </script>
 </body>
 </html>
