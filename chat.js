@@ -7,16 +7,21 @@ const agents = {
 
 function contactAgent(name) {
     const phone = agents[name];
-    alert(`Il sistema sta verificando la disponibilità di ${name}...`);
-    window.open(`https://wa.me/39${phone}?text=Ciao%20${name},%20vengo%20dal%20sito%20e%20vorrei%20informazioni.`, '_blank');
+    // Messaggio personalizzato in base al consulente
+    let msg = `Ciao ${name}, ti contatto dal sito. Vorrei una consulenza per Luce, Gas o Telefonia.`;
+    if(name === 'Andrea') msg = `Ciao Andrea, vorrei assistenza per Luce/Gas o per il reparto CAF.`;
+    
+    window.open(`https://wa.me/39${phone}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
-// Notifiche Live Punto 4
+// Notifiche Live incluse Telefonia e Sky
 const actions = [
-    "Daniel ha appena salvato 450€ ad un cliente.",
-    "Andrea ha avviato un nuovo cantiere Fotovoltaico.",
-    "Luca ha terminato con successo una pratica CAF.",
-    "Daniele sta analizzando una bolletta Business."
+    "Daniel ha appena attivato un contratto Sky + Wifi in offerta.",
+    "Andrea ha terminato una pratica ISEE e inviato un contratto Luce.",
+    "Luca ha abbattuto la bolletta di un cliente del 35%.",
+    "Daniele ha configurato un impianto Fotovoltaico con detrazione fiscale.",
+    "Daniel ha trovato una tariffa Mobile imbattibile per un cliente.",
+    "Andrea sta assistendo un cliente per il Bonus Sociale CAF."
 ];
 
 function showNotification() {
@@ -30,3 +35,4 @@ function showNotification() {
 }
 
 setInterval(showNotification, 15000);
+setTimeout(showNotification, 3000); // Prima notifica dopo 3 secondi
