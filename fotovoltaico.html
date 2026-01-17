@@ -160,5 +160,85 @@
             window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(testo)}`, '_blank');
         }
     </script>
+    <div id="bot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; font-family: 'Inter', sans-serif;">
+    <div id="bot-launcher" onclick="toggleBot()" style="width: 60px; height: 60px; background: var(--neon-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px var(--neon-blue); transition: 0.3s;">
+        <span id="bot-icon" style="font-size: 1.5rem;">🤖</span>
+    </div>
+
+    <div id="bot-window" style="display: none; width: 320px; height: 450px; background: #0a0a0a; border: 1px solid var(--neon-blue); border-radius: 15px; flex-direction: column; overflow: hidden; box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);">
+        <div style="background: var(--neon-blue); color: black; padding: 15px; font-family: 'Orbitron'; font-size: 0.8rem; font-weight: bold; display: flex; justify-content: space-between;">
+            <span>SISTEMA ADR-1</span>
+            <span onclick="toggleBot()" style="cursor: pointer;">X</span>
+        </div>
+        <div id="bot-messages" style="flex: 1; padding: 15px; overflow-y: auto; font-size: 0.85rem; display: flex; flex-direction: column; gap: 10px; color: #ccc;">
+            <div style="background: #1a1a1a; padding: 10px; border-radius: 10px; border-left: 3px solid var(--neon-blue);">
+                Ciao! Sono ADR-1. I miei colleghi umani sono in appuntamento. Posso aiutarti io?
+            </div>
+        </div>
+        <div id="bot-input-area" style="padding: 10px; border-top: 1px solid #222; display: flex; gap: 5px;">
+            <input type="text" id="user-input" placeholder="Scrivi qui..." style="flex: 1; background: #111; border: 1px solid #333; color: white; padding: 8px; border-radius: 5px; outline: none;">
+            <button onclick="botReply()" style="background: var(--neon-blue); border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">></button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let botStep = "base"; // base, ask_appointment, appointment_done
+
+    function toggleBot() {
+        const window = document.getElementById('bot-window');
+        window.style.display = window.style.display === 'none' ? 'flex' : 'none';
+    }
+
+    function addMessage(text, isUser = false) {
+        const msgDiv = document.createElement('div');
+        msgDiv.style.padding = "10px";
+        msgDiv.style.borderRadius = "10px";
+        msgDiv.style.maxWidth = "80%";
+        msgDiv.style.alignSelf = isUser ? "flex-end" : "flex-start";
+        msgDiv.style.background = isUser ? "var(--neon-blue)" : "#1a1a1a";
+        msgDiv.style.color = isUser ? "black" : "#ccc";
+        if(!isUser) msgDiv.style.borderLeft = "3px solid var(--neon-blue)";
+        msgDiv.innerText = text;
+        document.getElementById('bot-messages').appendChild(msgDiv);
+        document.getElementById('bot-messages').scrollTop = document.getElementById('bot-messages').scrollHeight;
+    }
+
+    function botReply() {
+        const input = document.getElementById('user-input');
+        const text = input.value.trim();
+        if (!text) return;
+
+        addMessage(text, true);
+        input.value = "";
+
+        setTimeout(() => {
+            if (botStep === "base") {
+                if (text.toLowerCase().includes("bolletta") || text.toLowerCase().includes("costo")) {
+                    addMessage("Puoi usare il nostro Scanner IA in Home Page per analizzare i costi. Ti è stato utile?");
+                } else if (text.toLowerCase().includes("dove") || text.toLowerCase().includes("indirizzo")) {
+                    addMessage("Siamo a Seregno in Via Cadore 253. Ti serve altro?");
+                } else {
+                    addMessage("Capisco. I miei colleghi sono occupati a far risparmiare altri clienti proprio ora. Vuoi che fissi un appuntamento per te?");
+                    botStep = "ask_appointment";
+                }
+            } else if (botStep === "ask_appointment") {
+                if (text.toLowerCase().includes("si") || text.toLowerCase().includes("ok") || text.toLowerCase().includes("voglio")) {
+                    addMessage("Ottimo! Scrivi il tuo Nome e l'Orario preferito, ti collegherò subito a un consulente.");
+                    botStep = "finalizing";
+                } else {
+                    addMessage("Nessun problema. Se cambi idea sono qui!");
+                    botStep = "base";
+                }
+            } else if (botStep === "finalizing") {
+                addMessage("Perfetto! Ti sto trasferendo su WhatsApp per confermare l'appuntamento con Andrea.");
+                setTimeout(() => {
+                    const waText = `Ciao Andrea, vorrei confermare l'appuntamento richiesto tramite il bot ADR-1: ${text}`;
+                    window.open(`https://wa.me/393515910955?text=${encodeURIComponent(waText)}`, '_blank');
+                }, 2000);
+            }
+        }, 1000);
+    }
+</script>
 </body>
 </html>
