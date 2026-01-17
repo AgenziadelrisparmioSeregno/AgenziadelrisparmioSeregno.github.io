@@ -8,38 +8,58 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body { background: #050505; color: #00f3ff; font-family: 'Courier New', monospace; padding: 20px; }
-        .admin-card { background: #111; border: 1px solid #00f3ff; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
-        input, select { background: #000; border: 1px solid #00f3ff; color: #00f3ff; padding: 10px; margin: 5px 0; width: 100%; }
-        .btn-admin { background: #00f3ff; color: #000; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; width: 100%; }
-        th { text-align: left; color: #666; font-size: 0.7rem; text-transform: uppercase; }
+        .admin-card { background: #111; border: 1px solid #00f3ff; padding: 25px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 0 15px rgba(0,243,255,0.1); }
+        input, select { background: #000; border: 1px solid #333; color: #00f3ff; padding: 12px; margin: 10px 0; width: 100%; font-family: 'Courier New'; }
+        input:focus { border-color: #00f3ff; outline: none; }
+        .btn-admin { background: #00f3ff; color: #000; border: none; padding: 15px; cursor: pointer; font-weight: bold; width: 100%; font-family: 'Orbitron'; transition: 0.3s; }
+        .btn-admin:hover { background: white; transform: scale(1.01); }
+        th { text-align: left; color: #666; font-size: 0.7rem; padding: 10px; border-bottom: 1px solid #222; text-transform: uppercase; }
+        td { padding: 10px; font-size: 0.8rem; border-bottom: 1px solid #111; }
+        .logout-btn { background: none; border: 1px solid #ff4444; color: #ff4444; padding: 5px 12px; font-size: 0.6rem; cursor: pointer; border-radius: 4px; }
+        .logout-btn:hover { background: #ff4444; color: white; }
     </style>
 </head>
 <body>
 
-    <h1 class="tech-font">SISTEMA <span style="color: white;">GESTIONALE ADR</span></h1>
-    <p style="color: #444; margin-bottom: 30px;">ACCESSO OPERATORE LIVELLO 1</p>
+    <header style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; padding-bottom: 20px; margin-bottom: 30px;">
+        <div>
+            <h1 class="tech-font" style="margin: 0; font-size: 1.5rem;">SISTEMA <span style="color: white;">GESTIONALE ADR</span></h1>
+            <p style="color: #444; margin: 5px 0 0 0; font-size: 0.7rem;">OPERATORE ATTIVO: <span id="active-admin" style="color: #00ff9d;">VERIFICA IN CORSO...</span></p>
+        </div>
+        <button class="logout-btn" onclick="handleLogout()">LOGOUT</button>
+    </header>
 
-    <div class="dash-container" style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px;">
+    <div class="dash-container" style="display: grid; grid-template-columns: 1fr 2fr; gap: 30px;">
         
         <div class="admin-card">
-            <h3 class="tech-font" style="font-size: 0.8rem;">Inserimento Dati</h3>
-            <input type="text" id="clientUid" placeholder="Copia qui l'ID Cliente">
-            <input type="text" id="praticaNome" placeholder="Nome Servizio (es. Luce)">
-            <input type="text" id="consulente" placeholder="Consulente (es. Daniel)">
+            <h3 class="tech-font" style="font-size: 0.9rem; margin-bottom: 20px; color: white;">NUOVA PRATICA</h3>
+            
+            <label style="font-size: 0.6rem; color: #666;">UID CLIENTE (Copia dalla dashboard o auth)</label>
+            <input type="text" id="clientUid" placeholder="Es: a8z7Xp29...">
+            
+            <label style="font-size: 0.6rem; color: #666;">NOME SERVIZIO</label>
+            <input type="text" id="praticaNome" placeholder="Es: Luce Business / Fibra Fastweb">
+            
+            <label style="font-size: 0.6rem; color: #666;">CONSULENTE ASSEGNATO</label>
+            <input type="text" id="consulente" placeholder="Es: Daniel / Andrea">
+            
+            <label style="font-size: 0.6rem; color: #666;">STATO PRATICA</label>
             <select id="stato">
-                <option value="status-active">ATTIVO</option>
-                <option value="status-pending">IN ELABORAZIONE</option>
+                <option value="status-pending">IN ELABORAZIONE (Giallo)</option>
+                <option value="status-active">ATTIVO (Verde)</option>
             </select>
-            <button class="btn-admin" onclick="savePratica()">PUBBLICA DATI</button>
+            
+            <button class="btn-admin" onclick="savePratica()">PUBBLICA SUL PORTALE</button>
         </div>
 
         <div class="admin-card">
-            <h3 class="tech-font" style="font-size: 0.8rem;">Log Attività Recenti</h3>
-            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <h3 class="tech-font" style="font-size: 0.9rem; margin-bottom: 20px; color: white;">LOG ATTIVITÀ RECENTI</h3>
+            <table style="width: 100%; border-collapse: collapse;">
                 <thead>
                     <tr>
                         <th>ID CLIENTE</th>
                         <th>SERVIZIO</th>
+                        <th>CONSULENTE</th>
                         <th>STATO</th>
                     </tr>
                 </thead>
@@ -51,8 +71,8 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAhhfS7NKTC9ujs7GDUm04b6fVEKHvlPAU",
@@ -67,24 +87,30 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
 
-        // PROTEZIONE ADMIN: Solo la tua mail può restare qui
-        const adminEmail = "TUAMAIL@GMAIL.COM"; // <--- METTI LA TUA MAIL QUI
+        // --- SISTEMA MULTI-ADMIN ---
+        // Aggiungi qui le email che devono poter gestire il portale
+        const adminEmails = [
+            "latuamail@gmail.com", 
+            "daniel@esempio.it"
+        ];
 
         onAuthStateChanged(auth, (user) => {
-            if (!user || user.email !== adminEmail) {
-                alert("ACCESSO NEGATO: Non sei un operatore autorizzato.");
+            if (!user || !adminEmails.includes(user.email)) {
+                alert("ACCESSO NEGATO: Area riservata agli operatori ADR.");
                 window.location.href = "login.html";
+            } else {
+                document.getElementById('active-admin').innerText = user.email.toUpperCase();
+                loadLogs();
             }
-            loadLogs();
         });
 
         window.savePratica = async function() {
-            const uid = document.getElementById('clientUid').value;
-            const nome = document.getElementById('praticaNome').value;
-            const cons = document.getElementById('consulente').value;
+            const uid = document.getElementById('clientUid').value.trim();
+            const nome = document.getElementById('praticaNome').value.trim();
+            const cons = document.getElementById('consulente').value.trim();
             const stat = document.getElementById('stato').value;
 
-            if(!uid || !nome) return alert("Inserire ID e Nome Pratica");
+            if(!uid || !nome || !cons) return alert("ERRORE: Compila tutti i campi prima di pubblicare.");
 
             try {
                 await addDoc(collection(db, "pratiche"), {
@@ -92,27 +118,39 @@
                     nome: nome,
                     consulente: cons,
                     stato: stat,
-                    data: new Date().toLocaleDateString()
+                    data: new Date().toLocaleDateString('it-IT')
                 });
-                alert("PRATICA PUBBLICATA CON SUCCESSO");
+                alert("DATI CARICATI: Il cliente vedrà la pratica nella sua area privata.");
                 location.reload();
             } catch (e) {
-                console.error("Errore:", e);
+                console.error("Errore salvataggio:", e);
+                alert("Errore tecnico durante la pubblicazione.");
             }
         }
 
         async function loadLogs() {
-            const querySnapshot = await getDocs(collection(db, "pratiche"));
             const tbody = document.getElementById('log-body');
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                tbody.innerHTML += `<tr>
-                    <td style="font-size:0.6rem;">${data.userId}</td>
-                    <td>${data.nome}</td>
-                    <td>${data.stato}</td>
-                </tr>`;
-            });
+            try {
+                // Carica tutte le pratiche per il log
+                const querySnapshot = await getDocs(collection(db, "pratiche"));
+                tbody.innerHTML = ""; 
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    tbody.innerHTML += `<tr>
+                        <td style="font-size:0.6rem; color:#666;">${data.userId}</td>
+                        <td style="color:white;">${data.nome}</td>
+                        <td style="color:#00f3ff;">${data.consulente}</td>
+                        <td style="color:${data.stato === 'status-active' ? '#00ff9d' : '#f1c40f'};">
+                            ${data.stato === 'status-active' ? 'ATTIVO' : 'PENDING'}
+                        </td>
+                    </tr>`;
+                });
+            } catch (e) {
+                console.error("Errore caricamento log:", e);
+            }
         }
+
+        window.handleLogout = () => signOut(auth).then(() => window.location.href = "login.html");
     </script>
 </body>
 </html>
