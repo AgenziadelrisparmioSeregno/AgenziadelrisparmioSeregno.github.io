@@ -50,6 +50,14 @@
         .meter-red { background: #ff4444; box-shadow: 0 0 10px #ff4444; }
         .meter-yellow { background: #f1c40f; }
         .meter-green { background: #00ff9d; }
+
+        .btn-whatsapp {
+            background: #25d366;
+            color: black !important;
+            border: none;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -67,7 +75,7 @@
     <div class="container">
         <header style="text-align: center; margin: 40px 0;">
             <h1 class="tech-font" style="font-size: 2.2rem;">Scanner <span style="color:var(--neon-blue)">Bollette IA</span></h1>
-            <p style="color: #888;">Analisi algoritmica dei costi energetici per privati e business.</p>
+            <p style="color: #888;">Analisi automatizzata per rilevare sovrapprezzi e costi nascosti.</p>
         </header>
 
         <div class="glass-card reveal active">
@@ -79,75 +87,89 @@
                 <div class="scan-line" id="scanner"></div>
                 <div id="upload-content">
                     <span style="font-size: 4rem; display: block; margin-bottom: 10px;">📂</span>
-                    <p id="upload-text" class="tech-font" style="font-size: 0.9rem;">Trascina qui il PDF della bolletta o Clicca</p>
-                    <p id="file-selected-name" style="color: var(--neon-green); font-size: 0.8rem; margin-top: 10px; display:none;"></p>
-                    <p style="color: #555; font-size: 0.75rem; margin-top: 10px;">Analisi compatibile con tutti i fornitori nazionali.</p>
+                    <p id="upload-text" class="tech-font" style="font-size: 0.9rem;">Trascina qui la bolletta o Clicca</p>
+                    <p id="file-selected-name" style="color: var(--neon-green); font-size: 0.8rem; margin-top: 10px; display:none; font-family: 'Orbitron';"></p>
+                    <p style="color: #555; font-size: 0.75rem; margin-top: 10px;">PDF o Foto (Enel, Eni, Iren, ecc.)</p>
                 </div>
             </div>
 
             <div id="result-area" style="display: none; text-align: center; padding: 20px;">
-                <h4 class="tech-font" style="color: var(--neon-green);">RISULTATO: TARIFFA FUORI MERCATO</h4>
+                <h4 class="tech-font" style="color: var(--neon-green);">ANALISI COMPLETATA: TARIFFA ALTA</h4>
                 <div class="savings-meter">
                     <div class="meter-bar meter-red"></div>
                     <div class="meter-bar meter-yellow"></div>
                     <div class="meter-bar"></div>
                 </div>
-                <p style="margin-top: 15px; font-size: 0.9rem;">Rilevato sovrapprezzo di circa <b style="color: var(--neon-blue);">240€/anno</b>.</p>
-                <button class="btn" style="width: auto; padding: 10px 30px; margin-top: 20px;" onclick="contactAgent('Daniel')">OTTIMIZZA ORA CON DANIEL</button>
+                <p style="margin-top: 15px; font-size: 0.9rem;">Abbiamo rilevato un potenziale risparmio di circa <b style="color: var(--neon-blue);">240€ all'anno</b>.</p>
+                
+                <button class="btn btn-whatsapp" style="width: auto; padding: 15px 30px; margin-top: 20px;" onclick="inviaAnalisiWhatsApp('Daniel')">
+                    FISSA APPUNTAMENTO E INVIA BOLLETTA
+                </button>
+                <p style="font-size: 0.65rem; color: #666; margin-top: 10px;">Cliccando, aprirai WhatsApp. Ricordati di allegare il file!</p>
             </div>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 40px;">
             <div class="glass-card">
                 <h4 class="tech-font" style="color: #f1c40f;">LUCE INDEX</h4>
-                <p style="font-size: 0.8rem; color: #888;">Prezzo PUN puro senza spread per 12 mesi.</p>
-                <button class="btn" style="width: 100%; margin-top: 15px;" onclick="contactAgent('Daniel')">CONSULENZA LUCE</button>
+                <p style="font-size: 0.8rem; color: #888;">Energia a prezzo d'ingrosso PUN.</p>
+                <button class="btn" style="width: 100%; margin-top: 15px;" onclick="contactAgent('Daniel')">PARLA CON DANIEL</button>
             </div>
             <div class="glass-card">
                 <h4 class="tech-font" style="color: #3498db;">GAS SICURO</h4>
-                <p style="font-size: 0.8rem; color: #888;">Tariffa a prezzo bloccato contro i rincari invernali.</p>
-                <button class="btn" style="width: 100%; margin-top: 15px;" onclick="contactAgent('Daniele')">CONSULENZA GAS</button>
+                <p style="font-size: 0.8rem; color: #888;">Blocca il prezzo prima dei rincari.</p>
+                <button class="btn" style="width: 100%; margin-top: 15px;" onclick="contactAgent('Daniele')">PARLA CON DANIELE</button>
             </div>
         </div>
     </div>
 
     <footer style="margin-top: 80px; padding: 40px; text-align: center; opacity: 0.3; font-size: 0.7rem;">
-        © 2026 ADR SEREGNO - TECNOLOGIA DI COMPARAZIONE INDIPENDENTE
+        © 2026 ADR SEREGNO - CONSULENZA ENERGETICA INDIPENDENTE
     </footer>
 
     <script src="chat.js"></script>
     <script>
-        // LOGICA CARICAMENTO E SCANSIONE
+        let nomeFileMemoria = ""; // Salviamo il nome del file qui
+
         function handleRealFile(input) {
             if (input.files && input.files[0]) {
                 const file = input.files[0];
+                nomeFileMemoria = file.name; // Memorizza il nome del file
+                
                 const scanner = document.getElementById('scanner');
                 const text = document.getElementById('upload-text');
                 const fileNameDisplay = document.getElementById('file-selected-name');
                 const content = document.getElementById('upload-content');
                 const result = document.getElementById('result-area');
 
-                // 1. Mostra il nome del file caricato
+                // UI Feedback
                 text.style.display = 'none';
-                fileNameDisplay.innerText = "FILE RICEVUTO: " + file.name;
+                fileNameDisplay.innerText = "FILE RICEVUTO: " + nomeFileMemoria;
                 fileNameDisplay.style.display = 'block';
 
-                // 2. Avvia animazione laser
+                // Animazione
                 scanner.style.display = 'block';
                 scanner.style.animation = 'scanning 2s infinite linear';
                 
-                // 3. Simula analisi (4 secondi)
                 setTimeout(() => {
                     scanner.style.display = 'none';
                     content.style.display = 'none';
                     result.style.display = 'block';
-                    
-                    // Alert finale di conferma
-                    setTimeout(() => {
-                        alert("Analisi completata con successo! Contatta Daniel per i dettagli del risparmio.");
-                    }, 500);
                 }, 4000);
             }
+        }
+
+        function inviaAnalisiWhatsApp(agente) {
+            const numeri = {
+                'Daniel': '393423218269',
+                'Daniele': '393491795387'
+            };
+            
+            const numeroDest = numeri[agente];
+            const msg = `Ciao ${agente}, ho appena analizzato la mia bolletta sul sito ADR (File: ${nomeFileMemoria}). Il sistema ha rilevato un risparmio di 240€. Vorrei fissare un appuntamento per ottimizzare i costi. Ti allego ora la bolletta.`;
+            
+            const url = `https://wa.me/${numeroDest}?text=${encodeURIComponent(msg)}`;
+            window.location.href = url;
         }
     </script>
 </body>
