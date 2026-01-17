@@ -9,16 +9,16 @@
 </head>
 <body>
 
-    <div class="market-ticker" style="background:black; border-bottom:1px solid var(--neon-blue); padding:10px 0; overflow:hidden;">
-        <div class="ticker-content" style="display:inline-block; white-space:nowrap; animation: ticker 25s linear infinite;">
-            <span style="padding:0 40px; font-family:'Orbitron'; font-size:0.8rem;">⚡ LUCE PUN: <span style="color:var(--neon-green)">0.118 €/kWh</span></span>
-            <span style="padding:0 40px; font-family:'Orbitron'; font-size:0.8rem;">🔥 GAS PSV: <span style="color:var(--neon-green)">0.425 €/smc</span></span>
-            <span style="padding:0 40px; font-family:'Orbitron'; font-size:0.8rem;">📉 TREND: <span style="color:var(--neon-blue)">MERCATO IN CALO -2.4%</span></span>
-            <span style="padding:0 40px; font-family:'Orbitron'; font-size:0.8rem;">📱 FIBRA 2.5GB: <span style="color:var(--neon-blue)">DISPONIBILE</span></span>
+    <div id="progress-container"><div id="progress-bar"></div></div>
+
+    <div class="market-ticker">
+        <div class="ticker-content">
+            <span class="ticker-item">⚡ LUCE PUN: <span style="color:var(--neon-green)">0.118 €/kWh</span></span>
+            <span class="ticker-item">🔥 GAS PSV: <span style="color:var(--neon-green)">0.425 €/smc</span></span>
+            <span class="ticker-item">📉 TREND: <span style="color:var(--neon-blue)">RISPARMIO ATTIVO 2026</span></span>
+            <span class="ticker-item">🌐 FIBRA: <span style="color:var(--neon-blue)">DISPONIBILE 2.5GB</span></span>
         </div>
     </div>
-
-    <div id="progress-container"><div id="progress-bar"></div></div>
 
     <nav>
         <a href="index.html" class="active">HOME</a>
@@ -34,88 +34,33 @@
             <p style="color: #a0aab8; font-size: 1.1rem;">Consulenza Certificata 2026: Luce, Gas, Sky, Telco e CAF.</p>
         </header>
 
-        <div style="margin-bottom: 40px;">
-            <h3 class="tech-font" style="font-size: 0.8rem; text-align: center; color: var(--neon-blue); margin-bottom: 20px;">Live Market Monitor</h3>
-            <div class="market-widget">
-                <div class="market-card">
-                    <h4>PUN LUCE</h4>
-                    <div class="market-price">0.118 <small style="font-size: 0.8rem;">€/kWh</small></div>
-                    <div class="trend-down">▼ -2.4% (Fase Calante)</div>
-                </div>
-                <div class="market-card">
-                    <h4>PSV GAS</h4>
-                    <div class="market-price">0.425 <small style="font-size: 0.8rem;">€/Smc</small></div>
-                    <div class="trend-up">▲ +1.1% (Stabile)</div>
-                </div>
-                <div class="market-card">
-                    <h4>RISPARMIO ATTESO</h4>
-                    <div class="market-price" style="color: var(--neon-green);">35%</div>
-                    <div style="font-size: 0.8rem;">Media switch Gennaio 2026</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="glass-card reveal" style="margin-bottom: 40px; border-left: 4px solid var(--neon-blue);">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; align-items: center;">
+        <div class="glass-card" style="margin-bottom: 40px; border-left: 4px solid var(--neon-blue);">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: center;">
                 <div>
-                    <h2 class="tech-font" style="font-size: 1.2rem; color: var(--neon-blue);">Scanner Bolletta IA</h2>
-                    <p style="font-size: 0.9rem; color: #888; margin: 15px 0;">Carica il tuo PDF o scatta una foto. Il nostro algoritmo rileva immediatamente se la tua tariffa è fuori mercato.</p>
-                    <div id="scan-trigger">
-                        <button class="btn" onclick="simulateScan()" style="width: 100%;">AVVIA ANALISI DIGITALE</button>
+                    <h3 class="tech-font" style="color: var(--neon-blue);">Scanner Bolletta IA</h3>
+                    <p style="font-size: 0.85rem; color: #888;">Carica la bolletta e scopri il tuo punteggio di risparmio in 3 secondi.</p>
+                    <div id="scan-ui">
+                        <button class="btn" onclick="simulateScan()" style="width: 100%; margin-top: 15px;">AVVIA ANALISI</button>
                     </div>
                     <div id="scan-result" style="display: none; text-align: center;">
-                        <div class="grade-circle" style="width: 70px; height: 70px; border-radius: 50%; border: 3px solid #ff4444; display: flex; align-items: center; justify-content: center; margin: 10px auto; font-size: 1.5rem; color: #ff4444; font-family: 'Orbitron';">4</div>
-                        <p style="color: #ff4444; font-size: 0.8rem;">VOTO: INEFFICIENTE</p>
+                        <div class="grade-circle">4</div>
+                        <p style="color: #ff4444; font-size: 0.8rem; font-family: 'Orbitron';">VOTO: INEFFICIENTE</p>
                     </div>
                 </div>
-                <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px; border: 1px dashed #333; text-align: center;">
-                    <span style="font-size: 2rem;">📄</span>
-                    <p style="font-size: 0.75rem; color: #666; margin-top: 10px;">Trascina qui la tua bolletta<br>(Analisi protetta AES-256)</p>
+                <div style="border: 1px dashed #444; padding: 20px; border-radius: 10px; text-align: center; color: #555;">
+                    <p style="font-size: 0.7rem;">TRASCINA QUI IL FILE <br> (PDF, JPG, PNG)</p>
                 </div>
-            </div>
-        </div>
-
-        <div class="partner-container">
-            <div class="partner-track">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Sky_logo_2020.svg" class="partner-logo" alt="Sky">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Enel_logo_2016.svg" class="partner-logo" alt="Enel">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Vodafone_2017_logo.svg" class="partner-logo" alt="Vodafone">
-                <img src="https://upload.wikimedia.org/wikipedia/it/e/ee/Logo_Iliad.svg" class="partner-logo" alt="Iliad">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Fastweb_logo.svg" class="partner-logo" alt="Fastweb">
-                <img src="https://upload.wikimedia.org/wikipedia/it/1/13/Logo_Eni_Plenitude.svg" class="partner-logo" alt="Plenitude">
-                <img src="https://upload.wikimedia.org/wikipedia/it/b/bc/Iren_Logo.svg" class="partner-logo" alt="Iren">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/E.ON_logo.svg" class="partner-logo" alt="E.ON">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Sorgenia_logo.svg" class="partner-logo" alt="Sorgenia">
-                <img src="https://upload.wikimedia.org/wikipedia/it/c/c2/Wind_Tre_logo.svg" class="partner-logo" alt="WindTre">
-            </div>
-        </div>
-
-        <div class="pillar-grid">
-            <div class="pillar-card">
-                <span class="pillar-icon">⚡</span>
-                <h4 class="tech-font" style="font-size: 0.9rem;">Risposta Istantanea</h4>
-                <p style="font-size: 0.85rem; color: #888;">Addio attese al call center. Il team ti risponde su WhatsApp in meno di 2 minuti.</p>
-            </div>
-            <div class="pillar-card">
-                <span class="pillar-icon">💎</span>
-                <h4 class="tech-font" style="font-size: 0.9rem;">Analisi Gratuita</h4>
-                <p style="font-size: 0.85rem; color: #888;">Lo studio della bolletta e la fattibilità tecnica sono sempre a costo zero per te.</p>
-            </div>
-            <div class="pillar-card" style="border-color: var(--neon-blue);">
-                <span class="pillar-icon">🛡️</span>
-                <h4 class="tech-font" style="font-size: 0.9rem;">Tutor Dedicato</h4>
-                <p style="font-size: 0.85rem; color: #888;">Daniel, Daniele, Andrea o Luca: avrai un volto reale sempre al tuo fianco.</p>
             </div>
         </div>
 
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:20px;">
             <div class="glass-card" onclick="contactAgent('Daniel')">
-                <small style="color: var(--neon-blue);"><span class="status-dot"></span> ENERGY & SKY SPECIALIST</small>
+                <small style="color: var(--neon-blue);"><span class="status-dot"></span> ENERGY SPECIALIST</small>
                 <h3 style="margin: 10px 0;">DANIEL</h3>
                 <button class="btn" style="width: 100%;">PARLA CON DANIEL</button>
             </div>
             <div class="glass-card" onclick="contactAgent('Daniele')">
-                <small style="color: var(--neon-blue);"><span class="status-dot"></span> TECH & TELCO EXPERT</small>
+                <small style="color: var(--neon-blue);"><span class="status-dot"></span> TECH & TELCO</small>
                 <h3 style="margin: 10px 0;">DANIELE</h3>
                 <button class="btn" style="width: 100%;">PARLA CON DANIELE</button>
             </div>
@@ -125,97 +70,18 @@
                 <button class="btn" style="width: 100%;">PARLA CON LUCA</button>
             </div>
             <div class="glass-card" style="border-color: var(--neon-green);" onclick="contactAgent('Andrea')">
-                <small style="color: var(--neon-green);"><span class="status-dot"></span> CAF & SOLAR REP</small>
+                <small style="color: var(--neon-green);"><span class="status-dot"></span> CAF & SOLAR</small>
                 <h3 style="margin: 10px 0;">ANDREA</h3>
                 <button class="btn" style="width: 100%; background: var(--neon-green); color: black;">PARLA CON ANDREA</button>
             </div>
         </div>
+        
+        <div class="reviews-container" style="margin-top: 50px;">
+            <h2 class="tech-font" style="text-align: center; font-size: 1.1rem;">Feedback Certificati</h2>
+            </div>
 
-        <div class="reviews-container">
-            <h2 class="tech-font" style="text-align: center; font-size: 1.1rem; margin-bottom: 30px;">Feedback Certificati</h2>
-            <div class="review-track">
-                <div class="review-card">
-                    <div style="color: gold; margin-bottom: 5px;">★★★★★</div>
-                    <p>"Daniel mi ha fatto risparmiare 500€ l'anno tra Sky e Luce."</p>
-                    <small>— Marco R.</small>
-                </div>
-                <div class="review-card">
-                    <div style="color: gold; margin-bottom: 5px;">★★★★★</div>
-                    <p>"Andrea mi segue per il CAF e il fotovoltaico. Serietà assoluta."</p>
-                    <small>— Laura G.</small>
-                </div>
-                <div class="review-card">
-                    <div style="color: gold; margin-bottom: 5px;">★★★★★</div>
-                    <p>"Finalmente dei consulenti veri. Grazie a Daniele per la nuova fibra."</p>
-                    <small>— Stefano B.</small>
-                </div>
-                <div class="review-card">
-                    <div style="color: gold; margin-bottom: 5px;">★★★★★</div>
-                    <p>"Luca ha risolto i problemi della mia azienda in 2 giorni."</p>
-                    <small>— Giulia F.</small>
-                </div>
-            </div>
-        </div>
-
-        <div class="faq-container">
-            <h2 class="tech-font" style="text-align: center; font-size: 1.1rem; margin-bottom: 40px;">Domande Frequenti</h2>
-            <div class="faq-item" onclick="toggleFaq(this)">
-                <div class="faq-question">Cambiare fornitore costa qualcosa? <span>+</span></div>
-                <div class="faq-answer">Assolutamente no. Il passaggio è gratuito, non ci sono penali e la corrente non viene mai staccata.</div>
-            </div>
-            <div class="faq-item" onclick="toggleFaq(this)">
-                <div class="faq-question">Come funziona la consulenza CAF con Andrea? <span>+</span></div>
-                <div class="faq-answer">Puoi inviare i documenti per ISEE o 730 direttamente su WhatsApp ad Andrea. Lui elabora la pratica e ti invia tutto digitalmente.</div>
-            </div>
-            <div class="faq-item" onclick="toggleFaq(this)">
-                <div class="faq-question">Posso attivare Sky tramite voi? <span>+</span></div>
-                <div class="faq-answer">Sì, siamo partner ufficiali. Possiamo offrirti promozioni esclusive Sky + Fibra che non trovi altrove.</div>
-            </div>
-        </div>
-    </div>
-
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-info">
-                    <h4>CONTATTI</h4>
-                    <p>📍 Via Cadore, 253 - Seregno (MB)</p>
-                    <p>📧 info@agenziadelrisparmio.it</p>
-                    <p>📞 +39 342 321 8269</p>
-                </div>
-                <div class="footer-info">
-                    <h4>MAPPA</h4>
-                    <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2790.6473173748235!2d9.2017!3d45.66!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDXCsDM5JzM2LjAiTiA5wrAxMicwNi4xIkU!5e0!3m2!1sit!2sit!4v1640000000000!5m2!1sit!2sit" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <div id="live-notification">
-        <div style="width:10px; height:10px; background:var(--neon-green); border-radius:50%; box-shadow: 0 0 10px var(--neon-green);"></div>
-        <span id="notif-body">Sincronizzazione dati...</span>
     </div>
 
     <script src="chat.js"></script>
-
-    <style>
-        @keyframes ticker {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        .status-dot {
-            height: 8px; width: 8px; background: var(--neon-green);
-            border-radius: 50%; display: inline-block; margin-right: 5px;
-            box-shadow: 0 0 8px var(--neon-green);
-            animation: pulse-green 2s infinite;
-        }
-        @keyframes pulse-green {
-            0% { transform: scale(0.9); opacity: 0.7; }
-            70% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(0.9); opacity: 0.7; }
-        }
-    </style>
 </body>
 </html>
