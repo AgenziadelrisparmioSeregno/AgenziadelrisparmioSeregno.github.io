@@ -103,74 +103,32 @@ nav a:hover, nav a.active { color: var(--neon-blue); }
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
 }
-/* Slider Partner */
-.partner-section {
-    padding: 40px 0;
-    background: rgba(255, 255, 255, 0.02);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    margin: 50px 0;
-    overflow: hidden;
-}
-
-.partner-track {
-    display: flex;
-    gap: 60px;
-    align-items: center;
-    width: max-content;
-    animation: scroll-partners 30s linear infinite;
-}
-
-.partner-logo {
-    height: 40px;
-    filter: grayscale(1) brightness(2); /* Rende i loghi bianchi/grigi per uno stile premium */
-    opacity: 0.6;
-    transition: 0.3s;
-}
-
-.partner-logo:hover {
-    filter: grayscale(0) brightness(1); /* Tornano colorati al passaggio del mouse */
-    opacity: 1;
-    transform: scale(1.1);
-}
-
-@keyframes scroll-partners {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-/* Slider Partner Premium */
 .partner-container {
-    padding: 30px 0;
-    background: rgba(0, 0, 0, 0.2);
-    border-top: 1px solid rgba(0, 243, 255, 0.1);
-    border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+    padding: 40px 0;
+    background: rgba(255, 255, 255, 0.03);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     overflow: hidden;
     margin: 40px 0;
 }
 
 .partner-track {
     display: flex;
-    gap: 50px;
+    gap: 80px; /* Spazio tra i loghi */
     width: max-content;
-    animation: scroll-partners 40s linear infinite;
+    animation: scroll-partners 45s linear infinite;
     align-items: center;
 }
 
-.partner-item {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.4);
-    text-transform: uppercase;
-    white-space: nowrap;
-    transition: 0.3s;
-    cursor: default;
+.partner-logo {
+    height: 45px; /* Altezza uniforme per tutti i loghi */
+    width: auto;
+    filter: brightness(1.2); /* Li rende più vividi sullo sfondo scuro */
+    transition: transform 0.3s ease;
 }
 
-.partner-item:hover {
-    color: var(--neon-blue);
-    text-shadow: 0 0 15px var(--neon-blue);
-    transform: scale(1.1);
+.partner-logo:hover {
+    transform: scale(1.15);
 }
 
 @keyframes scroll-partners {
