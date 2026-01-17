@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        /* FAQ & REVEAL ANIMATIONS */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
         .faq-item {
             background: rgba(255,255,255,0.02);
             border: 1px solid #222;
@@ -26,12 +30,31 @@
             color: var(--neon-green);
         }
         .faq-answer {
-            padding: 0 20px 20px 20px;
-            display: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.3s ease;
+            padding: 0 20px;
             color: #aaa;
             font-size: 0.9rem;
             line-height: 1.6;
         }
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding: 10px 20px 20px 20px;
+        }
+
+        /* Calcolatore Style */
+        #calc-spesa {
+            width: 100%;
+            background: #111;
+            border: 1px solid #333;
+            padding: 12px;
+            color: white;
+            border-radius: 5px;
+            outline: none;
+            font-family: 'Inter';
+        }
+        #calc-spesa:focus { border-color: var(--neon-green); }
     </style>
 </head>
 <body>
@@ -40,12 +63,12 @@
 
     <div class="market-ticker">
         <div class="ticker-content">
-            <span class="ticker-item">⚡ LUCE PUN: 0.118 €/kWh</span>
-            <span class="ticker-item">🔥 GAS PSV: 0.425 €/smc</span>
-            <span class="ticker-item">☀️ FOTOVOLTAICO: INCENTIVI 2026 ATTIVI</span>
-            <span class="ticker-item">🔋 ACCUMULO: TECNOLOGIA AL LITIO</span>
-            <span class="ticker-item">⚡ LUCE PUN: 0.118 €/kWh</span>
-            <span class="ticker-item">🔥 GAS PSV: 0.425 €/smc</span>
+            <span class="ticker-item">⚡ LUCE PUN: <span style="color:var(--neon-green)">0.118 €/kWh ▼</span></span>
+            <span class="ticker-item">🔥 GAS PSV: <span style="color:var(--neon-red)">0.425 €/smc ▲</span></span>
+            <span class="ticker-item">☀️ FOTOVOLTAICO: <span style="color:var(--neon-blue)">INCENTIVI 50% ATTIVI</span></span>
+            <span class="ticker-item">🔋 ACCUMULO: <span style="color:var(--neon-green)">TECNOLOGIA LFP 2026</span></span>
+            <span class="ticker-item">⚡ LUCE PUN: 0.118 €/kWh ▼</span>
+            <span class="ticker-item">🔥 GAS PSV: 0.425 €/smc ▲</span>
         </div>
     </div>
 
@@ -65,12 +88,12 @@
             <p style="color: #888; max-width: 700px; margin: 0 auto;">Produci la tua energia, abbatti le bollette e aumenta il valore della tua casa con le migliori tecnologie solari del 2026.</p>
         </header>
 
-        <div class="glass-card" style="margin-bottom: 40px; border-left: 4px solid var(--neon-green); background: rgba(0, 255, 157, 0.02);">
+        <div class="glass-card reveal" style="margin-bottom: 40px; border-left: 4px solid var(--neon-green); background: rgba(0, 255, 157, 0.02);">
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 30px;">
                 <div style="flex: 2; min-width: 280px;">
                     <h3 class="tech-font" style="font-size: 1.1rem; color: var(--neon-green);">Sopralluogo Tecnico Gratuito</h3>
                     <p style="font-size: 0.9rem; color: #ccc; margin-top: 10px;">
-                        Tutti i nostri consulenti sono a disposizione per un'analisi preliminare del tuo tetto. Valutiamo l'esposizione, il fabbisogno energetico e forniamo un piano di rientro economico personalizzato.
+                        I nostri consulenti valutano l'esposizione e il fabbisogno per un piano di rientro personalizzato.
                     </p>
                 </div>
                 <div style="flex: 1; min-width: 240px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
@@ -82,163 +105,160 @@
             </div>
         </div>
 
+        <div class="glass-card reveal" style="margin: 60px 0; border-top: 1px solid var(--neon-green); background: rgba(0, 255, 157, 0.05);">
+            <h3 class="tech-font" style="font-size: 1rem; color: var(--neon-green); text-align: center;">Simulatore di Risparmio ADR</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px; justify-content: center; align-items: center;">
+                <div style="flex: 1; min-width: 200px;">
+                    <label style="font-size: 0.7rem; color: #666;">Spesa elettrica annua (€)</label>
+                    <input type="number" id="calc-spesa" placeholder="Es: 1200">
+                </div>
+                <div style="flex: 1; min-width: 200px; text-align: center;">
+                    <p style="font-size: 0.7rem; color: #666; margin-bottom: 5px;">Risparmio stimato (20 anni)</p>
+                    <div id="calc-result" style="font-family: 'Orbitron'; color: var(--neon-green); font-size: 1.5rem;">€ 0</div>
+                </div>
+                <button class="btn btn-green" onclick="calculateSavings()" style="height: 45px;">CALCOLA ORA</button>
+            </div>
+        </div>
+
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
-            <div class="glass-card">
+            <div class="glass-card reveal">
                 <h4 class="tech-font" style="color: var(--neon-green); font-size: 0.9rem;">Pannelli High-Tech</h4>
-                <p style="font-size: 0.85rem; color: #aaa; margin-top: 10px;">Utilizziamo solo moduli monocristallini ad alta efficienza con garanzia di rendimento fino a 25 anni.</p>
+                <p style="font-size: 0.85rem; color: #aaa; margin-top: 10px;">Moduli monocristallini ad alta efficienza con garanzia di rendimento 25 anni.</p>
             </div>
-            <div class="glass-card">
+            <div class="glass-card reveal">
                 <h4 class="tech-font" style="color: var(--neon-green); font-size: 0.9rem;">Sistemi di Accumulo</h4>
-                <p style="font-size: 0.85rem; color: #aaa; margin-top: 10px;">Batterie di ultima generazione (LFP) per utilizzare l'energia solare anche di notte o durante i blackout.</p>
+                <p style="font-size: 0.85rem; color: #aaa; margin-top: 10px;">Batterie LFP di ultima generazione per l'indipendenza notturna.</p>
             </div>
-            <div class="glass-card">
+            <div class="glass-card reveal">
                 <h4 class="tech-font" style="color: var(--neon-green); font-size: 0.9rem;">Pratiche Chiavi in Mano</h4>
-                <p style="font-size: 0.85rem; color: #aaa; margin-top: 10px;">Ci occupiamo noi di tutta la burocrazia: autorizzazioni comunali, ENEA e connessione alla rete GSE.</p>
+                <p style="font-size: 0.85rem; color: #aaa; margin-top: 10px;">Gestiamo noi ENEA, GSE e autorizzazioni comunali.</p>
             </div>
         </div>
 
         <div class="faq-container" style="margin-top: 80px; max-width: 800px; margin-left: auto; margin-right: auto;">
-            <h2 class="tech-font" style="text-align: center; font-size: 1.1rem; margin-bottom: 40px;">Domande Frequenti</h2>
+            <h2 class="tech-font reveal" style="text-align: center; font-size: 1.1rem; margin-bottom: 40px;">Domande Frequenti</h2>
             
-            <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-item reveal" onclick="toggleFaq(this)">
                 <div class="faq-question">Posso usufruire delle detrazioni fiscali? <span>+</span></div>
-                <div class="faq-answer" style="display:none;">Sì, anche nel 2026 sono attivi gli incentivi per la riqualificazione energetica. Il nostro team ti supporterà in tutta la parte burocratica per ottenere il massimo recupero fiscale.</div>
+                <div class="faq-answer">Sì, nel 2026 è attiva la detrazione del 50%. Il nostro team gestisce tutta la burocrazia per te.</div>
             </div>
 
-            <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-item reveal" onclick="toggleFaq(this)">
                 <div class="faq-question">Quanto risparmio realmente in bolletta? <span>+</span></div>
-                <div class="faq-answer" style="display:none;">Un impianto ben dimensionato può abbattere i costi della bolletta elettrica fino al 70-80%, specialmente se abbinato a un sistema di accumulo correttamente calcolato sui tuoi consumi.</div>
+                <div class="faq-answer">Un impianto ben dimensionato può abbattere i costi fino al 75-80% se abbinato ad accumulo.</div>
             </div>
+        </div>
+    </div>
 
-            <div class="faq-item" onclick="toggleFaq(this)">
-                <div class="faq-question">Cosa succede se c'è poco sole? <span>+</span></div>
-                <div class="faq-answer" style="display:none;">I moderni pannelli producono energia anche con cielo coperto. Inoltre, la batteria di accumulo e lo scambio sul posto (o ritiro dedicato) garantiscono continuità energetica e risparmio economico costante.</div>
+    <div id="bot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+        <div id="bot-launcher" onclick="toggleBot()" style="width: 60px; height: 60px; background: var(--neon-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px var(--neon-blue);">
+            <span id="bot-icon" style="font-size: 1.5rem;">🤖</span>
+        </div>
+
+        <div id="bot-window" style="display: none; width: 320px; height: 450px; background: #0a0a0a; border: 1px solid var(--neon-blue); border-radius: 15px; flex-direction: column; overflow: hidden; box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);">
+            <div style="background: var(--neon-blue); color: black; padding: 15px; font-family: 'Orbitron'; font-size: 0.8rem; font-weight: bold; display: flex; justify-content: space-between;">
+                <span>SISTEMA ADR-1</span>
+                <span onclick="toggleBot()" style="cursor: pointer;">X</span>
+            </div>
+            <div id="bot-messages" style="flex: 1; padding: 15px; overflow-y: auto; font-size: 0.85rem; display: flex; flex-direction: column; gap: 10px; color: #ccc;">
+                <div style="background: #1a1a1a; padding: 10px; border-radius: 10px; border-left: 3px solid var(--neon-blue);">
+                    Ciao! Sono l'assistente ADR. Vuoi sapere quanto puoi risparmiare con il fotovoltaico o gli incentivi 2026?
+                </div>
+            </div>
+            <div id="bot-input-area" style="padding: 10px; border-top: 1px solid #222; display: flex; gap: 5px;">
+                <input type="text" id="user-input" placeholder="Scrivi qui..." style="flex: 1; background: #111; border: 1px solid #333; color: white; padding: 8px; border-radius: 5px; outline: none;">
+                <button onclick="botReply()" style="background: var(--neon-blue); border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">></button>
             </div>
         </div>
     </div>
 
     <footer style="margin-top: 100px; padding: 40px; border-top: 1px solid #111; text-align: center; background: rgba(0,0,0,0.5);">
-        <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
-            <a href="privacy.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">PRIVACY POLICY</a>
-            <a href="contatti.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">CONTATTI</a>
-            <a href="leaderboard.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">CLASSIFICA</a>
-        </div>
-        <p style="font-size: 0.6rem; color: #444;">© 2026 ADR SEREGNO - PROGETTAZIONE IMPIANTI SOLARI CERTIFICATI</p>
+        <p style="font-size: 0.6rem; color: #444;">© 2026 ADR SEREGNO - PROGETTAZIONE IMPIANTI CERTIFICATI</p>
     </footer>
 
     <script>
-        // Progress Bar
+        // 1. Progress Bar & Scroll Reveal
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             let scrolled = (winScroll / height) * 100;
             document.getElementById("progress-bar").style.width = scrolled + "%";
+            reveal();
         };
 
-        // FAQ Toggle
-        function toggleFaq(element) {
-            const answer = element.querySelector('.faq-answer');
-            const span = element.querySelector('span');
-            if (answer.style.display === "block") {
-                answer.style.display = "none";
-                span.innerText = "+";
-            } else {
-                answer.style.display = "block";
-                span.innerText = "-";
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    reveals[i].classList.add("active");
+                }
             }
         }
 
-        // WhatsApp Agenti
+        // 2. FAQ Toggle
+        function toggleFaq(element) {
+            element.classList.toggle('active');
+            const span = element.querySelector('span');
+            span.innerText = element.classList.contains('active') ? "-" : "+";
+        }
+
+        // 3. Calcolatore Risparmio
+        function calculateSavings() {
+            const spesa = document.getElementById('calc-spesa').value;
+            if(spesa > 0) {
+                const totale = (spesa * 0.75) * 20;
+                document.getElementById('calc-result').innerText = "€ " + totale.toLocaleString();
+                addMessage(`Basandomi sulla tua spesa di €${spesa}, il risparmio stimato in 20 anni è di circa €${totale.toLocaleString()}. Vuoi fissare un sopralluogo?`, false);
+            }
+        }
+
+        // 4. Bot Logic
+        let botStep = "base";
+        function toggleBot() {
+            const win = document.getElementById('bot-window');
+            win.style.display = win.style.display === 'none' ? 'flex' : 'none';
+        }
+
+        function addMessage(text, isUser = false) {
+            const msgDiv = document.createElement('div');
+            msgDiv.style.cssText = `padding:10px; border-radius:10px; max-width:80%; align-self: ${isUser ? 'flex-end' : 'flex-start'}; background: ${isUser ? 'var(--neon-blue)' : '#1a1a1a'}; color: ${isUser ? 'black' : '#ccc'}; border-left: ${isUser ? 'none' : '3px solid var(--neon-blue)'}`;
+            msgDiv.innerText = text;
+            document.getElementById('bot-messages').appendChild(msgDiv);
+            document.getElementById('bot-messages').scrollTop = document.getElementById('bot-messages').scrollHeight;
+        }
+
+        document.getElementById('user-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') botReply(); });
+
+        function botReply() {
+            const input = document.getElementById('user-input');
+            const text = input.value.trim().toLowerCase();
+            if (!text) return;
+            addMessage(input.value, true);
+            input.value = "";
+
+            setTimeout(() => {
+                if (text.includes("costo") || text.includes("quanto costa")) {
+                    addMessage("Un impianto medio da 3kW con ADR parte da circa €5.500. Il prezzo finale dipende dalle batterie scelte. Ti interessa un preventivo?");
+                } else if (text.includes("si") || text.includes("voglio") || text.includes("ok")) {
+                    addMessage("Perfetto! Ti collego ad Andrea per scegliere la data del sopralluogo.");
+                    setTimeout(() => contactAgent('Andrea', 'Fotovoltaico'), 1500);
+                } else {
+                    addMessage("Capisco. Ricorda che con gli incentivi 2026 recuperi la metà della spesa! Posso aiutarti con altro?");
+                }
+            }, 1000);
+        }
+
+        // 5. WhatsApp Agenti
         function contactAgent(agente, servizio) {
-            const numeri = {
-                'Daniel': '393423218269',
-                'Daniele': '393491795387',
-                'Luca': '393277545377',
-                'Andrea': '393515910955'
-            };
-            const testo = `Ciao ${agente}, vorrei richiedere un sopralluogo gratuito per un impianto ${servizio}. Quando sei disponibile?`;
+            const numeri = { 'Daniel': '393423218269', 'Daniele': '393491795387', 'Luca': '393277545377', 'Andrea': '393515910955' };
+            const testo = `Ciao ${agente}, vorrei richiedere un sopralluogo per ${servizio}.`;
             window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(testo)}`, '_blank');
         }
+
+        // Inizializza i reveal al caricamento
+        window.onload = reveal;
     </script>
-    <div id="bot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; font-family: 'Inter', sans-serif;">
-    <div id="bot-launcher" onclick="toggleBot()" style="width: 60px; height: 60px; background: var(--neon-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px var(--neon-blue); transition: 0.3s;">
-        <span id="bot-icon" style="font-size: 1.5rem;">🤖</span>
-    </div>
-
-    <div id="bot-window" style="display: none; width: 320px; height: 450px; background: #0a0a0a; border: 1px solid var(--neon-blue); border-radius: 15px; flex-direction: column; overflow: hidden; box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);">
-        <div style="background: var(--neon-blue); color: black; padding: 15px; font-family: 'Orbitron'; font-size: 0.8rem; font-weight: bold; display: flex; justify-content: space-between;">
-            <span>SISTEMA ADR-1</span>
-            <span onclick="toggleBot()" style="cursor: pointer;">X</span>
-        </div>
-        <div id="bot-messages" style="flex: 1; padding: 15px; overflow-y: auto; font-size: 0.85rem; display: flex; flex-direction: column; gap: 10px; color: #ccc;">
-            <div style="background: #1a1a1a; padding: 10px; border-radius: 10px; border-left: 3px solid var(--neon-blue);">
-                Ciao! Sono ADR-1. I miei colleghi umani sono in appuntamento. Posso aiutarti io?
-            </div>
-        </div>
-        <div id="bot-input-area" style="padding: 10px; border-top: 1px solid #222; display: flex; gap: 5px;">
-            <input type="text" id="user-input" placeholder="Scrivi qui..." style="flex: 1; background: #111; border: 1px solid #333; color: white; padding: 8px; border-radius: 5px; outline: none;">
-            <button onclick="botReply()" style="background: var(--neon-blue); border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">></button>
-        </div>
-    </div>
-</div>
-
-<script>
-    let botStep = "base"; // base, ask_appointment, appointment_done
-
-    function toggleBot() {
-        const window = document.getElementById('bot-window');
-        window.style.display = window.style.display === 'none' ? 'flex' : 'none';
-    }
-
-    function addMessage(text, isUser = false) {
-        const msgDiv = document.createElement('div');
-        msgDiv.style.padding = "10px";
-        msgDiv.style.borderRadius = "10px";
-        msgDiv.style.maxWidth = "80%";
-        msgDiv.style.alignSelf = isUser ? "flex-end" : "flex-start";
-        msgDiv.style.background = isUser ? "var(--neon-blue)" : "#1a1a1a";
-        msgDiv.style.color = isUser ? "black" : "#ccc";
-        if(!isUser) msgDiv.style.borderLeft = "3px solid var(--neon-blue)";
-        msgDiv.innerText = text;
-        document.getElementById('bot-messages').appendChild(msgDiv);
-        document.getElementById('bot-messages').scrollTop = document.getElementById('bot-messages').scrollHeight;
-    }
-
-    function botReply() {
-        const input = document.getElementById('user-input');
-        const text = input.value.trim();
-        if (!text) return;
-
-        addMessage(text, true);
-        input.value = "";
-
-        setTimeout(() => {
-            if (botStep === "base") {
-                if (text.toLowerCase().includes("bolletta") || text.toLowerCase().includes("costo")) {
-                    addMessage("Puoi usare il nostro Scanner IA in Home Page per analizzare i costi. Ti è stato utile?");
-                } else if (text.toLowerCase().includes("dove") || text.toLowerCase().includes("indirizzo")) {
-                    addMessage("Siamo a Seregno in Via Cadore 253. Ti serve altro?");
-                } else {
-                    addMessage("Capisco. I miei colleghi sono occupati a far risparmiare altri clienti proprio ora. Vuoi che fissi un appuntamento per te?");
-                    botStep = "ask_appointment";
-                }
-            } else if (botStep === "ask_appointment") {
-                if (text.toLowerCase().includes("si") || text.toLowerCase().includes("ok") || text.toLowerCase().includes("voglio")) {
-                    addMessage("Ottimo! Scrivi il tuo Nome e l'Orario preferito, ti collegherò subito a un consulente.");
-                    botStep = "finalizing";
-                } else {
-                    addMessage("Nessun problema. Se cambi idea sono qui!");
-                    botStep = "base";
-                }
-            } else if (botStep === "finalizing") {
-                addMessage("Perfetto! Ti sto trasferendo su WhatsApp per confermare l'appuntamento con Andrea.");
-                setTimeout(() => {
-                    const waText = `Ciao Andrea, vorrei confermare l'appuntamento richiesto tramite il bot ADR-1: ${text}`;
-                    window.open(`https://wa.me/393515910955?text=${encodeURIComponent(waText)}`, '_blank');
-                }, 2000);
-            }
-        }, 1000);
-    }
-</script>
 </body>
 </html>
