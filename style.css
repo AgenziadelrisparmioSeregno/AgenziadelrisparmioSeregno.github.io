@@ -1,267 +1,170 @@
-:root {
-    --neon-blue: #00f3ff;
-    --neon-green: #00ff9d;
-    --dark-bg: #050505;
-    --glass: rgba(255, 255, 255, 0.03);
-    --border: #222;
+/* ADR EXTREME 3D STYLE - AZZURRO & BIANCO */
+:root { 
+    --adr-blue: #00a8ff;            /* Azzurro Logo */
+    --adr-blue-dark: #0077b6;       /* Per contrasti */
+    --adr-green: #00d28d;           /* Per pulsanti Andrea/WhatsApp */
+    --adr-bg: radial-gradient(circle at 50% 50%, #ffffff 0%, #d4efff 100%);
+    --glass: rgba(255, 255, 255, 0.4);
+    --shadow-3d: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+    --border-light: rgba(0, 168, 255, 0.2);
+    --tech-font: 'Orbitron', sans-serif;
 }
 
-body {
-    background-color: var(--dark-bg);
-    color: white;
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    overflow-x: hidden;
+/* BASE */
+body { 
+    background: var(--adr-bg); 
+    color: #1a2a3a; 
+    font-family: 'Inter', sans-serif; 
+    margin: 0; 
+    overflow-x: hidden; 
 }
 
-.tech-font { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
+.tech-font { font-family: var(--tech-font); text-transform: uppercase; letter-spacing: 2px; }
 
-/* PROGRESS BAR */
-#progress-container { position: fixed; top: 0; width: 100%; height: 4px; z-index: 10001; }
-#progress-bar { height: 100%; background: var(--neon-blue); width: 0%; box-shadow: 0 0 10px var(--neon-blue); }
+/* PROGRESS BAR 3D */
+#progress-container { position: fixed; top: 0; width: 100%; height: 5px; z-index: 10001; }
+#progress-bar { height: 100%; background: var(--adr-blue); width: 0%; box-shadow: 0 2px 10px var(--adr-blue); }
 
-/* MARKET TICKER */
-.market-ticker {
-    background: black; border-bottom: 1px solid var(--neon-blue);
-    padding: 10px 0; overflow: hidden; position: relative; z-index: 10;
+/* MARKET TICKER GLOW */
+.market-ticker { 
+    background: var(--adr-blue); color: white; 
+    padding: 12px 0; overflow: hidden; position: relative; z-index: 10;
+    box-shadow: 0 4px 15px rgba(0, 168, 255, 0.2);
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
 }
-.ticker-content { display: inline-block; white-space: nowrap; animation: ticker 30s linear infinite; }
-.ticker-item { display: inline-block; padding: 0 40px; font-family: 'Orbitron'; font-size: 0.8rem; }
+.ticker-content { display: inline-block; white-space: nowrap; animation: ticker 40s linear infinite; }
+.ticker-item { display: inline-block; padding: 0 40px; font-family: var(--tech-font); font-size: 0.75rem; font-weight: bold; }
 
 @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-/* NAV - DESIGN AGGIORNATO CON AREA CLIENTI A DESTRA */
+/* NAV - FROSTED GLASS EFFECT */
 nav {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Menu al centro */
-    position: sticky;
-    top: 0;
-    padding: 15px 40px;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-    border-bottom: 1px solid #111;
+    display: flex; align-items: center; justify-content: center;
+    position: sticky; top: 0; padding: 15px 40px;
+    background: var(--glass);
+    backdrop-filter: blur(25px) saturate(180%); z-index: 1000;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 10px 30px rgba(0,168,255,0.05);
 }
 
-.nav-links {
-    display: flex;
-    gap: 25px;
-}
-
+.nav-links { display: flex; gap: 25px; }
 .nav-links a { 
-    color: white; 
-    text-decoration: none; 
-    font-size: 0.75rem; 
-    font-family: 'Orbitron'; 
-    opacity: 0.6; 
-    transition: 0.3s; 
+    color: #444; text-decoration: none; font-size: 0.75rem; 
+    font-family: var(--tech-font); font-weight: 700; transition: 0.3s; 
 }
+.nav-links a.active, .nav-links a:hover { color: var(--adr-blue); transform: translateY(-2px); }
 
-.nav-links a.active, .nav-links a:hover { opacity: 1; color: var(--neon-blue); }
-
+/* AREA CLIENTI NEUMORPHIC */
 .area-clienti-btn {
-    position: absolute;
-    right: 40px;
-    background: rgba(0, 255, 157, 0.1);
-    border: 1px solid var(--neon-green);
-    color: var(--neon-green);
-    padding: 8px 18px;
-    border-radius: 5px;
-    font-size: 0.7rem;
-    font-family: 'Orbitron';
-    text-decoration: none;
-    transition: 0.3s;
+    position: absolute; right: 40px;
+    background: #eafff5; border: 1px solid var(--adr-green);
+    color: var(--adr-green); padding: 8px 18px; border-radius: 12px;
+    font-size: 0.7rem; font-family: var(--tech-font); font-weight: bold;
+    box-shadow: 4px 4px 10px #d1d1d1, -4px -4px 10px #ffffff;
+    transition: 0.3s; text-decoration: none;
 }
+.area-clienti-btn:hover { background: var(--adr-green); color: white; transform: scale(1.05); }
 
-.area-clienti-btn:hover {
-    background: var(--neon-green);
-    color: black;
-    box-shadow: 0 0 15px var(--neon-green);
-}
-
-/* CARDS & BENTO */
-.container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+/* CARDS CON RIFLESSO DINAMICO & 3D HOVER */
 .glass-card {
     background: var(--glass); 
-    border: 1px solid var(--border);
-    border-radius: 15px; 
-    padding: 25px; 
-    transition: 0.4s; 
-    margin-bottom: 20px;
-    backdrop-filter: blur(10px);
-}
-.glass-card:hover { border-color: var(--neon-blue); box-shadow: 0 0 25px rgba(0, 243, 255, 0.1); transform: translateY(-5px); }
-
-/* SCANNER & GRIGLIA AGENTI */
-.agent-selector-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-top: 20px;
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 30px; padding: 30px; 
+    margin-bottom: 25px;
+    box-shadow: var(--shadow-3d);
+    backdrop-filter: blur(15px);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative; overflow: hidden;
 }
 
+.glass-card::before {
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: rotate(45deg); transition: 0.8s;
+}
+
+.glass-card:hover { 
+    transform: translateY(-15px) rotateX(5deg); 
+    box-shadow: 30px 30px 70px #bebebe, -20px -20px 70px #ffffff;
+    border-color: var(--adr-blue);
+}
+.glass-card:hover::before { left: 100%; }
+
+/* SCANNER & DROP ZONE */
 #drop-zone {
-    border: 2px dashed #333; padding: 40px; border-radius: 15px;
-    text-align: center; cursor: pointer; transition: 0.3s;
+    border: 2px dashed var(--adr-blue); padding: 40px; border-radius: 20px;
+    text-align: center; cursor: pointer; transition: 0.3s; background: rgba(255,255,255,0.2);
 }
-#drop-zone:hover { border-color: var(--neon-blue); background: rgba(0, 243, 255, 0.05); }
+#drop-zone:hover { background: #fff; box-shadow: inset 4px 4px 10px #ddd; }
 
-/* GRADE CIRCLE */
+/* GRADE CIRCLE 3D */
 .grade-circle {
-    width: 80px; height: 80px; border-radius: 50%; border: 3px solid #ff4444;
+    width: 90px; height: 90px; border-radius: 50%; border: 4px solid #ff5252;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.8rem; color: #ff4444; margin: 15px auto; font-family: 'Orbitron';
+    font-size: 2rem; color: #ff5252; margin: 20px auto; font-family: var(--tech-font);
+    background: #fff; box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
 }
 
-/* BOTTONI */
+/* PULSANTI NEUMORPHIC */
 .btn {
-    background: transparent; border: 1px solid var(--neon-blue);
-    color: var(--neon-blue); padding: 12px 24px; border-radius: 8px;
-    font-family: 'Orbitron'; cursor: pointer; transition: 0.3s; text-align: center; 
-    width: 100%; display: inline-block; text-decoration: none;
+    background: #f0f8ff; border: none;
+    color: var(--adr-blue-dark); padding: 14px 28px; border-radius: 15px;
+    font-family: var(--tech-font); font-weight: 800; cursor: pointer; 
+    transition: 0.3s; text-align: center; width: 100%; display: block;
+    box-shadow: 6px 6px 12px #c1d3e0, -6px -6px 12px #ffffff;
+    text-decoration: none;
 }
-.btn:hover { background: var(--neon-blue); color: black; box-shadow: 0 0 15px var(--neon-blue); }
+.btn:hover { 
+    box-shadow: inset 4px 4px 8px #c1d3e0, inset -4px -4px 8px #ffffff; 
+    color: var(--adr-blue); 
+}
 
-.btn-andrea { border-color: var(--neon-green); color: var(--neon-green); }
-.btn-andrea:hover { background: var(--neon-green); color: black; box-shadow: 0 0 15px var(--neon-green); }
+.btn-andrea { color: var(--adr-green); background: #f0fff8; box-shadow: 6px 6px 12px #d1e0d8, -6px -6px 12px #ffffff; }
 
-/* MAPPA DARK */
+/* MAPPA LIGHT */
 .map-container iframe {
-    filter: grayscale(1) invert(0.9) contrast(1.2);
-    border-radius: 15px;
+    filter: none; border-radius: 25px; border: 5px solid white;
+    box-shadow: var(--shadow-3d);
 }
 
 /* FOOTER */
 footer {
-    margin-top: 80px;
-    padding: 40px 20px;
-    border-top: 1px solid #111;
-    background: rgba(0,0,0,0.5);
-    text-align: center;
+    margin-top: 80px; padding: 40px 20px;
+    border-top: 1px solid #eee; background: rgba(255,255,255,0.5);
+    text-align: center; color: #999;
 }
 
-/* ANIMAZIONI */
-@keyframes pulse-green { 0% { transform: scale(0.9); opacity: 0.7; } 70% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.7; } }
-.status-dot {
-    height: 8px; width: 8px; background: var(--neon-green);
-    border-radius: 50%; display: inline-block; margin-right: 8px;
-    box-shadow: 0 0 8px var(--neon-green); animation: pulse-green 2s infinite;
-}
-/* --- OTTIMIZZAZIONE MOBILE ADR --- */
-
-/* 1. Gestione Contenitore Generale */
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 15px; /* Ridotto per mobile */
-    box-sizing: border-box;
+/* BOT ADR-1 FLOATING ANIMATION */
+#bot-launcher {
+    animation: float 4s ease-in-out infinite;
+    background: linear-gradient(145deg, #00b4ff, #008ee6);
+    box-shadow: 0 15px 35px rgba(0,168,255,0.4);
 }
 
-/* 2. Navbar Responsive */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+/* MOBILE OPTIMIZATION ADR */
 @media (max-width: 768px) {
-    nav {
-        flex-direction: column; /* Impila logo e tasti */
-        gap: 15px;
-        padding: 15px;
-    }
+    nav { flex-direction: column; gap: 15px; padding: 15px; }
+    .nav-links { gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .nav-links a { font-size: 0.6rem; }
+    .area-clienti-btn { position: static; width: 100%; text-align: center; }
+    header h1 { font-size: 1.6rem !important; }
     
-    .nav-links {
-        display: flex;
-        flex-wrap: wrap; /* Permette ai link di andare a capo */
-        justify-content: center;
-        gap: 10px;
-    }
-
-    nav a {
-        font-size: 0.6rem; /* Testo leggermente più piccolo */
-    }
-
-    .area-clienti-btn {
-        position: static; /* Rimuove il posizionamento assoluto */
-        width: 100%;
-        text-align: center;
-    }
-    
-    /* Intestazione */
-    header h1 {
-        font-size: 1.6rem !important; /* Ridimensiona il titolo principale */
-    }
-}
-
-/* 3. Griglie delle Card (Scanner e Servizi) */
-@media (max-width: 768px) {
-    /* Fa sì che le griglie diventino a colonna singola */
-    .contact-grid, 
-    .agent-grid, 
-    div[style*="display: grid"] {
-        grid-template-columns: 1fr !important;
-    }
-
-    .glass-card {
-        padding: 15px;
-        margin-bottom: 15px;
-    }
-
-    /* Scanner in Home: mette lo slot del file sotto il bottone */
-    #ui-home-default {
-        margin-bottom: 20px;
-    }
-}
-
-/* 4. ChatBot Responsive */
-@media (max-width: 480px) {
-    #bot-window {
-        width: calc(100vw - 40px); /* Quasi tutta la larghezza dello schermo */
-        height: 400px;
-        bottom: 80px;
-        right: 20px;
-    }
-    
-    #bot-launcher {
-        width: 50px;
-        height: 50px;
-    }
-}
-
-/* 5. Miglioramento Ticker */
-.market-ticker {
-    font-size: 0.7rem;
-}
-
-/* 6. Fix per le immagini Partner */
-.partner-track img {
-    height: 20px; /* Più piccole su mobile */
-}
-/* Tasto Chiama Ora - Solo Mobile */
-.mobile-call-btn {
-    display: none; /* Nasconde di default */
-}
-
-@media (max-width: 768px) {
     .mobile-call-btn {
-        display: flex;
-        position: fixed;
-        bottom: 20px;
-        left: 20px; /* Lo mettiamo a sinistra così non copre il ChatBot a destra */
-        background: #00ff9d; /* Verde Neon per distinguersi dal blu */
-        color: black;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-        font-size: 1.5rem;
-        box-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
-        z-index: 10000;
+        display: flex; position: fixed; bottom: 20px; left: 20px;
+        background: var(--adr-green); color: white; width: 60px; height: 60px;
+        border-radius: 50%; justify-content: center; align-items: center;
+        z-index: 10000; box-shadow: 0 8px 25px rgba(0, 210, 141, 0.4);
         animation: pulse-green 2s infinite;
     }
 }
 
 @keyframes pulse-green {
-    0% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(0, 255, 157, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(0, 210, 141, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(0, 210, 141, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 210, 141, 0); }
 }
