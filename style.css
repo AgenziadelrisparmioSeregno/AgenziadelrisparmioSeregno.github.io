@@ -1,13 +1,13 @@
 /* ============================================================
    ADR GLOBAL SYSTEM - WHITE & AZURE NEON EDITION
-   CORREZIONE MOBILE & CLICK-THROUGH ATTIVA
+   FIX MOBILE: BOT POS, HAMBURGER MENU & CLICK-THROUGH
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@500;700;900&display=swap');
 
 :root { 
-    --adr-blue: #00a8ff;            /* Azzurro Logo */
-    --adr-blue-neon: #00d2ff;       /* Glow */
+    --adr-blue: #00a8ff; 
+    --adr-blue-neon: #00d2ff;
     --adr-blue-light: #f0faff;      
     --adr-dark: #0b1e33;            
     --white: #ffffff;
@@ -20,122 +20,92 @@
     box-sizing: border-box; 
     margin: 0; 
     padding: 0; 
-    outline: none; 
-    -webkit-tap-highlight-color: transparent; /* Rimuove il fastidioso flash blu al tocco su mobile */
+    -webkit-tap-highlight-color: transparent;
 }
 
 body { 
-    background: linear-gradient(180deg, #ffffff 0%, #f0faff 100%); 
+    background: #ffffff; 
     color: var(--adr-dark); 
     font-family: var(--body-font); 
-    line-height: 1.6;
-    overflow-x: hidden; /* Previene lo scroll orizzontale su mobile */
+    overflow-x: hidden;
 }
 
-/* PROGRESS BAR - CORRETTA PER MOBILE */
-#progress-container { 
-    position: fixed; top: 0; left: 0; width: 100%; height: 4px; 
-    z-index: 9999; 
-    pointer-events: none; /* Fondamentale: permette di cliccare gli elementi sotto la barra */
-}
-#progress-bar { height: 100%; background: var(--adr-blue); width: 0%; box-shadow: 0 0 10px var(--adr-blue-neon); }
-
-/* NAVBAR NEON */
+/* NAVBAR POTENZIATA CON HAMBURGER */
 nav {
     display: flex; align-items: center; justify-content: space-between; 
-    position: sticky; top: 0; padding: 12px 5%;
-    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); 
-    z-index: 1000; border-bottom: 2px solid var(--adr-blue-light);
-    box-shadow: 0 5px 20px rgba(0, 168, 255, 0.1);
+    position: sticky; top: 0; padding: 10px 5%;
+    background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); 
+    z-index: 1000; border-bottom: 2px solid var(--adr-blue);
+    box-shadow: 0 4px 15px rgba(0, 168, 255, 0.1);
 }
 
-.nav-logo { height: 40px; filter: drop-shadow(0 0 8px rgba(0,168,255,0.3)); transition: 0.3s; }
+.nav-right-group {
+    display: flex; align-items: center; gap: 15px;
+}
 
+/* Menu links - Nascosti su mobile di default */
+.nav-links { display: flex; gap: 20px; }
+.nav-links a { 
+    text-decoration: none; color: var(--adr-dark); 
+    font-family: var(--tech-font); font-size: 0.75rem; font-weight: 700;
+}
+
+/* Tasto Area Clienti - Sempre visibile a destra */
 .area-clienti-btn {
-    background: white; border: 2px solid var(--adr-blue); color: var(--adr-blue); 
-    padding: 8px 18px; border-radius: 50px; font-family: var(--tech-font); font-weight: 800;
-    font-size: 0.65rem; box-shadow: var(--neon-shadow); transition: 0.3s;
-    text-decoration: none; display: inline-block;
-}
-.area-clienti-btn:hover { background: var(--adr-blue); color: white; box-shadow: 0 0 20px var(--adr-blue-neon); }
-
-/* CARDS CON NEON E FIX REVEAL */
-.reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease-out;
-    pointer-events: none; /* Impedisce alla card invisibile di bloccare i click */
+    background: var(--adr-blue); color: white !important; 
+    padding: 8px 15px; border-radius: 50px; font-family: var(--tech-font); 
+    font-weight: 800; font-size: 0.65rem; text-decoration: none;
+    box-shadow: var(--neon-shadow); white-space: nowrap;
 }
 
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto; /* Riattiva i click solo quando la card è visibile */
+/* Icona Hamburger */
+.menu-toggle {
+    display: none; flex-direction: column; gap: 4px; cursor: pointer;
 }
+.menu-toggle span { width: 22px; height: 3px; background: var(--adr-blue); border-radius: 2px; }
 
-.glass-card {
-    background: #ffffff; border: 1px solid rgba(0, 168, 255, 0.2);
-    border-radius: 20px; padding: 25px; margin-bottom: 25px;
-    box-shadow: 0 10px 30px rgba(0, 168, 255, 0.15);
-    position: relative; overflow: hidden; transition: 0.4s;
-}
-
-@media (min-width: 992px) {
-    .glass-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0, 168, 255, 0.25); }
-}
-
-.glass-card::before {
-    content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%; 
-    background: var(--adr-blue); box-shadow: 2px 0 15px var(--adr-blue-neon);
-}
-
-/* SEZIONE PARTNER - OTTIMIZZATA MOBILE */
-.partners-section {
-    padding: 40px 0; background: white; border-top: 1px solid var(--adr-blue-light);
-    display: flex; flex-direction: column; gap: 20px; overflow: hidden;
-}
-
-.partners-track { display: flex; align-items: center; gap: 40px; width: max-content; }
-
-.scroll-left { animation: moveLeft 25s linear infinite; }
-.scroll-right { animation: moveRight 25s linear infinite; }
-
-.partners-track img {
-    height: 35px; width: auto; filter: grayscale(100%); opacity: 0.5;
-    transition: 0.4s;
-    animation: spinLogo 8s linear infinite;
-}
-
+/* FIX MOBILE NAVBAR */
 @media (max-width: 768px) {
-    .partners-track img { height: 28px; animation: none; filter: grayscale(0); opacity: 1; } /* Disabilita rotazione pesante su mobile */
-    .partners-track { gap: 30px; }
+    .nav-links {
+        display: none; /* Nasconde i link */
+        flex-direction: column; position: absolute; top: 100%; left: 0;
+        width: 100%; background: white; padding: 20px; border-bottom: 2px solid var(--adr-blue);
+    }
+    .nav-links.active { display: flex; }
+    .menu-toggle { display: flex; } /* Mostra hamburger */
 }
 
-@keyframes moveLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-@keyframes moveRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
-@keyframes spinLogo {
-    0% { transform: perspective(400px) rotateY(0deg); }
-    100% { transform: perspective(400px) rotateY(360deg); }
-}
-
-/* BOT VIRTUALE - FIX POSIZIONAMENTO MOBILE */
+/* --- FIX DEFINITIVO BOT ADR-1 --- */
 #bot-container { 
-    position: fixed; bottom: 20px; right: 20px; 
-    z-index: 10001; /* Sopra la nav e la progress bar */
+    position: fixed !important; 
+    bottom: 25px !important; 
+    right: 20px !important; 
+    z-index: 10001 !important; 
 }
 
 #bot-launcher { 
-    width: 60px; height: 60px; border-radius: 50%; background: var(--adr-blue); 
-    color: white; display: flex; align-items: center; justify-content: center; 
-    font-size: 1.8rem; box-shadow: 0 5px 20px var(--adr-blue-neon); 
-    border: 2px solid white; cursor: pointer; transition: 0.3s;
+    width: 55px !important; height: 55px !important; 
+    border-radius: 50% !important; background: var(--adr-blue) !important; 
+    color: white !important; display: flex !important; 
+    align-items: center !important; justify-content: center !important; 
+    font-size: 1.6rem !important; box-shadow: 0 0 20px var(--adr-blue-neon) !important; 
+    border: 2px solid white !important; cursor: pointer;
 }
 
-#bot-launcher:active { transform: scale(0.9); }
+/* Fix sovrapposizione Bot su Mobile */
+@media (max-width: 480px) {
+    #bot-launcher { width: 50px !important; height: 50px !important; }
+    .btn-action { width: 100% !important; font-size: 0.75rem !important; } /* Evita tagli visto in foto */
+}
 
-/* TICKER FIX */
-.market-ticker {
-    z-index: 900;
-    position: relative;
-    pointer-events: none; /* Impedisce al testo che scorre di bloccare i click sulla nav */
+/* GLASS CARDS E FIX TESTO */
+.glass-card {
+    background: #ffffff; border: 1px solid rgba(0, 168, 255, 0.2);
+    border-radius: 20px; padding: 20px; margin-bottom: 20px;
+    box-shadow: 0 8px 25px rgba(0, 168, 255, 0.1);
+    position: relative; overflow: hidden;
+}
+.glass-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%; 
+    background: var(--adr-blue);
 }
