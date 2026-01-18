@@ -132,17 +132,62 @@
     <div id="bot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
         <div id="bot-launcher" onclick="toggleBot()" style="width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 2rem;">🤖</div>
         <div id="bot-window">
-            <div class="bot-header">
-                <span>SISTEMA ADR-1</span>
-                <span onclick="toggleBot()" style="cursor: pointer;">X</span>
-            </div>
-            <div id="bot-messages" style="flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column;">
-                <div class="bot-msg">Ciao! Sono l'assistente virtuale ADR. Vuoi analizzare una bolletta o parlare con un consulente?</div>
-            </div>
-            <div style="padding: 15px; background: #fff; border-top: 1px solid #eee;">
-                <button class="btn btn-andrea" style="margin-bottom: 10px;" onclick="vaiWhatsApp('Andrea', 'consulenza_generale')">PARLA CON NOI</button>
-                <input type="text" id="user-input" placeholder="Scrivi qui..." style="width: 100%; border: 1px solid #ddd; padding: 10px; border-radius: 8px; box-sizing: border-box;">
-            </div>
+           async function inviaMessaggioBot() {
+    const input = document.getElementById('user-input');
+    const msgContainer = document.getElementById('bot-messages');
+    const testoUtente = input.value.trim();
+
+    if (testoUtente === "") return;
+
+    // Mostra messaggio utente
+    msgContainer.innerHTML += `<div style="align-self: flex-end; background: var(--adr-blue); color: white; padding: 10px; border-radius: 15px; margin-bottom: 10px; font-size: 0.85rem; max-width: 80%;">${testoUtente}</div>`;
+    input.value = "";
+    msgContainer.scrollTop = msgContainer.scrollHeight;
+
+    // Effetto "ADR sta pensando..."
+    const typingId = "typing-" + Date.now();
+    msgContainer.innerHTML += `<div id="${typingId}" style="align-self: flex-start; background: #f0f0f0; padding: 10px; border-radius: 15px; margin-bottom: 10px; font-size: 0.8rem;">ADR-1 sta analizzando...</div>`;
+
+    try {
+        // Cerchiamo la risposta tramite un servizio di AI (es. DuckDuckGo AI o un Worker gratuito)
+        // Qui usiamo una logica che simula l'accesso a un database di conoscenza globale
+        const response = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(testoUtente)}&format=json&no_html=1`);
+        const data = await response.json();
+        
+        let rispostaFinale = "";
+
+        if (data.AbstractText) {
+            // Se trova una risposta su internet (Wikipedia/Fonti ufficiali)
+            rispostaFinale = data.AbstractText;
+        } else {
+            // Se è una domanda specifica su ADR o non trova risultati certi
+            rispostaFinale = await generaRispostaIntelligente(testoUtente);
+        }
+
+        // Rimuovi "sta pensando" e metti la risposta
+        document.getElementById(typingId).remove();
+        msgContainer.innerHTML += `
+            <div style="align-self: flex-start; background: #fff; border: 1px solid #eee; padding: 12px; border-radius: 15px; margin-bottom: 10px; font-size: 0.85rem; max-width: 85%; border-left: 4px solid var(--adr-blue); box-shadow: 5px 5px 15px rgba(0,0,0,0.05);">
+                ${rispostaFinale}
+                <div style="margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px;">
+                    <p style="font-size: 0.7rem; color: #888;">Ti è servito? Se vuoi un'analisi tecnica della tua bolletta specifica:</p>
+                    <button class="btn btn-andrea" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Andrea', 'consulenza')">PARLA CON ANDREA</button>
+                </div>
+            </div>`;
+
+    } catch (error) {
+        document.getElementById(typingId).innerText = "Sospensione momentanea del segnale. Ti consiglio di contattare i nostri specialisti direttamente.";
+    }
+    msgContainer.scrollTop = msgContainer.scrollHeight;
+}
+
+// Funzione di supporto per risposte ADR specifiche
+async function generaRispostaIntelligente(testo) {
+    const t = testo.toLowerCase();
+    if (t.includes("costo") || t.includes("pagare")) return "La consulenza ADR è gratuita per i cittadini di Seregno. Analizziamo i tuoi costi e troviamo l'offerta migliore senza costi di agenzia.";
+    if (t.includes("dove") || t.includes("sede")) return "Siamo a Seregno! Puoi scriverci su WhatsApp per ricevere la posizione esatta e fissare un incontro.";
+    return "Ottima domanda. In base alle attuali normative del mercato energetico 2026, la situazione è in evoluzione. Per darti un dato preciso sulla tua zona, preferirei farti parlare con un consulente tecnico.";
+}
         </div>
     </div>
 
