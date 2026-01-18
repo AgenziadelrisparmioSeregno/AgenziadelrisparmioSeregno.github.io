@@ -118,12 +118,18 @@
     </footer>
 
     <script>
+        // Array per il resoconto chat
+        let resocontoChat = [];
+
         async function inviaMessaggioBot() {
             const input = document.getElementById('user-input');
             const msgContainer = document.getElementById('bot-messages');
             const testoUtente = input.value.trim();
 
             if (testoUtente === "") return;
+
+            // Salvo nel resoconto
+            resocontoChat.push("Cliente: " + testoUtente);
 
             msgContainer.innerHTML += `<div class="msg-user">${testoUtente}</div>`;
             input.value = "";
@@ -134,7 +140,6 @@
             msgContainer.scrollTop = msgContainer.scrollHeight;
 
             try {
-                // RICERCA WEB
                 const response = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(testoUtente)}&format=json&no_html=1&skip_disambig=1`);
                 const data = await response.json();
                 
@@ -144,10 +149,8 @@
                 let mostraEsperti = false;
 
                 if (data.AbstractText && data.AbstractText !== "") {
-                    // Se trova una risposta su internet, la dà e basta
                     rispostaFinale = "<b>Ho trovato questo:</b><br>" + data.AbstractText;
                 } else {
-                    // Se non trova nulla, prova logica locale o passa agli esperti
                     const t = testoUtente.toLowerCase();
                     if(t.includes("costo") || t.includes("gratis")) {
                         rispostaFinale = "La nostra consulenza è gratuita. Guadagniamo dalle compagnie se ti facciamo risparmiare.";
@@ -159,18 +162,20 @@
                     }
                 }
 
+                // Salvo risposta bot nel resoconto
+                resocontoChat.push("Bot: " + rispostaFinale.replace(/<[^>]*>/g, ''));
+
                 let htmlRisposta = `<div class="msg-bot">${rispostaFinale}`;
                 
-                // Se la risposta fallisce o è una richiesta di aiuto, mostra i tasti
                 if (mostraEsperti) {
                     htmlRisposta += `
                     <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
-                        <p style="font-size: 0.7rem; font-weight: bold; color: var(--adr-blue);">Contatta il team ADR:</p>
+                        <p style="font-size: 0.7rem; font-weight: bold; color: var(--adr-blue);">Contatta il team ADR (invierò il resoconto chat):</p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 8px;">
-                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Andrea', 'assistenza')">ANDREA</button>
-                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Daniel', 'assistenza')">DANIEL</button>
-                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Daniele', 'assistenza')">DANIELE</button>
-                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Luca', 'assistenza')">LUCA</button>
+                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Andrea', 'bot_resoconto')">ANDREA</button>
+                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Daniel', 'bot_resoconto')">DANIEL</button>
+                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Daniele', 'bot_resoconto')">DANIELE</button>
+                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Luca', 'bot_resoconto')">LUCA</button>
                         </div>
                     </div>`;
                 }
@@ -201,7 +206,15 @@
 
         function vaiWhatsApp(agente, motivo) {
             const numeri = { 'Daniel': '393423218269', 'Daniele': '393491795387', 'Luca': '393277545377', 'Andrea': '393515910955' };
-            let msg = `Ciao ${agente}, ho parlato con il bot ADR-1 e avrei bisogno di un aiuto professionale.`;
+            
+            let msg = "";
+            if (motivo === 'bot_resoconto') {
+                const log = resocontoChat.join(" | ");
+                msg = `Ciao ${agente}, ho parlato con ADR-1. RESOCONTO CHAT: [${log}]`;
+            } else {
+                msg = `Ciao ${agente}, ho visto il sito ADR e vorrei maggiori informazioni.`;
+            }
+            
             window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
