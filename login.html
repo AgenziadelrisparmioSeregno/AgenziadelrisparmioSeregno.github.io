@@ -3,49 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accesso Criptato | ADR</title>
+    <title>Accesso Protetto | ADR Seregno</title>
+    
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --neon-blue: #00f3ff; --dark-bg: #050505; --neon-green: #00ff9d; --neon-red: #ff4444; }
-        body { background: var(--dark-bg); color: white; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
-        
-        /* Background decorativo cyber */
-        body::before { content: ""; position: absolute; width: 200%; height: 200%; background: linear-gradient(rgba(0, 243, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 243, 255, 0.02) 1px, transparent 1px); background-size: 50px 50px; transform: rotate(15deg); z-index: -1; }
+        :root { 
+            --adr-blue: #00b4ff; 
+            --dark-bg: #050505; 
+            --error-red: #ff4444; 
+            --glass-white: rgba(255, 255, 255, 0.05);
+        }
 
-        .login-box { background: rgba(255, 255, 255, 0.03); border: 1px solid #222; padding: 40px; border-radius: 15px; width: 100%; max-width: 400px; box-shadow: 0 0 30px rgba(0, 243, 255, 0.05); backdrop-filter: blur(10px); position: relative; }
-        .tech-font { font-family: 'Orbitron'; text-transform: uppercase; letter-spacing: 2px; text-align: center; }
+        body { 
+            background: var(--dark-bg); 
+            color: white; 
+            font-family: 'Inter', sans-serif; 
+            display: flex; 
+            flex-direction: column; /* Per allineare logo e box verticalmente */
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            margin: 0; 
+            overflow: hidden; 
+        }
         
-        input { width: 100%; background: #111; border: 1px solid #333; padding: 12px; margin: 10px 0; color: white; border-radius: 5px; outline: none; box-sizing: border-box; font-family: 'Inter'; transition: 0.3s; }
-        input:focus { border-color: var(--neon-blue); box-shadow: 0 0 10px rgba(0, 243, 255, 0.2); }
-        
-        .btn-login { width: 100%; background: var(--neon-blue); color: black; border: none; padding: 12px; border-radius: 5px; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; margin-top: 20px; transition: 0.3s; }
-        .btn-login:hover { box-shadow: 0 0 15px var(--neon-blue); transform: scale(1.02); }
-        .btn-login:disabled { background: #333; color: #666; cursor: not-allowed; }
+        /* Background decorativo tecnologico ADR */
+        body::before { 
+            content: ""; position: absolute; width: 200%; height: 200%; 
+            background: linear-gradient(rgba(0, 180, 255, 0.03) 1px, transparent 1px), 
+                        linear-gradient(90deg, rgba(0, 180, 255, 0.03) 1px, transparent 1px); 
+            background-size: 60px 60px; transform: rotate(10deg); z-index: -1; 
+        }
 
-        .toggle-link { color: #666; font-size: 0.8rem; text-align: center; margin-top: 20px; cursor: pointer; }
-        .toggle-link span { color: var(--neon-blue); font-weight: bold; }
+        /* Stile Logo Home */
+        .brand-container {
+            margin-bottom: 20px;
+            transition: 0.3s;
+            z-index: 10;
+        }
+        .brand-container:hover {
+            transform: translateY(-5px);
+            filter: drop-shadow(0 0 10px var(--adr-blue));
+        }
+        .login-logo {
+            height: 50px;
+            width: auto;
+            cursor: pointer;
+        }
+
+        .login-box { 
+            background: var(--glass-white); 
+            border: 1px solid #222; 
+            padding: 45px; 
+            border-radius: 20px; 
+            width: 100%; 
+            max-width: 400px; 
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5); 
+            backdrop-filter: blur(15px); 
+            position: relative; 
+            border-top: 4px solid var(--adr-blue);
+        }
+
+        .tech-font { 
+            font-family: 'Orbitron'; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            text-align: center; 
+        }
         
-        #message { font-size: 0.7rem; text-align: center; margin-top: 15px; min-height: 1.2em; font-family: monospace; }
+        input { 
+            width: 100%; 
+            background: rgba(0,0,0,0.5); 
+            border: 1px solid #333; 
+            padding: 14px; 
+            margin: 12px 0; 
+            color: white; 
+            border-radius: 8px; 
+            outline: none; 
+            box-sizing: border-box; 
+            font-family: 'Inter'; 
+            transition: 0.3s; 
+        }
         
-        /* Badge Referral */
-        #ref-badge { display: none; background: rgba(0, 255, 157, 0.1); border: 1px solid var(--neon-green); color: var(--neon-green); padding: 5px; font-size: 0.6rem; border-radius: 4px; text-align: center; margin-bottom: 15px; font-family: 'Orbitron'; }
+        input:focus { 
+            border-color: var(--adr-blue); 
+            box-shadow: 0 0 12px rgba(0, 180, 255, 0.3); 
+            background: #000;
+        }
+        
+        .btn-login { 
+            width: 100%; 
+            background: var(--adr-blue); 
+            color: black; 
+            border: none; 
+            padding: 14px; 
+            border-radius: 8px; 
+            font-family: 'Orbitron'; 
+            font-weight: bold; 
+            cursor: pointer; 
+            margin-top: 25px; 
+            transition: 0.3s; 
+            text-transform: uppercase;
+        }
+
+        .btn-login:hover { 
+            box-shadow: 0 0 20px var(--adr-blue); 
+            transform: scale(1.02); 
+            background: white;
+        }
+
+        .btn-login:disabled { background: #333; color: #666; cursor: not-allowed; box-shadow: none; }
+
+        .toggle-link { color: #888; font-size: 0.8rem; text-align: center; margin-top: 25px; cursor: pointer; transition: 0.3s; }
+        .toggle-link:hover { color: white; }
+        .toggle-link span { color: var(--adr-blue); font-weight: bold; }
+        
+        #message { font-size: 0.75rem; text-align: center; margin-top: 20px; min-height: 1.2em; font-family: 'Orbitron'; letter-spacing: 1px; }
+        
+        #ref-badge { 
+            display: none; 
+            background: rgba(0, 180, 255, 0.1); 
+            border: 1px solid var(--adr-blue); 
+            color: var(--adr-blue); 
+            padding: 8px; 
+            font-size: 0.65rem; 
+            border-radius: 6px; 
+            text-align: center; 
+            margin-bottom: 20px; 
+            font-family: 'Orbitron'; 
+        }
     </style>
 </head>
 <body>
 
+<div class="brand-container">
+    <a href="index.html">
+        <img src="logo.png" alt="ADR Home" class="login-logo">
+    </a>
+</div>
+
 <div class="login-box">
-    <div id="ref-badge">LINK INVITO ATTIVO</div>
-    <h2 class="tech-font" id="auth-title">LOGIN <span style="color:var(--neon-blue)">CLIENTE</span></h2>
-    <p id="auth-desc" style="font-size: 0.7rem; color: #555; text-align: center; margin-bottom: 25px;">SISTEMA DI AUTENTICAZIONE ADR-SHIELD v2.0</p>
+    <div id="ref-badge">ACCESSO TRAMITE INVITO ATTIVO</div>
+    <h2 class="tech-font" id="auth-title">LOGIN <span style="color:var(--adr-blue)">CLIENTE</span></h2>
+    <p id="auth-desc" style="font-size: 0.65rem; color: #777; text-align: center; margin-bottom: 30px; font-family: 'Orbitron';">SISTEMA ADR-SHIELD v3.0</p>
 
     <input type="email" id="email" placeholder="Indirizzo Email">
-    <input type="password" id="password" placeholder="Password">
+    <input type="password" id="password" placeholder="Codice Password">
     
-    <button class="btn-login" id="auth-btn">ACCEDI AL TERMINALE</button>
+    <button class="btn-login" id="auth-btn">AUTENTICAZIONE TERMINALE</button>
     <div id="message"></div>
 
     <div class="toggle-link" id="toggle-auth">
-        Non hai un account? <span id="toggle-text">Registrati ora</span>
+        Nuovo utente? <span id="toggle-text">Inizializza Profilo</span>
     </div>
 </div>
 
@@ -71,14 +182,11 @@
 
     let isLoginMode = true;
 
-    // --- LOGICA REFERRAL ---
-    // Cattura l'ID di chi ha invitato dall'URL (?ref=ID_UTENTE)
     const urlParams = new URLSearchParams(window.location.search);
     const referrerId = urlParams.get('ref');
     if (referrerId) {
         localStorage.setItem('adr_referrer', referrerId);
         document.getElementById('ref-badge').style.display = 'block';
-        // Se c'è un ref, forziamo la modalità registrazione per comodità
         switchMode(false); 
     }
 
@@ -90,9 +198,9 @@
 
     function switchMode(login) {
         isLoginMode = login;
-        authTitle.innerHTML = isLoginMode ? 'LOGIN <span style="color:var(--neon-blue)">CLIENTE</span>' : 'REGISTRA <span style="color:var(--neon-blue)">ACCOUNT</span>';
-        authBtn.innerText = isLoginMode ? 'ACCEDI AL TERMINALE' : 'CREA ACCOUNT SICURO';
-        toggleText.innerText = isLoginMode ? 'Registrati ora' : 'Accedi qui';
+        authTitle.innerHTML = isLoginMode ? 'LOGIN <span style="color:var(--adr-blue)">CLIENTE</span>' : 'REGISTRA <span style="color:var(--adr-blue)">ACCOUNT</span>';
+        authBtn.innerText = isLoginMode ? 'AUTENTICAZIONE TERMINALE' : 'CREA PROFILO ADR';
+        toggleText.innerText = isLoginMode ? 'Inizializza Profilo' : 'Accedi al Terminale';
         messageDiv.innerText = "";
     }
 
@@ -103,31 +211,30 @@
         const password = document.getElementById('password').value;
 
         if(!email || !password) {
-            showMessage("Inserire credenziali complete.", "var(--neon-red)");
+            showMessage("CAMPI INCOMPLETI", "var(--error-red)");
             return;
         }
 
         authBtn.disabled = true;
-        showMessage("Verifica identità in corso...", "var(--neon-blue)");
+        showMessage("SCANSIONE CREDENZIALI...", "var(--adr-blue)");
 
         try {
             if (isLoginMode) {
                 await signInWithEmailAndPassword(auth, email, password);
                 window.location.href = "dashboard.html";
             } else {
-                // REGISTRAZIONE + CREAZIONE PROFILO SU FIRESTORE
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
 
-                // Salviamo i dati iniziali dell'utente su Firestore
                 await setDoc(doc(db, "users", user.uid), {
                     email: user.email,
                     role: "client",
                     createdAt: new Date().toISOString(),
-                    invitedBy: localStorage.getItem('adr_referrer') || "direct"
+                    invitedBy: localStorage.getItem('adr_referrer') || "direct",
+                    points: 0
                 });
 
-                showMessage("Account creato con successo!", "var(--neon-green)");
+                showMessage("PROFILO CREATO.", "var(--adr-blue)");
                 setTimeout(() => { window.location.href = "dashboard.html"; }, 1500);
             }
         } catch (error) {
@@ -145,16 +252,16 @@
         console.error(error.code);
         switch (error.code) {
             case 'auth/email-already-in-use':
-                showMessage("Email già registrata. Accedi.", "var(--neon-red)");
+                showMessage("EMAIL GIÀ PRESENTE.", "var(--error-red)");
                 break;
             case 'auth/invalid-credential':
-                showMessage("Email o Password errati.", "var(--neon-red)");
+                showMessage("DATI ERRATI.", "var(--error-red)");
                 break;
             case 'auth/weak-password':
-                showMessage("Password troppo debole (min 6 car.).", "var(--neon-red)");
+                showMessage("PASSWORD DEBOLE.", "var(--error-red)");
                 break;
             default:
-                showMessage("Errore: " + error.message, "var(--neon-red)");
+                showMessage("ERRORE DI SISTEMA.", "var(--error-red)");
         }
     }
 
