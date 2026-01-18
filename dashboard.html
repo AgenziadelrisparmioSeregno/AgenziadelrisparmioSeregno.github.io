@@ -3,129 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Area Clienti | Agenzia del Risparmio</title>
+    <title>Area Riservata | ADR Seregno</title>
     
-    <meta property="og:title" content="Risparmia con ADR">
-    <meta property="og:description" content="Usa il mio invito per analizzare le tue bollette a costo zero.">
-    <meta property="og:image" content="https://tuosito.it/logo-adr.png">
-
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --neon-blue: #00f3ff; --neon-green: #00ff9d; --neon-red: #ff4444; }
-        
+        :root { 
+            --adr-blue: #00b4ff; 
+            --adr-dark: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
         #safety-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: black; z-index: 9999; display: flex; align-items: center; justify-content: center;
         }
 
         .dashboard-bg {
-            background: radial-gradient(circle at top right, #0a0f1a, #000000);
+            background: radial-gradient(circle at top right, #0a1120, #000000);
             min-height: 100vh; color: white; font-family: 'Inter', sans-serif; display: none; 
         }
 
-        .dash-container { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        .dash-container { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; margin-top: 30px; }
         @media (max-width: 992px) { .dash-container { grid-template-columns: 1fr; } }
 
-        .status-pill { padding: 4px 12px; border-radius: 20px; font-size: 0.65rem; font-weight: bold; text-transform: uppercase; font-family: 'Orbitron'; }
-        .status-active { background: rgba(0, 255, 157, 0.1); color: var(--neon-green); border: 1px solid var(--neon-green); }
-        .status-pending { background: rgba(241, 196, 15, 0.1); color: #f1c40f; border: 1px solid #f1c40f; }
+        /* Status Pill Coerenti */
+        .status-pill { padding: 5px 14px; border-radius: 6px; font-size: 0.6rem; font-weight: bold; text-transform: uppercase; font-family: 'Orbitron'; letter-spacing: 1px; }
+        .status-active { background: rgba(0, 180, 255, 0.1); color: var(--adr-blue); border: 1px solid var(--adr-blue); }
+        .status-pending { background: rgba(255, 255, 255, 0.05); color: #888; border: 1px solid #444; }
         
-        .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s all ease; }
+        .reveal { opacity: 0; transform: translateY(15px); transition: 0.8s all ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         .pratica-card {
-            background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; margin-bottom: 15px;
-            border-left: 4px solid var(--neon-blue); transition: 0.3s;
+            background: var(--glass); padding: 20px; border-radius: 12px; margin-bottom: 15px;
+            border: 1px solid var(--glass-border); border-left: 4px solid var(--adr-blue); transition: 0.3s;
         }
-        .pratica-card:hover { background: rgba(255,255,255,0.05); transform: scale(1.01); }
+        .pratica-card:hover { background: rgba(255,255,255,0.07); border-color: var(--adr-blue); }
 
         #terminal-output {
-            height: 150px; overflow-y: auto; background: rgba(0,0,0,0.5); 
+            height: 180px; overflow-y: auto; background: rgba(0,0,0,0.4); 
             padding: 15px; font-family: 'Courier New', monospace; font-size: 0.75rem; 
-            color: var(--neon-green); border-radius: 5px; border: 1px solid #222; 
-            margin-bottom: 10px; scroll-behavior: smooth;
+            color: #ccc; border-radius: 8px; border: 1px solid var(--glass-border); 
+            margin-bottom: 15px; scroll-behavior: smooth;
         }
+        
         .scadenza-box {
-            padding: 15px; background: rgba(255,68,68,0.05); 
-            border: 1px solid rgba(255,68,68,0.2); border-radius: 10px; text-align: center;
+            padding: 20px; background: rgba(0, 180, 255, 0.02); 
+            border: 1px solid var(--glass-border); border-radius: 12px; text-align: center;
         }
-        /* Animazione caricamento terminale */
-        .loading-dots:after { content: ' .'; animation: dots 1s steps(5, end) infinite; }
-        @keyframes dots { 0%, 20% { color: rgba(0,0,0,0); text-shadow: .5em 0 0 rgba(0,0,0,0), 1em 0 0 rgba(0,0,0,0); } 
-          40% { color: var(--neon-green); text-shadow: .5em 0 0 rgba(0,0,0,0), 1em 0 0 rgba(0,0,0,0); }
-          60% { text-shadow: .5em 0 0 var(--neon-green), 1em 0 0 rgba(0,0,0,0); }
-          80%, 100% { text-shadow: .5em 0 0 var(--neon-green), 1em 0 0 var(--neon-green); } }
+
+        /* Input personalizzati per Dashboard */
+        .dash-input {
+            background: rgba(0,0,0,0.3); border: 1px solid #333; color: white; padding: 12px;
+            border-radius: 6px; font-family: monospace;
+        }
+        .dash-input:focus { border-color: var(--adr-blue); outline: none; }
+
+        /* Logo in Nav */
+        .nav-logo { height: 35px; cursor: pointer; transition: 0.3s; }
+        .nav-logo:hover { filter: drop-shadow(0 0 8px var(--adr-blue)); }
+
     </style>
 </head>
 <body class="dashboard-bg" id="main-body">
 
     <div id="safety-overlay">
-        <div class="tech-font" style="color: var(--neon-blue); letter-spacing: 3px;">VERIFICA CRITTOGRAFIA...</div>
+        <div class="tech-font" style="color: var(--adr-blue); letter-spacing: 4px;">DECRIPTAZIONE INTERFACCIA...</div>
     </div>
 
-    <div id="progress-container"><div id="progress-bar"></div></div>
-
-    <nav style="display: flex; align-items: center; justify-content: space-between; padding: 15px 30px; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); position: sticky; top:0; z-index:1000;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span class="tech-font" style="color: var(--neon-blue); font-size: 0.8rem;">ADR_SHIELD_v2.0</span>
+    <nav style="display: flex; align-items: center; justify-content: space-between; padding: 15px 5%; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); position: sticky; top:0; z-index:1000; border-bottom: 1px solid var(--glass-border);">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="index.html"><img src="logo.png" alt="ADR" class="nav-logo"></a>
+            <span class="tech-font" style="color: #444; font-size: 0.6rem; letter-spacing: 2px;">SECURE_HUB v3.0</span>
         </div>
         <div style="display: flex; gap: 15px; align-items: center;">
-            <button class="btn" style="background: rgba(255,68,68,0.1); border-color: #ff4444; color: #ff4444; font-size: 0.6rem; padding: 5px 12px; width: auto;" onclick="handleLogout()">CHIUDI SESSIONE</button>
+            <button class="btn" style="background: transparent; border: 1px solid #444; color: #888; font-size: 0.6rem; padding: 8px 15px; width: auto;" onclick="handleLogout()">LOGOUT</button>
         </div>
     </nav>
 
-    <div class="container" style="margin-top: 40px;">
+    <div class="container" style="margin-top: 50px; max-width: 1100px;">
         <div style="margin-bottom: 40px;" class="reveal">
-            <h1 class="tech-font" style="font-size: 1.8rem;">Terminal: <span id="user-name" style="color: var(--neon-blue);">...</span></h1>
-            <p style="color: #666; font-size: 0.7rem; font-family: monospace;">UUID: <span id="user-id">CERTIFICANDO...</span></p>
+            <h1 class="tech-font" style="font-size: 1.5rem; letter-spacing: 1px;">Benvenuto, <span id="user-name" style="color: var(--adr-blue);">...</span></h1>
+            <p style="color: #555; font-size: 0.65rem; font-family: 'Orbitron';">ID_SESSIONE: <span id="user-id">...</span></p>
         </div>
 
         <div class="dash-container">
             <div>
-                <div class="glass-card reveal">
-                    <h3 class="tech-font" style="font-size: 0.9rem; margin-bottom: 20px; color: var(--neon-blue);">Consulenze e Pratiche Attive</h3>
+                <div class="glass-card reveal" style="background: var(--glass); border: 1px solid var(--glass-border); padding: 30px;">
+                    <h3 class="tech-font" style="font-size: 0.8rem; margin-bottom: 25px; color: var(--adr-blue);">Documentazione e Analisi</h3>
                     <div id="pratiche-list">
-                        <p style="color: #444; font-size: 0.8rem;">Ricerca pratiche nel database in corso...</p>
+                        <p style="color: #444; font-size: 0.8rem;">Accesso al database ADR...</p>
                     </div>
                 </div>
 
-                <div class="glass-card reveal" style="margin-top: 30px; border-color: #333;">
-                    <h4 class="tech-font" style="font-size: 0.7rem; color: var(--neon-green); margin-bottom: 10px;">ADR_ASSISTANT_TERMINAL_v1.0</h4>
-                    <div id="terminal-output">> SISTEMA PRONTO. DIGITA 'AIUTO'.</div>
+                <div class="glass-card reveal" style="margin-top: 30px; border-color: #222; background: rgba(0,0,0,0.2);">
+                    <h4 class="tech-font" style="font-size: 0.65rem; color: #555; margin-bottom: 15px;">ADR_VIRTUAL_ASSISTANT</h4>
+                    <div id="terminal-output">> SISTEMA ONLINE. Come posso aiutarti oggi?</div>
                     <div style="display: flex; gap: 10px;">
-                        <input type="text" id="ai-input" placeholder="Inserisci comando..." style="background: #000; border: 1px solid #444; color: #fff; padding: 10px; flex-grow: 1; font-family: monospace; font-size: 0.8rem;">
-                        <button class="btn" onclick="runAICommand()" style="width: auto; padding: 0 20px; background: var(--neon-green); color: black;">INVIO</button>
+                        <input type="text" id="ai-input" class="dash-input" placeholder="Comando (es: aiuto, stato)..." style="flex-grow: 1;">
+                        <button class="btn" onclick="runAICommand()" style="width: auto; padding: 0 25px; background: var(--adr-blue); color: black;">ESEGUI</button>
                     </div>
                 </div>
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 20px;">
-                <div class="glass-card reveal">
-                    <h4 class="tech-font" style="font-size: 0.8rem; margin-bottom: 15px; color: var(--neon-red);">Monitoraggio Tariffe</h4>
+                <div class="glass-card reveal" style="border-top: 3px solid #ff4444;">
+                    <h4 class="tech-font" style="font-size: 0.7rem; margin-bottom: 15px; color: #ff4444;">Monitoraggio Tariffe</h4>
                     <div class="scadenza-box">
-                        <p style="font-size: 0.7rem; color: #888; margin: 0;">Prossimo check previsto tra:</p>
-                        <div id="days-left" style="font-size: 2rem; font-weight: bold; color: var(--neon-red); margin: 5px 0;">---</div>
-                        <p style="font-size: 0.55rem; color: #666; text-transform: uppercase;">Monitoraggio algoritmo H24 attivo</p>
+                        <p style="font-size: 0.6rem; color: #666; margin: 0; text-transform: uppercase;">Ricalcolo Algoritmo tra:</p>
+                        <div id="days-left" style="font-size: 2.2rem; font-weight: bold; color: white; margin: 5px 0;">---</div>
+                        <p style="font-size: 0.5rem; color: var(--adr-blue); letter-spacing: 1px;">PROTEZIONE ADR ATTIVA</p>
                     </div>
                 </div>
 
                 <div class="glass-card reveal" style="text-align: center;">
-                    <h4 class="tech-font" style="font-size: 0.8rem; margin-bottom: 15px; color: var(--neon-blue);">QR Passaparola</h4>
-                    <div style="background: white; padding: 10px; display: inline-block; border-radius: 10px; margin-bottom: 15px;">
-                        <img id="qrImage" src="" alt="Generazione QR..." style="width: 120px; height: 120px; display: block;">
+                    <h4 class="tech-font" style="font-size: 0.7rem; margin-bottom: 15px; color: var(--adr-blue);">QR Invito Cliente</h4>
+                    <div style="background: white; padding: 12px; display: inline-block; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 0 20px rgba(0,180,255,0.1);">
+                        <img id="qrImage" src="" alt="QR" style="width: 130px; height: 130px; display: block;">
                     </div>
-                    <p style="font-size: 0.6rem; color: #666; margin-bottom: 10px;">Invita amici per sbloccare premi</p>
-                    <button class="btn" id="copy-btn" onclick="copyRef()" style="width: 100%; font-size: 0.6rem;">COPIA LINK INVITO</button>
+                    <p style="font-size: 0.6rem; color: #666; margin-bottom: 15px;">Condividi ADR per ottenere vantaggi esclusivi</p>
+                    <button class="btn" id="copy-btn" onclick="copyRef()" style="width: 100%; font-size: 0.6rem; border: 1px solid var(--adr-blue); background: transparent; color: var(--adr-blue);">COPIA LINK PERSONALE</button>
                     <code id="refLink" style="display: none;"></code>
                 </div>
 
-                <div class="glass-card reveal" style="border-color: var(--neon-green); text-align: center;">
-                    <div style="width: 50px; height: 50px; background: rgba(0, 255, 157, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
-                        <span style="font-size: 1.2rem;">💬</span>
+                <div class="glass-card reveal" style="border-color: #222; text-align: center; background: linear-gradient(145deg, rgba(0,180,255,0.05), transparent);">
+                    <div style="width: 40px; height: 40px; background: rgba(0, 180, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                        <span style="font-size: 1rem;">🎧</span>
                     </div>
-                    <h4 class="tech-font" style="font-size: 0.75rem;">Consulente Live</h4>
-                    <button class="btn btn-green" onclick="window.open('https://wa.me/393515910955')" style="width: 100%; background: var(--neon-green); color: black; font-weight: bold; margin-top: 10px;">APRI WHATSAPP</button>
+                    <h4 class="tech-font" style="font-size: 0.7rem;">Supporto Dedicato</h4>
+                    <button class="btn" onclick="window.open('https://wa.me/393515910955')" style="width: 100%; background: white; color: black; font-weight: bold; margin-top: 10px;">WHATSAPP DIRECT</button>
                 </div>
             </div>
         </div>
@@ -151,13 +160,10 @@
 
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                // 1. GESTIONE REFERRAL (Logica Mancante prima)
-                checkReferral(user);
-
                 document.getElementById('main-body').style.display = 'block';
                 document.getElementById('safety-overlay').style.display = 'none';
                 document.getElementById('user-name').innerText = user.email.split('@')[0].toUpperCase();
-                document.getElementById('user-id').innerText = user.uid;
+                document.getElementById('user-id').innerText = user.uid.substring(0, 12) + "...";
                 
                 generateQR(user.uid);
                 updateScadenza(user.uid);
@@ -165,101 +171,44 @@
 
                 setTimeout(() => {
                     document.querySelectorAll('.reveal').forEach((el, i) => {
-                        setTimeout(() => el.classList.add('active'), i * 100);
+                        setTimeout(() => el.classList.add('active'), i * 120);
                     });
-                }, 500);
+                }, 400);
             } else {
                 window.location.href = "login.html";
             }
         });
 
-        // 1. LOGICA REFERRAL REAL-TIME (Aggiorna chi ha invitato chi)
-        async function checkReferral(user) {
-            const referrer = localStorage.getItem('adr_referrer');
-            if (referrer) {
-                const userRef = doc(db, "users", user.uid);
-                const docSnap = await getDoc(userRef);
-                
-                // Se l'utente è nuovo e ha un referrer, salva il legame nel DB
-                if (!docSnap.exists()) {
-                    await setDoc(userRef, {
-                        email: user.email,
-                        invitedBy: referrer,
-                        joinedAt: new Date().toISOString()
-                    });
-                    localStorage.removeItem('adr_referrer'); // Pulisce dopo il primo accesso
-                }
-            }
-        }
-
-        // 2. GENERATORE QR PROFESSIONALE
+        // Generatore QR
         function generateQR(uid) {
-            const mySite = window.location.origin;
-            const fullRefLink = `${mySite}/login.html?ref=${uid}`;
+            const fullRefLink = `${window.location.origin}/login.html?ref=${uid}`;
             document.getElementById('refLink').innerText = fullRefLink;
-            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(fullRefLink)}&bgcolor=ffffff`;
-            document.getElementById('qrImage').src = qrUrl;
+            document.getElementById('qrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(fullRefLink)}`;
         }
 
-        // 3. TERMINALE IA CON ANIMAZIONI (Esperienza Utente Migliorata)
+        // Terminale AI ADR
         window.runAICommand = async function() {
             const inputField = document.getElementById('ai-input');
             const input = inputField.value.toLowerCase().trim();
             const output = document.getElementById('terminal-output');
-            
             if(!input) return;
 
-            output.innerHTML += `<div style="color:#fff; margin: 5px 0;">USER_@ADR: ${input}</div>`;
-            const loadingId = "load-" + Date.now();
-            output.innerHTML += `<div id="${loadingId}" style="color:var(--neon-blue);">ADR_BOT sta elaborando<span class="loading-dots"></span></div>`;
-            output.scrollTop = output.scrollHeight;
+            output.innerHTML += `<div style="color:var(--adr-blue); margin: 5px 0;">> ${input}</div>`;
             inputField.value = "";
 
-            // Simulazione analisi dati
             setTimeout(() => {
-                document.getElementById(loadingId).remove();
-                let response = "> ERRORE: COMANDO NON RICONOSCIUTO. DIGITA 'AIUTO'.";
+                let response = "Comando non riconosciuto. Digita 'aiuto'.";
+                if (input === 'aiuto') response = "Comandi: 'stato' (verifica pratiche), 'scadenza' (check tariffe), 'consulente'.";
+                else if (input === 'stato') response = "Analisi database: Pratiche sincronizzate correttamente.";
+                else if (input === 'scadenza') response = "Il sistema sta monitorando le tue tariffe H24.";
+                else if (input === 'consulente') response = "Canale WhatsApp in apertura...";
 
-                if (input === 'aiuto') {
-                    response = "> COMANDI DISPONIBILI:<br> - 'STATO': Analisi pratiche attive<br> - 'SCADENZA': Verifica prossima analisi tariffaria<br> - 'DANIEL': Parla con il consulente umano";
-                } else if (input === 'stato') {
-                    const count = document.querySelectorAll('.pratica-card').length;
-                    response = `> ANALISI: Database ADR indica ${count} pratiche collegate al tuo UUID.`;
-                } else if (input === 'scadenza') {
-                    const days = document.getElementById('days-left').innerText;
-                    response = `> SCADENZARIO: Prossima verifica tariffe prevista tra ${days}. Monitoraggio stabile.`;
-                } else if (input === 'daniel') {
-                    response = "> PROTOCOLLO: Apertura canale criptato WhatsApp... Caricamento modulo Daniel.";
-                    setTimeout(() => window.open('https://wa.me/393515910955'), 1500);
-                }
-
-                output.innerHTML += `<div style="color:var(--neon-green); margin-bottom:10px;">${response}</div>`;
+                output.innerHTML += `<div style="color:#888; margin-bottom:10px;">ADR_SYS: ${response}</div>`;
                 output.scrollTop = output.scrollHeight;
-            }, 1000);
+            }, 600);
         }
 
-        // 4. GESTIONE SCADENZE MULTIPLE (Logica Migliorata)
-        async function updateScadenza(uid) {
-            try {
-                const q = query(collection(db, "pratiche"), where("userId", "==", uid));
-                const snapshot = await getDocs(q);
-                let scadenze = [];
-
-                snapshot.forEach(doc => {
-                    if(doc.data().scadenza) scadenze.push(parseInt(doc.data().scadenza));
-                });
-
-                if (scadenze.length > 0) {
-                    // Mostra la scadenza più vicina (la più urgente)
-                    const minScadenza = Math.min(...scadenze);
-                    document.getElementById('days-left').innerText = minScadenza + " GG";
-                } else {
-                    document.getElementById('days-left').innerText = "CALCOLO...";
-                }
-            } catch (e) { console.error("Errore fetch dati:", e); }
-        }
-
-        // 5. FETCH PRATICHE CON GESTIONE ERRORI
+        // Fetch Pratiche
         async function fetchUserPratiche(uid) {
             const listElement = document.getElementById('pratiche-list');
             try {
@@ -267,11 +216,7 @@
                 const querySnapshot = await getDocs(q);
                 
                 if (querySnapshot.empty) {
-                    listElement.innerHTML = `
-                        <div style="text-align:center; padding:20px; border:1px dashed #444; border-radius:10px;">
-                            <p style="color: #666; font-size: 0.8rem;">Nessuna pratica trovata.</p>
-                            <button class="btn" style="width:auto; margin-top:10px; font-size:0.6rem;" onclick="window.open('https://wa.me/393515910955')">+ AVVIA PRIMA CONSULENZA</button>
-                        </div>`;
+                    listElement.innerHTML = `<div style="text-align:center; padding:30px; border:1px dashed #333; border-radius:10px; color:#666; font-size:0.8rem;">Nessun documento attivo.</div>`;
                     return;
                 }
                 
@@ -279,52 +224,37 @@
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
                     const statusClass = data.stato === 'status-active' ? 'status-active' : 'status-pending';
-                    const statusText = data.stato === 'status-active' ? 'Attivo' : 'In Elaborazione';
                     listElement.innerHTML += `
-                        <div class="pratica-card" style="border-left-color: ${data.stato === 'status-active' ? 'var(--neon-green)' : '#f1c40f'}">
+                        <div class="pratica-card">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <strong style="text-transform: uppercase; letter-spacing: 1px;">${data.nome}</strong>
-                                <span class="status-pill ${statusClass}">${statusText}</span>
+                                <strong style="font-family: 'Orbitron'; font-size: 0.8rem;">${data.nome}</strong>
+                                <span class="status-pill ${statusClass}">${data.stato === 'status-active' ? 'Attivo' : 'In Corso'}</span>
                             </div>
-                            <div style="margin-top: 12px; font-size: 0.75rem; color: #777; display: flex; justify-content: space-between;">
-                                <span>Ref: ${data.consulente || 'Team ADR'}</span>
-                                <span>Update: ${data.data || 'In corso'}</span>
+                            <div style="margin-top: 15px; font-size: 0.65rem; color: #555; display: flex; justify-content: space-between;">
+                                <span>Ref: ${data.consulente || 'Staff ADR'}</span>
+                                <span>Data: ${data.data || '---'}</span>
                             </div>
                         </div>`;
                 });
-            } catch (error) { 
-                listElement.innerHTML = "<p style='color:red'>Errore sincronizzazione database.</p>";
-            }
+            } catch (error) { listElement.innerHTML = "Errore database."; }
         }
 
-        window.handleLogout = async function() {
-            await signOut(auth);
-            window.location.href = "login.html";
+        async function updateScadenza(uid) {
+            const q = query(collection(db, "pratiche"), where("userId", "==", uid));
+            const snapshot = await getDocs(q);
+            let scadenze = [];
+            snapshot.forEach(doc => { if(doc.data().scadenza) scadenze.push(parseInt(doc.data().scadenza)); });
+            document.getElementById('days-left').innerText = scadenze.length > 0 ? Math.min(...scadenze) + " GG" : "60 GG";
         }
 
+        window.handleLogout = () => signOut(auth).then(() => window.location.href = "login.html");
+        
         window.copyRef = function() {
-            const link = document.getElementById('refLink').innerText;
-            navigator.clipboard.writeText(link).then(() => {
-                const btn = document.getElementById('copy-btn');
-                btn.innerText = "COPIATO!";
-                btn.style.background = "var(--neon-green)";
-                btn.style.color = "black";
-                setTimeout(() => {
-                    btn.innerText = "COPIA LINK INVITO";
-                    btn.style.background = "";
-                }, 2000);
-            });
+            navigator.clipboard.writeText(document.getElementById('refLink').innerText);
+            const btn = document.getElementById('copy-btn');
+            btn.innerText = "COPIATO ✅";
+            setTimeout(() => btn.innerText = "COPIA LINK PERSONALE", 2000);
         }
-    </script>
-
-    <script>
-        // Progress bar smooth
-        window.onscroll = function() {
-            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            let scrolled = (winScroll / height) * 100;
-            document.getElementById("progress-bar").style.width = scrolled + "%";
-        };
     </script>
 </body>
 </html>
