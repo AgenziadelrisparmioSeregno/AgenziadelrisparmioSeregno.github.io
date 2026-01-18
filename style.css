@@ -1,5 +1,6 @@
 /* ============================================================
    ADR GLOBAL SYSTEM - WHITE & AZURE NEON EDITION
+   CORREZIONE MOBILE & CLICK-THROUGH ATTIVA
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@500;700;900&display=swap');
@@ -15,71 +16,99 @@
     --body-font: 'Inter', sans-serif;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    outline: none; 
+    -webkit-tap-highlight-color: transparent; /* Rimuove il fastidioso flash blu al tocco su mobile */
+}
 
 body { 
     background: linear-gradient(180deg, #ffffff 0%, #f0faff 100%); 
     color: var(--adr-dark); 
     font-family: var(--body-font); 
     line-height: 1.6;
+    overflow-x: hidden; /* Previene lo scroll orizzontale su mobile */
 }
+
+/* PROGRESS BAR - CORRETTA PER MOBILE */
+#progress-container { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 4px; 
+    z-index: 9999; 
+    pointer-events: none; /* Fondamentale: permette di cliccare gli elementi sotto la barra */
+}
+#progress-bar { height: 100%; background: var(--adr-blue); width: 0%; box-shadow: 0 0 10px var(--adr-blue-neon); }
 
 /* NAVBAR NEON */
 nav {
     display: flex; align-items: center; justify-content: space-between; 
-    position: sticky; top: 0; padding: 15px 5%;
+    position: sticky; top: 0; padding: 12px 5%;
     background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); 
     z-index: 1000; border-bottom: 2px solid var(--adr-blue-light);
     box-shadow: 0 5px 20px rgba(0, 168, 255, 0.1);
 }
 
-.nav-logo { height: 45px; filter: drop-shadow(0 0 8px rgba(0,168,255,0.3)); transition: 0.3s; }
-.nav-logo:hover { transform: scale(1.05); }
+.nav-logo { height: 40px; filter: drop-shadow(0 0 8px rgba(0,168,255,0.3)); transition: 0.3s; }
 
 .area-clienti-btn {
     background: white; border: 2px solid var(--adr-blue); color: var(--adr-blue); 
-    padding: 8px 20px; border-radius: 50px; font-family: var(--tech-font); font-weight: 800;
-    font-size: 0.7rem; box-shadow: var(--neon-shadow); transition: 0.3s;
+    padding: 8px 18px; border-radius: 50px; font-family: var(--tech-font); font-weight: 800;
+    font-size: 0.65rem; box-shadow: var(--neon-shadow); transition: 0.3s;
+    text-decoration: none; display: inline-block;
 }
 .area-clienti-btn:hover { background: var(--adr-blue); color: white; box-shadow: 0 0 20px var(--adr-blue-neon); }
 
-/* CARDS CON NEON */
+/* CARDS CON NEON E FIX REVEAL */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+    pointer-events: none; /* Impedisce alla card invisibile di bloccare i click */
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto; /* Riattiva i click solo quando la card è visibile */
+}
+
 .glass-card {
     background: #ffffff; border: 1px solid rgba(0, 168, 255, 0.2);
-    border-radius: 20px; padding: 30px; margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(0, 168, 255, 0.15), var(--neon-shadow);
+    border-radius: 20px; padding: 25px; margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(0, 168, 255, 0.15);
     position: relative; overflow: hidden; transition: 0.4s;
 }
-.glass-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0, 168, 255, 0.25); }
+
+@media (min-width: 992px) {
+    .glass-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0, 168, 255, 0.25); }
+}
 
 .glass-card::before {
     content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%; 
     background: var(--adr-blue); box-shadow: 2px 0 15px var(--adr-blue-neon);
 }
 
-/* SEZIONE PARTNER - DOPPIO MOVIMENTO & ROTAZIONE */
+/* SEZIONE PARTNER - OTTIMIZZATA MOBILE */
 .partners-section {
-    padding: 60px 0; background: white; border-top: 1px solid var(--adr-blue-light);
-    display: flex; flex-direction: column; gap: 30px; overflow: hidden;
+    padding: 40px 0; background: white; border-top: 1px solid var(--adr-blue-light);
+    display: flex; flex-direction: column; gap: 20px; overflow: hidden;
 }
 
-.partners-track { display: flex; align-items: center; gap: 80px; width: max-content; }
+.partners-track { display: flex; align-items: center; gap: 40px; width: max-content; }
 
-/* Animazione Sinistra */
-.scroll-left { animation: moveLeft 30s linear infinite; }
-/* Animazione Destra */
-.scroll-right { animation: moveRight 30s linear infinite; }
+.scroll-left { animation: moveLeft 25s linear infinite; }
+.scroll-right { animation: moveRight 25s linear infinite; }
 
 .partners-track img {
-    height: 50px; width: auto; filter: grayscale(100%); opacity: 0.6;
-    transition: 0.5s;
-    /* ROTAZIONE 3D (GIRARE) */
-    animation: spinLogo 7s linear infinite;
+    height: 35px; width: auto; filter: grayscale(100%); opacity: 0.5;
+    transition: 0.4s;
+    animation: spinLogo 8s linear infinite;
 }
 
-.partners-track img:hover {
-    filter: grayscale(0%) drop-shadow(0 0 10px var(--adr-blue-neon));
-    opacity: 1; transform: scale(1.2); animation-play-state: paused;
+@media (max-width: 768px) {
+    .partners-track img { height: 28px; animation: none; filter: grayscale(0); opacity: 1; } /* Disabilita rotazione pesante su mobile */
+    .partners-track { gap: 30px; }
 }
 
 @keyframes moveLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -89,10 +118,24 @@ nav {
     100% { transform: perspective(400px) rotateY(360deg); }
 }
 
-/* BOT VIRTUALE NEON */
+/* BOT VIRTUALE - FIX POSIZIONAMENTO MOBILE */
+#bot-container { 
+    position: fixed; bottom: 20px; right: 20px; 
+    z-index: 10001; /* Sopra la nav e la progress bar */
+}
+
 #bot-launcher { 
-    position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; 
-    border-radius: 50%; background: var(--adr-blue); color: white;
-    display: flex; align-items: center; justify-content: center; font-size: 2rem;
-    box-shadow: 0 0 20px var(--adr-blue-neon); border: 2px solid white; cursor: pointer;
+    width: 60px; height: 60px; border-radius: 50%; background: var(--adr-blue); 
+    color: white; display: flex; align-items: center; justify-content: center; 
+    font-size: 1.8rem; box-shadow: 0 5px 20px var(--adr-blue-neon); 
+    border: 2px solid white; cursor: pointer; transition: 0.3s;
+}
+
+#bot-launcher:active { transform: scale(0.9); }
+
+/* TICKER FIX */
+.market-ticker {
+    z-index: 900;
+    position: relative;
+    pointer-events: none; /* Impedisce al testo che scorre di bloccare i click sulla nav */
 }
