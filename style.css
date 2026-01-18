@@ -1,8 +1,12 @@
-/* ADR EXTREME 3D STYLE - AZZURRO & BIANCO FINAL */
+/* =========================================
+   ADR GLOBAL SYSTEM - EXTREME 3D STYLE
+   Questo file gestisce l'intero sito
+   ========================================= */
+
 :root { 
     --adr-blue: #00a8ff;            /* Azzurro Logo */
     --adr-blue-dark: #0077b6;       /* Per contrasti */
-    --adr-green: #00d28d;           /* Per pulsanti Andrea/WhatsApp */
+    --adr-green: #00d28d;           /* Per pulsanti WhatsApp/Andrea */
     --adr-bg: radial-gradient(circle at 50% 50%, #ffffff 0%, #d4efff 100%);
     --glass: rgba(255, 255, 255, 0.4);
     --shadow-3d: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
@@ -10,7 +14,9 @@
     --tech-font: 'Orbitron', sans-serif;
 }
 
-/* BASE */
+/* RESET E BASE GLOBALE */
+* { box-sizing: border-box; }
+
 body { 
     background: var(--adr-bg); 
     color: #1a2a3a; 
@@ -22,11 +28,11 @@ body {
 
 .tech-font { font-family: var(--tech-font); text-transform: uppercase; letter-spacing: 2px; }
 
-/* PROGRESS BAR 3D */
+/* BARRA DI PROGRESSO SUPERIORE */
 #progress-container { position: fixed; top: 0; width: 100%; height: 5px; z-index: 10001; }
 #progress-bar { height: 100%; background: var(--adr-blue); width: 0%; box-shadow: 0 2px 10px var(--adr-blue); }
 
-/* MARKET TICKER */
+/* MARKET TICKER (Header Scorrevole) */
 .market-ticker { 
     background: var(--adr-blue); color: white; 
     padding: 12px 0; overflow: hidden; position: relative; z-index: 10;
@@ -37,7 +43,7 @@ body {
 
 @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-/* NAV - LOGO E LINKS */
+/* NAVBAR UNIVERSALE */
 nav {
     display: flex; align-items: center; justify-content: center;
     position: sticky; top: 0; padding: 15px 40px;
@@ -46,10 +52,7 @@ nav {
     border-bottom: 1px solid rgba(255,255,255,0.3);
 }
 
-.nav-logo {
-    height: 45px; width: auto; transition: 0.3s;
-    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
-}
+.nav-logo { height: 45px; width: auto; transition: 0.3s; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1)); }
 .nav-logo:hover { transform: scale(1.05); }
 
 .nav-links { display: flex; gap: 25px; }
@@ -59,7 +62,7 @@ nav {
 }
 .nav-links a.active, .nav-links a:hover { color: var(--adr-blue); transform: translateY(-2px); }
 
-/* AREA CLIENTI */
+/* BOTTONE AREA CLIENTI (Sempre visibile) */
 .area-clienti-btn {
     position: absolute; right: 40px;
     background: #eafff5; border: 1px solid var(--adr-green);
@@ -70,203 +73,57 @@ nav {
 }
 .area-clienti-btn:hover { background: var(--adr-green); color: white; transform: scale(1.05); }
 
-/* CARDS 3D */
+/* CONTENITORI CARD 3D (Per tutte le sezioni) */
 .glass-card {
     background: var(--glass); border: 1px solid rgba(255,255,255,0.6);
     border-radius: 30px; padding: 30px; margin-bottom: 25px;
     box-shadow: var(--shadow-3d); backdrop-filter: blur(15px);
     transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    position: relative; overflow: hidden;
 }
 .glass-card:hover { transform: translateY(-10px); border-color: var(--adr-blue); }
 
-/* GRADE CIRCLE */
-.grade-circle {
-    width: 90px; height: 90px; border-radius: 50%; border: 4px solid #ff5252;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 2rem; color: #ff5252; margin: 20px auto;
-    background: #fff; box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+/* ELEMENTI PAGINA CONTATTI / INFO */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
+
+.info-box {
+    display: flex; align-items: center; gap: 20px; margin-bottom: 25px; padding: 20px;
+    background: #ffffff; border-radius: 20px;
+    box-shadow: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff;
+}
+.info-box span { font-size: 2rem; color: var(--adr-blue); }
+
+/* PULSANTI AZZURRI ADR */
+.btn-action, .btn { 
+    background: var(--adr-blue); border: none; color: white; 
+    padding: 16px 28px; border-radius: 15px; cursor: pointer; 
+    font-family: var(--tech-font); font-weight: bold; transition: 0.3s; 
+    text-decoration: none; display: block; text-align: center;
+    box-shadow: 6px 6px 15px rgba(0, 168, 255, 0.3), -6px -6px 15px #ffffff;
+}
+.btn-action:hover { background: var(--adr-blue-dark); transform: scale(1.02); }
+
+/* CHATBOT ADR-1 */
+#bot-launcher { 
+    position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px;
+    background: var(--adr-blue); border-radius: 50%; display: flex; 
+    align-items: center; justify-content: center; cursor: pointer;
+    box-shadow: 10px 10px 20px rgba(0, 168, 255, 0.3); z-index: 9999;
+    animation: float 4s ease-in-out infinite;
 }
 
-/* BUTTONS */
-.btn {
-    background: #f0f8ff; border: none; color: var(--adr-blue-dark);
-    padding: 14px 28px; border-radius: 15px; font-family: var(--tech-font);
-    font-weight: 800; cursor: pointer; transition: 0.3s; text-align: center;
-    width: 100%; display: block; box-sizing: border-box;
-    box-shadow: 6px 6px 12px #c1d3e0, -6px -6px 12px #ffffff;
-    text-decoration: none; margin-bottom: 10px;
-}
-.btn:hover { box-shadow: inset 4px 4px 8px #c1d3e0; color: var(--adr-blue); }
-.btn-andrea { color: var(--adr-green); background: #f0fff8; box-shadow: 6px 6px 12px #d1e0d8, -6px -6px 12px #ffffff; }
-
-/* PARTNER SCROLL RESPONSIVE */
-.partner-container { 
-    overflow: hidden; padding: 50px 0; background: rgba(255, 255, 255, 0.3); 
-    margin: 40px 0; border-top: 1px solid var(--border-light); 
-    border-bottom: 1px solid var(--border-light); position: relative;
-}
-.partner-container::before, .partner-container::after {
-    content: ""; position: absolute; top: 0; width: 150px; height: 100%; z-index: 2;
-}
-.partner-container::before { left: 0; background: linear-gradient(to right, white, transparent); }
-.partner-container::after { right: 0; background: linear-gradient(to left, white, transparent); }
-
-.partner-track { display: flex; align-items: center; gap: 80px; animation: scrollPartner 30s linear infinite; width: max-content; }
-.partner-logo { height: 40px; width: auto; filter: grayscale(1) opacity(0.6); transition: 0.3s; }
-.partner-logo:hover { filter: grayscale(0) opacity(1); transform: scale(1.1); }
-
-@keyframes scrollPartner { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-/* BOT ANIMATION */
-#bot-launcher { animation: float 4s ease-in-out infinite; background: linear-gradient(145deg, #00b4ff, #008ee6); }
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-
-/* --- MOBILE & TABLET OPTIMIZATION --- */
-@media (max-width: 768px) {
-    nav { flex-direction: column; gap: 15px; padding: 15px; }
-    .nav-logo { height: 35px; }
-    .nav-links { gap: 12px; flex-wrap: wrap; justify-content: center; }
-    .nav-links a { font-size: 0.65rem; }
-    .area-clienti-btn { position: static; width: 100%; text-align: center; margin-top: 10px; }
-    
-    .partner-track { gap: 40px; animation-duration: 20s; }
-    .partner-logo { height: 30px; }
-    .partner-container::before, .partner-container::after { width: 50px; }
-
-    .glass-card { padding: 20px; border-radius: 20px; }
-    header h1 { font-size: 1.6rem !important; }
-
-    .mobile-call-btn {
-        display: flex; position: fixed; bottom: 20px; left: 20px;
-        background: var(--adr-green); color: white; width: 60px; height: 60px;
-        border-radius: 50%; justify-content: center; align-items: center;
-        z-index: 10000; box-shadow: 0 8px 25px rgba(0, 210, 141, 0.4);
-        animation: pulse-green 2s infinite; text-decoration: none; font-size: 1.5rem;
-    }
-}
-
-@keyframes pulse-green {
-    0% { box-shadow: 0 0 0 0 rgba(0, 210, 141, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(0, 210, 141, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(0, 210, 141, 0); }
-}
-
-footer { padding: 40px; text-align: center; color: #aaa; font-size: 0.7rem; }
-/* BOT ADR-1 EXTREME 3D DESIGN */
 #bot-window {
-    display: none; 
-    width: 350px; 
-    height: 500px; 
-    background: rgba(255, 255, 255, 0.85); /* Effetto Vetro */
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 168, 255, 0.3);
-    border-radius: 25px; 
-    flex-direction: column; 
-    position: absolute; 
-    bottom: 80px; 
-    right: 0; 
-    overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0, 168, 255, 0.15);
-    z-index: 10000;
+    display: none; width: 350px; height: 500px; 
+    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 168, 255, 0.3); border-radius: 25px;
+    position: absolute; bottom: 80px; right: 0; flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0, 168, 255, 0.15); overflow: hidden;
 }
 
-.bot-header {
-    background: linear-gradient(135deg, var(--adr-blue), var(--adr-blue-dark));
-    color: white; 
-    padding: 15px; 
-    font-family: var(--tech-font); 
-    font-size: 0.8rem; 
-    font-weight: bold; 
-    display: flex; 
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+/* RESPONSIVE DESIGN */
+@media (max-width: 992px) {
+    .contact-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .area-clienti-btn { position: static; width: 100%; text-align: center; margin-top: 10px; }
 }
 
-#bot-messages {
-    flex: 1; 
-    padding: 20px; 
-    overflow-y: auto; 
-    display: flex; 
-    flex-direction: column;
-    gap: 12px;
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* Bolla messaggio Utente */
-.msg-user {
-    align-self: flex-end; 
-    background: var(--adr-blue); 
-    color: white; 
-    padding: 10px 15px; 
-    border-radius: 18px 18px 2px 18px; 
-    font-size: 0.85rem; 
-    max-width: 80%;
-    box-shadow: 4px 4px 10px rgba(0, 168, 255, 0.2);
-}
-
-/* Bolla messaggio Bot */
-.msg-bot {
-    align-self: flex-start; 
-    background: white; 
-    color: #333; 
-    padding: 10px 15px; 
-    border-radius: 18px 18px 18px 2px; 
-    font-size: 0.85rem; 
-    max-width: 85%;
-    border: 1px solid rgba(0, 168, 255, 0.1);
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.05);
-}
-
-/* Input Area */
-.bot-input-area {
-    padding: 15px; 
-    background: white; 
-    border-top: 1px solid rgba(0, 168, 255, 0.1);
-    display: flex; 
-    gap: 10px;
-}
-
-.bot-input-area input {
-    flex: 1; 
-    border: 1px solid #e0e0e0; 
-    padding: 10px; 
-    border-radius: 12px;
-    font-family: 'Inter', sans-serif;
-    outline: none;
-    transition: 0.3s;
-}
-
-.bot-input-area input:focus {
-    border-color: var(--adr-blue);
-    box-shadow: 0 0 5px rgba(0, 168, 255, 0.2);
-}
-
-.bot-send-btn {
-    background: var(--adr-blue);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-}
-
-.bot-send-btn:hover {
-    background: var(--adr-blue-dark);
-    transform: scale(1.05);
-}
-
-/* Mobile Fix per il Bot */
-@media (max-width: 480px) {
-    #bot-window {
-        width: calc(100vw - 40px);
-        right: 0px;
-        height: 450px;
-    }
-}
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
