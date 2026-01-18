@@ -6,7 +6,7 @@
     <title>ADR | Agenzia del Risparmio Seregno</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --neon-blue: #00f3ff; --neon-green: #00ff9d; --dark-bg: #050505; --glass: rgba(255, 255, 255, 0.03); }
+        :root { --neon-blue: #00f3ff; --neon-green: #00ff9d; --neon-orange: #ff8c00; --dark-bg: #050505; --glass: rgba(255, 255, 255, 0.03); }
         
         body { background: var(--dark-bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
         .tech-font { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
@@ -27,18 +27,18 @@
         .nav-links { display: flex; gap: 20px; }
         nav a { color: white; text-decoration: none; font-size: 0.7rem; font-family: 'Orbitron'; opacity: 0.6; transition: 0.3s; }
         nav a:hover { opacity: 1; color: var(--neon-blue); }
-        
         .area-clienti-btn { position: absolute; right: 20px; background: rgba(0, 255, 157, 0.1); border: 1px solid var(--neon-green); color: var(--neon-green); padding: 8px 15px; border-radius: 5px; font-size: 0.6rem; font-family: 'Orbitron'; text-decoration: none; }
 
         /* CARDS */
         .glass-card { background: var(--glass); border: 1px solid #222; border-radius: 15px; padding: 25px; margin-bottom: 20px; transition: 0.3s; position: relative; }
         .glass-card:hover { border-color: var(--neon-blue); box-shadow: 0 0 20px rgba(0, 243, 255, 0.1); }
 
-        /* PARTNER SCROLL */
+        /* PARTNER SCROLL - FIX LOGHI BIANCHI */
         .partner-container { overflow: hidden; padding: 40px 0; background: rgba(255,255,255,0.01); margin: 40px 0; border-top: 1px solid #111; border-bottom: 1px solid #111; }
         .partner-track { display: flex; align-items: center; gap: 80px; animation: scrollPartner 25s linear infinite; width: max-content; }
         .partner-logo { height: 35px; width: auto; filter: brightness(0) invert(1); opacity: 0.5; transition: 0.4s; object-fit: contain; }
-        .partner-logo:hover { opacity: 1; filter: brightness(0) invert(1) drop-shadow(0 0 8px var(--neon-blue)); }
+        .partner-logo:hover { opacity: 1; filter: none !important; } /* Rimuove il bianco al passaggio del mouse */
+
         @keyframes scrollPartner { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* ANIMAZIONE REVEAL */
@@ -118,70 +118,69 @@
                 </div>
             </div>
         </div>
+
         <div class="reveal" style="margin-top: 80px;">
-    <h2 class="tech-font" style="text-align: center; font-size: 1rem; color: #666; margin-bottom: 20px;">
-        Collaboriamo con i <span style="color: var(--neon-blue)">Migliori Brand</span>
-    </h2>
-<div class="partner-container reveal">
-            <div class="partner-track">
-                <img src="logo-acea.png" class="partner-logo" alt="Acea">
-                <img src="logo-hera.png" class="partner-logo" alt="Hera">
-                <img src="logo-eon.png" class="partner-logo" alt="Eon">
-                <img src="logo-enel.png" class="partner-logo" alt="Enel">
-                <img src="logo-audax.png" class="partner-logo" alt="Audax">
-                <img src="logo-bluenergy.png" class="partner-logo" alt="Bluenergy">
-                <img src="logo-segnoverde.png" class="partner-logo" alt="Segnoverde">
-                <img src="logo-fastweb-energia.png" class="partner-logo" alt="Fastweb Energia">
-                <img src="logo-fastweb.png" class="partner-logo" alt="Fastweb">
-                <img src="logo-vodafone.png" class="partner-logo" alt="Vodafone">
-                <img src="logo-sky.png" class="partner-logo" alt="Sky">
-                <img src="logo-iliad.png" class="partner-logo" alt="Iliad">
+            <h2 class="tech-font" style="text-align: center; font-size: 1rem; color: #666; margin-bottom: 20px;">
+                Collaboriamo con i <span style="color: var(--neon-blue)">Migliori Brand</span>
+            </h2>
+            <div class="partner-container">
+                <div class="partner-track">
+                    <img src="logo-acea.png" class="partner-logo" alt="Acea">
+                    <img src="logo-hera.png" class="partner-logo" alt="Hera">
+                    <img src="logo-eon.png" class="partner-logo" alt="Eon">
+                    <img src="logo-enel.png" class="partner-logo" alt="Enel">
+                    <img src="logo-audax.png" class="partner-logo" alt="Audax">
+                    <img src="logo-bluenergy.png" class="partner-logo" alt="Bluenergy">
+                    <img src="logo-segnoverde.png" class="partner-logo" alt="Segnoverde">
+                    <img src="logo-fastweb-energia.png" class="partner-logo" alt="Fastweb Energia">
+                    <img src="logo-fastweb.png" class="partner-logo" alt="Fastweb">
+                    <img src="logo-vodafone.png" class="partner-logo" alt="Vodafone">
+                    <img src="logo-sky.png" class="partner-logo" alt="Sky">
+                    <img src="logo-iliad.png" class="partner-logo" alt="Iliad">
+                </div>
             </div>
         </div>
 
         <section class="reveal" style="margin: 80px 0;">
-    <h2 class="tech-font" style="text-align: center; color: var(--neon-blue); margin-bottom: 50px;">
-        Specialisti <span style="color:white">Operativi</span>
-    </h2>
-    
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-        
-        <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-green); min-height: 220px;">
-            <div style="font-size: 2.5rem; margin-bottom: 15px;">👨‍💼</div>
-            <h4 class="tech-font" style="font-size: 0.9rem;">ANDREA</h4>
-            <p style="font-size: 0.6rem; color: var(--neon-green); font-weight: bold; text-transform: uppercase; line-height: 1.4;">
-                RESPONSABILE CAF <br>
-                & CONSULENTE LUCE, GAS, TEL, SKY & SOLAR
-            </p>
-        </div>
-
-        <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-blue); min-height: 220px;">
-            <div style="font-size: 2.5rem; margin-bottom: 15px;">⚡</div>
-            <h4 class="tech-font" style="font-size: 0.9rem;">DANIEL</h4>
-            <p style="font-size: 0.6rem; color: var(--neon-blue); font-weight: bold; text-transform: uppercase; line-height: 1.4;">
-                CONSULENTE LUCE, GAS, <br> TEL, SKY & SOLAR
-            </p>
-        </div>
-
-        <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-blue); min-height: 220px;">
-            <div style="font-size: 2.5rem; margin-bottom: 15px;">📡</div>
-            <h4 class="tech-font" style="font-size: 0.9rem;">DANIELE</h4>
-            <p style="font-size: 0.6rem; color: var(--neon-blue); font-weight: bold; text-transform: uppercase; line-height: 1.4;">
-                CONSULENTE LUCE, GAS, <br> TEL, SKY & SOLAR
-            </p>
-        </div>
-
-        <div class="glass-card" style="text-align: center; border-bottom: 3px solid #ff8c00; min-height: 220px;">
-            <div style="font-size: 2.5rem; margin-bottom: 15px;">☀️</div>
-            <h4 class="tech-font" style="font-size: 0.9rem;">LUCA</h4>
-            <p style="font-size: 0.6rem; color: #ff8c00; font-weight: bold; text-transform: uppercase; line-height: 1.4;">
-                CONSULENTE LUCE, GAS, <br> TEL, SKY & SOLAR
-            </p>
-        </div>
-
-    </div>
-</section>
+            <h2 class="tech-font" style="text-align: center; color: var(--neon-blue); margin-bottom: 50px;">
+                Specialisti <span style="color:white">Operativi</span>
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                
+                <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-green); min-height: 220px;">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;">👨‍💼</div>
+                    <h4 class="tech-font" style="font-size: 0.9rem;">ANDREA</h4>
+                    <p style="font-size: 0.6rem; color: var(--neon-green); font-weight: bold; text-transform: uppercase; line-height: 1.4;">
+                        RESPONSABILE CAF <br>
+                        & CONSULENTE LUCE, GAS, TEL, SKY & SOLAR
+                    </p>
                 </div>
+
+                <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-blue); min-height: 220px;">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;">⚡</div>
+                    <h4 class="tech-font" style="font-size: 0.9rem;">DANIEL</h4>
+                    <p style="font-size: 0.6rem; color: var(--neon-blue); font-weight: bold; text-transform: uppercase; line-height: 1.4;">
+                        CONSULENTE LUCE, GAS, <br> TEL, SKY & SOLAR
+                    </p>
+                </div>
+
+                <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-blue); min-height: 220px;">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;">📡</div>
+                    <h4 class="tech-font" style="font-size: 0.9rem;">DANIELE</h4>
+                    <p style="font-size: 0.6rem; color: var(--neon-blue); font-weight: bold; text-transform: uppercase; line-height: 1.4;">
+                        CONSULENTE LUCE, GAS, <br> TEL, SKY & SOLAR
+                    </p>
+                </div>
+
+                <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-orange); min-height: 220px;">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;">☀️</div>
+                    <h4 class="tech-font" style="font-size: 0.9rem;">LUCA</h4>
+                    <p style="font-size: 0.6rem; color: var(--neon-orange); font-weight: bold; text-transform: uppercase; line-height: 1.4;">
+                        CONSULENTE LUCE, GAS, <br> TEL, SKY & SOLAR
+                    </p>
+                </div>
+
             </div>
         </section>
     </div>
@@ -238,7 +237,6 @@
             window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(testo)}`, '_blank');
         }
 
-        // --- LOGICA BOT AVANZATA ---
         function toggleBot() {
             const win = document.getElementById('bot-window');
             win.style.display = win.style.display === 'none' ? 'flex' : 'none';
@@ -249,48 +247,16 @@
             const container = document.getElementById('bot-messages');
             const val = input.value.trim().toLowerCase();
             if(!val) return;
-
-            // Messaggio Utente
             container.innerHTML += `<div style="align-self: flex-end; background: var(--neon-blue); color: black; padding: 8px; border-radius: 8px; margin-bottom: 10px; max-width: 80%; font-size: 0.75rem; font-weight: bold;">${val.toUpperCase()}</div>`;
             input.value = "";
             container.scrollTop = container.scrollHeight;
-
-            // Logica Risposta
             setTimeout(() => {
-                let responseHTML = "";
-                
-                if (val.includes("bolletta") || val.includes("carica") || val.includes("analisi")) {
-                    responseHTML = `<div style="background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 10px; border-left: 2px solid var(--neon-blue); max-width: 85%;">
-                        Per analizzare la tua bolletta, usa lo <b>Scanner IA</b> che trovi in cima a questa pagina. Carica il PDF e riceverai un voto istantaneo.
-                    </div>`;
-                } else if (val.includes("sede") || val.includes("dove") || val.includes("indirizzo")) {
-                    responseHTML = `<div style="background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 10px; border-left: 2px solid var(--neon-blue); max-width: 85%;">
-                        Ci trovi fisicamente a <b>Seregno (MB)</b>. Siamo un'agenzia reale, non solo un portale online!
-                    </div>`;
-                } else {
-                    // RISPOSTA FALLBACK CON TUTTI I CONSULENTI
-                    responseHTML = `
-                    <div style="background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 10px; border-left: 2px solid #ff4444; max-width: 90%;">
-                        <p style="margin:0 0 10px 0;">Non ho una risposta automatica per questo. Vuoi parlare con un nostro esperto umano?</p>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
-                            <button onclick="vaiWhatsApp('Andrea')" style="background:transparent; border:1px solid var(--neon-green); color:var(--neon-green); padding:5px; font-size:0.55rem; cursor:pointer; font-family:'Orbitron';">ANDREA (CONSULENTE LUCE&GAS & TELEFONIA & SKY & FOTOVOLTAICO & RESPONSABILE CAF)</button>
-                            <button onclick="vaiWhatsApp('Daniel')" style="background:transparent; border:1px solid var(--neon-blue); color:var(--neon-blue); padding:5px; font-size:0.55rem; cursor:pointer; font-family:'Orbitron';">DANIEL (CONSULENTE LUCE&GAS & TELEFONIA & SKY & FOTOVOLTAICO)</button>
-                            <button onclick="vaiWhatsApp('Daniele')" style="background:transparent; border:1px solid var(--neon-blue); color:var(--neon-blue); padding:5px; font-size:0.55rem; cursor:pointer; font-family:'Orbitron';">DANIELE (CONSULENTE LUCE&GAS & TELEFONIA & SKY & FOTOVOLTAICO)</button>
-                            <button onclick="vaiWhatsApp('Luca')" style="background:transparent; border:1px solid #ff00ff; color:#ff00ff; padding:5px; font-size:0.55rem; cursor:pointer; font-family:'Orbitron';">LUCA (CONSULENTE LUCE&GAS & TELEFONIA & SKY & FOTOVOLTAICO)</button>
-                        </div>
-                    </div>`;
-                }
-                
+                let responseHTML = `<div style="background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 10px; border-left: 2px solid var(--neon-blue); max-width: 85%;">Contatta i nostri esperti per una consulenza personalizzata.</div>`;
                 container.innerHTML += responseHTML;
                 container.scrollTop = container.scrollHeight;
             }, 1000);
         }
 
-        document.getElementById('user-input').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') botReply();
-        });
-
-        // Progress Bar
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
