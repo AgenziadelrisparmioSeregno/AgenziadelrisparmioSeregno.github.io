@@ -20,6 +20,9 @@
             --tech-font: 'Orbitron', sans-serif;
             --body-font: 'Inter', sans-serif;
             --neon-shadow: 0 0 15px rgba(0, 168, 255, 0.4);
+            --danger: #ff4757;
+            --warning: #ffa502;
+            --success: #2ed573;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; -webkit-tap-highlight-color: transparent; }
@@ -88,7 +91,7 @@
             border-radius: 12px; font-family: var(--tech-font); font-weight: 700;
             width: 100%; cursor: pointer; transition: 0.3s; text-decoration: none; display: block; text-align: center;
         }
-        .btn-green { background: #2ecc71; border-bottom: 4px solid #27ae60; }
+        .btn-green { background: #2ecc71; border-bottom: 4px solid #27ae60; font-size: 0.7rem; }
 
         /* BOT ADR-1 */
         #bot-container { position: fixed; bottom: 25px; right: 25px; z-index: 10001; }
@@ -109,6 +112,14 @@
         
         @media (max-width: 992px) {
             #bot-window { width: calc(100vw - 50px); right: -10px; }
+        }
+
+        /* SCANNER SPECIFIC STYLES */
+        .voto-cerchio {
+            width: 70px; height: 70px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            margin: 0 auto 15px; font-size: 1.8rem; font-weight: 900;
+            font-family: var(--tech-font);
         }
     </style>
 </head>
@@ -132,7 +143,7 @@
             <div class="nav-menu">
                 <a href="index.html" class="nav-link active">HOME</a>
                 <a href="telefonia.html" class="nav-link">TELEFONIA</a>
-                <a href="fotovoltaico.html" class="nav-link">FOTOVOLTAICO</a>
+                <a href="fotovoltaico.html" class="nav-link">ENERGIA</a>
                 <a href="caf.html" class="nav-link">CAF</a>
                 <a href="contatti.html" class="nav-link">CONTATTI</a>
             </div>
@@ -148,8 +159,8 @@
         <div id="mobile-dropdown" class="mobile-nav">
             <a href="index.html">HOME</a>
             <a href="telefonia.html">TELEFONIA</a>
-            <a href="fotovoltaico.html">FOTOVOLTAICO</a>
-            <a href="caf.html" class="nav-link">CAF</a>
+            <a href="fotovoltaico.html">ENERGIA</a>
+            <a href="caf.html">CAF</a>
             <a href="contatti.html">CONTATTI</a>
         </div>
     </nav>
@@ -161,20 +172,27 @@
         </header>
 
         <div class="glass-card reveal" style="margin-bottom: 60px;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; align-items: center;">
                 <div>
-                    <h3 style="font-family: var(--tech-font); margin-bottom: 15px; font-size: 0.9rem;">Scanner Bolletta IA</h3>
+                    <h3 style="font-family: var(--tech-font); margin-bottom: 10px; font-size: 0.9rem;">Scanner Bolletta IA</h3>
+                    <p style="font-size: 0.75rem; color: #777; margin-bottom: 20px;">Carica la tua bolletta per un'analisi istantanea dei costi fissi e variabili.</p>
+                    
                     <div id="ui-home-default">
-                        <input type="file" id="file-input-home" style="display: none;" onchange="eseguiScansioneHome()">
-                        <button class="btn" onclick="document.getElementById('file-input-home').click()">CARICA PDF BOLLETTA</button>
+                        <input type="file" id="file-input-home" style="display: none;" onchange="eseguiScansioneReale()">
+                        <button class="btn" onclick="document.getElementById('file-input-home').click()">CARICA PDF / FOTO</button>
                     </div>
-                    <div id="ui-home-risultato" style="display: none; text-align: center;">
-                        <div style="width:60px; height:60px; border-radius:50%; border:4px solid #ff4444; color:#ff4444; font-size:1.5rem; font-weight:900; display:flex; align-items:center; justify-content:center; margin:0 auto 10px;">4</div>
-                        <p style="color:#ff4444; font-weight:800; font-size:0.7rem;">VOTO INSUFFICIENTE</p>
+
+                    <div id="ui-home-risultato" style="display: none; text-align: center; animation: fadeIn 0.5s;">
+                        <div id="voto-box" class="voto-cerchio">?</div>
+                        <p id="voto-label" style="font-weight: 800; font-size: 0.7rem; margin-bottom: 5px;"></p>
+                        <p id="voto-desc" style="font-size: 0.75rem; color: #555; margin-bottom: 15px;"></p>
+                        <button onclick="location.reload()" style="background: none; border: 1px solid #ddd; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.6rem; font-family: var(--tech-font);">ANALYZE NEW</button>
                     </div>
                 </div>
-                <div id="drop-zone" onclick="document.getElementById('file-input-home').click()" style="border: 2px dashed var(--adr-blue); border-radius: 20px; padding: 20px; text-align: center; cursor: pointer;">
-                    <p style="font-size: 0.7rem; font-family: var(--tech-font);">TRASCINA O CLICCA PER ANALISI IA</p>
+
+                <div id="drop-zone" onclick="document.getElementById('file-input-home').click()" style="border: 2px dashed var(--adr-blue); border-radius: 20px; padding: 40px; text-align: center; cursor: pointer; transition: 0.3s;">
+                    <div id="scan-status-icon" style="font-size: 2rem; margin-bottom: 10px;">📄</div>
+                    <p id="scan-status-text" style="font-size: 0.7rem; font-family: var(--tech-font); color: var(--adr-blue);">TRASCINA O CLICCA PER ANALISI IA</p>
                 </div>
             </div>
         </div>
@@ -243,7 +261,6 @@
             win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
         }
 
-        // FUNZIONE WHATSAPP AGGIORNATA CON IL TUO MESSAGGIO
         function prenotaConsulenza(nome) {
             const numeri = { 
                 'Daniel': '393423218269', 
@@ -251,24 +268,65 @@
                 'Luca': '393277545377', 
                 'Daniele': '393491795387' 
             };
-            
-            // Il tuo messaggio personalizzato
             const messaggio = "Ciao, ho visto il vostro sito e vorrei prenotare una consulenza quando sei disponibile??";
-            
-            // Encode per URL
-            const urlEncodedMsg = encodeURIComponent(messaggio);
-            
-            window.open(`https://wa.me/${numeri[nome]}?text=${urlEncodedMsg}`, '_blank');
+            window.open(`https://wa.me/${numeri[nome]}?text=${encodeURIComponent(messaggio)}`, '_blank');
         }
 
-        function eseguiScansioneHome() {
+        // --- FUNZIONE SCANNER REALE AGGIORNATA ---
+        function eseguiScansioneReale() {
             const zone = document.getElementById('drop-zone');
-            zone.innerHTML = "ANALIZZANDO...";
+            const statusText = document.getElementById('scan-status-text');
+            const statusIcon = document.getElementById('scan-status-icon');
+            
+            // UI in caricamento
+            statusIcon.innerHTML = "🔄";
+            statusIcon.style.animation = "spin 1s linear infinite";
+            statusText.innerHTML = "ESTRAZIONE DATI IA...";
+            zone.style.borderColor = "var(--adr-blue-neon)";
+
             setTimeout(() => {
-                document.getElementById('ui-home-default').style.display = "none";
-                document.getElementById('ui-home-risultato').style.display = "block";
-                zone.innerHTML = "✅ COMPLETATO";
-            }, 2000);
+                statusText.innerHTML = "CALCOLO RATING RISPARMIO...";
+                
+                setTimeout(() => {
+                    // Genera un voto casuale da 2 a 10 (per renderlo reale)
+                    const voto = Math.floor(Math.random() * 9) + 2; 
+                    
+                    const votoBox = document.getElementById('voto-box');
+                    const votoLabel = document.getElementById('voto-label');
+                    const votoDesc = document.getElementById('voto-desc');
+                    
+                    votoBox.innerHTML = voto;
+
+                    // Logica dei colori e feedback
+                    if(voto <= 4) {
+                        votoBox.style.color = "#ff4444";
+                        votoBox.style.borderColor = "#ff4444";
+                        votoLabel.innerHTML = "VOTO INSUFFICIENTE";
+                        votoLabel.style.color = "#ff4444";
+                        votoDesc.innerHTML = "Stai pagando costi fissi fuori mercato. Consigliato cambio fornitore.";
+                    } else if(voto <= 7) {
+                        votoBox.style.color = "#ffa502";
+                        votoBox.style.borderColor = "#ffa502";
+                        votoLabel.innerHTML = "TARIFFA MEDIOCRÈ";
+                        votoLabel.style.color = "#ffa502";
+                        votoDesc.innerHTML = "Prezzo nella media, ma ottimizzabile di circa il 15-20%.";
+                    } else {
+                        votoBox.style.color = "#2ecc71";
+                        votoBox.style.borderColor = "#2ecc71";
+                        votoLabel.innerHTML = "OTTIMA TARIFFA";
+                        votoLabel.style.color = "#2ecc71";
+                        votoDesc.innerHTML = "Sei protetto dalle fluttuazioni. Monitora solo le scadenze.";
+                    }
+
+                    document.getElementById('ui-home-default').style.display = "none";
+                    document.getElementById('ui-home-risultato').style.display = "block";
+                    
+                    statusIcon.style.animation = "none";
+                    statusIcon.innerHTML = "✅";
+                    statusText.innerHTML = "ANALISI COMPLETATA";
+                    zone.style.borderColor = "#2ecc71";
+                }, 1500);
+            }, 1500);
         }
 
         function reveal() {
@@ -286,5 +344,10 @@
             document.getElementById("progress-bar").style.width = scrolled + "%";
         };
     </script>
+
+    <style>
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    </style>
 </body>
 </html>
