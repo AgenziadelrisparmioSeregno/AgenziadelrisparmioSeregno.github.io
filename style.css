@@ -168,3 +168,21 @@ footer {
     70% { box-shadow: 0 0 0 15px rgba(0, 210, 141, 0); }
     100% { box-shadow: 0 0 0 0 rgba(0, 210, 141, 0); }
 }
+/* FIX LOGO NAV */
+.nav-logo {
+    height: 45px;    /* Altezza bilanciata */
+    width: auto;     /* Mantiene le proporzioni */
+    transition: 0.3s;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1)); /* Un pizzico di profondità */
+}
+
+.nav-logo:hover {
+    transform: scale(1.05); /* Effetto pop al passaggio del mouse */
+}
+
+/* Fix per Mobile */
+@media (max-width: 768px) {
+    .nav-logo {
+        height: 35px; /* Più piccolo su smartphone */
+    }
+}
