@@ -84,10 +84,6 @@
                     <img src="logo-eon.png" class="partner-logo" alt="Eon"><img src="logo-enel.png" class="partner-logo" alt="Enel">
                     <img src="logo-audax.png" class="partner-logo" alt="Audax"><img src="logo-bluenergy.png" class="partner-logo" alt="Bluenergy">
                     <img src="logo-segnoverde.png" class="partner-logo" alt="Segnoverde"><img src="logo-fastweb-energia.png" class="partner-logo" alt="Fastweb Energia">
-                    <img src="logo-acea.png" class="partner-logo" alt="Acea"><img src="logo-hera.png" class="partner-logo" alt="Hera">
-                    <img src="logo-eon.png" class="partner-logo" alt="Eon"><img src="logo-enel.png" class="partner-logo" alt="Enel">
-                    <img src="logo-audax.png" class="partner-logo" alt="Audax"><img src="logo-bluenergy.png" class="partner-logo" alt="Bluenergy">
-                    <img src="logo-segnoverde.png" class="partner-logo" alt="Segnoverde"><img src="logo-fastweb-energia.png" class="partner-logo" alt="Fastweb Energia">
                 </div>
             </div>
         </div>
@@ -98,14 +94,14 @@
         
         <div id="bot-window">
             <div class="bot-header">
-                <span>🤖 SISTEMA ADR-1 IA</span>
+                <span>🤖 ADR-1 ASSISTENTE ENERGETICO IA</span>
                 <span onclick="toggleBot()" style="cursor: pointer; font-size: 1.2rem;">&times;</span>
             </div>
             <div id="bot-messages">
-                <div class="msg-bot">Ciao, sono ADR-1. Chiedimi pure spiegazioni sul mercato energetico o sulla fibra. Cercherò la risposta per te su internet!</div>
+                <div class="msg-bot">Ciao! Sono ADR-1, il tuo assistente energetico potente. Chiedimi qualunque cosa, anche le basi! Se avrai un problema che non posso risolvere, ti passerò ai miei esperti umani.</div>
             </div>
             <div class="bot-input-area">
-                <input type="text" id="user-input" placeholder="Cos'è il PUN? Cos'è il mercato libero?" onkeypress="if(event.key==='Enter') inviaMessaggioBot()">
+                <input type="text" id="user-input" placeholder="Scrivi qui la tua domanda..." onkeypress="if(event.key==='Enter') inviaMessaggioBot()">
                 <button class="bot-send-btn" onclick="inviaMessaggioBot()">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
                 </button>
@@ -118,7 +114,6 @@
     </footer>
 
     <script>
-        // Array per il resoconto chat
         let resocontoChat = [];
 
         async function inviaMessaggioBot() {
@@ -128,62 +123,64 @@
 
             if (testoUtente === "") return;
 
-            // Salvo nel resoconto
             resocontoChat.push("Cliente: " + testoUtente);
-
             msgContainer.innerHTML += `<div class="msg-user">${testoUtente}</div>`;
             input.value = "";
             msgContainer.scrollTop = msgContainer.scrollHeight;
 
-            const typingId = "typing-" + Date.now();
-            msgContainer.innerHTML += `<div id="${typingId}" class="msg-bot"><i>🔎 Sto cercando informazioni aggiornate per te...</i></div>`;
+            const tid = "t-" + Date.now();
+            msgContainer.innerHTML += `<div id="${tid}" class="msg-bot"><i>🔎 Sto elaborando una risposta professionale...</i></div>`;
             msgContainer.scrollTop = msgContainer.scrollHeight;
 
             try {
+                // Ricerca web potente
                 const response = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(testoUtente)}&format=json&no_html=1&skip_disambig=1`);
                 const data = await response.json();
                 
-                document.getElementById(typingId).remove();
+                document.getElementById(tid).remove();
                 
-                let rispostaFinale = "";
-                let mostraEsperti = false;
+                let rispostaIA = "";
+                let mostraUmano = false;
+                const t = testoUtente.toLowerCase();
 
-                if (data.AbstractText && data.AbstractText !== "") {
-                    rispostaFinale = "<b>Ho trovato questo:</b><br>" + data.AbstractText;
+                // Logica di smistamento
+                if (t.includes("problema") || t.includes("aiuto") || t.includes("operatore") || t.includes("parlare") || t.includes("non funziona")) {
+                    rispostaIA = "Capisco che la situazione richiede un'analisi umana dettagliata. Ecco i miei superiori che possono risolvere il tuo problema specifico:";
+                    mostraUmano = true;
+                } else if (data.AbstractText && data.AbstractText !== "") {
+                    rispostaIA = "<b>Ecco le informazioni tecniche:</b><br>" + data.AbstractText;
                 } else {
-                    const t = testoUtente.toLowerCase();
-                    if(t.includes("costo") || t.includes("gratis")) {
-                        rispostaFinale = "La nostra consulenza è gratuita. Guadagniamo dalle compagnie se ti facciamo risparmiare.";
-                    } else if(t.includes("mercato libero")) {
-                        rispostaFinale = "Il mercato libero ti permette di scegliere il fornitore che preferisci. Dal 2024 è obbligatorio passare dal mercato tutelato al libero.";
+                    // Risposte a "domande ignoranti" o comuni se DDG non risponde
+                    if (t.includes("luce") || t.includes("gas") || t.includes("bolletta")) {
+                        rispostaIA = "Il mercato energetico oggi si basa su indici trasparenti come il PUN (Luce) e il PSV (Gas). Noi di ADR analizziamo questi dati per te. Se hai dubbi sulla tua bolletta, chiedimi pure del Mercato Libero!";
+                    } else if (t.includes("costa") || t.includes("pagare")) {
+                        rispostaIA = "Il costo dipende dal fornitore, ma con ADR la consulenza è gratuita. Analizziamo i brand migliori (Enel, Acea, Hera, ecc.) per darti la tariffa più bassa.";
                     } else {
-                        rispostaFinale = "Questa domanda è molto specifica. Per darti un'assistenza precisa e sicura, ti consiglio di parlare con i nostri specialisti umani.";
-                        mostraEsperti = true;
+                        rispostaIA = "Questa domanda è interessante! Per darti una risposta certificata al 100% su questo caso specifico, ti metto in contatto con il team ADR.";
+                        mostraUmano = true;
                     }
                 }
 
-                // Salvo risposta bot nel resoconto
-                resocontoChat.push("Bot: " + rispostaFinale.replace(/<[^>]*>/g, ''));
+                resocontoChat.push("Bot: " + rispostaIA.replace(/<[^>]*>/g, ''));
 
-                let htmlRisposta = `<div class="msg-bot">${rispostaFinale}`;
-                
-                if (mostraEsperti) {
-                    htmlRisposta += `
-                    <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
-                        <p style="font-size: 0.7rem; font-weight: bold; color: var(--adr-blue);">Contatta il team ADR (invierò il resoconto chat):</p>
+                let html = `<div class="msg-bot">${rispostaIA}`;
+                if (mostraUmano) {
+                    html += `
+                    <div style="margin-top: 15px; border-top: 2px solid var(--adr-blue); padding-top: 10px;">
+                        <p style="font-size: 0.7rem; font-weight: bold; color: var(--adr-blue);">Scegli l'esperto per risolvere il tuo problema:</p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 8px;">
-                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Andrea', 'bot_resoconto')">ANDREA</button>
-                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Daniel', 'bot_resoconto')">DANIEL</button>
-                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Daniele', 'bot_resoconto')">DANIELE</button>
-                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Luca', 'bot_resoconto')">LUCA</button>
+                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Andrea', 'sos_chat')">ANDREA</button>
+                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Daniel', 'sos_chat')">DANIEL</button>
+                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Daniele', 'sos_chat')">DANIELE</button>
+                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Luca', 'sos_chat')">LUCA</button>
                         </div>
                     </div>`;
                 }
-                htmlRisposta += `</div>`;
-                msgContainer.innerHTML += htmlRisposta;
+                html += `</div>`;
+                msgContainer.innerHTML += html;
 
             } catch (e) {
-                document.getElementById(typingId).innerHTML = "Si è verificato un errore nella ricerca. Contattaci su WhatsApp.";
+                document.getElementById(tid).innerHTML = "Errore di rete. Contattaci direttamente tramite i tasti WhatsApp.";
             }
             msgContainer.scrollTop = msgContainer.scrollHeight;
         }
@@ -193,29 +190,28 @@
             win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
         }
 
-        function eseguiScansioneHome() {
-            const file = document.getElementById('file-input-home').files[0];
-            if (file) {
-                document.getElementById('label-home').innerHTML = "<span style='color:var(--adr-green)'>ANALISI...</span>";
-                setTimeout(() => {
-                    document.getElementById('ui-home-default').style.display = "none";
-                    document.getElementById('ui-home-risultato').style.display = "block";
-                }, 2000);
-            }
-        }
-
         function vaiWhatsApp(agente, motivo) {
             const numeri = { 'Daniel': '393423218269', 'Daniele': '393491795387', 'Luca': '393277545377', 'Andrea': '393515910955' };
-            
             let msg = "";
-            if (motivo === 'bot_resoconto') {
-                const log = resocontoChat.join(" | ");
-                msg = `Ciao ${agente}, ho parlato con ADR-1. RESOCONTO CHAT: [${log}]`;
+            
+            if (motivo === 'sos_chat') {
+                const log = resocontoChat.slice(-3).join(" | "); // Prende ultimi 3 scambi per brevità
+                msg = `Ciao ${agente}, il bot ADR-1 non può risolvere questo problema. RESOCONTO CHAT: [${log}]. Puoi aiutarmi tu?`;
+            } else if (motivo === 'bolletta') {
+                msg = `Ciao ${agente}, ho scansionato la bolletta e il voto è INSUFFICIENTE. Mi aiuti?`;
             } else {
-                msg = `Ciao ${agente}, ho visto il sito ADR e vorrei maggiori informazioni.`;
+                msg = `Ciao ${agente}, vorrei una consulenza professionale ADR.`;
             }
             
             window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function eseguiScansioneHome() {
+            document.getElementById('label-home').innerHTML = "ANALISI...";
+            setTimeout(() => {
+                document.getElementById('ui-home-default').style.display = "none";
+                document.getElementById('ui-home-risultato').style.display = "block";
+            }, 2000);
         }
 
         const observer = new IntersectionObserver((entries) => {
@@ -225,7 +221,7 @@
 
         window.onscroll = function() {
             let scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-            document.getElementById("progress-bar").style.width = scrolled + "%";
+            if(document.getElementById("progress-bar")) document.getElementById("progress-bar").style.width = scrolled + "%";
         };
     </script>
 </body>
