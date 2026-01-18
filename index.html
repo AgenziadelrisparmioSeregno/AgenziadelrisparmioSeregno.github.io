@@ -22,22 +22,23 @@
         .ticker-item { display: inline-block; padding: 0 40px; font-family: 'Orbitron'; font-size: 0.8rem; }
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* NAV */
-        nav { display: flex; align-items: center; justify-content: center; position: sticky; top: 0; padding: 15px 40px; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid #111; }
-        .nav-links { display: flex; gap: 20px; }
-        nav a { color: white; text-decoration: none; font-size: 0.7rem; font-family: 'Orbitron'; opacity: 0.6; transition: 0.3s; }
+        /* NAV - FIX SOVRAPPOSIZIONE MOBILE */
+        nav { display: flex; align-items: center; justify-content: center; position: sticky; top: 0; padding: 15px 20px; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid #111; }
+        .nav-links { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+        nav a { color: white; text-decoration: none; font-size: 0.65rem; font-family: 'Orbitron'; opacity: 0.6; transition: 0.3s; }
         nav a:hover { opacity: 1; color: var(--neon-blue); }
-        .area-clienti-btn { position: absolute; right: 20px; background: rgba(0, 255, 157, 0.1); border: 1px solid var(--neon-green); color: var(--neon-green); padding: 8px 15px; border-radius: 5px; font-size: 0.6rem; font-family: 'Orbitron'; text-decoration: none; }
+        .area-clienti-btn { position: absolute; right: 10px; background: rgba(0, 255, 157, 0.1); border: 1px solid var(--neon-green); color: var(--neon-green); padding: 5px 10px; border-radius: 5px; font-size: 0.55rem; font-family: 'Orbitron'; text-decoration: none; }
+        @media (max-width: 600px) { .area-clienti-btn { position: static; margin-left: 10px; } nav { flex-direction: column; gap: 10px; } }
 
         /* CARDS */
         .glass-card { background: var(--glass); border: 1px solid #222; border-radius: 15px; padding: 25px; margin-bottom: 20px; transition: 0.3s; position: relative; }
         .glass-card:hover { border-color: var(--neon-blue); box-shadow: 0 0 20px rgba(0, 243, 255, 0.1); }
 
-        /* PARTNER SCROLL - FIX LOGHI BIANCHI */
+        /* PARTNER SCROLL - FIX DEFINITIVO RETTANGOLO BIANCO */
         .partner-container { overflow: hidden; padding: 40px 0; background: rgba(255,255,255,0.01); margin: 40px 0; border-top: 1px solid #111; border-bottom: 1px solid #111; }
         .partner-track { display: flex; align-items: center; gap: 80px; animation: scrollPartner 25s linear infinite; width: max-content; }
-        .partner-logo { height: 35px; width: auto; filter: brightness(0) invert(1); opacity: 0.5; transition: 0.4s; object-fit: contain; }
-        .partner-logo:hover { opacity: 1; filter: none !important; } /* Rimuove il bianco al passaggio del mouse */
+        .partner-logo { height: 35px; width: auto; filter: grayscale(1) brightness(0.7); opacity: 0.5; transition: 0.4s; object-fit: contain; }
+        .partner-logo:hover { opacity: 1; filter: grayscale(0) brightness(1); transform: scale(1.1); }
 
         @keyframes scrollPartner { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
@@ -207,7 +208,6 @@
     </footer>
 
     <script>
-        // Reveal Logic
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -218,7 +218,6 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-        // Scanner Logic
         function eseguiScansioneHome() {
             const file = document.getElementById('file-input-home').files[0];
             if (file) {
@@ -230,7 +229,6 @@
             }
         }
 
-        // WhatsApp Redirect
         function vaiWhatsApp(agente) {
             const numeri = { 'Daniel': '393423218269', 'Daniele': '393491795387', 'Luca': '393277545377', 'Andrea': '393515910955' };
             const testo = `Ciao ${agente}, ho bisogno di assistenza professionale tramite il sito ADR.`;
@@ -251,8 +249,7 @@
             input.value = "";
             container.scrollTop = container.scrollHeight;
             setTimeout(() => {
-                let responseHTML = `<div style="background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 10px; border-left: 2px solid var(--neon-blue); max-width: 85%;">Contatta i nostri esperti per una consulenza personalizzata.</div>`;
-                container.innerHTML += responseHTML;
+                container.innerHTML += `<div style="background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 10px; border-left: 2px solid var(--neon-blue); max-width: 85%;">Contatta i nostri esperti per una consulenza personalizzata.</div>`;
                 container.scrollTop = container.scrollHeight;
             }, 1000);
         }
