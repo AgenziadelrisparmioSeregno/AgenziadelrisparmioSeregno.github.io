@@ -1,62 +1,56 @@
 /* ============================================================
-   ADR GLOBAL SYSTEM - FINAL ULTIMATE VERSION
-   Stile: Extreme 3D Glassmorphism | Colori: Brand Identity
+   ADR GLOBAL SYSTEM - WHITE & AZURE EDITION
+   Stile: Clean, Luminoso, Tech | Colori: Brand Identity
    ============================================================ */
 
 /* --- IMPORT FONT --- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@500;700;900&display=swap');
 
-/* --- VARIABILI GLOBALI --- */
+/* --- VARIABILI GLOBALI (Colori Logo e Brand) --- */
 :root { 
-    --adr-blue: #00a8ff;            /* Azzurro Principale Logo */
-    --adr-blue-hover: #008ecc;      /* Azzurro più scuro per hover */
-    --adr-green: #00d28d;           /* Verde per accenti/WhatsApp */
-    --text-dark: #1a2a3a;           /* Colore Testo Leggibile */
-    --white-glass: rgba(255, 255, 255, 0.65); /* Effetto Vetro */
-    --bg-gradient: radial-gradient(circle at 50% 50%, #ffffff 0%, #d4efff 100%);
+    --adr-blue: #00a8ff;            /* L'Azzurro esatto del Logo */
+    --adr-blue-light: #e0f4ff;      /* Sfondo chiarissimo azzurrato */
+    --adr-dark: #0b1e33;            /* Blu scurissimo per i testi (leggibilità) */
+    --white: #ffffff;
+    --glass-border: rgba(0, 168, 255, 0.2); /* Bordi sottili azzurri */
     
-    /* Ombre 3D Neumorphism */
-    --shadow-card: 15px 15px 35px rgba(0, 168, 255, 0.1), -15px -15px 35px #ffffff;
-    --shadow-hover: 10px 10px 20px rgba(0, 168, 255, 0.15), -10px -10px 20px #ffffff;
+    /* Ombre morbide azzurre (non nere/grigie) */
+    --shadow-soft: 0 10px 30px rgba(0, 168, 255, 0.15);
+    --shadow-hover: 0 15px 40px rgba(0, 168, 255, 0.25);
     
     --tech-font: 'Orbitron', sans-serif;
     --body-font: 'Inter', sans-serif;
 }
 
-/* --- RESET & BASE --- */
+/* --- RESET & STRUTTURA --- */
 * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
 
 body { 
-    background: var(--bg-gradient); 
-    color: var(--text-dark); 
+    background: linear-gradient(180deg, #ffffff 0%, #f0faff 100%); 
+    color: var(--adr-dark); 
     font-family: var(--body-font); 
-    overflow-x: hidden; 
-    background-attachment: fixed;
+    overflow-x: hidden; /* Blocca lo scroll orizzontale indesiderato */
     line-height: 1.6;
+    min-height: 100vh;
 }
 
 a { text-decoration: none; color: inherit; transition: 0.3s; }
 ul { list-style: none; }
 
-.tech-font { font-family: var(--tech-font); text-transform: uppercase; letter-spacing: 2px; }
+.tech-font { font-family: var(--tech-font); text-transform: uppercase; letter-spacing: 1.5px; }
 
-/* --- PROGRESS BAR (Top) --- */
-#progress-container { position: fixed; top: 0; width: 100%; height: 4px; z-index: 99999; }
-#progress-bar { height: 100%; background: var(--adr-blue); width: 0%; box-shadow: 0 0 10px var(--adr-blue); }
-
-/* --- MARKET TICKER STRIP --- */
+/* --- MARKET TICKER (Striscia in alto) --- */
 .market-ticker { 
     background: var(--adr-blue); color: white; 
-    padding: 10px 0; overflow: hidden; position: relative; z-index: 1001;
-    box-shadow: 0 4px 15px rgba(0, 168, 255, 0.25);
+    padding: 8px 0; overflow: hidden; position: relative; z-index: 1001;
 }
-.ticker-content { display: inline-block; white-space: nowrap; animation: ticker 45s linear infinite; }
-.ticker-item { display: inline-block; padding: 0 40px; font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; }
+.ticker-content { display: inline-block; white-space: nowrap; animation: ticker 40s linear infinite; }
+.ticker-item { display: inline-block; padding: 0 40px; font-family: var(--tech-font); font-size: 0.75rem; font-weight: 700; }
 
 @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
 /* ============================================================
-   NAVBAR SYSTEM (Desktop & Mobile)
+   NAVBAR SYSTEM (Bianca e Azzurra)
    ============================================================ */
 nav {
     display: flex; 
@@ -64,18 +58,19 @@ nav {
     justify-content: space-between; 
     position: sticky; 
     top: 0; 
-    padding: 12px 5%;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(20px) saturate(180%); 
+    padding: 15px 5%;
+    background: rgba(255, 255, 255, 0.95); /* Bianco quasi puro */
+    backdrop-filter: blur(20px); 
     z-index: 1000;
-    border-bottom: 1px solid rgba(0, 168, 255, 0.15);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    border-bottom: 2px solid var(--adr-blue-light);
+    box-shadow: 0 5px 20px rgba(0, 168, 255, 0.05);
 }
 
 /* Logo */
 .nav-logo {
-    height: 42px; width: auto; transition: transform 0.3s;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    height: 45px; width: auto; transition: transform 0.3s;
+    /* Assicuriamoci che il logo risalti sul bianco */
+    filter: drop-shadow(0 2px 5px rgba(0,168,255,0.2)); 
 }
 .nav-logo:hover { transform: scale(1.05); }
 
@@ -84,38 +79,34 @@ nav {
     display: flex; gap: 30px; align-items: center; 
 }
 .nav-links a { 
-    color: #444; font-size: 0.75rem; 
+    color: var(--adr-dark); font-size: 0.8rem; 
     font-family: var(--tech-font); font-weight: 700; 
     position: relative;
 }
-.nav-links a::after {
-    content: ''; position: absolute; width: 0; height: 2px; 
-    bottom: -4px; left: 0; background: var(--adr-blue); transition: 0.3s;
-}
-.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-.nav-links a.active { color: var(--adr-blue); }
+.nav-links a:hover, .nav-links a.active { color: var(--adr-blue); }
 
 /* Gruppo Destra: Area Clienti + Hamburger */
 .nav-right {
     display: flex; align-items: center; gap: 15px;
 }
 
-/* Pulsante Area Clienti */
+/* Pulsante Area Clienti (Design Pillola) */
 .area-clienti-btn {
-    background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
-    border: 1px solid var(--adr-blue);
+    background: var(--white);
+    border: 2px solid var(--adr-blue);
     color: var(--adr-blue); 
     padding: 8px 20px; 
-    border-radius: 50px; /* Pill shape */
+    border-radius: 50px; 
     font-size: 0.7rem; 
     font-family: var(--tech-font); font-weight: 800;
-    box-shadow: 4px 4px 10px rgba(0, 168, 255, 0.15);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: 0.3s;
     white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(0, 168, 255, 0.1);
 }
 .area-clienti-btn:hover { 
     background: var(--adr-blue); color: white; 
-    transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 168, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 168, 255, 0.4);
+    transform: translateY(-2px);
 }
 
 /* Hamburger Icon (Nascosto su PC) */
@@ -123,67 +114,65 @@ nav {
     display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1002;
 }
 .menu-toggle span {
-    width: 28px; height: 3px; background: var(--adr-blue); border-radius: 4px; transition: 0.3s;
+    width: 30px; height: 3px; background: var(--adr-blue); border-radius: 4px; transition: 0.3s;
 }
 
 /* ============================================================
    MOBILE RESPONSIVE NAVIGATION
    ============================================================ */
 @media (max-width: 992px) {
-    /* Mostra Hamburger */
-    .menu-toggle { display: flex; }
+    .menu-toggle { display: flex; } /* Mostra Hamburger */
 
-    /* Nascondi Menu Desktop */
     .nav-links {
-        display: none;
+        display: none; /* Nascondi Menu Desktop */
         flex-direction: column;
         position: absolute;
         top: 100%; left: 0; width: 100%;
-        background: rgba(255, 255, 255, 0.98);
-        padding: 30px 0;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        border-bottom: 3px solid var(--adr-blue);
-        gap: 20px;
+        background: white;
+        padding: 20px 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border-top: 1px solid var(--adr-blue-light);
     }
 
-    /* Stato Attivo (Menu Aperto) */
     .nav-links.active { display: flex; animation: slideDown 0.3s ease-out; }
 
     .nav-links a {
-        font-size: 1.1rem; width: 100%; text-align: center; padding: 10px;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
+        font-size: 1rem; width: 100%; text-align: center; padding: 15px;
+        border-bottom: 1px solid #f0f0f0;
     }
 
-    /* Adattamenti Mobile */
-    .area-clienti-btn { padding: 8px 14px; font-size: 0.65rem; }
+    /* Adattamenti Mobile per Navbar */
+    .area-clienti-btn { padding: 6px 14px; font-size: 0.65rem; }
     .nav-logo { height: 35px; }
 }
 
 @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ============================================================
-   MAIN CONTENT & CARDS (3D STYLE)
+   CONTENUTI & CARD (Stile Clean White)
    ============================================================ */
 .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
 
-/* Card Vetro */
+/* Titoli */
+h1, h2, h3 { color: var(--adr-dark); }
+h1 span { color: var(--adr-blue); }
+
+/* Card Vetro/Bianca */
 .glass-card {
-    background: var(--white-glass);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    border-radius: 25px;
-    padding: 35px;
-    box-shadow: var(--shadow-card);
-    backdrop-filter: blur(15px);
+    background: #ffffff;
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: var(--shadow-soft);
     margin-bottom: 30px;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative; overflow: hidden;
 }
-.glass-card:hover { 
-    transform: translateY(-5px); 
-    box-shadow: var(--shadow-hover); 
-    border-color: var(--adr-blue);
+.glass-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%; 
+    background: var(--adr-blue);
 }
 
-/* Griglia Contatti */
+/* Griglia */
 .contact-grid { 
     display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px; 
 }
@@ -191,99 +180,111 @@ nav {
 /* Info Box */
 .info-box {
     display: flex; align-items: center; gap: 20px; 
-    padding: 20px; margin-bottom: 20px;
-    background: #ffffff; border-radius: 18px;
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.05);
-    border-left: 4px solid var(--adr-blue);
-    transition: 0.3s;
+    padding: 20px; margin-bottom: 15px;
+    background: var(--adr-blue-light); /* Fondo leggermente azzurro */
+    border-radius: 15px;
+    border: 1px solid rgba(0, 168, 255, 0.1);
 }
-.info-box:hover { transform: translateX(5px); }
-.info-box span { font-size: 2rem; }
+.info-box span { font-size: 1.8rem; }
+.info-text { color: var(--adr-dark); font-weight: 600; font-size: 0.95rem; }
+.label-tech { color: var(--adr-blue); font-weight: 800; font-size: 0.75rem; display: block; margin-bottom: 5px; }
 
-/* Mappa */
-.map-container {
-    border-radius: 25px; overflow: hidden;
-    border: 4px solid white;
-    box-shadow: var(--shadow-card);
-    height: 100%; min-height: 400px;
-}
-
-/* Pulsanti Azione */
+/* Pulsanti Azione Grandi */
 .btn-action {
     background: var(--adr-blue); color: white;
-    padding: 16px; border-radius: 15px;
+    padding: 18px; border-radius: 12px;
     font-family: var(--tech-font); font-weight: 800; font-size: 0.9rem;
     text-align: center; display: block; width: 100%; border: none;
     box-shadow: 0 10px 20px rgba(0, 168, 255, 0.3);
-    cursor: pointer; transition: 0.3s; margin-top: 15px;
+    cursor: pointer; transition: 0.3s; margin-top: 20px;
 }
 .btn-action:hover {
-    background: var(--adr-blue-hover);
-    transform: translateY(-3px);
+    background: #0097e6;
+    transform: translateY(-2px);
     box-shadow: 0 15px 30px rgba(0, 168, 255, 0.4);
 }
 
+/* Mappa */
+.map-container {
+    border-radius: 20px; overflow: hidden;
+    border: 4px solid white;
+    box-shadow: var(--shadow-soft);
+    height: 100%; min-height: 350px;
+}
+
 /* ============================================================
-   PARTNER LOGOS SCROLL (TICKER)
+   PARTNER LOGOS SCROLL (Destra -> Sinistra)
    ============================================================ */
 .partners {
     width: 100%; overflow: hidden; padding: 40px 0;
-    background: rgba(255,255,255,0.3); border-top: 1px solid rgba(255,255,255,0.5);
+    background: white; border-top: 1px solid var(--adr-blue-light);
     margin-top: 50px;
 }
+
 .partners-track {
-    display: flex; align-items: center; gap: 80px; width: max-content;
-    animation: partners-scroll 40s linear infinite;
+    display: flex; align-items: center; gap: 60px; width: max-content;
+    /* Animazione continua da destra a sinistra */
+    animation: scroll-left 35s linear infinite;
 }
+
 .partners-track img {
-    height: 50px; width: auto; opacity: 0.6; filter: grayscale(100%);
-    transition: 0.4s; cursor: pointer;
+    height: 50px; width: auto; 
+    filter: grayscale(100%); opacity: 0.6;
+    transition: 0.3s; cursor: pointer;
 }
 .partners-track img:hover {
-    opacity: 1; filter: grayscale(0%); transform: scale(1.15);
+    filter: grayscale(0%); opacity: 1; transform: scale(1.1);
 }
-@keyframes partners-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* Definizione Animazione */
+@keyframes scroll-left { 
+    0% { transform: translateX(0); } 
+    100% { transform: translateX(-50%); } 
+}
 
 /* ============================================================
-   BOT VIRTUALE (Floating)
+   BOT VIRTUALE
    ============================================================ */
 #bot-launcher { 
-    position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; 
+    position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; 
     border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-    cursor: pointer; z-index: 9999; animation: float 5s ease-in-out infinite; 
-    background: linear-gradient(135deg, var(--adr-blue), #00d2ff); 
-    box-shadow: 0 10px 25px rgba(0, 168, 255, 0.4); border: 2px solid white;
-    font-size: 2rem;
+    cursor: pointer; z-index: 9999; 
+    background: var(--adr-blue); 
+    box-shadow: 0 10px 25px rgba(0, 168, 255, 0.5); border: 3px solid white;
+    font-size: 2rem; color: white;
+    transition: 0.3s;
 }
+#bot-launcher:hover { transform: scale(1.1); }
 
 #bot-window {
     display: none; width: 340px; height: 500px; 
-    background: #ffffff; border-radius: 20px; 
-    position: absolute; bottom: 110px; right: 0; 
+    background: white; border-radius: 20px; 
+    position: absolute; bottom: 100px; right: 0; 
     flex-direction: column; overflow: hidden; 
-    box-shadow: 0 20px 60px rgba(0,0,0,0.2); z-index: 10000;
-    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15); z-index: 10000;
+    border: 1px solid var(--adr-blue-light);
 }
-
-/* Bot Animations */
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
 /* ============================================================
-   ADATTAMENTI EXTRA MOBILE (Layout)
+   ADATTAMENTI EXTRA MOBILE
    ============================================================ */
 @media (max-width: 768px) {
+    .container { padding: 20px; }
     .contact-grid { grid-template-columns: 1fr; }
-    .glass-card { padding: 25px; }
-    .btn-action { font-size: 0.8rem; }
+    .glass-card { padding: 20px; }
     
-    /* Partner Mobile */
-    .partners-track { gap: 40px; }
+    .partners-track { gap: 30px; }
     .partners-track img { height: 35px; }
 
-    /* Bot Mobile */
     #bot-window { width: calc(100vw - 40px); right: 0; bottom: 100px; height: 450px; }
-    #bot-launcher { width: 55px; height: 55px; bottom: 20px; right: 20px; font-size: 1.5rem; }
+    #bot-launcher { width: 55px; height: 55px; bottom: 20px; right: 20px; }
+    
+    /* Titoli più piccoli su mobile */
+    h1 { font-size: 1.5rem; }
 }
 
-/* Footer Semplice */
-footer { padding: 30px; text-align: center; color: #8898aa; font-size: 0.75rem; margin-top: 40px; }
+footer { 
+    padding: 40px; text-align: center; 
+    color: #8898aa; font-size: 0.75rem; 
+    background: #f9fcff; border-top: 1px solid var(--adr-blue-light); 
+}
