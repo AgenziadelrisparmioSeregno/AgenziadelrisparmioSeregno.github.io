@@ -52,18 +52,6 @@
         .mobile-toggle { display: none; flex-direction: column; gap: 4px; background: none; border: none; cursor: pointer; padding: 10px; }
         .bar { width: 25px; height: 3px; background: var(--adr-blue); border-radius: 5px; }
 
-        .mobile-nav { 
-            display: none; flex-direction: column; background: white; width: 100%; 
-            position: absolute; top: 100%; left: 0; border-bottom: 3px solid var(--adr-blue); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); z-index: 9999;
-        }
-        .mobile-nav a { padding: 15px 25px; font-family: var(--tech-font); color: var(--adr-dark); text-decoration: none; border-bottom: 1px solid #f0f0f0; font-size: 0.8rem; }
-
-        @media (max-width: 768px) {
-            .nav-menu { display: none; }
-            .mobile-toggle { display: flex; }
-        }
-
         .area-clienti-btn { background: var(--adr-blue); color: white; padding: 8px 16px; border-radius: 50px; font-family: var(--tech-font); font-size: 0.65rem; font-weight: 800; text-decoration: none; box-shadow: var(--neon-shadow); }
 
         /* TICKER */
@@ -90,27 +78,42 @@
         }
         .btn-green { background: #2ecc71; border-bottom: 4px solid #27ae60; font-size: 0.7rem; }
 
-        /* SEZIONE PARTNER */
-        .partners-section { margin: 60px 0; text-align: center; }
+        /* SEZIONE PARTNER 3D A COLORI */
+        .partners-section { margin: 80px 0; text-align: center; }
         .partners-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-            gap: 20px;
-            align-items: center;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 30px;
+            perspective: 1000px;
+            margin-top: 40px;
             justify-items: center;
-            margin-top: 30px;
-            filter: grayscale(1);
-            opacity: 0.5;
         }
-        .partners-grid img { max-width: 90px; height: auto; transition: 0.3s ease; }
-        .partners-grid img:hover { filter: grayscale(0); opacity: 1; transform: scale(1.15); }
+        .partner-card {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .partner-card:hover {
+            transform: rotateY(360deg);
+        }
+        .partner-card img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.08));
+        }
 
         /* SCANNER IA */
         .voto-cerchio {
             width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ddd;
             display: flex; align-items: center; justify-content: center; 
             margin: 0 auto 15px; font-size: 1.8rem; font-weight: 900;
-            font-family: var(--tech-font);
+            font-family: var(--tech-font); transition: 0.5s;
         }
 
         /* BOT ADR-1 */
@@ -127,8 +130,6 @@
             border: 1px solid var(--adr-blue-light); overflow: hidden;
         }
         .bot-header { background: var(--adr-blue); color: white; padding: 15px; display: flex; justify-content: space-between; font-family: var(--tech-font); font-size: 0.7rem; }
-        #bot-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #fdfdfd; font-size: 0.85rem; }
-        .msg-bot { background: var(--adr-blue-light); padding: 12px; border-radius: 12px 12px 12px 0; align-self: flex-start; border-left: 3px solid var(--adr-blue); }
     </style>
 </head>
 <body>
@@ -156,11 +157,6 @@
             </div>
             <div class="nav-actions">
                 <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
-                <button class="mobile-toggle" onclick="toggleMobileMenu()">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </button>
             </div>
         </div>
     </nav>
@@ -194,20 +190,20 @@
         </div>
 
         <div class="partners-section reveal">
-            <h2 style="font-family: var(--tech-font); font-size: 0.8rem; letter-spacing: 3px; color: #aaa;">OFFICIAL PARTNERS</h2>
+            <h2 style="font-family: var(--tech-font); font-size: 0.8rem; letter-spacing: 4px; color: var(--adr-blue);">OFFICIAL PARTNERS</h2>
             <div class="partners-grid">
-                <img src="logo-acea.png" alt="Acea">
-                <img src="logo-audax.png" alt="Audax">
-                <img src="logo-bluenergy.png" alt="Bluenergy">
-                <img src="logo-enel.png" alt="Enel">
-                <img src="logo-eon.png" alt="Eon">
-                <img src="logo-fastweb-energia.png" alt="Fastweb Energia">
-                <img src="logo-fastweb.png" alt="Fastweb">
-                <img src="logo-hera.png" alt="Hera">
-                <img src="logo-iliad.png" alt="Iliad">
-                <img src="logo-segnoverde.png" alt="SegnoVerde">
-                <img src="logo-sky.png" alt="Sky">
-                <img src="logo-vodafone.png" alt="Vodafone">
+                <div class="partner-card"><img src="logo-acea.png" alt="Acea"></div>
+                <div class="partner-card"><img src="logo-audax.png" alt="Audax"></div>
+                <div class="partner-card"><img src="logo-bluenergy.png" alt="Bluenergy"></div>
+                <div class="partner-card"><img src="logo-enel.png" alt="Enel"></div>
+                <div class="partner-card"><img src="logo-eon.png" alt="Eon"></div>
+                <div class="partner-card"><img src="logo-fastweb-energia.png" alt="Fastweb Energia"></div>
+                <div class="partner-card"><img src="logo-fastweb.png" alt="Fastweb"></div>
+                <div class="partner-card"><img src="logo-hera.png" alt="Hera"></div>
+                <div class="partner-card"><img src="logo-iliad.png" alt="Iliad"></div>
+                <div class="partner-card"><img src="logo-segnoverde.png" alt="SegnoVerde"></div>
+                <div class="partner-card"><img src="logo-sky.png" alt="Sky"></div>
+                <div class="partner-card"><img src="logo-vodafone.png" alt="Vodafone"></div>
             </div>
         </div>
 
@@ -249,22 +245,13 @@
                 <span>ADR-1: ASSISTENTE</span>
                 <span onclick="toggleBot()" style="cursor: pointer;">&times;</span>
             </div>
-            <div id="bot-messages">
-                <div class="msg-bot">Sistemi ADR attivi. Come posso aiutarti oggi?</div>
-            </div>
-            <div style="padding: 10px; display: flex; gap: 5px; border-top: 1px solid #eee;">
-                <input type="text" id="user-input" placeholder="Scrivi qui..." style="flex:1; padding: 8px; border-radius: 20px; border: 1px solid #ddd;">
-                <button onclick="alert('Inviato!')" style="background: var(--adr-blue); color: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer;">></button>
+            <div id="bot-messages" style="flex:1; padding:15px; overflow-y:auto; font-size:0.8rem;">
+                <div style="background:#f0faff; padding:10px; border-radius:10px; margin-bottom:10px;">Sistemi ADR attivi. Come posso aiutarti?</div>
             </div>
         </div>
     </div>
 
     <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-dropdown');
-            if(menu) menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
-        }
-
         function toggleBot() {
             const win = document.getElementById('bot-window');
             win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
@@ -277,10 +264,8 @@
         }
 
         function eseguiScansioneReale() {
-            const zone = document.getElementById('drop-zone');
             const statusText = document.getElementById('scan-status-text');
             const statusIcon = document.getElementById('scan-status-icon');
-            
             statusIcon.innerHTML = "🔄";
             statusIcon.style.animation = "spin 1s linear infinite";
             statusText.innerHTML = "ANALISI IA IN CORSO...";
@@ -296,24 +281,24 @@
                     votoBox.style.color = votoBox.style.borderColor = "#ff4444";
                     votoLabel.innerHTML = "VOTO INSUFFICIENTE";
                     votoLabel.style.color = "#ff4444";
-                    votoDesc.innerHTML = "Costi fuori mercato rilevati. Consigliato intervento.";
+                    votoDesc.innerHTML = "Costi fuori mercato. Richiedi check-up immediato.";
                 } else if(voto <= 7) {
                     votoBox.style.color = votoBox.style.borderColor = "#ffa502";
-                    votoLabel.innerHTML = "TARIFFA MIGLIORABILE";
+                    votoLabel.innerHTML = "TARIFFA MEDIOCRE";
                     votoLabel.style.color = "#ffa502";
-                    votoDesc.innerHTML = "Puoi risparmiare circa il 15-20% con ADR.";
+                    votoDesc.innerHTML = "Prezzo migliorabile di circa il 20%.";
                 } else {
                     votoBox.style.color = votoBox.style.borderColor = "#2ecc71";
-                    votoLabel.innerHTML = "OTTIMA TARIFFA";
+                    votoLabel.innerHTML = "OTTIMO RISPARMIO";
                     votoLabel.style.color = "#2ecc71";
-                    votoDesc.innerHTML = "Prezzo eccellente. Monitora solo le scadenze.";
+                    votoDesc.innerHTML = "Complimenti, la tua tariffa è tra le migliori.";
                 }
 
                 document.getElementById('ui-home-default').style.display = "none";
                 document.getElementById('ui-home-risultato').style.display = "block";
                 statusIcon.style.animation = "none";
                 statusIcon.innerHTML = "✅";
-                statusText.innerHTML = "COMPLETATO";
+                statusText.innerHTML = "ANALISI COMPLETATA";
             }, 2500);
         }
 
@@ -331,6 +316,9 @@
             document.getElementById("progress-bar").style.width = scrolled + "%";
         };
     </script>
-    <style> @keyframes spin { 100% { transform: rotate(360deg); } } </style>
+    <style> 
+        @keyframes spin { 100% { transform: rotate(360deg); } } 
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    </style>
 </body>
 </html>
