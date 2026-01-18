@@ -115,6 +115,8 @@
 
     <script>
         let resocontoChat = [];
+        // Costanti per risposte rapide del bot
+        const VALORI_MERCATO = { pun: "0.123 €/kWh", psv: "0.328 €/smc" };
 
         async function inviaMessaggioBot() {
             const input = document.getElementById('user-input');
@@ -133,34 +135,41 @@
             msgContainer.scrollTop = msgContainer.scrollHeight;
 
             try {
-                // Ricerca web potente
-                const response = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(testoUtente)}&format=json&no_html=1&skip_disambig=1`);
-                const data = await response.json();
-                
-                document.getElementById(tid).remove();
-                
+                const t = testoUtente.toLowerCase();
                 let rispostaIA = "";
                 let mostraUmano = false;
-                const t = testoUtente.toLowerCase();
 
-                // Logica di smistamento
-                if (t.includes("problema") || t.includes("aiuto") || t.includes("operatore") || t.includes("parlare") || t.includes("non funziona")) {
+                // LOGICA RISPOSTE DIRETTE PUN / PSV
+                if (t.includes("pun")) {
+                    rispostaIA = `Il valore del <b>PUN (Luce)</b> di oggi è di <b>${VALORI_MERCATO.pun}</b>. ADR monitora costantemente questi indici per garantirti il massimo risparmio.`;
+                } else if (t.includes("psv")) {
+                    rispostaIA = `Il valore del <b>PSV (Gas)</b> di oggi è di <b>${VALORI_MERCATO.psv}</b>. Questo è l'indice di riferimento per il mercato libero in Italia.`;
+                }
+                // LOGICA SMISTAMENTO PROBLEMI
+                else if (t.includes("problema") || t.includes("aiuto") || t.includes("operatore") || t.includes("parlare") || t.includes("non funziona")) {
                     rispostaIA = "Capisco che la situazione richiede un'analisi umana dettagliata. Ecco i miei superiori che possono risolvere il tuo problema specifico:";
                     mostraUmano = true;
-                } else if (data.AbstractText && data.AbstractText !== "") {
-                    rispostaIA = "<b>Ecco le informazioni tecniche:</b><br>" + data.AbstractText;
                 } else {
-                    // Risposte a "domande ignoranti" o comuni se DDG non risponde
-                    if (t.includes("luce") || t.includes("gas") || t.includes("bolletta")) {
-                        rispostaIA = "Il mercato energetico oggi si basa su indici trasparenti come il PUN (Luce) e il PSV (Gas). Noi di ADR analizziamo questi dati per te. Se hai dubbi sulla tua bolletta, chiedimi pure del Mercato Libero!";
-                    } else if (t.includes("costa") || t.includes("pagare")) {
-                        rispostaIA = "Il costo dipende dal fornitore, ma con ADR la consulenza è gratuita. Analizziamo i brand migliori (Enel, Acea, Hera, ecc.) per darti la tariffa più bassa.";
+                    // Ricerca web
+                    const response = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(testoUtente)}&format=json&no_html=1&skip_disambig=1`);
+                    const data = await response.json();
+                    
+                    if (data.AbstractText && data.AbstractText !== "") {
+                        rispostaIA = "<b>Ecco le informazioni tecniche:</b><br>" + data.AbstractText;
                     } else {
-                        rispostaIA = "Questa domanda è interessante! Per darti una risposta certificata al 100% su questo caso specifico, ti metto in contatto con il team ADR.";
-                        mostraUmano = true;
+                        // Domande energetiche basi
+                        if (t.includes("luce") || t.includes("gas") || t.includes("bolletta")) {
+                            rispostaIA = "Il mercato energetico si basa su indici come PUN e PSV. Noi di ADR analizziamo la tua spesa per ridurla. Se vuoi un'analisi del tuo caso, chiedi pure dei nostri esperti!";
+                        } else if (t.includes("costa") || t.includes("pagare")) {
+                            rispostaIA = "I costi variano in base al fornitore. La consulenza di ADR è gratuita: troviamo il brand migliore tra Enel, Acea, Hera e altri per farti pagare meno.";
+                        } else {
+                            rispostaIA = "Questa è una domanda specifica che richiede l'attenzione dei nostri specialisti umani per evitare errori nei calcoli.";
+                            mostraUmano = true;
+                        }
                     }
                 }
 
+                document.getElementById(tid).remove();
                 resocontoChat.push("Bot: " + rispostaIA.replace(/<[^>]*>/g, ''));
 
                 let html = `<div class="msg-bot">${rispostaIA}`;
@@ -195,8 +204,8 @@
             let msg = "";
             
             if (motivo === 'sos_chat') {
-                const log = resocontoChat.slice(-3).join(" | "); // Prende ultimi 3 scambi per brevità
-                msg = `Ciao ${agente}, il bot ADR-1 non può risolvere questo problema. RESOCONTO CHAT: [${log}]. Puoi aiutarmi tu?`;
+                const log = resocontoChat.slice(-3).join(" | ");
+                msg = `Ciao ${agente}, il bot ADR-1 mi ha suggerito di parlare con te. RESOCONTO CHAT: [${log}]. Mi aiuti?`;
             } else if (motivo === 'bolletta') {
                 msg = `Ciao ${agente}, ho scansionato la bolletta e il voto è INSUFFICIENTE. Mi aiuti?`;
             } else {
