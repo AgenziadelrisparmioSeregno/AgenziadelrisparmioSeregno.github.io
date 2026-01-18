@@ -8,53 +8,9 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="apple-touch-icon" href="logo.png">
 
+    <link rel="stylesheet" href="style.css">
+    
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root { 
-            --adr-blue: #00b4ff; 
-            --neon-green: #00ff9d; 
-            --dark-bg: #050505; 
-            --glass: rgba(255, 255, 255, 0.03); 
-        }
-        
-        body { background: var(--dark-bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
-        .tech-font { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        
-        #progress-container { position: fixed; top: 0; width: 100%; height: 4px; z-index: 10001; }
-        #progress-bar { height: 100%; background: var(--adr-blue); width: 0%; box-shadow: 0 0 10px var(--adr-blue); }
-
-        .market-ticker { background: black; border-bottom: 1px solid var(--adr-blue); padding: 10px 0; overflow: hidden; white-space: nowrap; }
-        .ticker-content { display: inline-block; animation: ticker 30s linear infinite; }
-        .ticker-item { display: inline-block; padding: 0 40px; font-family: 'Orbitron'; font-size: 0.8rem; }
-        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        nav { display: flex; align-items: center; justify-content: center; position: sticky; top: 0; padding: 15px 20px; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid #111; }
-        .nav-logo { position: absolute; left: 20px; height: 30px; width: auto; }
-        .nav-links { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
-        nav a { color: white; text-decoration: none; font-size: 0.65rem; font-family: 'Orbitron'; opacity: 0.6; transition: 0.3s; }
-        nav a:hover, nav a.active { opacity: 1; color: var(--adr-blue); }
-        .area-clienti-btn { position: absolute; right: 10px; background: rgba(0, 180, 255, 0.1); border: 1px solid var(--adr-blue); color: var(--adr-blue); padding: 5px 10px; border-radius: 5px; font-size: 0.55rem; font-family: 'Orbitron'; text-decoration: none; }
-        
-        .glass-card { background: var(--glass); border: 1px solid #222; border-radius: 15px; padding: 25px; margin-bottom: 20px; transition: 0.3s; position: relative; }
-        .glass-card:hover { border-color: var(--adr-blue); box-shadow: 0 0 20px rgba(0, 180, 255, 0.1); }
-
-        .btn { background: transparent; border: 1px solid var(--adr-blue); color: var(--adr-blue); padding: 10px; border-radius: 5px; cursor: pointer; font-family: 'Orbitron'; font-size: 0.7rem; transition: 0.3s; width: 100%; text-align: center; text-decoration: none; display: block; box-sizing: border-box; }
-        .btn:hover { background: var(--adr-blue); color: black; box-shadow: 0 0 15px var(--adr-blue); }
-        .btn-green { border-color: var(--neon-green); color: var(--neon-green); }
-
-        #bot-window { display: none; width: 320px; height: 450px; background: #0a0a0a; border: 1px solid var(--adr-blue); border-radius: 15px; flex-direction: column; position: fixed; bottom: 90px; right: 20px; overflow: hidden; box-shadow: 0 0 30px rgba(0,0,0,0.8); z-index: 10001; }
-        .bot-header { background: var(--adr-blue); color: black; padding: 12px; font-family: 'Orbitron'; font-size: 0.7rem; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
-        #bot-messages { flex: 1; padding: 15px; overflow-y: auto; font-size: 0.8rem; display: flex; flex-direction: column; gap: 12px; }
-        .msg-bot { background: #1a1a1a; color: #ccc; padding: 10px; border-radius: 10px 10px 10px 0; border-left: 3px solid var(--adr-blue); align-self: flex-start; width: fit-content; max-width: 85%; }
-        .msg-user { background: var(--adr-blue); color: black; padding: 10px; border-radius: 10px 10px 0 10px; align-self: flex-end; font-weight: 600; width: fit-content; max-width: 85%; }
-        .bot-input-area { padding: 10px; border-top: 1px solid #222; display: flex; gap: 5px; background: #000; }
-        .bot-input-area input { flex: 1; background: #111; border: 1px solid #333; color: white; padding: 10px; border-radius: 5px; outline: none; font-size: 0.8rem; }
-        .bot-send-btn { background: var(--adr-blue); border: none; padding: 8px 15px; cursor: pointer; border-radius: 5px; font-weight: bold; }
-
-        .mobile-call-btn { display: flex; position: fixed; bottom: 20px; left: 20px; background: var(--neon-green); color: black; width: 60px; height: 60px; border-radius: 50%; justify-content: center; align-items: center; text-decoration: none; font-size: 1.5rem; z-index: 10000; }
-        @media (max-width: 850px) { .nav-logo { position: static; margin-bottom: 10px; } nav { flex-direction: column; } .area-clienti-btn { position: static; margin-top: 10px; } }
-    </style>
 </head>
 <body>
 
@@ -91,7 +47,7 @@
             <div class="glass-card" style="border-top: 4px solid #00aff0;">
                 <h3 class="tech-font">Sky Wifi + TV</h3>
                 <p style="font-size: 0.9rem; color: #aaa; margin: 15px 0;">Cinema, Sport e Fibra ultraveloce in un unico abbonamento gestito dal nostro team.</p>
-                <div style="font-size: 2rem; font-weight: bold; margin-bottom: 20px;">da 34,90€ <small style="font-size: 0.8rem; color: #666;">/mese</small></div>
+                <div style="font-size: 2rem; font-weight: bold; margin-bottom: 20px;">da 34,90€</div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <button class="btn" onclick="contactAgent('Daniel', 'Sky')">Daniel</button>
                     <button class="btn btn-green" onclick="contactAgent('Andrea', 'Sky')">Andrea</button>
@@ -101,7 +57,7 @@
             <div class="glass-card" style="border-top: 4px solid var(--adr-blue);">
                 <h3 class="tech-font">Fibra & Mobile 5G</h3>
                 <p style="font-size: 0.9rem; color: #aaa; margin: 15px 0;">Analisi multi-brand per portabilità e nuove attivazioni senza vincoli nascosti.</p>
-                <div style="font-size: 2rem; font-weight: bold; margin-bottom: 20px;">da 22,95€ <small style="font-size: 0.8rem; color: #666;">/mese</small></div>
+                <div style="font-size: 2rem; font-weight: bold; margin-bottom: 20px;">da 22,95€</div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <button class="btn" onclick="contactAgent('Luca', 'Fibra')">Luca</button>
                     <button class="btn" onclick="contactAgent('Daniele', 'Fibra')">Daniele</button>
@@ -115,13 +71,13 @@
         <div id="bot-window">
             <div class="bot-header">
                 <span>ADR-1: CONNECT</span>
-                <span onclick="toggleBot()" style="cursor: pointer; font-size: 1.2rem;">&times;</span>
+                <span onclick="toggleBot()" style="cursor: pointer;">&times;</span>
             </div>
             <div id="bot-messages">
-                <div class="msg-bot">Ciao! Sono l'esperto connettività ADR. Vuoi verificare la copertura della tua via? Scrivi l'indirizzo completo qui sotto!</div>
+                <div class="msg-bot">Ciao! Sono l'esperto ADR. Per verificare la tua copertura, scrivi qui sotto l'indirizzo (Via e Città).</div>
             </div>
             <div class="bot-input-area">
-                <input type="text" id="user-input" placeholder="Via, Civico, Città..." onkeypress="if(event.key==='Enter') inviaMessaggioConnettivita()">
+                <input type="text" id="user-input" placeholder="Scrivi indirizzo..." onkeypress="if(event.key==='Enter') inviaMessaggioConnettivita()">
                 <button class="bot-send-btn" onclick="inviaMessaggioConnettivita()">></button>
             </div>
         </div>
@@ -151,29 +107,25 @@
             setTimeout(() => {
                 if(step === 0) {
                     indirizzoUtente = testo;
-                    msgContainer.innerHTML += `<div class="msg-bot">🔍 Sto interrogando i database per <b>${indirizzoUtente}</b>...</div>`;
+                    msgContainer.innerHTML += `<div class="msg-bot">🔍 Verifica copertura in corso per <b>${indirizzoUtente}</b>...</div>`;
                     
                     setTimeout(() => {
-                        const tecnologie = ["FTTH (Fibra Pura fino a 2.5 Gbps)", "FTTC (Misto Rame 200 Mega)", "FWA (Fibra Misto Radio)"];
+                        const tecnologie = ["Fibra Ottica FTTH 2.5 Gbps", "Fibra FTTC 200 Mega", "FWA Alta Velocità"];
                         const techScelta = tecnologie[Math.floor(Math.random() * tecnologie.length)];
                         
-                        let risposta = `✅ <b>Verifica completata!</b><br>Sei coperto da: <b>${techScelta}</b>.<br><br>Vuoi parlare con un consulente per attivare l'offerta migliore?`;
-                        msgContainer.innerHTML += `<div class="msg-bot">${risposta}
-                            <div style="margin-top:10px;">
-                                <button class="btn" style="font-size:0.6rem; padding:5px;" onclick="inviaAResoconto('SÌ, VOGLIO INFO')">Sì, voglio info</button>
-                            </div>
-                        </div>`;
+                        msgContainer.innerHTML += `<div class="msg-bot">✅ Risultato: <b>${techScelta}</b>.<br><br>Vuoi parlare con noi per i dettagli?<br>
+                        <button class="btn" style="margin-top:10px; font-size:0.7rem;" onclick="inviaAResoconto()">SÌ, PARLA CON NOI</button></div>`;
                         msgContainer.scrollTop = msgContainer.scrollHeight;
-                        resocontoChat.push("Esito Copertura: " + techScelta);
+                        resocontoChat.push("Esito: " + techScelta);
                         step = 1;
                     }, 1500);
                 }
             }, 500);
         }
 
-        function inviaAResoconto(azione) {
+        function inviaAResoconto() {
             const logChat = resocontoChat.join(" | ");
-            const testoFinale = `Ciao! Ho verificato la copertura sul sito. Indirizzo: ${indirizzoUtente}. Resoconto: [${logChat}].`;
+            const testoFinale = `Ciao! Ho verificato la copertura sul sito. Indirizzo: ${indirizzoUtente}. Esito: [${logChat}].`;
             window.open(`https://wa.me/393515910955?text=${encodeURIComponent(testoFinale)}`, '_blank');
         }
 
@@ -190,6 +142,7 @@
             document.getElementById("progress-bar").style.width = scrolled + "%";
         };
     </script>
+
     <a href="tel:+393515910955" class="mobile-call-btn">📞</a>
 </body>
 </html>
