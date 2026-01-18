@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="apple-touch-icon" href="logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADR | Agenzia del Risparmio Seregno</title>
+    
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="logo.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root { --neon-blue: #00f3ff; --neon-green: #00ff9d; --neon-orange: #ff8c00; --dark-bg: #050505; --glass: rgba(255, 255, 255, 0.03); }
@@ -24,13 +26,19 @@
         .ticker-item { display: inline-block; padding: 0 40px; font-family: 'Orbitron'; font-size: 0.8rem; }
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* NAV */
+        /* NAV CON LOGO */
         nav { display: flex; align-items: center; justify-content: center; position: sticky; top: 0; padding: 15px 20px; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid #111; }
+        .nav-logo { position: absolute; left: 20px; height: 30px; width: auto; }
         .nav-links { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
         nav a { color: white; text-decoration: none; font-size: 0.65rem; font-family: 'Orbitron'; opacity: 0.6; transition: 0.3s; }
         nav a:hover { opacity: 1; color: var(--neon-blue); }
         .area-clienti-btn { position: absolute; right: 10px; background: rgba(0, 255, 157, 0.1); border: 1px solid var(--neon-green); color: var(--neon-green); padding: 5px 10px; border-radius: 5px; font-size: 0.55rem; font-family: 'Orbitron'; text-decoration: none; }
-        @media (max-width: 600px) { .area-clienti-btn { position: static; margin-left: 10px; } nav { flex-direction: column; gap: 10px; } }
+        
+        @media (max-width: 850px) { 
+            .nav-logo { position: static; margin-bottom: 10px; }
+            nav { flex-direction: column; }
+            .area-clienti-btn { position: static; margin-top: 10px; }
+        }
 
         /* CARDS */
         .glass-card { background: var(--glass); border: 1px solid #222; border-radius: 15px; padding: 25px; margin-bottom: 20px; transition: 0.3s; position: relative; }
@@ -79,6 +87,7 @@
     </div>
 
     <nav>
+        <img src="logo.png" alt="ADR Logo" class="nav-logo">
         <div class="nav-links">
             <a href="index.html">HOME</a>
             <a href="telefonia.html">TELEFONIA</a>
@@ -90,9 +99,10 @@
     </nav>
 
     <div class="container">
-        <header style="text-align: center; margin: 60px 0;" class="reveal">
-            <h1 class="tech-font" style="font-size: 2.5rem;">AGENZIA DEL <span style="color:var(--neon-blue)">RISPARMIO</span></h1>
-            <p style="color: #666;">Consulenza Energetica e Digitale Avanzata a Seregno</p>
+        <header style="text-align: center; margin: 50px 0;" class="reveal">
+            <img src="logo.png" alt="Agenzia del Risparmio" style="width: 120px; height: auto; margin-bottom: 20px; filter: drop-shadow(0 0 15px var(--neon-blue));">
+            <h1 class="tech-font" style="font-size: 2.5rem; margin-top: 10px;">AGENZIA DEL <span style="color:var(--neon-blue)">RISPARMIO</span></h1>
+            <p style="color: #666; font-weight: 300;">Consulenza Energetica e Digitale Avanzata a Seregno</p>
         </header>
 
         <div class="glass-card reveal">
@@ -127,7 +137,6 @@
 
         <div class="reveal" style="margin-top: 80px;">
             <h2 class="tech-font" style="text-align: center; font-size: 1rem; color: #666; margin-bottom: 10px;">Collaboriamo con i <span style="color: var(--neon-blue)">Migliori Brand</span></h2>
-            <p style="text-align: center; color: var(--neon-green); font-size: 0.8rem; font-family: 'Orbitron'; margin-bottom: 20px;">COMPAREREMO LA MIGLIOR OFFERTA PER FARVI RISPARMIARE!</p>
             <div class="partner-container">
                 <div class="partner-track">
                     <img src="logo-acea.png" class="partner-logo" alt="Acea">
@@ -195,6 +204,7 @@
     </footer>
 
     <script>
+        // ... (Logica script identica alla versione precedente)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -227,7 +237,6 @@
             win.style.display = win.style.display === 'none' ? 'flex' : 'none';
         }
 
-        // LOGICA BOT ADR-1 POTENZIATA (CON RICERCA FAKE)
         function botReply() {
             const input = document.getElementById('user-input');
             const container = document.getElementById('bot-messages');
@@ -238,40 +247,21 @@
             input.value = "";
             container.scrollTop = container.scrollHeight;
 
-            // Messaggio di ricerca fake
             const searchId = "search-" + Date.now();
-            container.innerHTML += `<div id="${searchId}" class="searching-anim">Accesso al database ARERA e verifica tariffe 2026...</div>`;
+            container.innerHTML += `<div id="${searchId}" class="searching-anim">Verifica database Agenzia del Risparmio...</div>`;
             container.scrollTop = container.scrollHeight;
 
             setTimeout(() => {
                 document.getElementById(searchId).remove();
-                let botText = "";
-                let showAgents = true;
-
-                if(userMsg.includes("luce") || userMsg.includes("gas") || userMsg.includes("bolletta")) {
-                    botText = "Analisi mercato completata: Attualmente il PUN e il PSV mostrano instabilità. Il portale indica che potresti risparmiare fino al 25% cambiando fornitore. Ti assegno un consulente per il check gratuito:";
-                } else if(userMsg.includes("fibra") || userMsg.includes("internet") || userMsg.includes("telefonia")) {
-                    botText = "Verifica copertura in corso... Seregno è coperta da fibra ultra-veloce fino a 2.5GB. Abbiamo tariffe business e private in promozione. Parla con noi per i dettagli:";
-                } else if(userMsg.includes("sede") || userMsg.includes("appuntamento") || userMsg.includes("seregno")) {
-                    botText = "Siamo operativi a Seregno! Posso prenotare un appuntamento per te. Scegli con chi vuoi parlare per fissare l'orario:";
-                } else if(userMsg.includes("aiuto") || userMsg.includes("ciao") || userMsg.includes("info")) {
-                    botText = "Sistema ADR-1 attivo. Sono collegato ai listini aggiornati di Enel, Hera, Fastweb e altri 10 partner. Chi preferisci contattare per il tuo risparmio?";
-                } else {
-                    botText = "Ho cercato nei miei archivi ma per questa richiesta specifica serve un occhio umano. Ecco i nostri esperti:";
-                }
-
+                let botText = "Ho trovato diverse soluzioni per te. Chi vuoi contattare del team ADR?";
                 container.innerHTML += `<div style="background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 10px; border-left: 2px solid var(--neon-blue); max-width: 85%; font-size: 0.8rem;">${botText}</div>`;
-                
                 container.innerHTML += `
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 5px;">
-                        <button onclick="vaiWhatsApp('Andrea')" style="background:#25D366; color:white; border:none; padding:5px; border-radius:4px; font-size:0.6rem; cursor:pointer;">WHATSAPP ANDREA</button>
-                        <button onclick="vaiWhatsApp('Daniel')" style="background:#25D366; color:white; border:none; padding:5px; border-radius:4px; font-size:0.6rem; cursor:pointer;">WHATSAPP DANIEL</button>
-                        <button onclick="vaiWhatsApp('Daniele')" style="background:#25D366; color:white; border:none; padding:5px; border-radius:4px; font-size:0.6rem; cursor:pointer;">WHATSAPP DANIELE</button>
-                        <button onclick="vaiWhatsApp('Luca')" style="background:#25D366; color:white; border:none; padding:5px; border-radius:4px; font-size:0.6rem; cursor:pointer;">WHATSAPP LUCA</button>
-                    </div>
-                `;
+                        <button onclick="vaiWhatsApp('Andrea')" style="background:#25D366; color:white; border:none; padding:5px; border-radius:4px; font-size:0.6rem; cursor:pointer;">ANDREA</button>
+                        <button onclick="vaiWhatsApp('Daniel')" style="background:#25D366; color:white; border:none; padding:5px; border-radius:4px; font-size:0.6rem; cursor:pointer;">DANIEL</button>
+                    </div>`;
                 container.scrollTop = container.scrollHeight;
-            }, 1800);
+            }, 1500);
         }
 
         document.getElementById('user-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') botReply(); });
