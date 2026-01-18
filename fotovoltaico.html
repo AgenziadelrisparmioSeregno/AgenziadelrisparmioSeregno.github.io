@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Fotovoltaico | Agenzia del Risparmio</title>
     
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -12,7 +12,7 @@
     
     <style>
         /* ============================================================
-           ADR GLOBAL SYSTEM - SOLAR TECH STYLE
+           ADR GLOBAL SYSTEM - SOLAR TECH STYLE (FIXED 2026)
            ============================================================ */
         :root { 
             --adr-blue: #00a8ff; 
@@ -26,7 +26,7 @@
             --neon-shadow: 0 0 15px rgba(0, 168, 255, 0.4);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; -webkit-tap-highlight-color: transparent; }
 
         body { 
             background: linear-gradient(180deg, #ffffff 0%, var(--adr-blue-light) 100%); 
@@ -37,38 +37,43 @@
         }
 
         /* PROGRESS BAR */
-        #progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 2000; background: rgba(0,0,0,0.05); }
+        #progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 20000; pointer-events: none; }
         #progress-bar { height: 100%; background: var(--adr-blue); width: 0%; box-shadow: 0 0 10px var(--adr-blue-neon); }
 
         .tech-font { font-family: var(--tech-font); text-transform: uppercase; letter-spacing: 1px; }
 
-        /* TICKER */
+        /* MARKET TICKER */
         .market-ticker { 
             background: var(--adr-blue); color: white; padding: 8px 0; 
-            overflow: hidden; white-space: nowrap; box-shadow: var(--neon-shadow);
+            overflow: hidden; white-space: nowrap; position: relative; z-index: 5000;
         }
         .ticker-content { display: inline-block; animation: ticker 30s linear infinite; }
         .ticker-item { display: inline-block; padding: 0 30px; font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; }
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* NAVBAR */
-        nav {
-            display: flex; align-items: center; justify-content: space-between; 
-            position: sticky; top: 0; padding: 12px 5%;
-            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px); 
-            z-index: 1000; border-bottom: 1px solid rgba(0, 168, 255, 0.1);
+        /* NAVBAR MODERNA */
+        .main-nav {
+            position: sticky; top: 0; width: 100%;
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            z-index: 10000; border-bottom: 1px solid rgba(0, 168, 255, 0.1);
+            padding: 10px 0;
         }
-        .nav-logo { height: 42px; transition: 0.3s; filter: drop-shadow(0 0 5px rgba(0,168,255,0.2)); }
-        .nav-links { display: flex; gap: 25px; }
-        .nav-links a { font-family: var(--tech-font); font-size: 0.75rem; font-weight: 700; color: var(--adr-dark); text-decoration: none; transition: 0.3s; }
-        .nav-links a:hover, .nav-links a.active { color: var(--adr-blue); text-shadow: 0 0 8px var(--adr-blue-neon); }
-
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { height: 38px; filter: drop-shadow(0 0 5px rgba(0,168,255,0.2)); }
+        .nav-menu { display: flex; gap: 20px; }
+        .nav-link { font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; color: var(--adr-dark); text-decoration: none; transition: 0.3s; }
+        .nav-link:hover, .nav-link.active { color: var(--adr-blue); }
         .area-clienti-btn {
-            background: white; border: 2px solid var(--adr-blue); color: var(--adr-blue); 
-            padding: 7px 18px; border-radius: 50px; font-family: var(--tech-font); 
-            font-size: 0.65rem; font-weight: 800; transition: 0.3s; box-shadow: var(--neon-shadow);
+            background: var(--adr-blue); color: white; padding: 8px 16px; border-radius: 50px; 
+            font-family: var(--tech-font); font-size: 0.65rem; font-weight: 800; text-decoration: none;
+            box-shadow: var(--neon-shadow); transition: 0.3s;
         }
-        .area-clienti-btn:hover { background: var(--adr-blue); color: white; box-shadow: 0 0 20px var(--adr-blue-neon); }
+        .mobile-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+        .bar { width: 22px; height: 2px; background: var(--adr-blue); }
+        .mobile-nav { 
+            display: none; flex-direction: column; background: white; position: absolute; 
+            top: 100%; left: 0; width: 100%; padding: 20px; border-bottom: 3px solid var(--adr-blue); 
+        }
 
         /* CONTENT */
         .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
@@ -79,21 +84,17 @@
             background: white; border: 1px solid rgba(0, 168, 255, 0.15);
             border-radius: 24px; padding: 35px; 
             box-shadow: 0 15px 35px rgba(0, 168, 255, 0.1);
-            position: relative; overflow: hidden; transition: 0.3s;
+            position: relative; overflow: hidden;
         }
 
-        /* SIMULATOR STYLE */
+        /* SIMULATOR */
         .simulator-box {
-            background: var(--adr-blue-light);
-            border: 2px solid var(--adr-blue);
-            border-radius: 20px;
-            padding: 30px;
-            margin-top: 40px;
-            box-shadow: var(--neon-shadow);
+            background: var(--adr-blue-light); border: 2px solid var(--adr-blue);
+            border-radius: 20px; padding: 30px; margin-top: 40px; box-shadow: var(--neon-shadow);
         }
         .simulator-input {
             width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #ddd;
-            font-size: 1.1rem; font-family: var(--body-font); font-weight: 600;
+            font-size: 1.1rem; font-family: var(--body-font); font-weight: 600; text-align: center;
         }
 
         .btn {
@@ -104,30 +105,24 @@
         .btn:hover { background: var(--adr-blue-neon); box-shadow: 0 5px 15px rgba(0, 168, 255, 0.4); }
         .btn-green { background: var(--neon-green); }
 
-        /* BOT SYSTEM */
-        #bot-container { position: fixed; bottom: 25px; right: 25px; z-index: 9999; }
-        #bot-launcher { 
-            width: 60px; height: 60px; border-radius: 50%; background: var(--adr-blue); 
-            display: flex; align-items: center; justify-content: center; cursor: pointer; 
-            font-size: 1.8rem; box-shadow: 0 10px 25px rgba(0,168,255,0.4); border: 2px solid white; 
-        }
+        /* BOT WINDOW */
+        #bot-container { position: fixed; bottom: 25px; right: 25px; z-index: 10001; }
+        #bot-launcher { width: 60px; height: 60px; border-radius: 50%; background: var(--adr-blue); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.6rem; border: 2px solid white; box-shadow: 0 10px 25px rgba(0,168,255,0.4); }
         #bot-window {
-            display: none; width: 350px; height: 500px; background: white;
-            position: absolute; bottom: 80px; right: 0; border-radius: 20px;
-            flex-direction: column; box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+            display: none; width: 340px; height: 500px; background: white;
+            position: absolute; bottom: 75px; right: 0; border-radius: 20px;
+            flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
             border: 1px solid var(--adr-blue-light); overflow: hidden;
         }
         .bot-header { background: var(--adr-blue); color: white; padding: 15px; display: flex; justify-content: space-between; font-family: var(--tech-font); font-size: 0.7rem; }
         #bot-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem; }
-        .msg-bot { background: var(--adr-blue-light); padding: 10px 15px; border-radius: 15px 15px 15px 0; align-self: flex-start; max-width: 80%; border-left: 3px solid var(--adr-blue); }
-        .msg-user { background: var(--adr-blue); color: white; padding: 10px 15px; border-radius: 15px 15px 0 15px; align-self: flex-end; max-width: 80%; }
-        .bot-input-area { padding: 15px; border-top: 1px solid #eee; display: flex; gap: 10px; }
-        .bot-input-area input { flex: 1; border: 1px solid #ddd; padding: 8px 15px; border-radius: 20px; }
-        .bot-send-btn { background: var(--adr-blue); border: none; width: 35px; height: 35px; border-radius: 50%; color: white; cursor: pointer; }
+        .msg-bot { background: var(--adr-blue-light); padding: 12px; border-radius: 15px 15px 15px 0; align-self: flex-start; border-left: 3px solid var(--adr-blue); }
+        .msg-user { background: var(--adr-blue); color: white; padding: 10px; border-radius: 15px 15px 0 15px; align-self: flex-end; }
 
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            #bot-window { width: calc(100vw - 40px); }
+        @media (max-width: 992px) {
+            .nav-menu { display: none; }
+            .mobile-toggle { display: flex; }
+            .simulator-box { padding: 20px; }
         }
     </style>
 </head>
@@ -145,23 +140,43 @@
         </div>
     </div>
 
-    <nav>
-        <a href="index.html"><img src="logo.png" alt="ADR Logo" class="nav-logo"></a>
-        <div class="nav-links">
-            <a href="index.html">HOME</a>
-            <a href="telefonia.html">TELEFONIA & SKY</a>
-            <a href="fotovoltaico.html" class="active">FOTOVOLTAICO</a>
-            <a href="contatti.html">CONTATTI</a>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo-box">
+                <img src="logo.png" alt="ADR Logo" class="nav-logo">
+            </a>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">HOME</a>
+                <a href="telefonia.html" class="nav-link">TELEFONIA</a>
+                <a href="fotovoltaico.html" class="nav-link active">ENERGIA</a>
+                <a href="contatti.html" class="nav-link">CONTATTI</a>
+            </div>
+            <div class="nav-actions" style="display:flex; align-items:center; gap:15px;">
+                <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
+                <button class="mobile-toggle" onclick="toggleMobileMenu()">
+                    <span class="bar"></span><span class="bar"></span>
+                </button>
+            </div>
         </div>
-        <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
+        <div id="mobile-dropdown" class="mobile-nav">
+            <a href="index.html" style="padding:15px 0; text-decoration:none; color:var(--adr-dark); font-family:var(--tech-font);">HOME</a>
+            <a href="telefonia.html" style="padding:15px 0; text-decoration:none; color:var(--adr-dark); font-family:var(--tech-font);">TELEFONIA</a>
+            <a href="fotovoltaico.html" style="padding:15px 0; text-decoration:none; color:var(--adr-dark); font-family:var(--tech-font);">ENERGIA</a>
+            <a href="contatti.html" style="padding:15px 0; text-decoration:none; color:var(--adr-dark); font-family:var(--tech-font);">CONTATTI</a>
+        </div>
     </nav>
 
     <div class="container">
-        <header style="text-align: center; margin: 60px 0;" class="reveal">
+        <header style="text-align: center; margin: 40px 0;" class="reveal">
             <span class="tech-font" style="color: var(--adr-blue); font-size: 0.7rem; letter-spacing: 5px; font-weight: 900;">ENERGY INDEPENDENCE</span>
-            <h1 class="tech-font" style="font-size: 2.5rem; margin-top: 15px;">Soluzioni <span style="color: var(--adr-blue);">Energetiche</span></h1>
+            <h1 class="tech-font" style="font-size: 2.2rem; margin-top: 15px;">Soluzioni <span style="color: var(--adr-blue);">Energetiche</span></h1>
             <p style="color: #666; max-width: 650px; margin: 15px auto;">Produci la tua energia, abbatti le bollette e aumenta il valore del tuo immobile con le tecnologie solari del 2026.</p>
         </header>
+
+        
+
+[Image of solar photovoltaic system diagram]
+
 
         <div class="glass-card reveal" style="border-left: 6px solid var(--adr-blue);">
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 30px;">
@@ -180,16 +195,16 @@
 
         <div class="simulator-box reveal">
             <h3 class="tech-font" style="font-size: 1rem; color: var(--adr-blue); text-align: center; margin-bottom: 25px;">Simulatore di Risparmio Intelligente</h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 25px; align-items: flex-end; justify-content: center;">
-                <div style="flex: 1; min-width: 220px;">
-                    <label style="font-size: 0.65rem; color: var(--adr-dark); font-weight: 800; display: block; margin-bottom: 8px;" class="tech-font">Spesa Luce Annua (€)</label>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; justify-content: center;">
+                <div style="flex: 1; min-width: 200px;">
+                    <label style="font-size: 0.6rem; color: var(--adr-dark); font-weight: 800; display: block; margin-bottom: 8px;" class="tech-font">Spesa Luce Annua (€)</label>
                     <input type="number" id="calc-spesa" placeholder="Es: 1500" class="simulator-input">
                 </div>
-                <div style="flex: 1; min-width: 220px; text-align: center; background: white; padding: 10px; border-radius: 12px; border: 1px solid #ddd;">
-                    <p style="font-size: 0.65rem; color: #999; margin-bottom: 5px;" class="tech-font">Risparmio stimato (20 anni)</p>
-                    <div id="calc-result" style="font-family: 'Orbitron'; color: var(--neon-green); font-size: 1.8rem; font-weight: 900;">€ 0</div>
+                <div style="flex: 1; min-width: 200px; text-align: center; background: white; padding: 15px; border-radius: 12px;">
+                    <p style="font-size: 0.6rem; color: #999; margin-bottom: 5px;" class="tech-font">Risparmio stimato (20 anni)</p>
+                    <div id="calc-result" style="font-family: 'Orbitron'; color: var(--neon-green); font-size: 1.6rem; font-weight: 900;">€ 0</div>
                 </div>
-                <button class="btn btn-green" onclick="calculateSavings()" style="width: auto; padding: 15px 40px; height: 55px;">CALCOLA</button>
+                <button class="btn btn-green" onclick="calculateSavings()" style="width: auto; padding: 15px 30px;">CALCOLA</button>
             </div>
         </div>
     </div>
@@ -202,43 +217,44 @@
                 <span onclick="toggleBot()" style="cursor: pointer; font-size: 1.2rem;">×</span>
             </div>
             <div id="bot-messages">
-                <div class="msg-bot">Protocollo Solare attivo. Digita una domanda su <b>incentivi</b>, <b>tecnologie</b> o <b>batterie</b> per avviare la scansione dei dati 2026.</div>
+                <div class="msg-bot">Protocollo Solare attivo. Digita una domanda su <b>incentivi</b> o <b>batterie</b>.</div>
             </div>
-            <div id="typing-indicator" style="display:none; padding: 10px 15px; color: var(--adr-blue); font-size: 0.65rem; font-family: 'Orbitron'; background: #fff; font-weight: bold;">[SCANSIONE DATABASE...]</div>
-            <div class="bot-input-area">
-                <input type="text" id="user-input" placeholder="Chiedi al sistema..." onkeypress="if(event.key==='Enter') botInformaEnergia()">
-                <button class="bot-send-btn" onclick="botInformaEnergia()">></button>
+            <div style="padding:10px; display:flex; gap:5px; border-top:1px solid #eee;">
+                <input type="text" id="user-input" placeholder="Chiedi al sistema..." style="flex:1; padding:8px; border-radius:20px; border:1px solid #ddd;" onkeypress="if(event.key==='Enter') botInformaEnergia()">
+                <button onclick="botInformaEnergia()" style="background:var(--adr-blue); border:none; color:white; width:35px; border-radius:50%; cursor:pointer;">></button>
             </div>
         </div>
     </div>
 
-    <footer style="text-align: center; padding: 40px; margin-top: 50px; border-top: 1px solid #eee;">
+    <footer style="text-align: center; padding: 30px; border-top: 1px solid #eee;">
         <p style="font-size: 0.6rem; color: #aaa; font-family: var(--tech-font);">© 2026 ADR SEREGNO - ENERGY DIVISION</p>
     </footer>
 
     <script>
-        // Simulatore
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-dropdown');
+            menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+        }
+
         function calculateSavings() {
             const spesa = document.getElementById('calc-spesa').value;
             if(spesa > 0) {
-                const totale = (spesa * 0.78) * 20; // Stima media autoconsumo + detrazione
+                const totale = (spesa * 0.78) * 20; 
                 document.getElementById('calc-result').innerText = "€ " + Math.round(totale).toLocaleString();
             }
         }
 
-        // Animazioni reveal
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
+            reveals.forEach(el => {
                 var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                if (elementTop < windowHeight - 100) reveals[i].classList.add("active");
-            }
+                var elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 50) el.classList.add("active");
+            });
         }
         window.addEventListener("scroll", reveal);
         window.onload = reveal;
 
-        // Gestione Bot
         function toggleBot() {
             const win = document.getElementById('bot-window');
             win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
@@ -247,7 +263,6 @@
         function botInformaEnergia() {
             const input = document.getElementById('user-input');
             const msgContainer = document.getElementById('bot-messages');
-            const typing = document.getElementById('typing-indicator');
             const userText = input.value.toLowerCase();
             if(!userText.trim()) return;
 
@@ -255,42 +270,24 @@
             input.value = "";
             msgContainer.scrollTop = msgContainer.scrollHeight;
 
-            typing.style.display = "block";
-            
             setTimeout(() => {
-                typing.style.display = "none";
-                let info = "Analisi completata. Per configurare il tuo impianto ideale, contatta uno dei nostri tecnici:";
+                let info = "Analisi completata. Contatta i nostri tecnici:";
+                if(userText.includes("incentiv")) info = "🔍 Bonus 50% confermato per tutto il 2026.";
+                else if(userText.includes("batterie")) info = "🔋 Usiamo celle LFP sicure ad alta durata.";
 
-                if(userText.includes("incentiv") || userText.includes("bonus") || userText.includes("detrazion")) {
-                    info = "🔍 <b>Dati 2026:</b> Bonus Casa confermato al 50%. Accesso prioritario al Fondo Reddito Energetico per nuclei idonei.";
-                } else if(userText.includes("risparmio") || userText.includes("costo") || userText.includes("bolletta")) {
-                    info = "📊 <b>Dati 2026:</b> Con un impianto ADR-Solar, l'indipendenza dalla rete raggiunge l'85% nei mesi estivi e il 40% in quelli invernali.";
-                } else if(userText.includes("batterie") || userText.includes("accumulo") || userText.includes("pannelli")) {
-                    info = "🔋 <b>Tecnologia:</b> Utilizziamo esclusivamente celle LFP (Litio-Ferro-Fosfato) sicure e moduli N-Type ad altissima resa oltre i 450Wp.";
-                }
-
-                msgContainer.innerHTML += `
-                    <div class="msg-bot">
-                        ${info}
-                        <div style="margin-top:15px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                            <button onclick="contactAgent('Daniel', 'Energia')" style="background:white; border:1px solid #ddd; padding:8px; font-size:0.6rem; cursor:pointer; font-family:var(--tech-font); font-weight:700;">DANIEL</button>
-                            <button onclick="contactAgent('Andrea', 'Energia')" style="background:var(--adr-blue); color:white; border:none; padding:8px; font-size:0.6rem; cursor:pointer; font-family:var(--tech-font); font-weight:700;">ANDREA</button>
-                        </div>
-                    </div>`;
+                msgContainer.innerHTML += `<div class="msg-bot">${info}</div>`;
                 msgContainer.scrollTop = msgContainer.scrollHeight;
-            }, 1200);
+            }, 800);
         }
 
         function contactAgent(agente, servizio) {
             const numeri = { 'Daniel': '393423218269', 'Daniele': '393491795387', 'Luca': '393277545377', 'Andrea': '393515910955' };
-            const testo = `Ciao ${agente}, ho usato il calcolatore ADR. Vorrei un'analisi tecnica per ${servizio}.`;
+            const testo = `Ciao ${agente}, vorrei un'analisi per il fotovoltaico ADR.`;
             window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(testo)}`, '_blank');
         }
 
         window.onscroll = function() {
-            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            let scrolled = (winScroll / height) * 100;
+            let scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
             document.getElementById("progress-bar").style.width = scrolled + "%";
         };
     </script>
