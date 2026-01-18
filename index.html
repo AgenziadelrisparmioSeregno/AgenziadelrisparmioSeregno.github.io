@@ -90,29 +90,19 @@
         }
         .btn-green { background: #2ecc71; border-bottom: 4px solid #27ae60; }
 
-        /* PARTNERS */
-        .partners-track { display: flex; align-items: center; gap: 50px; width: max-content; animation: scrollLeft 30s linear infinite; }
-        .partner-logo { height: 35px; filter: grayscale(100%); opacity: 0.6; }
-
-        /* ============================================================
-           FIX BOT ADR-1 (CHIUSO DI DEFAULT - STILE CONTATTI)
-           ============================================================ */
+        /* BOT ADR-1 */
         #bot-container { position: fixed; bottom: 25px; right: 25px; z-index: 10001; }
-        
         #bot-launcher { 
             width: 60px; height: 60px; border-radius: 50%; background: var(--adr-blue); 
             display: flex; align-items: center; justify-content: center; cursor: pointer; 
             font-size: 1.6rem; box-shadow: 0 10px 25px rgba(0,168,255,0.4); border: 2px solid white;
         }
-
         #bot-window {
-            display: none; /* FORZATO CHIUSO ALL'AVVIO */
-            width: 340px; height: 500px; background: white;
+            display: none; width: 340px; height: 500px; background: white;
             position: absolute; bottom: 75px; right: 0; border-radius: 20px;
             flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
             border: 1px solid var(--adr-blue-light); overflow: hidden;
         }
-
         .bot-header { background: var(--adr-blue); color: white; padding: 15px; display: flex; justify-content: space-between; font-family: var(--tech-font); font-size: 0.7rem; }
         #bot-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #fdfdfd; font-size: 0.85rem; }
         .msg-bot { background: var(--adr-blue-light); padding: 12px; border-radius: 12px 12px 12px 0; align-self: flex-start; border-left: 3px solid var(--adr-blue); }
@@ -120,7 +110,6 @@
         @media (max-width: 992px) {
             #bot-window { width: calc(100vw - 50px); right: -10px; }
         }
-        @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     </style>
 </head>
 <body>
@@ -191,29 +180,36 @@
         <div class="reveal">
             <h2 style="font-family: var(--tech-font); text-align: center; font-size: 0.9rem; margin-bottom: 30px; letter-spacing: 2px;">IL NOSTRO <span style="color:var(--adr-blue)">TEAM</span></h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+                
                 <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
                     <h4 class="tech-font">Daniel</h4>
                     <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px;">CONSULENTE LUCE&GAS & TELEFONIA & SKY & FOTOVOLTAICO</p>
                     <button class="btn btn-green" onclick="prenotaConsulenza('Daniel')">WHATSAPP</button>
                 </div>
+
                 <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
                     <h4 class="tech-font">Andrea</h4>
                     <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px;">RESPONSABILE CAF & CONSULENTE LUCE&GAS & TELEFONIA & SKY & FOTOVOLTAICO</p>
                     <button class="btn btn-green" onclick="prenotaConsulenza('Andrea')">WHATSAPP</button>
                 </div>
+
                 <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
                     <h4 class="tech-font">Luca</h4>
                     <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px;">CONSULENTE LUCE&GAS & TELEFONIA & SKY & FOTOVOLTAICO</p>
                     <button class="btn btn-green" onclick="prenotaConsulenza('Luca')">WHATSAPP</button>
                 </div>
+
                 <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
                     <h4 class="tech-font">Daniele</h4>
                     <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px;">CONSULENTE LUCE&GAS & TELEFONIA & SKY & FOTOVOLTAICO</p>
-                    <button class="btn btn-green" onclick="prenotaConsulenza('DANIELE')">WHATSAPP</button>
+                    <button class="btn btn-green" onclick="prenotaConsulenza('Daniele')">WHATSAPP</button>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -240,19 +236,27 @@
             menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        // TOGGLE BOT (IDENTICO A CONTATTI)
         function toggleBot() {
             const win = document.getElementById('bot-window');
-            if (win.style.display === 'none' || win.style.display === '') {
-                win.style.display = 'flex';
-            } else {
-                win.style.display = 'none';
-            }
+            win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
         }
 
+        // FUNZIONE WHATSAPP AGGIORNATA CON IL TUO MESSAGGIO
         function prenotaConsulenza(nome) {
-            const numeri = { 'Daniel': '393423218269', 'Andrea': '393515910955', 'Luca': '393277545377', 'Daniele': '393491795387' };
-            window.open(`https://wa.me/${numeri[nome]}?text=Ciao, vorrei info`, '_blank');
+            const numeri = { 
+                'Daniel': '393423218269', 
+                'Andrea': '393515910955', 
+                'Luca': '393277545377', 
+                'Daniele': '393491795387' 
+            };
+            
+            // Il tuo messaggio personalizzato
+            const messaggio = "Ciao, ho visto il vostro sito e vorrei prenotare una consulenza quando sei disponibile??";
+            
+            // Encode per URL
+            const urlEncodedMsg = encodeURIComponent(messaggio);
+            
+            window.open(`https://wa.me/${numeri[nome]}?text=${urlEncodedMsg}`, '_blank');
         }
 
         function eseguiScansioneHome() {
