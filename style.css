@@ -411,3 +411,52 @@ nav {
 
 
 footer { padding: 40px; text-align: center; color: #aaa; font-size: 0.7rem; }
+/* =========================================
+   PARTNER LOGOS TICKER
+   ========================================= */
+
+.partners {
+    width: 100%;
+    overflow: hidden;
+    padding: 30px 0;
+    background: transparent;
+}
+
+.partners-track {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    width: max-content;
+    animation: partners-scroll 35s linear infinite;
+}
+
+.partners-track img {
+    height: 45px;
+    width: auto;
+    opacity: 0.7;
+    filter: grayscale(100%);
+    transition: 0.3s;
+}
+
+.partners-track img:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+    transform: scale(1.1);
+}
+
+/* ANIMAZIONE */
+@keyframes partners-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .partners-track img {
+        height: 35px;
+    }
+}
