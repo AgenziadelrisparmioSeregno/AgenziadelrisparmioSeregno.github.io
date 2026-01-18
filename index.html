@@ -36,20 +36,36 @@
         #progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 20000; pointer-events: none; }
         #progress-bar { height: 100%; background: var(--adr-blue); width: 0%; box-shadow: 0 0 10px var(--adr-blue-neon); }
 
-        /* NAVBAR */
+        /* NAVBAR REVISIONATA */
         .main-nav {
             position: sticky; top: 0; width: 100%;
-            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             z-index: 10000; border-bottom: 1px solid rgba(0, 168, 255, 0.1);
-            padding: 10px 0;
+            padding: 12px 0;
         }
         .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; }
-        .nav-logo { height: 38px; }
-        .nav-menu { display: flex; gap: 20px; }
+        .nav-logo { height: 35px; }
+        
+        .nav-menu { display: flex; gap: 20px; align-items: center; }
         .nav-link { font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; color: var(--adr-dark); text-decoration: none; transition: 0.3s; }
         .nav-link:hover, .nav-link.active { color: var(--adr-blue); }
 
-        .area-clienti-btn { background: var(--adr-blue); color: white; padding: 8px 16px; border-radius: 50px; font-family: var(--tech-font); font-size: 0.65rem; font-weight: 800; text-decoration: none; box-shadow: var(--neon-shadow); }
+        /* MOBILE MENU & HAMBURGER */
+        .mobile-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; z-index: 10001; }
+        .bar { width: 25px; height: 3px; background: var(--adr-blue); border-radius: 5px; transition: 0.3s; }
+
+        @media (max-width: 850px) {
+            .mobile-toggle { display: flex; }
+            .nav-menu { 
+                position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; 
+                background: white; flex-direction: column; padding: 100px 40px; 
+                transition: 0.4s; box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+            }
+            .nav-menu.active { right: 0; }
+            .nav-link { font-size: 1rem; }
+        }
+
+        .area-clienti-btn { background: var(--adr-blue); color: white; padding: 8px 18px; border-radius: 50px; font-family: var(--tech-font); font-size: 0.65rem; font-weight: 800; text-decoration: none; box-shadow: var(--neon-shadow); }
 
         /* TICKER */
         .market-ticker { background: var(--adr-blue); color: white; padding: 8px 0; overflow: hidden; white-space: nowrap; position: relative; z-index: 5000; }
@@ -74,35 +90,24 @@
         }
         .btn-green { background: #2ecc71; border-bottom: 4px solid #27ae60; font-size: 0.7rem; }
 
-        /* SEZIONE PARTNER 3D A COLORI */
+        /* PARTNER SECTION */
         .partners-section { margin: 80px 0; text-align: center; }
         .partners-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 25px;
             perspective: 1000px;
             margin-top: 40px;
             justify-items: center;
         }
         .partner-card {
-            width: 100px;
-            height: 100px;
-            position: relative;
+            width: 90px; height: 90px;
             transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
         }
-        .partner-card:hover {
-            transform: rotateY(360deg);
-        }
-        .partner-card img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.08));
-        }
+        .partner-card:hover { transform: rotateY(360deg); }
+        .partner-card img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
         /* SCANNER IA */
         .voto-cerchio {
@@ -144,16 +149,21 @@
     <nav class="main-nav">
         <div class="nav-container">
             <a href="index.html"><img src="logo.png" alt="ADR Logo" class="nav-logo"></a>
-            <div class="nav-menu">
+            
+            <div class="nav-menu" id="navMenu">
                 <a href="index.html" class="nav-link active">HOME</a>
                 <a href="telefonia.html" class="nav-link">TELEFONIA</a>
                 <a href="fotovoltaico.html" class="nav-link">FOTOVOLTAICO</a>
                 <a href="caf.html" class="nav-link">CAF</a>
                 <a href="contatti.html" class="nav-link">CONTATTI</a>
-            </div>
-            <div class="nav-actions">
                 <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
             </div>
+
+            <button class="mobile-toggle" onclick="toggleMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
         </div>
     </nav>
 
@@ -251,6 +261,11 @@
     </div>
 
     <script>
+        // Funzione per Hamburger Menu
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
         function toggleBot() {
             const win = document.getElementById('bot-window');
             win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
@@ -279,17 +294,14 @@
                 if(voto <= 4) {
                     votoBox.style.color = votoBox.style.borderColor = "#ff4444";
                     votoLabel.innerHTML = "VOTO INSUFFICIENTE";
-                    votoLabel.style.color = "#ff4444";
                     votoDesc.innerHTML = "Costi fuori mercato. Richiedi check-up immediato.";
                 } else if(voto <= 7) {
                     votoBox.style.color = votoBox.style.borderColor = "#ffa502";
                     votoLabel.innerHTML = "TARIFFA MEDIOCRE";
-                    votoLabel.style.color = "#ffa502";
                     votoDesc.innerHTML = "Prezzo migliorabile di circa il 20%.";
                 } else {
                     votoBox.style.color = votoBox.style.borderColor = "#2ecc71";
                     votoLabel.innerHTML = "OTTIMO RISPARMIO";
-                    votoLabel.style.color = "#2ecc71";
                     votoDesc.innerHTML = "Complimenti, la tua tariffa è tra le migliori.";
                 }
 
