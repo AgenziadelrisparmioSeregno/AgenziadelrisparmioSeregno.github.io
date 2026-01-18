@@ -10,8 +10,7 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="style.css?v=1.2">
-
+    <link rel="stylesheet" href="style.css?v=1.3">
 </head>
 <body>
 
@@ -89,6 +88,14 @@
                     <img src="logo-bluenergy.png" class="partner-logo" alt="Bluenergy">
                     <img src="logo-segnoverde.png" class="partner-logo" alt="Segnoverde">
                     <img src="logo-fastweb-energia.png" class="partner-logo" alt="Fastweb Energia">
+                    <img src="logo-acea.png" class="partner-logo" alt="Acea">
+                    <img src="logo-hera.png" class="partner-logo" alt="Hera">
+                    <img src="logo-eon.png" class="partner-logo" alt="Eon">
+                    <img src="logo-enel.png" class="partner-logo" alt="Enel">
+                    <img src="logo-audax.png" class="partner-logo" alt="Audax">
+                    <img src="logo-bluenergy.png" class="partner-logo" alt="Bluenergy">
+                    <img src="logo-segnoverde.png" class="partner-logo" alt="Segnoverde">
+                    <img src="logo-fastweb-energia.png" class="partner-logo" alt="Fastweb Energia">
                 </div>
             </div>
         </div>
@@ -96,107 +103,116 @@
         <section class="reveal" style="margin: 80px 0;">
             <h2 class="tech-font" style="text-align: center; color: var(--adr-blue); margin-bottom: 50px;">Specialisti <span style="color:#333">Operativi</span></h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                
                 <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--adr-green);">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">👨‍💼</div>
                     <h4 class="tech-font" style="font-size: 0.9rem;">ANDREA</h4>
                     <p style="font-size: 0.6rem; color: #888; margin-bottom: 15px;">RESPONSABILE CAF & CONSULENTE ENERGETICO</p>
                     <button class="btn btn-andrea" onclick="vaiWhatsApp('Andrea', 'appuntamento')">PRENOTA APPUNTAMENTO</button>
                 </div>
-
                 <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">⚡</div>
                     <h4 class="tech-font" style="font-size: 0.9rem;">DANIEL</h4>
                     <p style="font-size: 0.6rem; color: #888; margin-bottom: 15px;">CONSULENTE LUCE E GAS & TEL</p>
                     <button class="btn" onclick="vaiWhatsApp('Daniel', 'consulenza')">RICHIEDI CONSULENZA</button>
                 </div>
-
                 <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">📡</div>
                     <h4 class="tech-font" style="font-size: 0.9rem;">DANIELE</h4>
                     <p style="font-size: 0.6rem; color: #888; margin-bottom: 15px;">CONSULENTE LUCE E GAS & TEL</p>
                     <button class="btn" onclick="vaiWhatsApp('Daniele', 'consulenza')">RICHIEDI CONSULENZA</button>
                 </div>
-
                 <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">☀️</div>
                     <h4 class="tech-font" style="font-size: 0.9rem;">LUCA</h4>
                     <p style="font-size: 0.6rem; color: #888; margin-bottom: 15px;">CONSULENTE LUCE E GAS & FOTOVOLTAICO</p>
                     <button class="btn" onclick="vaiWhatsApp('Luca', 'consulenza')">RICHIEDI CONSULENZA</button>
                 </div>
-
             </div>
         </section>
     </div>
 
     <div id="bot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-        <div id="bot-launcher" onclick="toggleBot()" style="width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 2rem;">🤖</div>
-        <div id="bot-window">
-           async function inviaMessaggioBot() {
-    const input = document.getElementById('user-input');
-    const msgContainer = document.getElementById('bot-messages');
-    const testoUtente = input.value.trim();
-
-    if (testoUtente === "") return;
-
-    // Mostra messaggio utente
-    msgContainer.innerHTML += `<div style="align-self: flex-end; background: var(--adr-blue); color: white; padding: 10px; border-radius: 15px; margin-bottom: 10px; font-size: 0.85rem; max-width: 80%;">${testoUtente}</div>`;
-    input.value = "";
-    msgContainer.scrollTop = msgContainer.scrollHeight;
-
-    // Effetto "ADR sta pensando..."
-    const typingId = "typing-" + Date.now();
-    msgContainer.innerHTML += `<div id="${typingId}" style="align-self: flex-start; background: #f0f0f0; padding: 10px; border-radius: 15px; margin-bottom: 10px; font-size: 0.8rem;">ADR-1 sta analizzando...</div>`;
-
-    try {
-        // Cerchiamo la risposta tramite un servizio di AI (es. DuckDuckGo AI o un Worker gratuito)
-        // Qui usiamo una logica che simula l'accesso a un database di conoscenza globale
-        const response = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(testoUtente)}&format=json&no_html=1`);
-        const data = await response.json();
+        <div id="bot-launcher" onclick="toggleBot()" style="width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 2rem; background: linear-gradient(145deg, #00b4ff, #008ee6); box-shadow: 0 10px 25px rgba(0,168,255,0.3);">🤖</div>
         
-        let rispostaFinale = "";
-
-        if (data.AbstractText) {
-            // Se trova una risposta su internet (Wikipedia/Fonti ufficiali)
-            rispostaFinale = data.AbstractText;
-        } else {
-            // Se è una domanda specifica su ADR o non trova risultati certi
-            rispostaFinale = await generaRispostaIntelligente(testoUtente);
-        }
-
-        // Rimuovi "sta pensando" e metti la risposta
-        document.getElementById(typingId).remove();
-        msgContainer.innerHTML += `
-            <div style="align-self: flex-start; background: #fff; border: 1px solid #eee; padding: 12px; border-radius: 15px; margin-bottom: 10px; font-size: 0.85rem; max-width: 85%; border-left: 4px solid var(--adr-blue); box-shadow: 5px 5px 15px rgba(0,0,0,0.05);">
-                ${rispostaFinale}
-                <div style="margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px;">
-                    <p style="font-size: 0.7rem; color: #888;">Ti è servito? Se vuoi un'analisi tecnica della tua bolletta specifica:</p>
-                    <button class="btn btn-andrea" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Andrea', 'consulenza')">PARLA CON ANDREA</button>
-                </div>
-            </div>`;
-
-    } catch (error) {
-        document.getElementById(typingId).innerText = "Sospensione momentanea del segnale. Ti consiglio di contattare i nostri specialisti direttamente.";
-    }
-    msgContainer.scrollTop = msgContainer.scrollHeight;
-}
-
-// Funzione di supporto per risposte ADR specifiche
-async function generaRispostaIntelligente(testo) {
-    const t = testo.toLowerCase();
-    if (t.includes("costo") || t.includes("pagare")) return "La consulenza ADR è gratuita per i cittadini di Seregno. Analizziamo i tuoi costi e troviamo l'offerta migliore senza costi di agenzia.";
-    if (t.includes("dove") || t.includes("sede")) return "Siamo a Seregno! Puoi scriverci su WhatsApp per ricevere la posizione esatta e fissare un incontro.";
-    return "Ottima domanda. In base alle attuali normative del mercato energetico 2026, la situazione è in evoluzione. Per darti un dato preciso sulla tua zona, preferirei farti parlare con un consulente tecnico.";
-}
+        <div id="bot-window">
+            <div class="bot-header">
+                <span>🤖 SISTEMA ADR-1 IA</span>
+                <span onclick="toggleBot()" style="cursor: pointer; font-size: 1.2rem;">&times;</span>
+            </div>
+            <div id="bot-messages">
+                <div class="msg-bot">Benvenuto. Sono ADR-1. Come posso aiutarti oggi con le tue utenze o i tuoi appuntamenti?</div>
+            </div>
+            <div class="bot-input-area">
+                <input type="text" id="user-input" placeholder="Chiedimi qualcosa..." onkeypress="if(event.key==='Enter') inviaMessaggioBot()">
+                <button class="bot-send-btn" onclick="inviaMessaggioBot()">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+                </button>
+            </div>
         </div>
     </div>
 
-    <footer style="margin-top: 100px; padding: 40px; border-top: 1px solid #eee; text-align: center;">
+    <footer>
         <p style="font-size: 0.6rem; color: #aaa;">© 2026 ADR SEREGNO - SISTEMA DI RISPARMIO CERTIFICATO</p>
     </footer>
 
     <script>
-        // Animazione Reveal
+        // --- LOGICA BOT ADR-1 INTELLIGENTE ---
+        async function inviaMessaggioBot() {
+            const input = document.getElementById('user-input');
+            const msgContainer = document.getElementById('bot-messages');
+            const testoUtente = input.value.trim();
+
+            if (testoUtente === "") return;
+
+            // Messaggio Utente
+            msgContainer.innerHTML += `<div class="msg-user">${testoUtente}</div>`;
+            input.value = "";
+            msgContainer.scrollTop = msgContainer.scrollHeight;
+
+            // Pensiero Bot
+            const typingId = "typing-" + Date.now();
+            msgContainer.innerHTML += `<div id="${typingId}" class="msg-bot"><i>ADR-1 sta analizzando la tua richiesta...</i></div>`;
+            msgContainer.scrollTop = msgContainer.scrollHeight;
+
+            try {
+                // Ricerca su Internet (Simulata via API DuckDuckGo)
+                const response = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(testoUtente)}&format=json&no_html=1`);
+                const data = await response.json();
+                
+                let rispostaFinale = "";
+                if (data.AbstractText) {
+                    rispostaFinale = data.AbstractText;
+                } else {
+                    rispostaFinale = await generaRispostaADR(testoUtente);
+                }
+
+                document.getElementById(typingId).remove();
+                msgContainer.innerHTML += `
+                    <div class="msg-bot">
+                        ${rispostaFinale}
+                        <div style="margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px;">
+                            <button class="btn btn-andrea" style="font-size: 0.6rem; padding: 5px; width: auto;" onclick="vaiWhatsApp('Andrea', 'consulenza')">PARLA CON UN ESPERTO</button>
+                        </div>
+                    </div>`;
+            } catch (error) {
+                document.getElementById(typingId).innerText = "Segnale debole. Ti consiglio di contattare i nostri specialisti su WhatsApp.";
+            }
+            msgContainer.scrollTop = msgContainer.scrollHeight;
+        }
+
+        async function generaRispostaADR(testo) {
+            const t = testo.toLowerCase();
+            if (t.includes("costo") || t.includes("prezzo")) return "La nostra consulenza è gratuita. Analizziamo le tue spese e troviamo il miglior fornitore per te.";
+            if (t.includes("sede") || t.includes("dove")) return "Siamo a Seregno! Prenota un appuntamento con Andrea per venire a trovarci.";
+            return "Interessante. Per darti una risposta tecnica precisa, preferirei farti parlare con Andrea o uno dei nostri specialisti energetici.";
+        }
+
+        function toggleBot() {
+            const win = document.getElementById('bot-window');
+            win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
+        }
+
+        // --- ALTRE FUNZIONI ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -207,7 +223,6 @@ async function generaRispostaIntelligente(testo) {
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-        // Scanner Bolletta
         function eseguiScansioneHome() {
             const file = document.getElementById('file-input-home').files[0];
             if (file) {
@@ -219,7 +234,6 @@ async function generaRispostaIntelligente(testo) {
             }
         }
 
-        // WhatsApp Redirect
         function vaiWhatsApp(agente, motivo) {
             const numeri = { 'Daniel': '393423218269', 'Daniele': '393491795387', 'Luca': '393277545377', 'Andrea': '393515910955' };
             let messaggio = "";
@@ -230,11 +244,6 @@ async function generaRispostaIntelligente(testo) {
                 default: messaggio = `Ciao, vorrei ricevere assistenza professionale ADR.`;
             }
             window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(messaggio)}`, '_blank');
-        }
-
-        function toggleBot() {
-            const win = document.getElementById('bot-window');
-            win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
         }
 
         window.onscroll = function() {
