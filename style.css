@@ -1,462 +1,289 @@
-/* =========================================
+/* ============================================================
+   ADR GLOBAL SYSTEM - FINAL ULTIMATE VERSION
+   Stile: Extreme 3D Glassmorphism | Colori: Brand Identity
+   ============================================================ */
 
-   ADR GLOBAL SYSTEM - EXTREME 3D STYLE
+/* --- IMPORT FONT --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@400;700;900&display=swap');
 
-   Versione Finale: Navbar Responsive + Hamburger
-
-   ========================================= */
-
-
-
+/* --- VARIABILI GLOBALI --- */
 :root { 
-
-    --adr-blue: #00a8ff;            /* Azzurro Logo */
-
-    --adr-blue-dark: #0077b6;       /* Per contrasti */
-
-    --adr-green: #00d28d;           /* Per pulsanti WhatsApp/Andrea */
-
-    --adr-bg: radial-gradient(circle at 50% 50%, #ffffff 0%, #d4efff 100%);
-
-    --glass: rgba(255, 255, 255, 0.4);
-
-    --shadow-3d: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-
-    --border-light: rgba(0, 168, 255, 0.2);
-
+    --adr-blue: #00a8ff;            /* Azzurro Principale Logo */
+    --adr-blue-hover: #008ecc;      /* Azzurro più scuro per hover */
+    --adr-green: #00d28d;           /* Verde per accenti/WhatsApp */
+    --text-dark: #1a2a3a;           /* Colore Testo Leggibile */
+    --white-glass: rgba(255, 255, 255, 0.65); /* Effetto Vetro */
+    --bg-gradient: radial-gradient(circle at 50% 50%, #ffffff 0%, #d4efff 100%);
+    
+    /* Ombre 3D Neumorphism */
+    --shadow-card: 15px 15px 35px rgba(0, 168, 255, 0.1), -15px -15px 35px #ffffff;
+    --shadow-hover: 10px 10px 20px rgba(0, 168, 255, 0.15), -10px -10px 20px #ffffff;
+    
     --tech-font: 'Orbitron', sans-serif;
-
+    --body-font: 'Inter', sans-serif;
 }
 
-
-
-/* RESET E BASE GLOBALE */
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-
+/* --- RESET & BASE --- */
+* { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
 
 body { 
-
-    background: var(--adr-bg); 
-
-    color: #1a2a3a; 
-
-    font-family: 'Inter', sans-serif; 
-
+    background: var(--bg-gradient); 
+    color: var(--text-dark); 
+    font-family: var(--body-font); 
     overflow-x: hidden; 
-
     background-attachment: fixed;
-
+    line-height: 1.6;
 }
 
-
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; }
 
 .tech-font { font-family: var(--tech-font); text-transform: uppercase; letter-spacing: 2px; }
 
+/* --- PROGRESS BAR (Top) --- */
+#progress-container { position: fixed; top: 0; width: 100%; height: 4px; z-index: 99999; }
+#progress-bar { height: 100%; background: var(--adr-blue); width: 0%; box-shadow: 0 0 10px var(--adr-blue); }
 
-
-/* PROGRESS BAR 3D */
-
-#progress-container { position: fixed; top: 0; width: 100%; height: 5px; z-index: 10001; }
-
-#progress-bar { height: 100%; background: var(--adr-blue); width: 0%; box-shadow: 0 2px 10px var(--adr-blue); }
-
-
-
-/* MARKET TICKER */
-
+/* --- MARKET TICKER STRIP --- */
 .market-ticker { 
-
     background: var(--adr-blue); color: white; 
-
-    padding: 12px 0; overflow: hidden; position: relative; z-index: 10;
-
-    box-shadow: 0 4px 15px rgba(0, 168, 255, 0.2);
-
+    padding: 10px 0; overflow: hidden; position: relative; z-index: 1001;
+    box-shadow: 0 4px 15px rgba(0, 168, 255, 0.25);
 }
-
-.ticker-content { display: inline-block; white-space: nowrap; animation: ticker 40s linear infinite; }
-
-.ticker-item { display: inline-block; padding: 0 40px; font-family: var(--tech-font); font-size: 0.75rem; font-weight: bold; }
-
-
+.ticker-content { display: inline-block; white-space: nowrap; animation: ticker 45s linear infinite; }
+.ticker-item { display: inline-block; padding: 0 40px; font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; }
 
 @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-
-
-/* =========================================
-
-   NAVBAR - LOGO E LINKS (FIXED & RESPONSIVE)
-
-   ========================================= */
-
+/* ============================================================
+   NAVBAR SYSTEM (Desktop & Mobile)
+   ============================================================ */
 nav {
-
     display: flex; 
-
     align-items: center; 
-
     justify-content: space-between; 
-
     position: sticky; 
-
     top: 0; 
-
-    padding: 10px 5%;
-
-    background: var(--glass);
-
-    backdrop-filter: blur(25px) saturate(180%); 
-
+    padding: 12px 5%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px) saturate(180%); 
     z-index: 1000;
-
-    border-bottom: 1px solid rgba(255,255,255,0.3);
-
+    border-bottom: 1px solid rgba(0, 168, 255, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
 
-
-
+/* Logo */
 .nav-logo {
-
-    height: 45px; width: auto; transition: 0.3s;
-
-    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
-
+    height: 42px; width: auto; transition: transform 0.3s;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
 }
+.nav-logo:hover { transform: scale(1.05); }
 
-
-
+/* Link Centrali (Desktop) */
 .nav-links { 
-
-    display: flex; 
-
-    gap: 25px; 
-
-    align-items: center; 
-
+    display: flex; gap: 30px; align-items: center; 
 }
-
-
-
 .nav-links a { 
-
-    color: #444; 
-
-    text-decoration: none; 
-
-    font-size: 0.75rem; 
-
-    font-family: var(--tech-font); 
-
-    font-weight: 700; 
-
-    transition: 0.3s; 
-
+    color: #444; font-size: 0.75rem; 
+    font-family: var(--tech-font); font-weight: 700; 
+    position: relative;
 }
+.nav-links a::after {
+    content: ''; position: absolute; width: 0; height: 2px; 
+    bottom: -4px; left: 0; background: var(--adr-blue); transition: 0.3s;
+}
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+.nav-links a.active { color: var(--adr-blue); }
 
-.nav-links a.active, .nav-links a:hover { color: var(--adr-blue); transform: translateY(-2px); }
-
-
-
-/* Container DX: Area Clienti + Hamburger */
-
+/* Gruppo Destra: Area Clienti + Hamburger */
 .nav-right {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
+    display: flex; align-items: center; gap: 15px;
 }
 
-
-
+/* Pulsante Area Clienti */
 .area-clienti-btn {
-
-    position: relative; 
-
-    background: #eafff5; 
-
-    border: 1px solid var(--adr-green);
-
-    color: var(--adr-green); 
-
-    padding: 8px 18px; 
-
-    border-radius: 12px;
-
+    background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
+    border: 1px solid var(--adr-blue);
+    color: var(--adr-blue); 
+    padding: 8px 20px; 
+    border-radius: 50px; /* Pill shape */
     font-size: 0.7rem; 
-
-    font-family: var(--tech-font); 
-
-    font-weight: bold;
-
-    box-shadow: 4px 4px 10px #d1d1d1, -4px -4px 10px #ffffff;
-
-    transition: 0.3s; 
-
-    text-decoration: none;
-
+    font-family: var(--tech-font); font-weight: 800;
+    box-shadow: 4px 4px 10px rgba(0, 168, 255, 0.15);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     white-space: nowrap;
-
+}
+.area-clienti-btn:hover { 
+    background: var(--adr-blue); color: white; 
+    transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 168, 255, 0.3);
 }
 
-.area-clienti-btn:hover { background: var(--adr-green); color: white; transform: scale(1.05); }
-
-
-
-/* HAMBURGER MENU */
-
+/* Hamburger Icon (Nascosto su PC) */
 .menu-toggle {
-
-    display: none;
-
-    flex-direction: column;
-
-    gap: 4px;
-
-    cursor: pointer;
-
-    z-index: 1001;
-
+    display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1002;
 }
-
-
-
 .menu-toggle span {
-
-    width: 25px; height: 3px;
-
-    background: var(--adr-blue);
-
-    border-radius: 2px;
-
-    transition: 0.3s;
-
+    width: 28px; height: 3px; background: var(--adr-blue); border-radius: 4px; transition: 0.3s;
 }
 
-
-
-/* CARDS 3D */
-
-.glass-card {
-
-    background: var(--glass); border: 1px solid rgba(255,255,255,0.6);
-
-    border-radius: 30px; padding: 30px; margin-bottom: 25px;
-
-    box-shadow: var(--shadow-3d); backdrop-filter: blur(15px);
-
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-
-    position: relative; overflow: hidden;
-
-}
-
-.glass-card:hover { transform: translateY(-10px); border-color: var(--adr-blue); }
-
-
-
-/* SEZIONE CONTATTI & GRID */
-
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
-
-
-
-.info-box {
-
-    display: flex; align-items: center; gap: 20px; margin-bottom: 25px; padding: 20px;
-
-    background: #ffffff; border-radius: 20px;
-
-    box-shadow: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff;
-
-}
-
-.info-box span { font-size: 2rem; color: var(--adr-blue); }
-
-
-
-/* BUTTONS */
-
-.btn, .btn-action {
-
-    background: #f0f8ff; border: none; color: var(--adr-blue-dark);
-
-    padding: 14px 28px; border-radius: 15px; font-family: var(--tech-font);
-
-    font-weight: 800; cursor: pointer; transition: 0.3s; text-align: center;
-
-    width: 100%; display: block; box-sizing: border-box;
-
-    box-shadow: 6px 6px 12px #c1d3e0, -6px -6px 12px #ffffff;
-
-    text-decoration: none; margin-bottom: 10px;
-
-}
-
-.btn:hover, .btn-action:hover { box-shadow: inset 4px 4px 8px #c1d3e0; color: var(--adr-blue); }
-
-
-
-/* BOT ANIMATION & WINDOW */
-
-#bot-launcher { 
-
-    position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px; 
-
-    border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-
-    cursor: pointer; z-index: 9999; animation: float 4s ease-in-out infinite; 
-
-    background: linear-gradient(145deg, #00b4ff, #008ee6); 
-
-    box-shadow: 10px 10px 20px rgba(0, 168, 255, 0.3);
-
-}
-
-
-
-#bot-window {
-
-    display: none; width: 350px; height: 500px; 
-
-    background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px);
-
-    border: 1px solid rgba(0, 168, 255, 0.3); border-radius: 25px; 
-
-    flex-direction: column; position: absolute; bottom: 80px; right: 0; 
-
-    overflow: hidden; box-shadow: 0 20px 50px rgba(0, 168, 255, 0.15); z-index: 10000;
-
-}
-
-
-
-/* --- MOBILE RESPONSIVE --- */
-
-@media (max-width: 768px) {
-
+/* ============================================================
+   MOBILE RESPONSIVE NAVIGATION
+   ============================================================ */
+@media (max-width: 992px) {
+    /* Mostra Hamburger */
     .menu-toggle { display: flex; }
 
-
-
+    /* Nascondi Menu Desktop */
     .nav-links {
-
         display: none;
-
         flex-direction: column;
-
         position: absolute;
-
-        top: 100%;
-
-        left: 0;
-
-        width: 100%;
-
-        background: white;
-
-        padding: 20px;
-
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-
-        border-bottom: 2px solid var(--adr-blue);
-
+        top: 100%; left: 0; width: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        padding: 30px 0;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        border-bottom: 3px solid var(--adr-blue);
+        gap: 20px;
     }
 
-
-
-    .nav-links.active { display: flex; }
-
-
+    /* Stato Attivo (Menu Aperto) */
+    .nav-links.active { display: flex; animation: slideDown 0.3s ease-out; }
 
     .nav-links a {
-
-        font-size: 1rem;
-
-        width: 100%;
-
-        text-align: center;
-
-        padding: 10px;
-
+        font-size: 1.1rem; width: 100%; text-align: center; padding: 10px;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
     }
 
-
-
-    .area-clienti-btn {
-
-        font-size: 0.6rem;
-
-        padding: 6px 12px;
-
-    }
-
-
-
-    .contact-grid { grid-template-columns: 1fr; }
-
-    #bot-window { width: calc(100vw - 40px); right: 0px; height: 450px; }
-
+    /* Adattamenti Mobile */
+    .area-clienti-btn { padding: 8px 14px; font-size: 0.65rem; }
+    .nav-logo { height: 35px; }
 }
 
+@keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
+/* ============================================================
+   MAIN CONTENT & CARDS (3D STYLE)
+   ============================================================ */
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
 
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-
-
-
-footer { padding: 40px; text-align: center; color: #aaa; font-size: 0.7rem; }
-/* =========================================
-   PARTNER LOGOS TICKER
-   ========================================= */
-
-.partners {
-    width: 100%;
-    overflow: hidden;
-    padding: 30px 0;
-    background: transparent;
+/* Card Vetro */
+.glass-card {
+    background: var(--white-glass);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 25px;
+    padding: 35px;
+    box-shadow: var(--shadow-card);
+    backdrop-filter: blur(15px);
+    margin-bottom: 30px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.glass-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: var(--shadow-hover); 
+    border-color: var(--adr-blue);
 }
 
-.partners-track {
-    display: flex;
-    align-items: center;
-    gap: 60px;
-    width: max-content;
-    animation: partners-scroll 35s linear infinite;
+/* Griglia Contatti */
+.contact-grid { 
+    display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px; 
 }
 
-.partners-track img {
-    height: 45px;
-    width: auto;
-    opacity: 0.7;
-    filter: grayscale(100%);
+/* Info Box */
+.info-box {
+    display: flex; align-items: center; gap: 20px; 
+    padding: 20px; margin-bottom: 20px;
+    background: #ffffff; border-radius: 18px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.05);
+    border-left: 4px solid var(--adr-blue);
     transition: 0.3s;
 }
+.info-box:hover { transform: translateX(5px); }
+.info-box span { font-size: 2rem; }
 
+/* Mappa */
+.map-container {
+    border-radius: 25px; overflow: hidden;
+    border: 4px solid white;
+    box-shadow: var(--shadow-card);
+    height: 100%; min-height: 400px;
+}
+
+/* Pulsanti Azione */
+.btn-action {
+    background: var(--adr-blue); color: white;
+    padding: 16px; border-radius: 15px;
+    font-family: var(--tech-font); font-weight: 800; font-size: 0.9rem;
+    text-align: center; display: block; width: 100%; border: none;
+    box-shadow: 0 10px 20px rgba(0, 168, 255, 0.3);
+    cursor: pointer; transition: 0.3s; margin-top: 15px;
+}
+.btn-action:hover {
+    background: var(--adr-blue-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 168, 255, 0.4);
+}
+
+/* ============================================================
+   PARTNER LOGOS SCROLL (TICKER)
+   ============================================================ */
+.partners {
+    width: 100%; overflow: hidden; padding: 40px 0;
+    background: rgba(255,255,255,0.3); border-top: 1px solid rgba(255,255,255,0.5);
+    margin-top: 50px;
+}
+.partners-track {
+    display: flex; align-items: center; gap: 80px; width: max-content;
+    animation: partners-scroll 40s linear infinite;
+}
+.partners-track img {
+    height: 50px; width: auto; opacity: 0.6; filter: grayscale(100%);
+    transition: 0.4s; cursor: pointer;
+}
 .partners-track img:hover {
-    opacity: 1;
-    filter: grayscale(0%);
-    transform: scale(1.1);
+    opacity: 1; filter: grayscale(0%); transform: scale(1.15);
+}
+@keyframes partners-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ============================================================
+   BOT VIRTUALE (Floating)
+   ============================================================ */
+#bot-launcher { 
+    position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; 
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+    cursor: pointer; z-index: 9999; animation: float 5s ease-in-out infinite; 
+    background: linear-gradient(135deg, var(--adr-blue), #00d2ff); 
+    box-shadow: 0 10px 25px rgba(0, 168, 255, 0.4); border: 2px solid white;
+    font-size: 2rem;
 }
 
-/* ANIMAZIONE */
-@keyframes partners-scroll {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-50%);
-    }
+#bot-window {
+    display: none; width: 340px; height: 500px; 
+    background: #ffffff; border-radius: 20px; 
+    position: absolute; bottom: 110px; right: 0; 
+    flex-direction: column; overflow: hidden; 
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2); z-index: 10000;
+    border: 1px solid rgba(0,0,0,0.05);
 }
 
-/* MOBILE */
+/* Bot Animations */
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+/* ============================================================
+   ADATTAMENTI EXTRA MOBILE (Layout)
+   ============================================================ */
 @media (max-width: 768px) {
-    .partners-track img {
-        height: 35px;
-    }
+    .contact-grid { grid-template-columns: 1fr; }
+    .glass-card { padding: 25px; }
+    .btn-action { font-size: 0.8rem; }
+    
+    /* Partner Mobile */
+    .partners-track { gap: 40px; }
+    .partners-track img { height: 35px; }
+
+    /* Bot Mobile */
+    #bot-window { width: calc(100vw - 40px); right: 0; bottom: 100px; height: 450px; }
+    #bot-launcher { width: 55px; height: 55px; bottom: 20px; right: 20px; font-size: 1.5rem; }
 }
+
+/* Footer Semplice */
+footer { padding: 30px; text-align: center; color: #8898aa; font-size: 0.75rem; margin-top: 40px; }
