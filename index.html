@@ -9,62 +9,9 @@
     <link rel="apple-touch-icon" href="logo.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root { --neon-blue: #00f3ff; --neon-green: #00ff9d; --neon-orange: #ff8c00; --dark-bg: #050505; --glass: rgba(255, 255, 255, 0.03); }
-        
-        body { background: var(--dark-bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
-        .tech-font { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        
-        /* PROGRESS BAR */
-        #progress-container { position: fixed; top: 0; width: 100%; height: 4px; z-index: 10001; }
-        #progress-bar { height: 100%; background: var(--neon-blue); width: 0%; box-shadow: 0 0 10px var(--neon-blue); }
+    
+    <link rel="stylesheet" href="style.css?v=1.2">
 
-        /* MARKET TICKER */
-        .market-ticker { background: black; border-bottom: 1px solid var(--neon-blue); padding: 10px 0; overflow: hidden; white-space: nowrap; }
-        .ticker-content { display: inline-block; animation: ticker 30s linear infinite; }
-        .ticker-item { display: inline-block; padding: 0 40px; font-family: 'Orbitron'; font-size: 0.8rem; }
-        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        /* NAV CON LOGO A SINISTRA */
-        nav { display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; padding: 15px 30px; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid #111; }
-        .nav-logo { height: 35px; width: auto; }
-        .nav-links { display: flex; gap: 20px; }
-        nav a { color: white; text-decoration: none; font-size: 0.65rem; font-family: 'Orbitron'; opacity: 0.6; transition: 0.3s; }
-        nav a:hover, nav a.active { opacity: 1; color: var(--neon-blue); }
-        .area-clienti-btn { background: rgba(0, 255, 157, 0.1); border: 1px solid var(--neon-green); color: var(--neon-green); padding: 5px 12px; border-radius: 5px; font-size: 0.55rem; font-family: 'Orbitron'; text-decoration: none; }
-        
-        @media (max-width: 850px) { 
-            nav { flex-direction: column; gap: 15px; }
-        }
-
-        /* CARDS */
-        .glass-card { background: var(--glass); border: 1px solid #222; border-radius: 15px; padding: 25px; margin-bottom: 20px; transition: 0.3s; position: relative; }
-        .glass-card:hover { border-color: var(--neon-blue); box-shadow: 0 0 20px rgba(0, 243, 255, 0.1); }
-
-        /* PARTNER SCROLL */
-        .partner-container { overflow: hidden; padding: 40px 0; background: rgba(255,255,255,0.01); margin: 40px 0; border-top: 1px solid #111; border-bottom: 1px solid #111; }
-        .partner-track { display: flex; align-items: center; gap: 80px; animation: scrollPartner 25s linear infinite; width: max-content; }
-        .partner-logo { height: 35px; width: auto; filter: grayscale(1) brightness(0.7); opacity: 0.5; transition: 0.4s; object-fit: contain; }
-        @keyframes scrollPartner { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        /* ANIMAZIONE REVEAL */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
-
-        /* BUTTONS */
-        .btn { background: transparent; border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 12px; border-radius: 8px; cursor: pointer; font-family: 'Orbitron'; font-size: 0.7rem; transition: 0.3s; width: 100%; text-align: center; text-decoration: none; display: block; box-sizing: border-box; }
-        .btn:hover { background: var(--neon-blue); color: black; box-shadow: 0 0 15px var(--neon-blue); }
-        .btn-green { border-color: var(--neon-green); color: var(--neon-green); }
-        .btn-green:hover { background: var(--neon-green); color: black; box-shadow: 0 0 20px var(--neon-green); }
-        
-        .agent-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-
-        /* MOBILE CALL BUTTON */
-        .mobile-call-btn { display: none; }
-        @media (max-width: 768px) {
-            .mobile-call-btn { display: flex; position: fixed; bottom: 20px; left: 20px; background: var(--neon-green); color: black; width: 60px; height: 60px; border-radius: 50%; justify-content: center; align-items: center; text-decoration: none; font-size: 1.5rem; z-index: 10000; box-shadow: 0 0 15px rgba(0, 255, 157, 0.4); }
-        }
-    </style>
 </head>
 <body>
 
@@ -94,7 +41,7 @@
 
     <div class="container">
         <header style="text-align: center; margin: 60px 0;" class="reveal">
-            <h1 class="tech-font" style="font-size: 2.5rem; margin-top: 10px;">AGENZIA DEL <span style="color:var(--neon-blue)">RISPARMIO</span></h1>
+            <h1 class="tech-font" style="font-size: 2.5rem; margin-top: 10px;">AGENZIA DEL <span style="color:var(--adr-blue)">RISPARMIO</span></h1>
             <p style="color: #666; font-weight: 300;">Consulenza Energetica e Digitale Avanzata a Seregno</p>
         </header>
 
@@ -106,32 +53,32 @@
                         <input type="file" id="file-input-home" style="display: none;" onchange="eseguiScansioneHome()">
                         <button class="btn" onclick="document.getElementById('file-input-home').click()">CARICA PDF BOLLETTA</button>
                         <p style="text-align: center; font-size: 0.6rem; color: #555; margin: 10px 0;">OPPURE</p>
-                        <button class="btn btn-green" onclick="vaiWhatsApp('Andrea', 'consulenza_generale')">PRENOTA CONSULENZA GRATUITA</button>
+                        <button class="btn btn-andrea" onclick="vaiWhatsApp('Andrea', 'consulenza_generale')">PRENOTA CONSULENZA GRATUITA</button>
                     </div>
 
                     <div id="ui-home-risultato" style="display: none; text-align: center;">
-                        <div style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid #ff4444; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #ff4444; margin: 15px auto; font-family: 'Orbitron';">4</div>
-                        <p class="tech-font" style="color:#ff4444; font-size: 0.7rem;">VOTO INSUFFICIENTE</p>
-                        <div class="agent-grid">
+                        <div class="grade-circle">4</div>
+                        <p class="tech-font" style="color:#ff4444; font-size: 0.7rem; margin-bottom: 15px;">VOTO INSUFFICIENTE</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                             <button class="btn" onclick="vaiWhatsApp('Daniel', 'bolletta')">DANIEL</button>
                             <button class="btn" onclick="vaiWhatsApp('Daniele', 'bolletta')">DANIELE</button>
                             <button class="btn" onclick="vaiWhatsApp('Luca', 'bolletta')">LUCA</button>
-                            <button class="btn btn-green" onclick="vaiWhatsApp('Andrea', 'bolletta')">ANDREA</button>
+                            <button class="btn btn-andrea" onclick="vaiWhatsApp('Andrea', 'bolletta')">ANDREA</button>
                         </div>
                     </div>
                 </div>
 
-                <div id="drop-zone-home" style="border: 2px dashed #333; padding: 40px; border-radius: 15px; text-align: center; cursor: pointer;" onclick="document.getElementById('file-input-home').click()">
+                <div id="drop-zone" onclick="document.getElementById('file-input-home').click()">
                     <p id="label-home" style="font-size: 0.75rem; color: #666;">
                         <span style="font-size: 2.5rem; display: block; margin-bottom: 10px;">📄</span>
-                        <b style="color: var(--neon-blue)">CLICCA</b> PER ANALIZZARE PDF
+                        <b style="color: var(--adr-blue)">CLICCA</b> PER ANALIZZARE PDF
                     </p>
                 </div>
             </div>
         </div>
 
         <div class="reveal" style="margin-top: 80px;">
-            <h2 class="tech-font" style="text-align: center; font-size: 1rem; color: #666; margin-bottom: 10px;">Collaboriamo con i <span style="color: var(--neon-blue)">Migliori Brand</span></h2>
+            <h2 class="tech-font" style="text-align: center; font-size: 1rem; color: #666; margin-bottom: 10px;">Collaboriamo con i <span style="color: var(--adr-blue)">Migliori Brand</span></h2>
             <div class="partner-container">
                 <div class="partner-track">
                     <img src="logo-acea.png" class="partner-logo" alt="Acea">
@@ -147,35 +94,35 @@
         </div>
 
         <section class="reveal" style="margin: 80px 0;">
-            <h2 class="tech-font" style="text-align: center; color: var(--neon-blue); margin-bottom: 50px;">Specialisti <span style="color:white">Operativi</span></h2>
+            <h2 class="tech-font" style="text-align: center; color: var(--adr-blue); margin-bottom: 50px;">Specialisti <span style="color:#333">Operativi</span></h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
                 
-                <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-green); padding-bottom: 20px;">
+                <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--adr-green);">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">👨‍💼</div>
                     <h4 class="tech-font" style="font-size: 0.9rem;">ANDREA</h4>
-                    <p style="font-size: 0.6rem; color: #888; margin-bottom: 15px;">RESPONSABILE CAF & CONSULENTE LUCE E GAS & TEL & SKY & FOTOVOLTAICO</p>
-                    <button class="btn btn-green" onclick="vaiWhatsApp('Andrea', 'appuntamento')">PRENOTA APPUNTAMENTO/RICHIEDI CONSULENZA ENERGETICA</button>
+                    <p style="font-size: 0.6rem; color: #888; margin-bottom: 15px;">RESPONSABILE CAF & CONSULENTE ENERGETICO</p>
+                    <button class="btn btn-andrea" onclick="vaiWhatsApp('Andrea', 'appuntamento')">PRENOTA APPUNTAMENTO</button>
                 </div>
 
-                <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-blue);">
+                <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">⚡</div>
                     <h4 class="tech-font" style="font-size: 0.9rem;">DANIEL</h4>
-                    <p style="font-size: 0.6rem; color: #888; margin-bottom: 15px;">CONSULENTE LUCE E GAS & TEL & SKY & FOTOVOLTAICO</p>
+                    <p style="font-size: 0.6rem; color: #888; margin-bottom: 15px;">CONSULENTE LUCE E GAS & TEL</p>
                     <button class="btn" onclick="vaiWhatsApp('Daniel', 'consulenza')">RICHIEDI CONSULENZA</button>
                 </div>
 
-                <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-blue);">
+                <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">📡</div>
                     <h4 class="tech-font" style="font-size: 0.9rem;">DANIELE</h4>
-                    <p style="font-size: 0.6rem; color: #888; margin-bottom: 15px;">CONSULENTE LUCE E GAS & TEL & SKY & FOTOVOLTAICO</p>
+                    <p style="font-size: 0.6rem; color: #888; margin-bottom: 15px;">CONSULENTE LUCE E GAS & TEL</p>
                     <button class="btn" onclick="vaiWhatsApp('Daniele', 'consulenza')">RICHIEDI CONSULENZA</button>
                 </div>
 
-                <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-orange);">
+                <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">☀️</div>
                     <h4 class="tech-font" style="font-size: 0.9rem;">LUCA</h4>
-                    <p style="font-size: 0.6rem; color: #888; margin-bottom: 15px;">CONSULENTE LUCE E GAS & TEL & SKY & FOTOVOLTAICO</p>
-                    <button class="btn" style="border-color: var(--neon-orange); color: var(--neon-orange);" onclick="vaiWhatsApp('Luca', 'consulenza')">RICHIEDI UNA CONSULENZA</button>
+                    <p style="font-size: 0.6rem; color: #888; margin-bottom: 15px;">CONSULENTE LUCE E GAS & FOTOVOLTAICO</p>
+                    <button class="btn" onclick="vaiWhatsApp('Luca', 'consulenza')">RICHIEDI CONSULENZA</button>
                 </div>
 
             </div>
@@ -183,27 +130,28 @@
     </div>
 
     <div id="bot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-        <div id="bot-launcher" onclick="toggleBot()" style="width: 60px; height: 60px; background: var(--neon-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px var(--neon-blue);">🤖</div>
-        <div id="bot-window" style="display: none; width: 300px; height: 420px; background: #0a0a0a; border: 1px solid var(--neon-blue); border-radius: 15px; flex-direction: column; position: absolute; bottom: 80px; right: 0; overflow: hidden;">
-            <div style="background: var(--neon-blue); color: black; padding: 10px; font-family: 'Orbitron'; font-size: 0.7rem; font-weight: bold; display: flex; justify-content: space-between;">
+        <div id="bot-launcher" onclick="toggleBot()" style="width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 2rem;">🤖</div>
+        <div id="bot-window">
+            <div class="bot-header">
                 <span>SISTEMA ADR-1</span>
                 <span onclick="toggleBot()" style="cursor: pointer;">X</span>
             </div>
-            <div id="bot-messages" style="flex: 1; padding: 10px; overflow-y: auto; font-size: 0.8rem; color: #ccc;">
-                <div style="background: #1a1a1a; padding: 8px; border-radius: 8px; border-left: 2px solid var(--neon-blue);">Ciao! Vuoi prenotare una consulenza gratuita o analizzare una bolletta?</div>
+            <div id="bot-messages" style="flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column;">
+                <div class="bot-msg">Ciao! Sono l'assistente virtuale ADR. Vuoi analizzare una bolletta o parlare con un consulente?</div>
             </div>
-            <div style="padding: 10px; background: #000; border-top: 1px solid #222;">
-                <button class="btn btn-green" style="font-size: 0.6rem; margin-bottom: 5px;" onclick="vaiWhatsApp('Andrea', 'consulenza_generale')">PRENOTA ORA</button>
-                <input type="text" id="user-input" placeholder="Scrivi qui..." style="width: 100%; background: #111; border: 1px solid #333; color: white; padding: 8px; border-radius: 4px; box-sizing: border-box;">
+            <div style="padding: 15px; background: #fff; border-top: 1px solid #eee;">
+                <button class="btn btn-andrea" style="margin-bottom: 10px;" onclick="vaiWhatsApp('Andrea', 'consulenza_generale')">PARLA CON NOI</button>
+                <input type="text" id="user-input" placeholder="Scrivi qui..." style="width: 100%; border: 1px solid #ddd; padding: 10px; border-radius: 8px; box-sizing: border-box;">
             </div>
         </div>
     </div>
 
-    <footer style="margin-top: 100px; padding: 40px; border-top: 1px solid #111; text-align: center;">
-        <p style="font-size: 0.6rem; color: #444;">© 2026 ADR SEREGNO - ANALISI CRITTOGRAFATA</p>
+    <footer style="margin-top: 100px; padding: 40px; border-top: 1px solid #eee; text-align: center;">
+        <p style="font-size: 0.6rem; color: #aaa;">© 2026 ADR SEREGNO - SISTEMA DI RISPARMIO CERTIFICATO</p>
     </footer>
 
     <script>
+        // Animazione Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -214,10 +162,11 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
+        // Scanner Bolletta
         function eseguiScansioneHome() {
             const file = document.getElementById('file-input-home').files[0];
             if (file) {
-                document.getElementById('label-home').innerHTML = "<span style='color:var(--neon-green)'>ANALISI IN CORSO...</span><br>" + file.name;
+                document.getElementById('label-home').innerHTML = "<span style='color:var(--adr-green)'>ANALISI IN CORSO...</span><br>" + file.name;
                 setTimeout(() => {
                     document.getElementById('ui-home-default').style.display = "none";
                     document.getElementById('ui-home-risultato').style.display = "block";
@@ -225,34 +174,22 @@
             }
         }
 
-        // FUNZIONE AGGIORNATA CON MESSAGGI PERSONALIZZATI
+        // WhatsApp Redirect
         function vaiWhatsApp(agente, motivo) {
             const numeri = { 'Daniel': '393423218269', 'Daniele': '393491795387', 'Luca': '393277545377', 'Andrea': '393515910955' };
-            
             let messaggio = "";
             switch(motivo) {
-                case 'consulenza_generale':
-                    messaggio = `Ciao, vorrei prenotare una consulenza gratuita per valutare le mie utenze (Luce/Gas/Fibra).`;
-                    break;
-                case 'bolletta':
-                    messaggio = `Ciao ${agente}, ho analizzato la mia bolletta sul sito ADR e il voto è INSUFFICIENTE. Mi aiuti a risparmiare?`;
-                    break;
-                case 'appuntamento':
-                    messaggio = `Buongiorno Andrea, vorrei fissare un appuntamento in sede a Seregno per pratiche CAF / Energetiche.`;
-                    break;
-                case 'consulenza':
-                    messaggio = `Ciao ${agente}, vorrei maggiori informazioni sulle offerte attive per la mia casa/ufficio.`;
-                    break;
-                default:
-                    messaggio = `Ciao, vorrei ricevere assistenza professionale ADR.`;
+                case 'consulenza_generale': messaggio = `Ciao, vorrei prenotare una consulenza gratuita per le mie utenze.`; break;
+                case 'bolletta': messaggio = `Ciao ${agente}, il mio voto bolletta è INSUFFICIENTE. Mi aiuti a risparmiare?`; break;
+                case 'appuntamento': messaggio = `Buongiorno Andrea, vorrei fissare un appuntamento in sede a Seregno.`; break;
+                default: messaggio = `Ciao, vorrei ricevere assistenza professionale ADR.`;
             }
-
             window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(messaggio)}`, '_blank');
         }
 
         function toggleBot() {
             const win = document.getElementById('bot-window');
-            win.style.display = win.style.display === 'none' ? 'flex' : 'none';
+            win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
         }
 
         window.onscroll = function() {
