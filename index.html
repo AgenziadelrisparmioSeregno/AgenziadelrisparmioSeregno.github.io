@@ -34,7 +34,7 @@
         .glass-card { background: var(--glass); border: 1px solid #222; border-radius: 15px; padding: 25px; margin-bottom: 20px; transition: 0.3s; position: relative; }
         .glass-card:hover { border-color: var(--neon-blue); box-shadow: 0 0 20px rgba(0, 243, 255, 0.1); }
 
-        /* PARTNER SCROLL - FIX DEFINITIVO RETTANGOLO BIANCO */
+        /* PARTNER SCROLL - FIX LOGHI */
         .partner-container { overflow: hidden; padding: 40px 0; background: rgba(255,255,255,0.01); margin: 40px 0; border-top: 1px solid #111; border-bottom: 1px solid #111; }
         .partner-track { display: flex; align-items: center; gap: 80px; animation: scrollPartner 25s linear infinite; width: max-content; }
         .partner-logo { height: 35px; width: auto; filter: grayscale(1) brightness(0.7); opacity: 0.5; transition: 0.4s; object-fit: contain; }
@@ -121,9 +121,12 @@
         </div>
 
         <div class="reveal" style="margin-top: 80px;">
-            <h2 class="tech-font" style="text-align: center; font-size: 1rem; color: #666; margin-bottom: 20px;">
+            <h2 class="tech-font" style="text-align: center; font-size: 1rem; color: #666; margin-bottom: 10px;">
                 Collaboriamo con i <span style="color: var(--neon-blue)">Migliori Brand</span>
             </h2>
+            <p style="text-align: center; color: var(--neon-green); font-size: 0.8rem; font-family: 'Orbitron'; margin-bottom: 20px;">
+                COMPAREREMO LA MIGLIOR OFFERTA PER FARVI RISPARMIARE!
+            </p>
             <div class="partner-container">
                 <div class="partner-track">
                     <img src="logo-acea.png" class="partner-logo" alt="Acea">
@@ -148,16 +151,13 @@
             </h2>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                
                 <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-green); min-height: 220px;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">👨‍💼</div>
                     <h4 class="tech-font" style="font-size: 0.9rem;">ANDREA</h4>
                     <p style="font-size: 0.6rem; color: var(--neon-green); font-weight: bold; text-transform: uppercase; line-height: 1.4;">
-                        RESPONSABILE CAF <br>
-                        & CONSULENTE LUCE, GAS, TEL, SKY & SOLAR
+                        RESPONSABILE CAF <br> & CONSULENTE LUCE, GAS, TEL, SKY & SOLAR
                     </p>
                 </div>
-
                 <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-blue); min-height: 220px;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">⚡</div>
                     <h4 class="tech-font" style="font-size: 0.9rem;">DANIEL</h4>
@@ -165,7 +165,6 @@
                         CONSULENTE LUCE, GAS, <br> TEL, SKY & SOLAR
                     </p>
                 </div>
-
                 <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-blue); min-height: 220px;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">📡</div>
                     <h4 class="tech-font" style="font-size: 0.9rem;">DANIELE</h4>
@@ -173,7 +172,6 @@
                         CONSULENTE LUCE, GAS, <br> TEL, SKY & SOLAR
                     </p>
                 </div>
-
                 <div class="glass-card" style="text-align: center; border-bottom: 3px solid var(--neon-orange); min-height: 220px;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">☀️</div>
                     <h4 class="tech-font" style="font-size: 0.9rem;">LUCA</h4>
@@ -181,7 +179,6 @@
                         CONSULENTE LUCE, GAS, <br> TEL, SKY & SOLAR
                     </p>
                 </div>
-
             </div>
         </section>
     </div>
@@ -208,6 +205,7 @@
     </footer>
 
     <script>
+        // Reveal Logic (Animazione scorrimento)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -218,6 +216,7 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
+        // Scanner Logic
         function eseguiScansioneHome() {
             const file = document.getElementById('file-input-home').files[0];
             if (file) {
@@ -229,12 +228,14 @@
             }
         }
 
+        // WhatsApp Redirect
         function vaiWhatsApp(agente) {
             const numeri = { 'Daniel': '393423218269', 'Daniele': '393491795387', 'Luca': '393277545377', 'Andrea': '393515910955' };
-            const testo = `Ciao ${agente}, ho bisogno di assistenza professionale tramite il sito ADR.`;
+            const testo = `Ciao ${agente}, ho parlato con il BOT ADR-1 e vorrei ricevere assistenza professionale per la mia bolletta.`;
             window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(testo)}`, '_blank');
         }
 
+        // LOGICA BOT ADR-1 MIGLIORATA
         function toggleBot() {
             const win = document.getElementById('bot-window');
             win.style.display = win.style.display === 'none' ? 'flex' : 'none';
@@ -243,16 +244,53 @@
         function botReply() {
             const input = document.getElementById('user-input');
             const container = document.getElementById('bot-messages');
-            const val = input.value.trim().toLowerCase();
-            if(!val) return;
-            container.innerHTML += `<div style="align-self: flex-end; background: var(--neon-blue); color: black; padding: 8px; border-radius: 8px; margin-bottom: 10px; max-width: 80%; font-size: 0.75rem; font-weight: bold;">${val.toUpperCase()}</div>`;
+            const userMsg = input.value.trim().toLowerCase();
+            if(!userMsg) return;
+
+            container.innerHTML += `<div style="align-self: flex-end; background: var(--neon-blue); color: black; padding: 8px; border-radius: 8px; margin-bottom: 10px; max-width: 80%; font-size: 0.75rem; font-weight: bold;">${userMsg.toUpperCase()}</div>`;
             input.value = "";
             container.scrollTop = container.scrollHeight;
+
             setTimeout(() => {
-                container.innerHTML += `<div style="background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 10px; border-left: 2px solid var(--neon-blue); max-width: 85%;">Contatta i nostri esperti per una consulenza personalizzata.</div>`;
+                let botText = "";
+                let showAgents = false;
+
+                if(userMsg.includes("luce") || userMsg.includes("gas") || userMsg.includes("bolletta")) {
+                    botText = "Sto analizzando i prezzi di mercato... Attualmente il PUN e il PSV sono fluttuanti. Ti consiglio di parlare con un nostro esperto per bloccare la tariffa.";
+                    showAgents = true;
+                } else if(userMsg.includes("fibra") || userMsg.includes("internet") || userMsg.includes("telefonia")) {
+                    botText = "Abbiamo soluzioni fino a 2.5GB. Vuoi sapere se sei coperto o parlare con un consulente?";
+                    showAgents = true;
+                } else if(userMsg.includes("appuntamento") || userMsg.includes("sede") || userMsg.includes("seregno")) {
+                    botText = "Siamo a Seregno! Al momento siamo in appuntamento, ma puoi scriverci subito qui per fissare un orario:";
+                    showAgents = true;
+                } else if(userMsg.includes("aiuto") || userMsg.includes("ciao") || userMsg.includes("info")) {
+                    botText = "Ciao! Sono l'assistente digitale ADR. Posso aiutarti a risparmiare su Luce, Gas e Fibra. Scegli un consulente:";
+                    showAgents = true;
+                } else {
+                    botText = "Non sono sicuro di aver capito, ma i miei colleghi umani possono aiutarti meglio di me. Scegli chi contattare:";
+                    showAgents = true;
+                }
+
+                container.innerHTML += `<div style="background: #1a1a1a; padding: 8px; border-radius: 8px; margin-bottom: 10px; border-left: 2px solid var(--neon-blue); max-width: 85%; font-size: 0.8rem;">${botText}</div>`;
+                
+                if(showAgents) {
+                    container.innerHTML += `
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 5px;">
+                            <button onclick="vaiWhatsApp('Andrea')" style="background:#25D366; color:white; border:none; padding:5px; border-radius:4px; font-size:0.6rem; cursor:pointer;">WHATSAPP ANDREA</button>
+                            <button onclick="vaiWhatsApp('Daniel')" style="background:#25D366; color:white; border:none; padding:5px; border-radius:4px; font-size:0.6rem; cursor:pointer;">WHATSAPP DANIEL</button>
+                            <button onclick="vaiWhatsApp('Daniele')" style="background:#25D366; color:white; border:none; padding:5px; border-radius:4px; font-size:0.6rem; cursor:pointer;">WHATSAPP DANIELE</button>
+                            <button onclick="vaiWhatsApp('Luca')" style="background:#25D366; color:white; border:none; padding:5px; border-radius:4px; font-size:0.6rem; cursor:pointer;">WHATSAPP LUCA</button>
+                        </div>
+                    `;
+                }
                 container.scrollTop = container.scrollHeight;
-            }, 1000);
+            }, 800);
         }
+
+        document.getElementById('user-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') botReply();
+        });
 
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
