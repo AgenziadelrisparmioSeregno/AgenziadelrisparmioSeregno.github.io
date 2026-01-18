@@ -7,44 +7,120 @@
     
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="apple-touch-icon" href="logo.png">
-
-    <link rel="stylesheet" href="style.css">
     
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
     <style>
-        /* Allineamento Bot a Destra identico alla Index */
-        #bot-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
+        /* ============================================================
+           ADR GLOBAL SYSTEM - TELEFONIA TECH STYLE
+           ============================================================ */
+        :root { 
+            --adr-blue: #00a8ff; 
+            --adr-blue-neon: #00d2ff;
+            --adr-dark: #0b1e33;
+            --adr-blue-light: #f0faff;
+            --white: #ffffff;
+            --tech-font: 'Orbitron', sans-serif;
+            --body-font: 'Inter', sans-serif;
+            --neon-shadow: 0 0 15px rgba(0, 168, 255, 0.4);
         }
-        #bot-launcher {
-            width: 60px;
-            height: 60px;
-            background: var(--adr-blue, #00b4ff);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 0 20px var(--adr-blue, #00b4ff);
-            font-size: 1.5rem;
+
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+
+        body { 
+            background: linear-gradient(180deg, #ffffff 0%, var(--adr-blue-light) 100%); 
+            color: var(--adr-dark); 
+            font-family: var(--body-font); 
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* PROGRESS BAR */
+        #progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 2000; background: rgba(0,0,0,0.05); }
+        #progress-bar { height: 100%; background: var(--adr-blue); width: 0%; box-shadow: 0 0 10px var(--adr-blue-neon); }
+
+        .tech-font { font-family: var(--tech-font); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* TICKER */
+        .market-ticker { 
+            background: var(--adr-blue); color: white; padding: 8px 0; 
+            overflow: hidden; white-space: nowrap; box-shadow: var(--neon-shadow);
+        }
+        .ticker-content { display: inline-block; animation: ticker 30s linear infinite; }
+        .ticker-item { display: inline-block; padding: 0 30px; font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; }
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* NAVBAR */
+        nav {
+            display: flex; align-items: center; justify-content: space-between; 
+            position: sticky; top: 0; padding: 12px 5%;
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px); 
+            z-index: 1000; border-bottom: 1px solid rgba(0, 168, 255, 0.1);
+        }
+        .nav-logo { height: 42px; transition: 0.3s; filter: drop-shadow(0 0 5px rgba(0,168,255,0.2)); }
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { font-family: var(--tech-font); font-size: 0.75rem; font-weight: 700; color: var(--adr-dark); text-decoration: none; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--adr-blue); text-shadow: 0 0 8px var(--adr-blue-neon); }
+
+        .area-clienti-btn {
+            background: white; border: 2px solid var(--adr-blue); color: var(--adr-blue); 
+            padding: 7px 18px; border-radius: 50px; font-family: var(--tech-font); 
+            font-size: 0.65rem; font-weight: 800; transition: 0.3s; box-shadow: var(--neon-shadow);
+        }
+        .area-clienti-btn:hover { background: var(--adr-blue); color: white; box-shadow: 0 0 20px var(--adr-blue-neon); }
+
+        /* CARDS */
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+        
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+
+        .glass-card {
+            background: white; border: 1px solid rgba(0, 168, 255, 0.15);
+            border-radius: 24px; padding: 35px; 
+            box-shadow: 0 15px 35px rgba(0, 168, 255, 0.1), var(--neon-shadow);
+            position: relative; overflow: hidden; height: 100%;
+            transition: 0.3s;
+        }
+        .glass-card:hover { transform: translateY(-5px); }
+        .glass-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%; 
+            background: var(--adr-blue); box-shadow: 2px 0 15px var(--adr-blue-neon);
+        }
+
+        .btn {
+            background: var(--adr-blue); color: white; border: none; padding: 12px;
+            border-radius: 12px; font-family: var(--tech-font); font-weight: 700;
+            width: 100%; cursor: pointer; transition: 0.3s; font-size: 0.75rem;
+        }
+        .btn:hover { background: var(--adr-blue-neon); box-shadow: 0 5px 15px rgba(0, 168, 255, 0.4); }
+        .btn-green { background: #2ecc71; }
+
+        /* BOT SYSTEM */
+        #bot-container { position: fixed; bottom: 25px; right: 25px; z-index: 9999; }
+        #bot-launcher { 
+            width: 60px; height: 60px; border-radius: 50%; background: var(--adr-blue); 
+            display: flex; align-items: center; justify-content: center; cursor: pointer; 
+            font-size: 1.8rem; box-shadow: 0 10px 25px rgba(0,168,255,0.4); border: 2px solid white; 
         }
         #bot-window {
-            display: none;
-            width: 320px;
-            height: 450px;
-            background: #0a0a0a;
-            border: 1px solid var(--adr-blue, #00b4ff);
-            border-radius: 15px;
-            flex-direction: column;
-            position: absolute;
-            bottom: 80px;
-            right: 0;
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            display: none; width: 350px; height: 500px; background: white;
+            position: absolute; bottom: 80px; right: 0; border-radius: 20px;
+            flex-direction: column; box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+            border: 1px solid var(--adr-blue-light); overflow: hidden;
+        }
+        .bot-header { background: var(--adr-blue); color: white; padding: 15px; display: flex; justify-content: space-between; font-family: var(--tech-font); font-size: 0.7rem; }
+        #bot-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem; }
+        .msg-bot { background: var(--adr-blue-light); padding: 10px 15px; border-radius: 15px 15px 15px 0; align-self: flex-start; max-width: 80%; }
+        .msg-user { background: var(--adr-blue); color: white; padding: 10px 15px; border-radius: 15px 15px 0 15px; align-self: flex-end; max-width: 80%; }
+        .bot-input-area { padding: 15px; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        .bot-input-area input { flex: 1; border: 1px solid #ddd; padding: 8px 15px; border-radius: 20px; }
+        .bot-send-btn { background: var(--adr-blue); border: none; width: 35px; height: 35px; border-radius: 50%; color: white; cursor: pointer; }
+
+        footer { text-align: center; padding: 40px; margin-top: 50px; border-top: 1px solid #eee; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            #bot-window { width: calc(100vw - 40px); }
         }
     </style>
 </head>
@@ -58,11 +134,12 @@
             <span class="ticker-item">📺 SKY STREAM: NUOVA OFFERTA</span>
             <span class="ticker-item">🚀 5G ULTRA: COPERTURA 99%</span>
             <span class="ticker-item">💻 BUSINESS: SOLUZIONI DEDICATE</span>
+            <span class="ticker-item">📱 FIBRA 2.5GB: DISPONIBILE</span>
         </div>
     </div>
 
     <nav>
-        <img src="logo.png" alt="ADR Logo" class="nav-logo">
+        <a href="index.html"><img src="logo.png" alt="ADR Logo" class="nav-logo"></a>
         <div class="nav-links">
             <a href="index.html">HOME</a>
             <a href="telefonia.html" class="active">TELEFONIA & SKY</a>
@@ -73,30 +150,30 @@
     </nav>
 
     <div class="container">
-        <header style="text-align: center; margin: 50px 0;">
-            <img src="logo.png" alt="Agenzia del Risparmio" style="width: 100px; height: auto; margin-bottom: 20px; filter: drop-shadow(0 0 15px var(--adr-blue, #00b4ff));">
-            <h1 class="tech-font" style="font-size: 2.2rem;">Connettività & <span style="color:var(--adr-blue, #00b4ff)">Intrattenimento</span></h1>
-            <p style="color: #888; max-width: 700px; margin: 0 auto;">Verifichiamo la copertura reale per la tua abitazione con i migliori provider nazionali.</p>
+        <header style="text-align: center; margin: 50px 0;" class="reveal">
+            <img src="logo.png" alt="Agenzia del Risparmio" style="width: 80px; height: auto; margin-bottom: 20px; filter: drop-shadow(0 0 10px var(--adr-blue));">
+            <h1 class="tech-font" style="font-size: 2.2rem;">Connettività & <span style="color:var(--adr-blue)">Intrattenimento</span></h1>
+            <p style="color: #666; max-width: 600px; margin: 10px auto;">Analisi multibrand e verifica copertura reale per la tua abitazione o ufficio.</p>
         </header>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
-            <div class="glass-card" style="border-top: 4px solid var(--adr-blue, #00b4ff);">
-                <h3 class="tech-font">Sky Wifi + TV</h3>
-                <p style="font-size: 0.9rem; color: #aaa; margin: 15px 0;">Cinema, Sport e Fibra ultraveloce in un unico abbonamento gestito dal nostro team.</p>
-                <div style="font-size: 2rem; font-weight: bold; margin-bottom: 20px;">da 34,90€</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;" class="reveal">
+            <div class="glass-card">
+                <h3 class="tech-font" style="font-size: 1.1rem; color: var(--adr-blue);">Sky Wifi + TV</h3>
+                <p style="font-size: 0.85rem; color: #666; margin: 20px 0;">Cinema, Sport e Fibra ultraveloce senza cali di prestazione. Gestione pratica completa ADR.</p>
+                <div style="font-size: 1.8rem; font-weight: 800; margin-bottom: 25px; color: var(--adr-dark);">da 34,90€<span style="font-size: 0.8rem; font-weight: 400; color: #aaa;"> /mese</span></div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <button class="btn" onclick="contactAgent('Daniel', 'Sky')">Daniel</button>
-                    <button class="btn btn-green" onclick="contactAgent('Andrea', 'Sky')">Andrea</button>
+                    <button class="btn" onclick="contactAgent('Daniel', 'Sky')">DANIEL</button>
+                    <button class="btn btn-green" onclick="contactAgent('Andrea', 'Sky')">ANDREA</button>
                 </div>
             </div>
 
-            <div class="glass-card" style="border-top: 4px solid var(--adr-blue, #00b4ff);">
-                <h3 class="tech-font">Fibra & Mobile 5G</h3>
-                <p style="font-size: 0.9rem; color: #aaa; margin: 15px 0;">Analisi multi-brand per portabilità e nuove attivazioni senza vincoli nascosti.</p>
-                <div style="font-size: 2rem; font-weight: bold; margin-bottom: 20px;">da 22,95€</div>
+            <div class="glass-card">
+                <h3 class="tech-font" style="font-size: 1.1rem; color: var(--adr-blue);">Fibra & Mobile 5G</h3>
+                <p style="font-size: 0.85rem; color: #666; margin: 20px 0;">Portabilità e nuove attivazioni con i migliori brand nazionali. Zero vincoli, solo risparmio.</p>
+                <div style="font-size: 1.8rem; font-weight: 800; margin-bottom: 25px; color: var(--adr-dark);">da 22,95€<span style="font-size: 0.8rem; font-weight: 400; color: #aaa;"> /mese</span></div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <button class="btn" onclick="contactAgent('Luca', 'Fibra')">Luca</button>
-                    <button class="btn" onclick="contactAgent('Daniele', 'Fibra')">Daniele</button>
+                    <button class="btn" onclick="contactAgent('Luca', 'Fibra')">LUCA</button>
+                    <button class="btn" onclick="contactAgent('Daniele', 'Fibra')">DANIELE</button>
                 </div>
             </div>
         </div>
@@ -106,18 +183,22 @@
         <div id="bot-launcher" onclick="toggleBot()">🤖</div>
         <div id="bot-window">
             <div class="bot-header">
-                <span>ADR-1: CONNECT</span>
-                <span onclick="toggleBot()" style="cursor: pointer;">&times;</span>
+                <span>🤖 ADR-1: CONNECT</span>
+                <span onclick="toggleBot()" style="cursor: pointer; font-size: 1.2rem;">&times;</span>
             </div>
             <div id="bot-messages">
-                <div class="msg-bot">Ciao! Sono l'esperto ADR. Per verificare la tua copertura, scrivi qui sotto l'indirizzo (Via e Città).</div>
+                <div class="msg-bot">Sistemi ADR attivi. Per verificare la tua copertura fibra, scrivi qui sotto l'indirizzo completo.</div>
             </div>
             <div class="bot-input-area">
-                <input type="text" id="user-input" placeholder="Scrivi indirizzo..." onkeypress="if(event.key==='Enter') inviaMessaggioConnettivita()">
+                <input type="text" id="user-input" placeholder="Via, Civico, Città..." onkeypress="if(event.key==='Enter') inviaMessaggioConnettivita()">
                 <button class="bot-send-btn" onclick="inviaMessaggioConnettivita()">></button>
             </div>
         </div>
     </div>
+
+    <footer>
+        <p style="font-size: 0.6rem; color: #aaa; font-family: var(--tech-font);">© 2026 ADR SEREGNO - CONNECTIVITY DIVISION</p>
+    </footer>
 
     <script>
         let step = 0; 
@@ -140,28 +221,29 @@
             input.value = "";
             msgContainer.scrollTop = msgContainer.scrollHeight;
 
-            setTimeout(() => {
-                if(step === 0) {
-                    indirizzoUtente = testo;
-                    msgContainer.innerHTML += `<div class="msg-bot">🔍 Verifica copertura in corso per <b>${indirizzoUtente}</b>...</div>`;
+            if(step === 0) {
+                indirizzoUtente = testo;
+                setTimeout(() => {
+                    msgContainer.innerHTML += `<div class="msg-bot">🔍 Analisi nodi di rete per <b>${indirizzoUtente}</b>...</div>`;
+                    msgContainer.scrollTop = msgContainer.scrollHeight;
                     
                     setTimeout(() => {
                         const tecnologie = ["Fibra Ottica FTTH 2.5 Gbps", "Fibra FTTC 200 Mega", "FWA Alta Velocità"];
                         const techScelta = tecnologie[Math.floor(Math.random() * tecnologie.length)];
                         
-                        msgContainer.innerHTML += `<div class="msg-bot">✅ Risultato: <b>${techScelta}</b>.<br><br>Vuoi parlare con noi per i dettagli?<br>
-                        <button class="btn" style="margin-top:10px; font-size:0.7rem;" onclick="inviaAResoconto()">SÌ, PARLA CON NOI</button></div>`;
+                        msgContainer.innerHTML += `<div class="msg-bot">✅ Risultato: <b>${techScelta}</b> disponibile.<br><br>Passo i dati ai tecnici umani?<br>
+                        <button class="btn" style="margin-top:10px; font-size:0.6rem;" onclick="inviaAResoconto()">CONFERMA E PARLA CON NOI</button></div>`;
                         msgContainer.scrollTop = msgContainer.scrollHeight;
                         resocontoChat.push("Esito: " + techScelta);
                         step = 1;
                     }, 1500);
-                }
-            }, 500);
+                }, 600);
+            }
         }
 
         function inviaAResoconto() {
             const logChat = resocontoChat.join(" | ");
-            const testoFinale = `Ciao! Ho verificato la copertura sul sito. Indirizzo: ${indirizzoUtente}. Esito: [${logChat}].`;
+            const testoFinale = `Ciao ADR! Ho verificato copertura su sito. Indirizzo: ${indirizzoUtente}. Log: [${logChat}].`;
             window.open(`https://wa.me/393515910955?text=${encodeURIComponent(testoFinale)}`, '_blank');
         }
 
@@ -171,6 +253,12 @@
             window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(testo)}`, '_blank');
         }
 
+        // Animazioni reveal e barra progresso
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((e) => { if(e.isIntersecting) { e.target.style.opacity = "1"; e.target.style.transform = "translateY(0)"; }});
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -178,7 +266,5 @@
             document.getElementById("progress-bar").style.width = scrolled + "%";
         };
     </script>
-
-    <a href="tel:+393515910955" class="mobile-call-btn">📞</a>
 </body>
 </html>
