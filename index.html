@@ -90,23 +90,24 @@
         }
         .btn-green { background: #2ecc71; border-bottom: 4px solid #27ae60; font-size: 0.7rem; }
 
-        /* PARTNER LOGOS */
+        /* SEZIONE PARTNER */
+        .partners-section { margin: 60px 0; text-align: center; }
         .partners-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 20px;
             align-items: center;
             justify-items: center;
-            margin: 40px 0;
+            margin-top: 30px;
             filter: grayscale(1);
-            opacity: 0.6;
+            opacity: 0.5;
         }
-        .partners-grid img { max-width: 100px; height: auto; transition: 0.3s; }
-        .partners-grid img:hover { filter: grayscale(0); opacity: 1; transform: scale(1.1); }
+        .partners-grid img { max-width: 90px; height: auto; transition: 0.3s ease; }
+        .partners-grid img:hover { filter: grayscale(0); opacity: 1; transform: scale(1.15); }
 
-        /* SCANNER STYLE */
+        /* SCANNER IA */
         .voto-cerchio {
-            width: 70px; height: 70px; border-radius: 50%; border: 4px solid #ddd;
+            width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ddd;
             display: flex; align-items: center; justify-content: center; 
             margin: 0 auto 15px; font-size: 1.8rem; font-weight: 900;
             font-family: var(--tech-font);
@@ -139,7 +140,7 @@
             <span class="ticker-item">⚡ LUCE PUN: 0.123 €/kWh</span>
             <span class="ticker-item">🔥 GAS PSV: 0.328 €/smc</span>
             <span class="ticker-item">📱 FIBRA: 2.5GB ATTIVA</span>
-            <span class="ticker-item">📉 TREND: RISPARMIO 2026</span>
+            <span class="ticker-item">📈 TREND: RISPARMIO 2026</span>
         </div>
     </div>
 
@@ -162,13 +163,6 @@
                 </button>
             </div>
         </div>
-        <div id="mobile-dropdown" class="mobile-nav">
-            <a href="index.html">HOME</a>
-            <a href="telefonia.html">TELEFONIA</a>
-            <a href="fotovoltaico.html">ENERGIA</a>
-            <a href="caf.html">CAF</a>
-            <a href="contatti.html">CONTATTI</a>
-        </div>
     </nav>
 
     <div class="container">
@@ -189,7 +183,7 @@
                         <div id="voto-box" class="voto-cerchio">?</div>
                         <p id="voto-label" style="font-weight: 800; font-size: 0.7rem;"></p>
                         <p id="voto-desc" style="font-size: 0.75rem; color: #555; margin: 10px 0;"></p>
-                        <button onclick="location.reload()" style="background: none; border: 1px solid #ddd; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.6rem; font-family: var(--tech-font);">RIPETI ANALISI</button>
+                        <button onclick="location.reload()" style="background: none; border: 1px solid #ddd; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.6rem; font-family: var(--tech-font);">ANALYZE NEW</button>
                     </div>
                 </div>
                 <div id="drop-zone" onclick="document.getElementById('file-input-home').click()" style="border: 2px dashed var(--adr-blue); border-radius: 20px; padding: 40px; text-align: center; cursor: pointer;">
@@ -199,50 +193,51 @@
             </div>
         </div>
 
-        <div class="reveal" style="margin: 60px 0; text-align: center;">
+        <div class="partners-section reveal">
             <h2 style="font-family: var(--tech-font); font-size: 0.8rem; letter-spacing: 3px; color: #aaa;">OFFICIAL PARTNERS</h2>
             <div class="partners-grid">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Eni_Logo.svg" alt="Eni">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Enel_Group_logo.svg" alt="Enel">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Edison_Logo.svg" alt="Edison">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/A2A_Logo.svg" alt="A2A">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Fastweb_logo.svg" alt="Fastweb">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Sky_Logo.svg" alt="Sky">
+                <img src="logo-acea.png" alt="Acea">
+                <img src="logo-audax.png" alt="Audax">
+                <img src="logo-bluenergy.png" alt="Bluenergy">
+                <img src="logo-enel.png" alt="Enel">
+                <img src="logo-eon.png" alt="Eon">
+                <img src="logo-fastweb-energia.png" alt="Fastweb Energia">
+                <img src="logo-fastweb.png" alt="Fastweb">
+                <img src="logo-hera.png" alt="Hera">
+                <img src="logo-iliad.png" alt="Iliad">
+                <img src="logo-segnoverde.png" alt="SegnoVerde">
+                <img src="logo-sky.png" alt="Sky">
+                <img src="logo-vodafone.png" alt="Vodafone">
             </div>
         </div>
 
         <div class="reveal">
             <h2 style="font-family: var(--tech-font); text-align: center; font-size: 0.9rem; margin-bottom: 30px; letter-spacing: 2px;">IL NOSTRO <span style="color:var(--adr-blue)">TEAM</span></h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
-                
                 <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
                     <h4 class="tech-font">Daniel</h4>
                     <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px;">CONSULENTE LUCE&GAS & TELEFONIA & SKY & FOTOVOLTAICO</p>
                     <button class="btn btn-green" onclick="prenotaConsulenza('Daniel')">WHATSAPP</button>
                 </div>
-
                 <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
                     <h4 class="tech-font">Andrea</h4>
                     <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px;">RESPONSABILE CAF & CONSULENTE LUCE&GAS & TELEFONIA & SKY & FOTOVOLTAICO</p>
                     <button class="btn btn-green" onclick="prenotaConsulenza('Andrea')">WHATSAPP</button>
                 </div>
-
                 <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
                     <h4 class="tech-font">Luca</h4>
                     <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px;">CONSULENTE LUCE&GAS & TELEFONIA & SKY & FOTOVOLTAICO</p>
                     <button class="btn btn-green" onclick="prenotaConsulenza('Luca')">WHATSAPP</button>
                 </div>
-
                 <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
                     <h4 class="tech-font">Daniele</h4>
                     <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px;">CONSULENTE LUCE&GAS & TELEFONIA & SKY & FOTOVOLTAICO</p>
                     <button class="btn btn-green" onclick="prenotaConsulenza('Daniele')">WHATSAPP</button>
                 </div>
-
             </div>
         </div>
     </div>
@@ -267,7 +262,7 @@
     <script>
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-dropdown');
-            menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+            if(menu) menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
         }
 
         function toggleBot() {
@@ -288,7 +283,7 @@
             
             statusIcon.innerHTML = "🔄";
             statusIcon.style.animation = "spin 1s linear infinite";
-            statusText.innerHTML = "ANALISI PROTOCOLLI IA...";
+            statusText.innerHTML = "ANALISI IA IN CORSO...";
 
             setTimeout(() => {
                 const voto = Math.floor(Math.random() * 9) + 2; 
@@ -301,24 +296,24 @@
                     votoBox.style.color = votoBox.style.borderColor = "#ff4444";
                     votoLabel.innerHTML = "VOTO INSUFFICIENTE";
                     votoLabel.style.color = "#ff4444";
-                    votoDesc.innerHTML = "Stai pagando troppo. Necessario intervento.";
+                    votoDesc.innerHTML = "Costi fuori mercato rilevati. Consigliato intervento.";
                 } else if(voto <= 7) {
                     votoBox.style.color = votoBox.style.borderColor = "#ffa502";
-                    votoLabel.innerHTML = "TARIFFA MEDIOCRE";
+                    votoLabel.innerHTML = "TARIFFA MIGLIORABILE";
                     votoLabel.style.color = "#ffa502";
-                    votoDesc.innerHTML = "Prezzo ottimizzabile di circa il 20%.";
+                    votoDesc.innerHTML = "Puoi risparmiare circa il 15-20% con ADR.";
                 } else {
                     votoBox.style.color = votoBox.style.borderColor = "#2ecc71";
-                    votoLabel.innerHTML = "OTTIMO RISPARMIO";
+                    votoLabel.innerHTML = "OTTIMA TARIFFA";
                     votoLabel.style.color = "#2ecc71";
-                    votoDesc.innerHTML = "La tua tariffa attuale è eccellente.";
+                    votoDesc.innerHTML = "Prezzo eccellente. Monitora solo le scadenze.";
                 }
 
                 document.getElementById('ui-home-default').style.display = "none";
                 document.getElementById('ui-home-risultato').style.display = "block";
                 statusIcon.style.animation = "none";
                 statusIcon.innerHTML = "✅";
-                statusText.innerHTML = "ANALISI COMPLETATA";
+                statusText.innerHTML = "COMPLETATO";
             }, 2500);
         }
 
