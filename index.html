@@ -49,16 +49,12 @@
         .nav-link { font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; color: var(--adr-dark); text-decoration: none; transition: 0.3s; }
         .nav-link:hover, .nav-link.active { color: var(--adr-blue); }
 
-        .mobile-toggle { display: none; flex-direction: column; gap: 4px; background: none; border: none; cursor: pointer; padding: 10px; }
-        .bar { width: 25px; height: 3px; background: var(--adr-blue); border-radius: 5px; }
-
         .area-clienti-btn { background: var(--adr-blue); color: white; padding: 8px 16px; border-radius: 50px; font-family: var(--tech-font); font-size: 0.65rem; font-weight: 800; text-decoration: none; box-shadow: var(--neon-shadow); }
 
         /* TICKER */
         .market-ticker { background: var(--adr-blue); color: white; padding: 8px 0; overflow: hidden; white-space: nowrap; position: relative; z-index: 5000; }
         .ticker-content { display: inline-block; animation: ticker 40s linear infinite; }
         .ticker-item { display: inline-block; padding: 0 30px; font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; }
-        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* REVEAL & CARDS */
         .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
@@ -82,7 +78,7 @@
         .partners-section { margin: 80px 0; text-align: center; }
         .partners-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
             gap: 30px;
             perspective: 1000px;
             margin-top: 40px;
@@ -151,7 +147,7 @@
             <div class="nav-menu">
                 <a href="index.html" class="nav-link active">HOME</a>
                 <a href="telefonia.html" class="nav-link">TELEFONIA</a>
-                <a href="fotovoltaico.html" class="nav-link">ENERGIA</a>
+                <a href="fotovoltaico.html" class="nav-link">FOTOVOLTAICO</a>
                 <a href="caf.html" class="nav-link">CAF</a>
                 <a href="contatti.html" class="nav-link">CONTATTI</a>
             </div>
@@ -190,7 +186,10 @@
         </div>
 
         <div class="partners-section reveal">
-            <h2 style="font-family: var(--tech-font); font-size: 0.8rem; letter-spacing: 4px; color: var(--adr-blue);">OFFICIAL PARTNERS</h2>
+            <h2 style="font-family: var(--tech-font); font-size: 0.8rem; letter-spacing: 4px; color: var(--adr-blue); margin-bottom: 10px;">PARTNER CON CUI COLLABORIAMO</h2>
+            <p style="font-size: 0.85rem; color: #555; max-width: 800px; margin: 0 auto 30px; line-height: 1.6;">
+                Compareremo la migliore offerta per te per farti risparmiare.
+            </p>
             <div class="partners-grid">
                 <div class="partner-card"><img src="logo-acea.png" alt="Acea"></div>
                 <div class="partner-card"><img src="logo-audax.png" alt="Audax"></div>
