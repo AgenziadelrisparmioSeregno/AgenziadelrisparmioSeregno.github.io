@@ -13,9 +13,9 @@
     <style>
         :root { 
             --adr-blue: #00b4ff; 
-            --neon-green: #00ff9d; 
             --dark-bg: #050505; 
             --glass: rgba(255, 255, 255, 0.03); 
+            --glass-border: rgba(255, 255, 255, 0.08);
         }
 
         body { background: var(--dark-bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
@@ -26,43 +26,62 @@
         #progress-bar { height: 100%; background: var(--adr-blue); width: 0%; box-shadow: 0 0 10px var(--adr-blue); }
 
         /* MARKET TICKER */
-        .market-ticker { background: black; border-bottom: 1px solid var(--adr-blue); padding: 10px 0; overflow: hidden; white-space: nowrap; }
+        .market-ticker { background: black; border-bottom: 1px solid #111; padding: 10px 0; overflow: hidden; white-space: nowrap; }
         .ticker-content { display: inline-block; animation: ticker 30s linear infinite; }
-        .ticker-item { display: inline-block; padding: 0 40px; font-family: 'Orbitron'; font-size: 0.8rem; color: white; }
+        .ticker-item { display: inline-block; padding: 0 40px; font-family: 'Orbitron'; font-size: 0.7rem; color: #666; }
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* NAVBAR */
+        /* NAVBAR MODERNA ADR */
         nav { 
             display: flex; align-items: center; justify-content: space-between; 
-            position: sticky; top: 0; padding: 15px 30px; 
-            background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); 
-            z-index: 1000; border-bottom: 1px solid #222; 
+            padding: 15px 5%; 
+            background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); 
+            position: sticky; top: 0; z-index: 1000; 
+            border-bottom: 1px solid var(--glass-border); 
         }
-        .nav-logo { height: 35px; width: auto; filter: drop-shadow(0 0 5px var(--adr-blue)); }
-        .nav-links { display: flex; gap: 20px; }
-        nav a { color: white; text-decoration: none; font-size: 0.65rem; font-family: 'Orbitron'; opacity: 0.7; transition: 0.3s; }
-        nav a:hover, nav a.active { opacity: 1; color: var(--adr-blue); }
-        .area-clienti-btn { border: 1px solid var(--adr-blue); color: var(--adr-blue); padding: 5px 12px; border-radius: 5px; font-size: 0.55rem; font-family: 'Orbitron'; text-decoration: none; }
+        .nav-logo { height: 38px; filter: drop-shadow(0 0 8px rgba(0,180,255,0.3)); transition: 0.3s; }
+        .nav-logo:hover { filter: drop-shadow(0 0 12px var(--adr-blue)); }
+        
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { 
+            color: #888; text-decoration: none; font-size: 0.7rem; 
+            font-family: 'Orbitron'; letter-spacing: 1px; transition: 0.3s; 
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--adr-blue); opacity: 1; }
+        
+        .area-clienti-btn { 
+            background: var(--adr-blue); color: black !important; 
+            padding: 8px 18px; border-radius: 5px; font-weight: bold; 
+            opacity: 1 !important; transition: 0.3s;
+        }
+        .area-clienti-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--adr-blue); }
 
         /* CONTACT GRID */
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
 
         .info-box {
             display: flex; align-items: flex-start; gap: 15px; margin-bottom: 25px; padding: 20px;
-            background: rgba(255,255,255,0.02); border-radius: 12px; border-left: 4px solid var(--adr-blue); transition: 0.3s;
+            background: var(--glass); border-radius: 12px; border: 1px solid var(--glass-border);
+            border-left: 4px solid var(--adr-blue); transition: 0.3s;
         }
+        .info-box:hover { background: rgba(255,255,255,0.06); border-color: var(--adr-blue); }
         .info-box span { color: var(--adr-blue); font-size: 1.5rem; }
 
-        .map-container { border-radius: 15px; overflow: hidden; border: 1px solid #333; height: 100%; min-height: 450px; }
+        .map-container { border-radius: 15px; overflow: hidden; border: 1px solid #222; height: 100%; min-height: 450px; }
         .map-container iframe { filter: grayscale(1) invert(0.9) contrast(1.2); }
 
-        .btn { background: transparent; border: 1px solid var(--adr-blue); color: white; padding: 12px; border-radius: 5px; cursor: pointer; font-family: 'Orbitron'; transition: 0.3s; text-decoration: none; display: block; text-align: center; font-size: 0.8rem; }
-        .btn:hover { background: var(--adr-blue); color: black; box-shadow: 0 0 15px var(--adr-blue); }
+        .btn-action { 
+            background: transparent; border: 1px solid var(--adr-blue); color: white; 
+            padding: 15px; border-radius: 6px; cursor: pointer; font-family: 'Orbitron'; 
+            transition: 0.3s; text-decoration: none; display: block; 
+            text-align: center; font-size: 0.75rem; font-weight: bold;
+        }
+        .btn-action:hover { background: var(--adr-blue); color: black; box-shadow: 0 0 20px var(--adr-blue); }
 
-        .glass-card { background: var(--glass); border: 1px solid #222; border-radius: 15px; padding: 30px; }
+        .glass-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 15px; padding: 30px; }
 
-        @media (max-width: 850px) {
-            nav { flex-direction: column; gap: 15px; }
+        @media (max-width: 992px) {
+            .nav-links { display: none; } /* Su mobile meglio un menu o ridurre i link */
             .contact-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -81,68 +100,69 @@
     </div>
 
     <nav>
-        <a href="index.html" style="position: absolute; left: 20px;"><img src="logo.png" alt="ADR Logo" class="nav-logo"></a>
+        <a href="index.html"><img src="logo.png" alt="ADR Logo" class="nav-logo"></a>
         <div class="nav-links">
             <a href="index.html">HOME</a>
-            <a href="telefonia.html">TELEFONIA & SKY</a>
-            <a href="fotovoltaico.html">FOTOVOLTAICO</a>
+            <a href="telefonia.html">TELEFONIA</a>
+            <a href="fotovoltaico.html">ENERGIA</a>
             <a href="contatti.html" class="active">CONTATTI</a>
+            <a href="login.html" class="area-clienti-btn">AREA CLIENTI</a>
         </div>
-        <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
     </nav>
 
-    <div class="container" style="max-width: 1100px; margin: 0 auto; padding: 40px 20px;">
+    <div class="container" style="max-width: 1100px; margin: 0 auto; padding: 60px 20px;">
         <header style="text-align: center; margin-bottom: 60px;">
-            <h1 class="tech-font" style="font-size: 2.5rem; margin-bottom: 10px; color: white;">Base <span style="color: var(--adr-blue);">Operativa</span></h1>
-            <p style="color: #aaa; font-family: 'Orbitron'; font-size: 0.75rem; letter-spacing: 3px;">Seregno, Brianza - Headquarters ADR</p>
+            <span class="tech-font" style="color: var(--adr-blue); font-size: 0.6rem; letter-spacing: 5px;">HEADQUARTERS ADR</span>
+            <h1 class="tech-font" style="font-size: 2.5rem; margin-top: 10px; color: white;">Base <span style="color: var(--adr-blue);">Operativa</span></h1>
+            <p style="color: #555; font-family: 'Inter'; font-size: 0.9rem;">Seregno, Brianza - Centrale di analisi e consulenza tariffe.</p>
         </header>
 
         <div class="contact-grid">
             <div class="glass-card">
-                <h3 class="tech-font" style="color: var(--adr-blue); margin-bottom: 30px; font-size: 1rem;">Dati di Collegamento</h3>
+                <h3 class="tech-font" style="color: var(--adr-blue); margin-bottom: 30px; font-size: 0.9rem;">Dati di Collegamento</h3>
                 
                 <div class="info-box">
                     <span>📍</span>
                     <div>
-                        <p class="tech-font" style="font-size: 0.7rem; color: var(--adr-blue); margin: 0;">Ubicazione Sede</p>
-                        <p style="font-size: 1rem; margin: 8px 0; color: white;">Via Cadore 253, 20831 Seregno (MB)</p>
+                        <p class="tech-font" style="font-size: 0.6rem; color: var(--adr-blue); margin: 0;">Ubicazione Sede</p>
+                        <p style="font-size: 1rem; margin: 8px 0; color: white; font-weight: 600;">Via Cadore 253, 20831 Seregno (MB)</p>
                     </div>
                 </div>
 
                 <div class="info-box">
                     <span>🕒</span>
                     <div>
-                        <p class="tech-font" style="font-size: 0.7rem; color: var(--adr-blue); margin: 0;">Fasce Orarie</p>
+                        <p class="tech-font" style="font-size: 0.6rem; color: var(--adr-blue); margin: 0;">Fasce Orarie</p>
                         <p style="font-size: 0.9rem; margin: 8px 0; color: white;">Lun - Ven: 09:00 - 13:00 | 14:30 - 18:30</p>
-                        <p style="font-size: 0.8rem; color: #777;">Sabato e Domenica su appuntamento</p>
+                        <p style="font-size: 0.75rem; color: #555;">Sabato e Domenica su appuntamento</p>
                     </div>
                 </div>
 
-                <button class="btn" style="margin-top: 20px; width: 100%;" onclick="window.open('https://www.google.it/maps/dir//Via+Cadore,+253,+20831+Seregno+MB', '_blank')">🚀 AVVIA NAVIGAZIONE AZZURRA</button>
+                <button class="btn-action" style="margin-top: 20px; width: 100%;" onclick="window.open('https://www.google.it/maps/dir//Via+Cadore,+253,+20831+Seregno+MB', '_blank')">🚀 AVVIA NAVIGAZIONE AZZURRA</button>
             </div>
 
             <div class="map-container glass-card" style="padding: 0;">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2790.34444!2d9.2133333!3d45.6488889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4786be4f8e5f8f8f%3A0x1c8e8e8e8e8e8e8e!2sVia%20Cadore%2C%20253%2C%2020831%20Seregno%20MB!5e0!3m2!1sit!2sit!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2790.2346743906663!2d9.206233!3d45.66113!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4786be964177d739%3A0x60f089f2a71d87f!2sVia%20Cadore%2C%20253%2C%2020831%20Seregno%20MB!5e0!3m2!1sit!2sit!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </div>
 
-    <div id="bot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-        <div id="bot-launcher" onclick="toggleBot()" style="width: 60px; height: 60px; background: var(--adr-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px var(--adr-blue); font-size: 1.5rem;">🤖</div>
-        <div id="bot-window" style="display: none; width: 340px; height: 500px; background: #0a0a0a; border: 1px solid var(--adr-blue); border-radius: 15px; flex-direction: column; position: absolute; bottom: 80px; right: 0; overflow: hidden; box-shadow: 0 0 30px rgba(0,0,0,0.9);">
-            <div class="bot-header" style="background: var(--adr-blue); color: black; padding: 12px; font-family: 'Orbitron'; font-size: 0.7rem; font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
+    <div id="bot-container" style="position: fixed; bottom: 25px; right: 25px; z-index: 9999;">
+        <div id="bot-launcher" onclick="toggleBot()" style="width: 60px; height: 60px; background: var(--adr-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 25px rgba(0,180,255,0.4); font-size: 1.5rem; transition: 0.3s;">🤖</div>
+        <div id="bot-window" style="display: none; width: 340px; height: 500px; background: #0a0a0a; border: 1px solid var(--adr-blue); border-radius: 15px; flex-direction: column; position: absolute; bottom: 80px; right: 0; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.8);">
+            <div class="bot-header" style="background: var(--adr-blue); color: black; padding: 15px; font-family: 'Orbitron'; font-size: 0.65rem; font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
                 <span>ADR-1: ASSISTENTE UFFICIO</span>
                 <span onclick="toggleBot()" style="cursor: pointer; font-size: 1.2rem;">×</span>
             </div>
             <div id="bot-messages" style="flex: 1; padding: 15px; overflow-y: auto; font-size: 0.85rem; display: flex; flex-direction: column; gap: 12px; background: #050505;">
-                <div class="msg-bot" style="background: #1a1a1a; color: white; padding: 10px; border-radius: 10px 10px 10px 0; border-left: 3px solid var(--adr-blue); align-self: flex-start;">
-                    Sistema ADR attivo. Chiedimi gli **orari** o prenota un **appuntamento** in sede.
+                <div class="msg-bot" style="background: #111; color: white; padding: 12px; border-radius: 12px 12px 12px 0; border: 1px solid #222; border-left: 3px solid var(--adr-blue); align-self: flex-start;">
+                    Benvenuto nel sistema ADR. Chiedimi gli <b>orari</b> o prenota un <b>appuntamento</b>.
                 </div>
             </div>
-            <div id="typing-indicator" style="display:none; padding: 8px 15px; color: var(--adr-blue); font-size: 0.6rem; font-family: 'Orbitron'; background: #000;">SCANSIONE ARCHIVI...</div>
-            <div class="bot-input-area" style="padding: 10px; border-top: 1px solid #222; display: flex; gap: 5px; background: #000;">
-                <input type="text" id="user-input" placeholder="Scrivi qui..." style="flex: 1; background: #111; border: 1px solid #333; color: white; padding: 10px; border-radius: 5px; outline: none;" onkeypress="if(event.key==='Enter') botOfficeAction()">
-                <button class="bot-send-btn" onclick="botOfficeAction()" style="background: var(--adr-blue); border: none; padding: 8px 15px; cursor: pointer; border-radius: 5px; font-weight: bold;">></button>
+            <div id="typing-indicator" style="display:none; padding: 8px 15px; color: var(--adr-blue); font-size: 0.55rem; font-family: 'Orbitron'; background: #000; letter-spacing: 1px;">SCANSIONE ARCHIVI...</div>
+            <div class="bot-input-area" style="padding: 10px; border-top: 1px solid #222; display: flex; gap: 8px; background: #000;">
+                <input type="text" id="user-input" placeholder="Comando..." style="flex: 1; background: #111; border: 1px solid #333; color: white; padding: 10px; border-radius: 5px; outline: none; font-size: 0.8rem;" onkeypress="if(event.key==='Enter') botOfficeAction()">
+                <button onclick="botOfficeAction()" style="background: var(--adr-blue); border: none; padding: 0 15px; cursor: pointer; border-radius: 5px; font-weight: bold;">></button>
             </div>
         </div>
     </div>
@@ -155,15 +175,12 @@
 
         function isOfficeOpen() {
             const now = new Date();
-            const day = now.getDay(); // 0 è domenica, 1-5 lun-ven
+            const day = now.getDay();
             const hour = now.getHours();
             const mins = now.getMinutes();
             const currentTime = hour + mins / 60;
-
             if (day >= 1 && day <= 5) {
-                if ((currentTime >= 9 && currentTime <= 13) || (currentTime >= 14.5 && currentTime <= 18.5)) {
-                    return true;
-                }
+                if ((currentTime >= 9 && currentTime <= 13) || (currentTime >= 14.5 && currentTime <= 18.5)) return true;
             }
             return false;
         }
@@ -175,7 +192,7 @@
             const query = input.value.toLowerCase();
             if(!query.trim()) return;
 
-            msgContainer.innerHTML += `<div style="background: white; color: black; padding: 10px; border-radius: 10px 10px 0 10px; align-self: flex-end; font-weight: 600; max-width: 85%;">${input.value}</div>`;
+            msgContainer.innerHTML += `<div style="background: var(--adr-blue); color: black; padding: 10px; border-radius: 12px 12px 0 12px; align-self: flex-end; font-weight: 600; max-width: 80%; font-size: 0.8rem;">${input.value}</div>`;
             input.value = "";
             msgContainer.scrollTop = msgContainer.scrollHeight;
 
@@ -188,14 +205,14 @@
                 
                 if(query.includes("apert") || query.includes("orari") || query.includes("chius")) {
                     risposta = aperto ? 
-                        "🟢 <b>STATUS: APERTO.</b> L'ufficio di Seregno è attualmente operativo. Vuoi passare ora o preferisci fissare un appuntamento?" : 
-                        "🔴 <b>STATUS: CHIUSO.</b> Attualmente l'ufficio è chiuso. Puoi però prenotare un appuntamento per i prossimi giorni qui sotto:";
+                        "🟢 <b>STATUS: APERTO.</b> Siamo operativi in Via Cadore. Vuoi passare ora o fissare un appuntamento?" : 
+                        "🔴 <b>STATUS: CHIUSO.</b> L'ufficio è chiuso. Prenota un appuntamento qui sotto:";
                 } else {
-                    risposta = "Certamente. Per garantire la massima assistenza in sede, seleziona il consulente con cui desideri parlare:";
+                    risposta = "Ho capito. Seleziona il consulente con cui vuoi parlare per fissare un incontro:";
                 }
 
                 msgContainer.innerHTML += `
-                    <div style="background: #1a1a1a; color: white; padding: 10px; border-radius: 10px; border-left: 3px solid var(--adr-blue); align-self: flex-start; max-width: 90%;">
+                    <div style="background: #111; color: white; padding: 12px; border-radius: 12px; border: 1px solid #222; border-left: 3px solid var(--adr-blue); align-self: flex-start; max-width: 90%;">
                         ${risposta}
                         <div style="margin-top:15px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                             <button onclick="bookAgent('Daniel')" style="background:transparent; border:1px solid var(--adr-blue); color:white; padding:8px; font-size:0.6rem; cursor:pointer; font-family:'Orbitron';">DANIEL</button>
@@ -210,7 +227,7 @@
 
         function bookAgent(agente) {
             const numeri = { 'Daniel': '393423218269', 'Daniele': '393491795387', 'Luca': '393277545377', 'Andrea': '393515910955' };
-            const testo = `Ciao ${agente}, vorrei prenotare un appuntamento presso la sede di Seregno. Qual è la prima disponibilità?`;
+            const testo = `Ciao ${agente}, vorrei prenotare un appuntamento presso la sede di Seregno.`;
             window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(testo)}`, '_blank');
         }
 
