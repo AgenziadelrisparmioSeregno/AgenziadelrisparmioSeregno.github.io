@@ -11,6 +11,42 @@
     <link rel="stylesheet" href="style.css">
     
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Allineamento Bot a Destra identico alla Index */
+        #bot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        #bot-launcher {
+            width: 60px;
+            height: 60px;
+            background: var(--adr-blue, #00b4ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 20px var(--adr-blue, #00b4ff);
+            font-size: 1.5rem;
+        }
+        #bot-window {
+            display: none;
+            width: 320px;
+            height: 450px;
+            background: #0a0a0a;
+            border: 1px solid var(--adr-blue, #00b4ff);
+            border-radius: 15px;
+            flex-direction: column;
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+        }
+    </style>
 </head>
 <body>
 
@@ -38,13 +74,13 @@
 
     <div class="container">
         <header style="text-align: center; margin: 50px 0;">
-            <img src="logo.png" alt="Agenzia del Risparmio" style="width: 100px; height: auto; margin-bottom: 20px; filter: drop-shadow(0 0 15px var(--adr-blue));">
-            <h1 class="tech-font" style="font-size: 2.2rem;">Connettività & <span style="color:var(--adr-blue)">Intrattenimento</span></h1>
+            <img src="logo.png" alt="Agenzia del Risparmio" style="width: 100px; height: auto; margin-bottom: 20px; filter: drop-shadow(0 0 15px var(--adr-blue, #00b4ff));">
+            <h1 class="tech-font" style="font-size: 2.2rem;">Connettività & <span style="color:var(--adr-blue, #00b4ff)">Intrattenimento</span></h1>
             <p style="color: #888; max-width: 700px; margin: 0 auto;">Verifichiamo la copertura reale per la tua abitazione con i migliori provider nazionali.</p>
         </header>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
-            <div class="glass-card" style="border-top: 4px solid #00aff0;">
+            <div class="glass-card" style="border-top: 4px solid var(--adr-blue, #00b4ff);">
                 <h3 class="tech-font">Sky Wifi + TV</h3>
                 <p style="font-size: 0.9rem; color: #aaa; margin: 15px 0;">Cinema, Sport e Fibra ultraveloce in un unico abbonamento gestito dal nostro team.</p>
                 <div style="font-size: 2rem; font-weight: bold; margin-bottom: 20px;">da 34,90€</div>
@@ -54,7 +90,7 @@
                 </div>
             </div>
 
-            <div class="glass-card" style="border-top: 4px solid var(--adr-blue);">
+            <div class="glass-card" style="border-top: 4px solid var(--adr-blue, #00b4ff);">
                 <h3 class="tech-font">Fibra & Mobile 5G</h3>
                 <p style="font-size: 0.9rem; color: #aaa; margin: 15px 0;">Analisi multi-brand per portabilità e nuove attivazioni senza vincoli nascosti.</p>
                 <div style="font-size: 2rem; font-weight: bold; margin-bottom: 20px;">da 22,95€</div>
