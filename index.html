@@ -49,7 +49,6 @@
         .nav-link { font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; color: var(--adr-dark); text-decoration: none; transition: 0.3s; }
         .nav-link:hover, .nav-link.active { color: var(--adr-blue); }
 
-        /* HAMBURGER MODERNO */
         .mobile-toggle { display: none; flex-direction: column; gap: 4px; background: none; border: none; cursor: pointer; padding: 10px; }
         .bar { width: 25px; height: 3px; background: var(--adr-blue); border-radius: 5px; }
 
@@ -81,7 +80,7 @@
         .glass-card {
             background: white; border: 1px solid rgba(0, 168, 255, 0.15);
             border-radius: 24px; padding: 30px; box-shadow: 0 15px 35px rgba(0, 168, 255, 0.1);
-            position: relative; overflow: hidden; height: 100%; transition: 0.3s;
+            position: relative; overflow: hidden; transition: 0.3s;
         }
 
         .btn {
@@ -94,6 +93,33 @@
         /* PARTNERS */
         .partners-track { display: flex; align-items: center; gap: 50px; width: max-content; animation: scrollLeft 30s linear infinite; }
         .partner-logo { height: 35px; filter: grayscale(100%); opacity: 0.6; }
+
+        /* ============================================================
+           FIX BOT ADR-1 (CHIUSO DI DEFAULT - STILE CONTATTI)
+           ============================================================ */
+        #bot-container { position: fixed; bottom: 25px; right: 25px; z-index: 10001; }
+        
+        #bot-launcher { 
+            width: 60px; height: 60px; border-radius: 50%; background: var(--adr-blue); 
+            display: flex; align-items: center; justify-content: center; cursor: pointer; 
+            font-size: 1.6rem; box-shadow: 0 10px 25px rgba(0,168,255,0.4); border: 2px solid white;
+        }
+
+        #bot-window {
+            display: none; /* FORZATO CHIUSO ALL'AVVIO */
+            width: 340px; height: 500px; background: white;
+            position: absolute; bottom: 75px; right: 0; border-radius: 20px;
+            flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            border: 1px solid var(--adr-blue-light); overflow: hidden;
+        }
+
+        .bot-header { background: var(--adr-blue); color: white; padding: 15px; display: flex; justify-content: space-between; font-family: var(--tech-font); font-size: 0.7rem; }
+        #bot-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #fdfdfd; font-size: 0.85rem; }
+        .msg-bot { background: var(--adr-blue-light); padding: 12px; border-radius: 12px 12px 12px 0; align-self: flex-start; border-left: 3px solid var(--adr-blue); }
+        
+        @media (max-width: 992px) {
+            #bot-window { width: calc(100vw - 50px); right: -10px; }
+        }
         @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     </style>
 </head>
@@ -114,15 +140,13 @@
     <nav class="main-nav">
         <div class="nav-container">
             <a href="index.html"><img src="logo.png" alt="ADR Logo" class="nav-logo"></a>
-            
             <div class="nav-menu">
                 <a href="index.html" class="nav-link active">HOME</a>
                 <a href="telefonia.html" class="nav-link">TELEFONIA</a>
                 <a href="fotovoltaico.html" class="nav-link">FOTOVOLTAICO</a>
                 <a href="contatti.html" class="nav-link">CONTATTI</a>
             </div>
-
-            <div class="nav-actions" style="display: flex; align-items: center; gap: 10px;">
+            <div class="nav-actions">
                 <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
                 <button class="mobile-toggle" onclick="toggleMobileMenu()">
                     <span class="bar"></span>
@@ -132,11 +156,10 @@
             </div>
         </div>
         <div id="mobile-dropdown" class="mobile-nav">
-            <a href="index.html" onclick="toggleMobileMenu()">HOME</a>
-            <a href="telefonia.html" onclick="toggleMobileMenu()">TELEFONIA</a>
-            <a href="fotovoltaico.html" onclick="toggleMobileMenu()">FOTOVOLTAICO</a>
-            <a href="contatti.html" onclick="toggleMobileMenu()">CONTATTI</a>
-            <a href="dashboard.html" onclick="toggleMobileMenu()" style="color: var(--adr-blue); font-weight: bold;">AREA CLIENTI</a>
+            <a href="index.html">HOME</a>
+            <a href="telefonia.html">TELEFONIA</a>
+            <a href="fotovoltaico.html">FOTOVOLTAICO</a>
+            <a href="contatti.html">CONTATTI</a>
         </div>
     </nav>
 
@@ -165,105 +188,79 @@
             </div>
         </div>
 
-        <div class="reveal" style="margin-bottom: 60px;">
-            <h2 style="font-family: var(--tech-font); text-align: center; font-size: 0.8rem; margin-bottom: 30px; letter-spacing: 2px;">I NOSTRI PARTNER <span style="color:var(--adr-blue)">CERTIFICATI</span></h2>
-            <div style="overflow: hidden; white-space: nowrap;">
-                <div class="partners-track">
-                    <img src="logo-acea.png" class="partner-logo">
-                    <img src="logo-hera.png" class="partner-logo">
-                    <img src="logo-eon.png" class="partner-logo">
-                    <img src="logo-enel.png" class="partner-logo">
-                    <img src="logo-fastweb.png" class="partner-logo">
-                    <img src="logo-sky.png" class="partner-logo">
-                    <img src="logo-acea.png" class="partner-logo">
-                    <img src="logo-hera.png" class="partner-logo">
-                    <img src="logo-eon.png" class="partner-logo">
-                </div>
-            </div>
-        </div>
-
         <div class="reveal">
             <h2 style="font-family: var(--tech-font); text-align: center; font-size: 0.9rem; margin-bottom: 30px; letter-spacing: 2px;">IL NOSTRO <span style="color:var(--adr-blue)">TEAM</span></h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
-                
                 <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
-                    <h4 class="tech-font" style="font-size: 1rem;">Daniel</h4>
-                    <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px; min-height: 40px;">CONSULENTE LUCE&GAS, TELEFONIA, SKY & FOTOVOLTAICO</p>
-                    <button class="btn btn-green" onclick="prenotaConsulenza('Daniel')">PRENOTA CONSULENZA</button>
+                    <h4 class="tech-font">Daniel</h4>
+                    <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px;">CONSULENTE COMPLETO</p>
+                    <button class="btn btn-green" onclick="prenotaConsulenza('Daniel')">WHATSAPP</button>
                 </div>
-
                 <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
-                    <h4 class="tech-font" style="font-size: 1rem;">Andrea</h4>
-                    <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px; min-height: 40px;">CONSULENTE LUCE&GAS, TELEFONIA, SKY, FOTOVOLTAICO & RESP. CAF</p>
-                    <button class="btn btn-green" onclick="prenotaConsulenza('Andrea')">PRENOTA CONSULENZA</button>
+                    <h4 class="tech-font">Andrea</h4>
+                    <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px;">RESPONSABILE CAF</p>
+                    <button class="btn btn-green" onclick="prenotaConsulenza('Andrea')">WHATSAPP</button>
                 </div>
-
                 <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
-                    <h4 class="tech-font" style="font-size: 1rem;">Luca</h4>
-                    <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px; min-height: 40px;">CONSULENTE LUCE&GAS, TELEFONIA, SKY & FOTOVOLTAICO</p>
-                    <button class="btn btn-green" onclick="prenotaConsulenza('Luca')">PRENOTA CONSULENZA</button>
+                    <h4 class="tech-font">Luca</h4>
+                    <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px;">CONSULENTE SMART</p>
+                    <button class="btn btn-green" onclick="prenotaConsulenza('Luca')">WHATSAPP</button>
                 </div>
-
-                <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue);">
-                    <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
-                    <h4 class="tech-font" style="font-size: 1rem;">Daniele</h4>
-                    <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px; min-height: 40px;">CONSULENTE LUCE&GAS, TELEFONIA, SKY & FOTOVOLTAICO</p>
-                    <button class="btn btn-green" onclick="prenotaConsulenza('Daniele')">PRENOTA CONSULENZA</button>
-                </div>
-
             </div>
         </div>
     </div>
 
-    <div id="bot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 10001;">
-        <div id="bot-launcher" onclick="toggleBot()" style="width: 55px; height: 55px; border-radius: 50%; background: var(--adr-blue); color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.5rem; box-shadow: var(--neon-shadow); border: 2px solid white;">🤖</div>
+    <div id="bot-container">
+        <div id="bot-launcher" onclick="toggleBot()">🤖</div>
         <div id="bot-window">
-            <div class="bot-header"><span>🤖 ADR-1 SYSTEM</span><span onclick="toggleBot()" style="cursor:pointer;">&times;</span></div>
-            <div id="bot-messages" style="padding:15px; font-size:0.8rem; height: 350px; overflow-y: auto;">
-                <div style="background: var(--adr-blue-light); padding: 10px; border-radius: 10px; margin-bottom: 10px;">Ciao! Come posso aiutarti oggi?</div>
+            <div class="bot-header">
+                <span>ADR-1: ASSISTENTE</span>
+                <span onclick="toggleBot()" style="cursor: pointer;">&times;</span>
+            </div>
+            <div id="bot-messages">
+                <div class="msg-bot">Sistemi ADR attivi. Come posso aiutarti oggi?</div>
+            </div>
+            <div style="padding: 10px; display: flex; gap: 5px; border-top: 1px solid #eee;">
+                <input type="text" id="user-input" placeholder="Scrivi qui..." style="flex:1; padding: 8px; border-radius: 20px; border: 1px solid #ddd;">
+                <button onclick="alert('Inviato!')" style="background: var(--adr-blue); color: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer;">></button>
             </div>
         </div>
     </div>
 
     <script>
-        // FUNZIONE MENU MOBILE (HAMBURGER)
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-dropdown');
-            if (menu.style.display === 'flex') {
-                menu.style.display = 'none';
+            menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        // TOGGLE BOT (IDENTICO A CONTATTI)
+        function toggleBot() {
+            const win = document.getElementById('bot-window');
+            if (win.style.display === 'none' || win.style.display === '') {
+                win.style.display = 'flex';
             } else {
-                menu.style.display = 'flex';
+                win.style.display = 'none';
             }
         }
 
-        // PRENOTAZIONE WHATSAPP
         function prenotaConsulenza(nome) {
-            const numeri = { 'Daniel': '393423218269', 'Daniele': '393491795387', 'Luca': '393277545377', 'Andrea': '393515910955' };
-            const msg = `Ciao ${nome}, vorrei prenotare una consulenza gratuita con ADR Seregno.`;
-            window.open(`https://wa.me/${numeri[nome]}?text=${encodeURIComponent(msg)}`, '_blank');
+            const numeri = { 'Daniel': '393423218269', 'Andrea': '393515910955', 'Luca': '393277545377', 'Daniele': '393491795387' };
+            window.open(`https://wa.me/${numeri[nome]}?text=Ciao, vorrei info`, '_blank');
         }
 
-        // SCANSIONE IA SIMULATA
         function eseguiScansioneHome() {
             const zone = document.getElementById('drop-zone');
-            zone.innerHTML = "ANALIZZANDO DATI CON IA...";
+            zone.innerHTML = "ANALIZZANDO...";
             setTimeout(() => {
                 document.getElementById('ui-home-default').style.display = "none";
                 document.getElementById('ui-home-risultato').style.display = "block";
-                zone.innerHTML = "✅ ANALISI COMPLETATA";
+                zone.innerHTML = "✅ COMPLETATO";
             }, 2000);
         }
 
-        // BOT TOGGLE
-        function toggleBot() {
-            const win = document.getElementById('bot-window');
-            win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
-        }
-
-        // ANIMAZIONI REVEAL & SCROLL
         function reveal() {
             const reveals = document.querySelectorAll(".reveal");
             reveals.forEach(el => {
@@ -276,8 +273,7 @@
         window.addEventListener("load", reveal);
         window.onscroll = function() {
             let scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-            const pb = document.getElementById("progress-bar");
-            if(pb) pb.style.width = scrolled + "%";
+            document.getElementById("progress-bar").style.width = scrolled + "%";
         };
     </script>
 </body>
