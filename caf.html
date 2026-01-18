@@ -3,35 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reparto CAF | Andrea - Agenzia del Risparmio</title>
+    <title>Contatti | ADR Seregno</title>
+    
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="logo.png">
+
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Stile specifico per FAQ in questa pagina */
-        .faq-item {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid #222;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-            overflow: hidden;
+        :root { 
+            --neon-blue: #00f3ff; 
+            --neon-green: #00ff9d; 
+            --dark-bg: #050505; 
+            --glass: rgba(255, 255, 255, 0.03); 
         }
-        .faq-item:hover { border-color: var(--neon-green); }
-        .faq-question {
-            padding: 20px;
+
+        body { background: var(--dark-bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
+        .tech-font { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* PROGRESS BAR */
+        #progress-container { position: fixed; top: 0; width: 100%; height: 4px; z-index: 10001; }
+        #progress-bar { height: 100%; background: var(--neon-blue); width: 0%; box-shadow: 0 0 10px var(--neon-blue); }
+
+        /* MARKET TICKER */
+        .market-ticker { background: black; border-bottom: 1px solid var(--neon-blue); padding: 10px 0; overflow: hidden; white-space: nowrap; }
+        .ticker-content { display: inline-block; animation: ticker 30s linear infinite; }
+        .ticker-item { display: inline-block; padding: 0 40px; font-family: 'Orbitron'; font-size: 0.8rem; }
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* NAVBAR CON LOGO A SINISTRA */
+        nav { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            position: sticky; 
+            top: 0; 
+            padding: 15px 30px; 
+            background: rgba(0,0,0,0.85); 
+            backdrop-filter: blur(10px); 
+            z-index: 1000; 
+            border-bottom: 1px solid #111; 
+        }
+        .nav-logo { height: 35px; width: auto; }
+        .nav-links { display: flex; gap: 20px; }
+        nav a { color: white; text-decoration: none; font-size: 0.65rem; font-family: 'Orbitron'; opacity: 0.6; transition: 0.3s; }
+        nav a:hover, nav a.active { opacity: 1; color: var(--neon-blue); }
+        .area-clienti-btn { background: rgba(0, 255, 157, 0.1); border: 1px solid var(--neon-green); color: var(--neon-green); padding: 5px 12px; border-radius: 5px; font-size: 0.55rem; font-family: 'Orbitron'; text-decoration: none; }
+
+        /* CONTACT GRID */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .info-box {
             display: flex;
-            justify-content: space-between;
-            font-family: 'Orbitron';
-            font-size: 0.8rem;
-            color: var(--neon-green);
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 10px;
+            border-left: 3px solid var(--neon-blue);
+            transition: 0.3s;
         }
-        .faq-answer {
-            padding: 0 20px 20px 20px;
-            display: none;
-            color: #aaa;
-            font-size: 0.9rem;
-            line-height: 1.6;
+        
+        .info-box:hover {
+            background: rgba(255,255,255,0.05);
+            transform: translateX(5px);
+        }
+
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #222;
+            height: 100%;
+            min-height: 450px;
+            position: relative;
+        }
+
+        .map-container iframe {
+            filter: grayscale(1) invert(0.9) contrast(1.2);
+            border: 0;
+        }
+
+        .btn { background: transparent; border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 10px; border-radius: 5px; cursor: pointer; font-family: 'Orbitron'; transition: 0.3s; text-decoration: none; display: block; text-align: center; }
+        .btn-green { border-color: var(--neon-green); color: var(--neon-green); }
+        .btn-green:hover { background: var(--neon-green); color: black; box-shadow: 0 0 20px var(--neon-green); }
+
+        .glass-card { background: var(--glass); border: 1px solid #222; border-radius: 15px; padding: 25px; }
+
+        @media (max-width: 850px) {
+            nav { flex-direction: column; gap: 15px; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .map-container { min-height: 300px; }
         }
     </style>
 </head>
@@ -41,116 +108,88 @@
 
     <div class="market-ticker">
         <div class="ticker-content">
-            <span class="ticker-item">📊 ISEE 2026: DISPONIBILE</span>
-            <span class="ticker-item">📅 SCADENZA 730: GIUGNO 2026</span>
-            <span class="ticker-item">💡 BONUS SOCIALE: ATTIVAZIONE IN CORSO</span>
-            <span class="ticker-item">👨‍💼 RESPONSABILE: ANDREA</span>
-            <span class="ticker-item">📊 ISEE 2026: DISPONIBILE</span>
+            <span class="ticker-item">⚡ LUCE PUN: 0.118 €/kWh</span>
+            <span class="ticker-item">🔥 GAS PSV: 0.425 €/smc</span>
+            <span class="ticker-item">📍 SEDE: SEREGNO VIA CADORE 253</span>
+            <span class="ticker-item">📞 OFFICE: ATTIVO 09:00-18:30</span>
+            <span class="ticker-item">⚡ LUCE PUN: 0.118 €/kWh</span>
         </div>
     </div>
 
     <nav>
+        <a href="index.html"><img src="logo.png" alt="ADR Logo" class="nav-logo"></a>
         <div class="nav-links">
             <a href="index.html">HOME</a>
-            <a href="energia.html">LUCE & GAS</a>
             <a href="telefonia.html">TELEFONIA & SKY</a>
             <a href="fotovoltaico.html">FOTOVOLTAICO</a>
-            <a href="caf.html" class="active">CAF</a>
+            <a href="contatti.html" class="active">CONTATTI</a>
         </div>
         <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
     </nav>
 
-    <div class="container">
-        <header style="text-align: center; margin: 60px 0;">
-            <h1 class="tech-font" style="font-size: 2.2rem; color: var(--neon-green);">Reparto <span style="color:white">CAF & Fiscale</span></h1>
-            <p style="color: #888; max-width: 700px; margin: 0 auto;">Gestione pratiche ISEE, 730, Bonus e Successioni. Consulenza diretta con Andrea.</p>
+    <div class="container" style="max-width: 1100px; margin: 0 auto; padding: 40px 20px;">
+        
+        <header style="text-align: center; margin-bottom: 60px;">
+            <h1 class="tech-font" style="font-size: 2.5rem; margin-bottom: 10px;">Base <span style="color: var(--neon-blue);">Operativa</span></h1>
+            <p style="color: #888; font-family: 'Orbitron'; font-size: 0.8rem;">Seregno, Brianza - Headquarters ADR</p>
         </header>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+        <div class="contact-grid">
             
-            <div class="glass-card" style="border-top: 4px solid var(--neon-green);">
-                <h3 class="tech-font" style="font-size: 1rem; margin-bottom: 20px; color: var(--neon-green);">Servizi Disponibili</h3>
-                <ul style="list-style: none; padding: 0; color: #ccc; line-height: 2; font-size: 0.9rem;">
-                    <li>✅ Elaborazione Modello ISEE 2026</li>
-                    <li>✅ Dichiarazione dei Redditi (730 / Unico)</li>
-                    <li>✅ Domande Bonus Sociale (Luce/Gas)</li>
-                    <li>✅ Pratiche IMU e TASI</li>
-                    <li>✅ Gestione Contratti Locazione</li>
-                    <li>✅ Consulenza Assegno Unico</li>
-                </ul>
+            <div class="glass-card">
+                <h3 class="tech-font" style="color: var(--neon-blue); margin-bottom: 30px; font-size: 1rem;">Coordinate di Contatto</h3>
+                
+                <div class="info-box">
+                    <span style="font-size: 1.5rem;">📍</span>
+                    <div>
+                        <p class="tech-font" style="font-size: 0.7rem; color: var(--neon-blue); margin: 0;">Indirizzo Sede</p>
+                        <p style="font-size: 0.9rem; margin: 5px 0; color: #eee;">Via Cadore 253, 20831 Seregno (MB)</p>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <span style="font-size: 1.5rem;">🕒</span>
+                    <div>
+                        <p class="tech-font" style="font-size: 0.7rem; color: var(--neon-blue); margin: 0;">Orari Ufficio</p>
+                        <p style="font-size: 0.85rem; margin: 5px 0; color: #eee;">Lun - Ven: 09:00 - 13:00 | 14:30 - 18:30</p>
+                        <p style="font-size: 0.85rem; margin: 5px 0; color: #888;">Sabato - Domenica: Ricevimento su appuntamento</p>
+                    </div>
+                </div>
+
+                <div class="info-box" style="border-left-color: var(--neon-green);">
+                    <span style="font-size: 1.5rem;">📞</span>
+                    <div>
+                        <p class="tech-font" style="font-size: 0.7rem; color: var(--neon-green); margin: 0;">Supporto Rapido</p>
+                        <p style="font-size: 0.9rem; margin: 5px 0; color: #eee;">WhatsApp: <a href="https://wa.me/393515910955" style="color: var(--neon-green); text-decoration: none; font-weight: bold;">Chatta con Andrea</a></p>
+                    </div>
+                </div>
+
+                <button class="btn btn-green" style="margin-top: 20px; width: 100%; padding: 20px; font-size: 0.9rem;" 
+                        onclick="window.open('https://www.google.it/maps/dir//Via+Cadore,+253,+20831+Seregno+MB', '_blank')">
+                    🚀 AVVIA NAVIGAZIONE IMMEDIATA
+                </button>
             </div>
 
-            <div class="glass-card" style="background: rgba(0, 255, 157, 0.05); border: 1px solid var(--neon-green);">
-                <h3 class="tech-font" style="font-size: 1rem; margin-bottom: 20px;">Checklist ISEE</h3>
-                <p style="font-size: 0.8rem; color: #888; margin-bottom: 15px;">Documenti necessari (anche via foto):</p>
-                <ul style="list-style: none; padding: 0; font-size: 0.85rem; color: #fff;">
-                    <li style="margin-bottom: 8px;">📁 Documenti d'Identità di tutti i componenti</li>
-                    <li style="margin-bottom: 8px;">📁 Giacenza Media banca al 31/12/2024</li>
-                    <li style="margin-bottom: 8px;">📁 Targhe auto e moto di proprietà</li>
-                    <li style="margin-bottom: 8px;">📁 Contratto d'affitto (se non proprietari)</li>
-                    <li style="margin-bottom: 8px;">📁 Certificazione Unica / CU 2025</li>
-                </ul>
+            <div class="map-container glass-card" style="padding: 0;">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2788.6322353328227!2d9.21327!3d45.6534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4786be964998967b%3A0x67305963f282928d!2sVia+Cadore%2C+253%2C+20831+Seregno+MB!5e0!3m2!1sit!2sit!4v1700000000000" 
+                    width="100%" height="100%" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
+
         </div>
 
-        <div class="glass-card" style="margin-top: 40px; text-align: center; border: 1px dashed var(--neon-green); padding: 40px;">
-            <h3 class="tech-font" style="color: var(--neon-green);">Pratica Rapida via WhatsApp</h3>
-            <p style="margin: 15px 0; color: #aaa;">Invia le foto dei tuoi documenti ad Andrea. Pensiamo noi a caricarli nel sistema.</p>
-            <button class="btn" onclick="contactAndrea()" style="background: var(--neon-green); color: black; padding: 18px 45px; font-weight: bold; font-size: 1rem; cursor: pointer; border: none; border-radius: 5px;">
-                🚀 INVIA DOCUMENTI AD ANDREA
-            </button>
-            <p style="font-size: 0.7rem; color: #555; margin-top: 15px;">Servizio attivo Lun-Ven. Conferma ricezione in 120 minuti.</p>
-        </div>
-
-        <div class="faq-container" style="margin-top: 60px; max-width: 800px; margin-left: auto; margin-right: auto;">
-            <h2 class="tech-font" style="text-align: center; font-size: 1.1rem; margin-bottom: 30px;">Domande Frequenti CAF</h2>
-            
-            <div class="faq-item" onclick="toggleFaq(this)">
-                <div class="faq-question">Quanto tempo ci vuole per l'ISEE? <span>+</span></div>
-                <div class="faq-answer">Andrea elabora la richiesta solitamente in 24/48 ore lavorative dall'invio di tutta la documentazione completa.</div>
+        <footer style="margin-top: 100px; padding: 40px; border-top: 1px solid #111; text-align: center; background: rgba(0,0,0,0.5);">
+            <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
+                <a href="privacy.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">PRIVACY POLICY</a>
+                <a href="index.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">HOME</a>
+                <a href="leaderboard.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">CLASSIFICA</a>
             </div>
-
-            <div class="faq-item" onclick="toggleFaq(this)">
-                <div class="faq-question">Posso richiedere il Bonus Bollette? <span>+</span></div>
-                <div class="faq-answer">Sì! Se il tuo ISEE rispetta i limiti di legge, Andrea può aiutarti a verificare l'attivazione automatica o procedere con la richiesta per i bonus integrativi.</div>
-            </div>
-        </div>
+            <p style="font-size: 0.6rem; color: #444;">© 2026 ADR SEREGNO - SISTEMA DI ASSISTENZA CENTRALIZZATO</p>
+        </footer>
     </div>
 
-    <a href="tel:+393515910955" class="mobile-call-btn" id="mobile-call">📞</a>
-
-    <footer style="margin-top: 80px; padding: 40px; border-top: 1px solid #111; text-align: center; background: rgba(0,0,0,0.5);">
-        <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
-            <a href="privacy.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">PRIVACY</a>
-            <a href="index.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">HOME</a>
-            <a href="contatti.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">SEDE</a>
-        </div>
-        <p style="font-size: 0.6rem; color: #444;">© 2026 ADR SEREGNO - SERVIZI FISCALI INTEGRATI</p>
-    </footer>
-
-    <div id="bot-container-placeholder"></div>
-
     <script>
-        // Funzione FAQ
-        function toggleFaq(element) {
-            const answer = element.querySelector('.faq-answer');
-            const span = element.querySelector('span');
-            if (answer.style.display === "block") {
-                answer.style.display = "none";
-                span.innerText = "+";
-            } else {
-                answer.style.display = "block";
-                span.innerText = "-";
-            }
-        }
-
-        // Funzione WhatsApp Andrea
-        function contactAndrea() {
-            const testo = "Ciao Andrea, ti scrivo dal sito ADR. Vorrei inviarti i documenti per una pratica CAF (ISEE/730).";
-            window.open(`https://wa.me/393515910955?text=${encodeURIComponent(testo)}`, '_blank');
-        }
-
-        // Progress Bar
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -158,7 +197,5 @@
             document.getElementById("progress-bar").style.width = scrolled + "%";
         };
     </script>
-    
-    <script src="chat.js"></script>
 </body>
 </html>
