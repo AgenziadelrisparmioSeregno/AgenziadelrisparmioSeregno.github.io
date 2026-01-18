@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contatti | ADR Seregno</title>
+    <title>CAF & Servizi | ADR Seregno</title>
     
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="apple-touch-icon" href="logo.png">
@@ -50,55 +50,58 @@
         nav a:hover, nav a.active { opacity: 1; color: var(--neon-blue); }
         .area-clienti-btn { background: rgba(0, 255, 157, 0.1); border: 1px solid var(--neon-green); color: var(--neon-green); padding: 5px 12px; border-radius: 5px; font-size: 0.55rem; font-family: 'Orbitron'; text-decoration: none; }
 
-        /* CONTACT GRID */
-        .contact-grid {
+        /* CAF GRID */
+        .caf-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin-top: 40px;
         }
 
+        .service-card {
+            background: var(--glass);
+            border: 1px solid #222;
+            border-radius: 15px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+        
+        .service-card:hover {
+            border-color: var(--neon-blue);
+            transform: translateY(-5px);
+        }
+
         .info-box {
             display: flex;
             align-items: flex-start;
             gap: 15px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             padding: 15px;
             background: rgba(255,255,255,0.02);
             border-radius: 10px;
-            border-left: 3px solid var(--neon-blue);
+            border-left: 3px solid var(--neon-green);
+        }
+
+        .btn-action { 
+            background: transparent; 
+            border: 1px solid var(--neon-green); 
+            color: var(--neon-green); 
+            padding: 15px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-family: 'Orbitron'; 
+            font-size: 0.8rem; 
+            width: 100%; 
             transition: 0.3s;
+            text-decoration: none;
+            display: block;
+            text-align: center;
         }
-        
-        .info-box:hover {
-            background: rgba(255,255,255,0.05);
-            transform: translateX(5px);
-        }
-
-        .map-container {
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid #222;
-            height: 100%;
-            min-height: 450px;
-            position: relative;
-        }
-
-        .map-container iframe {
-            filter: grayscale(1) invert(0.9) contrast(1.2);
-            border: 0;
-        }
-
-        .btn { background: transparent; border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 10px; border-radius: 5px; cursor: pointer; font-family: 'Orbitron'; transition: 0.3s; text-decoration: none; display: block; text-align: center; }
-        .btn-green { border-color: var(--neon-green); color: var(--neon-green); }
-        .btn-green:hover { background: var(--neon-green); color: black; box-shadow: 0 0 20px var(--neon-green); }
-
-        .glass-card { background: var(--glass); border: 1px solid #222; border-radius: 15px; padding: 25px; }
+        .btn-action:hover { background: var(--neon-green); color: black; box-shadow: 0 0 20px var(--neon-green); }
 
         @media (max-width: 850px) {
             nav { flex-direction: column; gap: 15px; }
-            .contact-grid { grid-template-columns: 1fr; }
-            .map-container { min-height: 300px; }
+            .caf-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -108,11 +111,11 @@
 
     <div class="market-ticker">
         <div class="ticker-content">
-            <span class="ticker-item">⚡ LUCE PUN: 0.118 €/kWh</span>
-            <span class="ticker-item">🔥 GAS PSV: 0.425 €/smc</span>
+            <span class="ticker-item">📊 SCADENZA ISEE: 31 DICEMBRE</span>
+            <span class="ticker-item">📄 MODELLO 730: INVIO DISPONIBILE</span>
             <span class="ticker-item">📍 SEDE: SEREGNO VIA CADORE 253</span>
-            <span class="ticker-item">📞 OFFICE: ATTIVO 09:00-18:30</span>
-            <span class="ticker-item">⚡ LUCE PUN: 0.118 €/kWh</span>
+            <span class="ticker-item">✅ PRATICHE VELOCI ADR</span>
+            <span class="ticker-item">📊 SCADENZA ISEE: 31 DICEMBRE</span>
         </div>
     </div>
 
@@ -120,9 +123,10 @@
         <a href="index.html"><img src="logo.png" alt="ADR Logo" class="nav-logo"></a>
         <div class="nav-links">
             <a href="index.html">HOME</a>
-            <a href="telefonia.html">TELEFONIA & SKY</a>
+            <a href="telefonia.html">TELEFONIA</a>
             <a href="fotovoltaico.html">FOTOVOLTAICO</a>
-            <a href="contatti.html" class="active">CONTATTI</a>
+            <a href="caf.html" class="active">CAF</a>
+            <a href="contatti.html">CONTATTI</a>
         </div>
         <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
     </nav>
@@ -130,62 +134,66 @@
     <div class="container" style="max-width: 1100px; margin: 0 auto; padding: 40px 20px;">
         
         <header style="text-align: center; margin-bottom: 60px;">
-            <h1 class="tech-font" style="font-size: 2.5rem; margin-bottom: 10px;">Base <span style="color: var(--neon-blue);">Operativa</span></h1>
-            <p style="color: #888; font-family: 'Orbitron'; font-size: 0.8rem;">Seregno, Brianza - Headquarters ADR</p>
+            <h1 class="tech-font" style="font-size: 2.5rem; margin-bottom: 10px;">Centro <span style="color: var(--neon-blue);">Assistenza</span></h1>
+            <p style="color: #888; font-family: 'Orbitron'; font-size: 0.8rem;">Supporto Fiscale e Pratiche Amministrative ADR</p>
         </header>
 
-        <div class="contact-grid">
+        <div class="caf-grid">
             
-            <div class="glass-card">
-                <h3 class="tech-font" style="color: var(--neon-blue); margin-bottom: 30px; font-size: 1rem;">Coordinate di Contatto</h3>
+            <div class="service-card">
+                <h3 class="tech-font" style="color: var(--neon-blue); margin-bottom: 25px; font-size: 1rem;">Servizi Fiscali</h3>
                 
                 <div class="info-box">
-                    <span style="font-size: 1.5rem;">📍</span>
+                    <span style="font-size: 1.5rem;">📁</span>
                     <div>
-                        <p class="tech-font" style="font-size: 0.7rem; color: var(--neon-blue); margin: 0;">Indirizzo Sede</p>
-                        <p style="font-size: 0.9rem; margin: 5px 0; color: #eee;">Via Cadore 253, 20831 Seregno (MB)</p>
+                        <p class="tech-font" style="font-size: 0.7rem; color: var(--neon-blue); margin: 0;">ISEE & Bonus</p>
+                        <p style="font-size: 0.85rem; margin: 5px 0; color: #eee;">Elaborazione DSU per accesso a bonus sociali e università.</p>
                     </div>
                 </div>
 
                 <div class="info-box">
-                    <span style="font-size: 1.5rem;">🕒</span>
+                    <span style="font-size: 1.5rem;">📝</span>
                     <div>
-                        <p class="tech-font" style="font-size: 0.7rem; color: var(--neon-blue); margin: 0;">Orari Ufficio</p>
-                        <p style="font-size: 0.85rem; margin: 5px 0; color: #eee;">Lun - Ven: 09:00 - 13:00 | 14:30 - 18:30</p>
-                        <p style="font-size: 0.85rem; margin: 5px 0; color: #888;">Sabato - Domenica: Ricevimento su appuntamento</p>
+                        <p class="tech-font" style="font-size: 0.7rem; color: var(--neon-blue); margin: 0;">Dichiarazione Redditi</p>
+                        <p style="font-size: 0.85rem; margin: 5px 0; color: #eee;">Modello 730, Unico e gestione detrazioni fiscali.</p>
                     </div>
                 </div>
 
-                <div class="info-box" style="border-left-color: var(--neon-green);">
-                    <span style="font-size: 1.5rem;">📞</span>
+                <div class="info-box">
+                    <span style="font-size: 1.5rem;">👵</span>
                     <div>
-                        <p class="tech-font" style="font-size: 0.7rem; color: var(--neon-green); margin: 0;">Supporto Rapido</p>
-                        <p style="font-size: 0.9rem; margin: 5px 0; color: #eee;">WhatsApp: <a href="https://wa.me/393515910955" style="color: var(--neon-green); text-decoration: none; font-weight: bold;">Chatta con Andrea</a></p>
+                        <p class="tech-font" style="font-size: 0.7rem; color: var(--neon-blue); margin: 0;">Successioni & IMU</p>
+                        <p style="font-size: 0.85rem; margin: 5px 0; color: #eee;">Assistenza completa per pratiche immobiliari e tributarie.</p>
                     </div>
                 </div>
-
-                <button class="btn btn-green" style="margin-top: 20px; width: 100%; padding: 20px; font-size: 0.9rem;" 
-                        onclick="window.open('https://www.google.it/maps/dir//Via+Cadore,+253,+20831+Seregno+MB', '_blank')">
-                    🚀 AVVIA NAVIGAZIONE IMMEDIATA
-                </button>
             </div>
 
-            <div class="map-container glass-card" style="padding: 0;">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2788.6322353328227!2d9.21327!3d45.6534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4786be964998967b%3A0x67305963f282928d!2sVia+Cadore%2C+253%2C+20831+Seregno+MB!5e0!3m2!1sit!2sit!4v1700000000000" 
-                    width="100%" height="100%" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+            <div class="service-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <h3 class="tech-font" style="color: var(--neon-green); margin-bottom: 25px; font-size: 1rem;">Prenota un Appuntamento</h3>
+                    <p style="color: #888; font-size: 0.9rem; line-height: 1.6;">
+                        Evita le code. Il servizio CAF di ADR Seregno riceve su appuntamento per garantirti la massima attenzione e velocità nell'elaborazione dei documenti.
+                    </p>
+                    <ul style="color: #ccc; font-size: 0.85rem; margin-top: 20px; padding-left: 20px;">
+                        <li>Porta con te i documenti d'identità</li>
+                        <li>Prepara la lista delle spese detraibili</li>
+                        <li>Ricevi la ricevuta di invio immediata</li>
+                    </ul>
+                </div>
+
+                <a href="https://wa.me/393515910955?text=Vorrei%20prenotare%20un%20appuntamento%20CAF" class="btn-action">
+                    📅 PRENOTA ORA SU WHATSAPP
+                </a>
             </div>
 
         </div>
 
-        <footer style="margin-top: 100px; padding: 40px; border-top: 1px solid #111; text-align: center; background: rgba(0,0,0,0.5);">
+        <footer style="margin-top: 100px; padding: 40px; border-top: 1px solid #111; text-align: center;">
             <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
                 <a href="privacy.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">PRIVACY POLICY</a>
                 <a href="index.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">HOME</a>
-                <a href="leaderboard.html" style="color: #666; text-decoration: none; font-size: 0.7rem;">CLASSIFICA</a>
             </div>
-            <p style="font-size: 0.6rem; color: #444;">© 2026 ADR SEREGNO - SISTEMA DI ASSISTENZA CENTRALIZZATO</p>
+            <p style="font-size: 0.6rem; color: #444;">© 2026 ADR SEREGNO - SERVIZI CAF CERTIFICATI</p>
         </footer>
     </div>
 
