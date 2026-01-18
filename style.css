@@ -186,3 +186,52 @@ footer {
         height: 35px; /* Più piccolo su smartphone */
     }
 }
+/* PARTNER SCROLL ANIMATION - AZZURRO ADR */
+.partner-container { 
+    overflow: hidden; 
+    padding: 50px 0; 
+    background: rgba(255, 255, 255, 0.3); 
+    margin: 40px 0; 
+    border-top: 1px solid var(--border-light); 
+    border-bottom: 1px solid var(--border-light);
+    backdrop-filter: blur(5px);
+}
+
+.partner-track { 
+    display: flex; 
+    align-items: center; 
+    gap: 80px; 
+    animation: scrollPartner 30s linear infinite; 
+    width: max-content; 
+}
+
+.partner-logo { 
+    height: 40px; 
+    width: auto; 
+    filter: grayscale(1) opacity(0.6); 
+    transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    object-fit: contain; 
+}
+
+.partner-logo:hover { 
+    filter: grayscale(0) opacity(1); 
+    transform: scale(1.2) rotate(3deg); 
+}
+
+@keyframes scrollPartner { 
+    0% { transform: translateX(0); } 
+    100% { transform: translateX(calc(-50%)); } 
+}
+
+/* Effetto di sfocatura ai lati per farli apparire/scomparire dolcemente */
+.partner-container {
+    position: relative;
+}
+.partner-container::before, .partner-container::after {
+    content: "";
+    position: absolute;
+    top: 0; width: 150px; height: 100%;
+    z-index: 2;
+}
+.partner-container::before { left: 0; background: linear-gradient(to right, rgba(255,255,255,1), transparent); }
+.partner-container::after { right: 0; background: linear-gradient(to left, rgba(255,255,255,1), transparent); }
