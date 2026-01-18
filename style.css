@@ -153,3 +153,120 @@ nav {
 }
 
 footer { padding: 40px; text-align: center; color: #aaa; font-size: 0.7rem; }
+/* BOT ADR-1 EXTREME 3D DESIGN */
+#bot-window {
+    display: none; 
+    width: 350px; 
+    height: 500px; 
+    background: rgba(255, 255, 255, 0.85); /* Effetto Vetro */
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 168, 255, 0.3);
+    border-radius: 25px; 
+    flex-direction: column; 
+    position: absolute; 
+    bottom: 80px; 
+    right: 0; 
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 168, 255, 0.15);
+    z-index: 10000;
+}
+
+.bot-header {
+    background: linear-gradient(135deg, var(--adr-blue), var(--adr-blue-dark));
+    color: white; 
+    padding: 15px; 
+    font-family: var(--tech-font); 
+    font-size: 0.8rem; 
+    font-weight: bold; 
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#bot-messages {
+    flex: 1; 
+    padding: 20px; 
+    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Bolla messaggio Utente */
+.msg-user {
+    align-self: flex-end; 
+    background: var(--adr-blue); 
+    color: white; 
+    padding: 10px 15px; 
+    border-radius: 18px 18px 2px 18px; 
+    font-size: 0.85rem; 
+    max-width: 80%;
+    box-shadow: 4px 4px 10px rgba(0, 168, 255, 0.2);
+}
+
+/* Bolla messaggio Bot */
+.msg-bot {
+    align-self: flex-start; 
+    background: white; 
+    color: #333; 
+    padding: 10px 15px; 
+    border-radius: 18px 18px 18px 2px; 
+    font-size: 0.85rem; 
+    max-width: 85%;
+    border: 1px solid rgba(0, 168, 255, 0.1);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.05);
+}
+
+/* Input Area */
+.bot-input-area {
+    padding: 15px; 
+    background: white; 
+    border-top: 1px solid rgba(0, 168, 255, 0.1);
+    display: flex; 
+    gap: 10px;
+}
+
+.bot-input-area input {
+    flex: 1; 
+    border: 1px solid #e0e0e0; 
+    padding: 10px; 
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: 0.3s;
+}
+
+.bot-input-area input:focus {
+    border-color: var(--adr-blue);
+    box-shadow: 0 0 5px rgba(0, 168, 255, 0.2);
+}
+
+.bot-send-btn {
+    background: var(--adr-blue);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.bot-send-btn:hover {
+    background: var(--adr-blue-dark);
+    transform: scale(1.05);
+}
+
+/* Mobile Fix per il Bot */
+@media (max-width: 480px) {
+    #bot-window {
+        width: calc(100vw - 40px);
+        right: 0px;
+        height: 450px;
+    }
+}
