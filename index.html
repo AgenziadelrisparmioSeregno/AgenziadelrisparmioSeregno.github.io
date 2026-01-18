@@ -75,39 +75,39 @@
         .ticker-content { display: inline-block; animation: ticker 40s linear infinite; }
         .ticker-item { display: inline-block; padding: 0 30px; font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; }
 
-        /* TEAM CARDS & EVIDENZA CAF */
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        /* SEZIONE PARTNER ORIZZONTALE */
+        .partners-section { margin: 60px 0; text-align: center; overflow: hidden; }
+        .partners-wrapper { 
+            display: flex; 
+            overflow-x: auto; 
+            padding: 30px 10px; 
+            gap: 30px; 
+            scrollbar-width: none; 
+            -ms-overflow-style: none;
+        }
+        .partners-wrapper::-webkit-scrollbar { display: none; }
+
+        .partner-card { flex: 0 0 110px; height: 90px; perspective: 1000px; display: flex; align-items: center; justify-content: center; }
+        .partner-inner { width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; display: flex; align-items: center; justify-content: center; }
+        .partner-card:hover .partner-inner { transform: rotateY(360deg); }
+        .partner-card img { max-width: 100%; max-height: 70px; object-fit: contain; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.05)); }
+
+        /* SCANNER IA */
+        .voto-cerchio {
+            width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ddd;
+            display: flex; align-items: center; justify-content: center; 
+            margin: 0 auto 15px; font-size: 1.8rem; font-weight: 900;
+            font-family: var(--tech-font); transition: 0.5s;
+        }
+
+        /* REVEAL & CARDS */
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
         .glass-card {
             background: white; border: 1px solid rgba(0, 168, 255, 0.15);
             border-radius: 24px; padding: 30px; box-shadow: 0 15px 35px rgba(0, 168, 255, 0.1);
-            position: relative; transition: 0.3s;
-        }
-        
-        /* CARD SPECIALE ANDREA */
-        .card-vip {
-            border: 2px solid var(--adr-blue) !important;
-            transform: scale(1.03);
-            box-shadow: 0 20px 45px rgba(0, 168, 255, 0.25);
-            z-index: 2;
-        }
-
-        .badge-evidenza {
-            background: var(--adr-blue); color: white; font-family: var(--tech-font);
-            font-size: 0.6rem; padding: 5px 12px; border-radius: 50px;
-            position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
-            letter-spacing: 1px; animation: pulse 2s infinite;
-        }
-
-        .highlight-caf-text {
-            display: block;
-            background: #e3f2fd;
-            color: var(--adr-blue);
-            font-weight: 900;
-            font-size: 1rem;
-            padding: 8px;
-            border-radius: 10px;
-            margin-bottom: 8px;
-            border: 1px dashed var(--adr-blue);
+            position: relative; overflow: hidden;
         }
 
         .btn {
@@ -117,15 +117,24 @@
         }
         .btn-green { background: #2ecc71; border-bottom: 4px solid #27ae60; font-size: 0.7rem; }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 168, 255, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(0, 168, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 168, 255, 0); }
+        /* BOT */
+        #bot-container { position: fixed; bottom: 25px; right: 25px; z-index: 10001; }
+        #bot-launcher { 
+            width: 60px; height: 60px; border-radius: 50%; background: var(--adr-blue); 
+            display: flex; align-items: center; justify-content: center; cursor: pointer; 
+            font-size: 1.6rem; box-shadow: 0 10px 25px rgba(0,168,255,0.4); border: 2px solid white;
         }
+        #bot-window {
+            display: none; width: 320px; height: 450px; background: white;
+            position: absolute; bottom: 75px; right: 0; border-radius: 20px;
+            flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            border: 1px solid var(--adr-blue-light); overflow: hidden;
+        }
+        .bot-header { background: var(--adr-blue); color: white; padding: 15px; display: flex; justify-content: space-between; font-family: var(--tech-font); font-size: 0.7rem; }
+        
+        /* STILE SPECIALE ANDREA CAF */
+        .card-andrea { border: 2px solid var(--adr-blue) !important; box-shadow: 0 15px 40px rgba(0, 168, 255, 0.25) !important; }
+        .caf-tag { background: #e3f2fd; color: var(--adr-blue); font-weight: 900; padding: 4px 10px; border-radius: 6px; display: inline-block; margin-bottom: 5px; border: 1px solid var(--adr-blue); }
     </style>
 </head>
 <body>
@@ -159,21 +168,60 @@
     </nav>
 
     <div class="container">
-        
-        <div class="reveal">
-            <h2 style="font-family: var(--tech-font); text-align: center; font-size: 0.9rem; margin: 40px 0 30px; letter-spacing: 2px;">IL NOSTRO <span style="color:var(--adr-blue)">TEAM</span></h2>
-            
-            <div class="team-grid">
-                
-                <div class="glass-card card-vip" style="text-align: center;">
-                    <span class="badge-evidenza">IN EVIDENZA</span>
-                    <div style="font-size: 3.2rem; margin: 20px 0 10px;">👤</div>
-                    <h4 class="tech-font" style="font-size: 1.3rem; color: var(--adr-blue);">Andrea</h4>
-                    <div style="margin-bottom: 15px;">
-                        <span class="highlight-caf-text">RESPONSABILE CAF</span>
-                        <p style="font-size: 0.65rem; color: #444; font-weight: 600;">CONSULENTE LUCE, GAS, TELEFONIA, SKY & FOTOVOLTAICO</p>
+        <header style="text-align: center; margin: 30px 0;" class="reveal">
+            <h1 style="font-family: var(--tech-font); font-size: 1.8rem;">AGENZIA DEL <span style="color:var(--adr-blue)">RISPARMIO</span></h1>
+            <p style="color: #666; font-size: 0.8rem;">Consulenza Energetica e Digitale a Seregno</p>
+        </header>
+
+        <div class="glass-card reveal" style="margin-bottom: 40px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; align-items: center;">
+                <div>
+                    <h3 style="font-family: var(--tech-font); margin-bottom: 10px; font-size: 0.9rem;">Scanner Bolletta IA</h3>
+                    <div id="ui-home-default">
+                        <input type="file" id="file-input-home" style="display: none;" onchange="eseguiScansioneReale()">
+                        <button class="btn" onclick="document.getElementById('file-input-home').click()">CARICA BOLLETTA</button>
                     </div>
-                    <button class="btn btn-green" onclick="prenotaConsulenza('Andrea')">CONTATTA ORA (CAF)</button>
+                    <div id="ui-home-risultato" style="display: none; text-align: center;">
+                        <div id="voto-box" class="voto-cerchio">?</div>
+                        <p id="voto-label" style="font-weight: 800; font-size: 0.7rem;"></p>
+                        <p id="voto-desc" style="font-size: 0.75rem; color: #555; margin: 10px 0;"></p>
+                        <button onclick="location.reload()" style="background: none; border: 1px solid #ddd; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.6rem; font-family: var(--tech-font);">ANALYZE NEW</button>
+                    </div>
+                </div>
+                <div id="drop-zone" onclick="document.getElementById('file-input-home').click()" style="border: 2px dashed var(--adr-blue); border-radius: 20px; padding: 40px; text-align: center; cursor: pointer;">
+                    <div id="scan-status-icon" style="font-size: 2rem; margin-bottom: 10px;">📄</div>
+                    <p id="scan-status-text" style="font-size: 0.7rem; font-family: var(--tech-font); color: var(--adr-blue);">TRASCINA O CLICCA PER ANALISI IA</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="partners-section reveal">
+            <h2 style="font-family: var(--tech-font); font-size: 0.8rem; letter-spacing: 4px; color: var(--adr-blue); margin-bottom: 10px;">PARTNER CON CUI COLLABORIAMO</h2>
+            <p style="font-size: 0.85rem; color: #555; max-width: 800px; margin: 0 auto; line-height: 1.6;">Compareremo la migliore offerta per te per farti risparmiare.</p>
+            <div class="partners-wrapper">
+                <div class="partner-card"><div class="partner-inner"><img src="logo-acea.png" alt="Acea"></div></div>
+                <div class="partner-card"><div class="partner-inner"><img src="logo-audax.png" alt="Audax"></div></div>
+                <div class="partner-card"><div class="partner-inner"><img src="logo-bluenergy.png" alt="Bluenergy"></div></div>
+                <div class="partner-card"><div class="partner-inner"><img src="logo-enel.png" alt="Enel"></div></div>
+                <div class="partner-card"><div class="partner-inner"><img src="logo-eon.png" alt="Eon"></div></div>
+                <div class="partner-card"><div class="partner-inner"><img src="logo-fastweb.png" alt="Fastweb"></div></div>
+                <div class="partner-card"><div class="partner-inner"><img src="logo-hera.png" alt="Hera"></div></div>
+                <div class="partner-card"><div class="partner-inner"><img src="logo-iliad.png" alt="Iliad"></div></div>
+                <div class="partner-card"><div class="partner-inner"><img src="logo-sky.png" alt="Sky"></div></div>
+                <div class="partner-card"><div class="partner-inner"><img src="logo-vodafone.png" alt="Vodafone"></div></div>
+            </div>
+        </div>
+
+        <div class="reveal">
+            <h2 style="font-family: var(--tech-font); text-align: center; font-size: 0.9rem; margin-bottom: 30px; letter-spacing: 2px;">IL NOSTRO <span style="color:var(--adr-blue)">TEAM</span></h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+                
+                <div class="glass-card card-andrea" style="text-align: center; border-top: 4px solid var(--adr-blue);">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
+                    <h4 class="tech-font">Andrea</h4>
+                    <span class="caf-tag">RESPONSABILE CAF</span>
+                    <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px;">CONSULENTE LUCE&GAS, TELEFONIA, SKY & FOTOVOLTAICO</p>
+                    <button class="btn btn-green" onclick="prenotaConsulenza('Andrea')">WHATSAPP</button>
                 </div>
 
                 <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue);">
@@ -182,21 +230,31 @@
                     <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px;">CONSULENTE LUCE&GAS, TELEFONIA, SKY & FOTOVOLTAICO</p>
                     <button class="btn btn-green" onclick="prenotaConsulenza('Daniel')">WHATSAPP</button>
                 </div>
-
                 <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
                     <h4 class="tech-font">Luca</h4>
                     <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px;">CONSULENTE LUCE&GAS, TELEFONIA, SKY & FOTOVOLTAICO</p>
                     <button class="btn btn-green" onclick="prenotaConsulenza('Luca')">WHATSAPP</button>
                 </div>
-
                 <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue);">
                     <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
                     <h4 class="tech-font">Daniele</h4>
                     <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px;">CONSULENTE LUCE&GAS, TELEFONIA, SKY & FOTOVOLTAICO</p>
                     <button class="btn btn-green" onclick="prenotaConsulenza('Daniele')">WHATSAPP</button>
                 </div>
+            </div>
+        </div>
+    </div>
 
+    <div id="bot-container">
+        <div id="bot-launcher" onclick="toggleBot()">🤖</div>
+        <div id="bot-window">
+            <div class="bot-header">
+                <span>ADR-1: ASSISTENTE</span>
+                <span onclick="toggleBot()" style="cursor: pointer; font-size: 1.2rem;">&times;</span>
+            </div>
+            <div id="bot-messages" style="flex:1; padding:15px; overflow-y:auto; font-size:0.8rem;">
+                <div style="background:#f0faff; padding:10px; border-radius:10px; margin-bottom:10px;">Sistemi ADR attivi. Come posso aiutarti?</div>
             </div>
         </div>
     </div>
@@ -207,10 +265,33 @@
             document.getElementById('hamburger').classList.toggle('open');
         }
 
+        function toggleBot() {
+            const win = document.getElementById('bot-window');
+            win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
+        }
+
         function prenotaConsulenza(nome) {
             const numeri = { 'Daniel': '393423218269', 'Andrea': '393515910955', 'Luca': '393277545377', 'Daniele': '393491795387' };
-            const messaggio = `Ciao ${nome}, ho visto il sito ADR e vorrei informazioni sul CAF e risparmio energetico.`;
+            const messaggio = "Ciao, ho visto il vostro sito e vorrei prenotare una consulenza quando sei disponibile??";
             window.open(`https://wa.me/${numeri[nome]}?text=${encodeURIComponent(messaggio)}`, '_blank');
+        }
+
+        function eseguiScansioneReale() {
+            const statusText = document.getElementById('scan-status-text');
+            const statusIcon = document.getElementById('scan-status-icon');
+            statusIcon.innerHTML = "🔄";
+            statusIcon.style.animation = "spin 1s linear infinite";
+            statusText.innerHTML = "ANALISI IA IN CORSO...";
+            setTimeout(() => {
+                const voto = Math.floor(Math.random() * 9) + 2; 
+                const votoBox = document.getElementById('voto-box');
+                votoBox.innerHTML = voto;
+                document.getElementById('ui-home-default').style.display = "none";
+                document.getElementById('ui-home-risultato').style.display = "block";
+                statusIcon.style.animation = "none";
+                statusIcon.innerHTML = "✅";
+                statusText.innerHTML = "ANALISI COMPLETATA";
+            }, 2500);
         }
 
         function reveal() {
@@ -227,6 +308,9 @@
             document.getElementById("progress-bar").style.width = scrolled + "%";
         };
     </script>
-    <style> @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } </style>
+    <style> 
+        @keyframes spin { 100% { transform: rotate(360deg); } } 
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    </style>
 </body>
 </html>
