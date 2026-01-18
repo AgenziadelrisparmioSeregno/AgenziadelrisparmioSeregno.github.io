@@ -102,10 +102,10 @@
                 <span onclick="toggleBot()" style="cursor: pointer; font-size: 1.2rem;">&times;</span>
             </div>
             <div id="bot-messages">
-                <div class="msg-bot">Benvenuto. Sono l'intelligenza ADR-1. Analizzo il mercato in tempo reale per te. Come posso aiutarti?</div>
+                <div class="msg-bot">Ciao, sono ADR-1. Chiedimi pure spiegazioni sul mercato energetico o sulla fibra. Cercherò la risposta per te su internet!</div>
             </div>
             <div class="bot-input-area">
-                <input type="text" id="user-input" placeholder="Chiedimi del mercato libero, PUN, fotovoltaico..." onkeypress="if(event.key==='Enter') inviaMessaggioBot()">
+                <input type="text" id="user-input" placeholder="Cos'è il PUN? Cos'è il mercato libero?" onkeypress="if(event.key==='Enter') inviaMessaggioBot()">
                 <button class="bot-send-btn" onclick="inviaMessaggioBot()">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
                 </button>
@@ -118,7 +118,6 @@
     </footer>
 
     <script>
-        // --- LOGICA BOT INTELLIGENTE CON RICERCA WEB ---
         async function inviaMessaggioBot() {
             const input = document.getElementById('user-input');
             const msgContainer = document.getElementById('bot-messages');
@@ -126,53 +125,52 @@
 
             if (testoUtente === "") return;
 
-            // Messaggio Utente
             msgContainer.innerHTML += `<div class="msg-user">${testoUtente}</div>`;
             input.value = "";
             msgContainer.scrollTop = msgContainer.scrollHeight;
 
-            // Animazione Pensiero
             const typingId = "typing-" + Date.now();
-            msgContainer.innerHTML += `<div id="${typingId}" class="msg-bot"><i>🔎 ADR-1 sta analizzando i database...</i></div>`;
+            msgContainer.innerHTML += `<div id="${typingId}" class="msg-bot"><i>🔎 Sto cercando informazioni aggiornate per te...</i></div>`;
             msgContainer.scrollTop = msgContainer.scrollHeight;
 
             try {
-                // RICERCA WEB "GHOST" (Il cliente non sa che cerchiamo su internet)
-                const response = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(testoUtente)}&format=json&no_html=1`);
+                // RICERCA WEB
+                const response = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(testoUtente)}&format=json&no_html=1&skip_disambig=1`);
                 const data = await response.json();
+                
+                document.getElementById(typingId).remove();
                 
                 let rispostaFinale = "";
                 let mostraEsperti = false;
 
-                if (data.AbstractText) {
-                    rispostaFinale = "<b>Analisi completata:</b><br>" + data.AbstractText;
+                if (data.AbstractText && data.AbstractText !== "") {
+                    // Se trova una risposta su internet, la dà e basta
+                    rispostaFinale = "<b>Ho trovato questo:</b><br>" + data.AbstractText;
                 } else {
-                    // Logica interna se internet non ha risposte pronte
+                    // Se non trova nulla, prova logica locale o passa agli esperti
                     const t = testoUtente.toLowerCase();
                     if(t.includes("costo") || t.includes("gratis")) {
-                        rispostaFinale = "La nostra consulenza è gratuita. Risparmi subito senza costi fissi.";
-                    } else if(t.includes("sede") || t.includes("dove")) {
-                        rispostaFinale = "Siamo a Seregno, pronti ad accoglierti in agenzia.";
+                        rispostaFinale = "La nostra consulenza è gratuita. Guadagniamo dalle compagnie se ti facciamo risparmiare.";
+                    } else if(t.includes("mercato libero")) {
+                        rispostaFinale = "Il mercato libero ti permette di scegliere il fornitore che preferisci. Dal 2024 è obbligatorio passare dal mercato tutelato al libero.";
                     } else {
-                        rispostaFinale = "Questa richiesta richiede un'analisi tecnica approfondita del nostro team.";
+                        rispostaFinale = "Questa domanda è molto specifica. Per darti un'assistenza precisa e sicura, ti consiglio di parlare con i nostri specialisti umani.";
                         mostraEsperti = true;
                     }
                 }
 
-                document.getElementById(typingId).remove();
-                
                 let htmlRisposta = `<div class="msg-bot">${rispostaFinale}`;
                 
-                // Se la risposta è complessa, aggiunge i 4 esperti
-                if (mostraEsperti || testoUtente.length > 40) {
+                // Se la risposta fallisce o è una richiesta di aiuto, mostra i tasti
+                if (mostraEsperti) {
                     htmlRisposta += `
                     <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
-                        <p style="font-size: 0.7rem; font-weight: bold; color: var(--adr-blue);">Scegli un consulente per concludere:</p>
+                        <p style="font-size: 0.7rem; font-weight: bold; color: var(--adr-blue);">Contatta il team ADR:</p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 8px;">
-                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Andrea', 'bot')">ANDREA</button>
-                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Daniel', 'bot')">DANIEL</button>
-                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Daniele', 'bot')">DANIELE</button>
-                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Luca', 'bot')">LUCA</button>
+                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Andrea', 'assistenza')">ANDREA</button>
+                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Daniel', 'assistenza')">DANIEL</button>
+                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Daniele', 'assistenza')">DANIELE</button>
+                            <button class="btn" style="font-size: 0.6rem; padding: 5px;" onclick="vaiWhatsApp('Luca', 'assistenza')">LUCA</button>
                         </div>
                     </div>`;
                 }
@@ -180,7 +178,7 @@
                 msgContainer.innerHTML += htmlRisposta;
 
             } catch (e) {
-                document.getElementById(typingId).innerHTML = "Connessione instabile. Contattaci su WhatsApp.";
+                document.getElementById(typingId).innerHTML = "Si è verificato un errore nella ricerca. Contattaci su WhatsApp.";
             }
             msgContainer.scrollTop = msgContainer.scrollHeight;
         }
@@ -190,11 +188,10 @@
             win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
         }
 
-        // --- FUNZIONI DI SERVIZIO ---
         function eseguiScansioneHome() {
             const file = document.getElementById('file-input-home').files[0];
             if (file) {
-                document.getElementById('label-home').innerHTML = "<span style='color:var(--adr-green)'>ANALISI IN CORSO...</span>";
+                document.getElementById('label-home').innerHTML = "<span style='color:var(--adr-green)'>ANALISI...</span>";
                 setTimeout(() => {
                     document.getElementById('ui-home-default').style.display = "none";
                     document.getElementById('ui-home-risultato').style.display = "block";
@@ -204,7 +201,7 @@
 
         function vaiWhatsApp(agente, motivo) {
             const numeri = { 'Daniel': '393423218269', 'Daniele': '393491795387', 'Luca': '393277545377', 'Andrea': '393515910955' };
-            let msg = `Ciao ${agente}, ho parlato con ADR-1 e vorrei una consulenza professionale.`;
+            let msg = `Ciao ${agente}, ho parlato con il bot ADR-1 e avrei bisogno di un aiuto professionale.`;
             window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
