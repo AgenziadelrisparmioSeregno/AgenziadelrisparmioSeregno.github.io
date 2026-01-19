@@ -14,7 +14,6 @@
             --adr-blue-light: #f0faff;
             --tech-font: 'Orbitron', sans-serif;
             --body-font: 'Inter', sans-serif;
-            --danger: #ff4757;
             --success: #2ed573;
         }
 
@@ -38,39 +37,38 @@
         }
 
         /* HERO */
-        .energy-hero { background: var(--adr-dark); color: white; padding: 60px 20px; text-align: center; }
+        .energy-hero { background: var(--adr-dark); color: white; padding: 80px 20px; text-align: center; }
 
-        /* SECTIONS */
-        .container { max-width: 1200px; margin: -50px auto 50px; padding: 0 20px; }
-        .section-header { font-family: var(--tech-font); font-size: 1rem; color: var(--adr-dark); margin: 40px 0 20px; display: flex; align-items: center; gap: 10px; }
-        .section-header::after { content: ""; flex: 1; height: 1px; background: #ccd; }
+        /* SEZIONE METODO */
+        .container { max-width: 1200px; margin: -40px auto 60px; padding: 0 20px; }
+        
+        .method-card { background: white; border-radius: 24px; padding: 40px; border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
+        .section-header { font-family: var(--tech-font); font-size: 1.2rem; color: var(--adr-blue); margin-bottom: 20px; display: block; }
+        
+        .grid-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+        .feature-box { padding: 20px; border-radius: 15px; background: var(--adr-blue-light); border: 1px solid rgba(0, 168, 255, 0.1); }
+        .feature-box h3 { font-family: var(--tech-font); font-size: 0.9rem; margin-bottom: 10px; color: var(--adr-dark); }
+        .feature-box p { font-size: 0.85rem; opacity: 0.8; }
 
-        .grid-offerte { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        /* SEZIONE UPLOAD */
+        .upload-container { max-width: 800px; margin: 40px auto; }
+        .upload-card { background: var(--adr-dark); color: white; padding: 40px; border-radius: 30px; position: relative; overflow: hidden; }
+        .upload-card::before { content: ""; position: absolute; top: 0; right: 0; width: 150px; height: 150px; background: var(--adr-blue); filter: blur(100px); opacity: 0.3; }
 
-        /* CARDS */
-        .card { background: white; border-radius: 24px; padding: 30px; border: 1px solid #eee; transition: 0.3s; position: relative; overflow: hidden; display: flex; flex-direction: column; }
-        .card:hover { border-color: var(--adr-blue); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,168,255,0.1); }
-        .label { position: absolute; top: 15px; right: -30px; background: var(--adr-blue); color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.6rem; font-family: var(--tech-font); z-index: 1; }
+        .file-drop-area { border: 2px dashed rgba(255,255,255,0.3); border-radius: 20px; padding: 40px; text-align: center; cursor: pointer; transition: 0.3s; margin: 25px 0; }
+        .file-drop-area:hover { border-color: var(--adr-blue); background: rgba(0,168,255,0.05); }
+        
+        .upload-form input[type="email"], .upload-form input[type="tel"] {
+            width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; margin-bottom: 15px; font-family: var(--body-font);
+        }
 
-        .gestore { font-size: 0.65rem; font-weight: 800; color: var(--adr-blue); text-transform: uppercase; margin-bottom: 5px; }
-        .price { font-size: 2.3rem; font-weight: 900; margin: 10px 0; color: var(--adr-dark); }
-        .price span { font-size: 0.8rem; color: #888; font-weight: 400; }
+        .btn-upload { background: var(--adr-blue); color: white; width: 100%; padding: 18px; border: none; border-radius: 12px; font-family: var(--tech-font); font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 1rem; }
+        .btn-upload:hover { transform: scale(1.02); filter: brightness(1.1); }
+        
+        #file-name { margin-top: 10px; font-size: 0.8rem; color: var(--success); font-family: var(--tech-font); }
+        
+        .footer-note { font-size: 0.7rem; opacity: 0.6; margin-top: 15px; text-align: center; }
 
-        .features { list-style: none; margin-bottom: 25px; flex-grow: 1; }
-        .features li { font-size: 0.8rem; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-        .features li::before { content: "✓"; color: var(--success); font-weight: 800; }
-
-        /* SELECTOR */
-        .btn-main { background: var(--adr-blue); color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-family: var(--tech-font); font-weight: 700; cursor: pointer; transition: 0.2s; }
-        .btn-main:hover { filter: brightness(1.1); }
-
-        .consultant-selector { display: none; margin-top: 15px; background: #f8f9fa; padding: 15px; border-radius: 15px; border: 1px dashed var(--adr-blue); }
-        .consultant-selector.active { display: block; animation: fadeIn 0.3s; }
-        .cons-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px; }
-        .cons-btn { background: white; border: 1px solid #ddd; padding: 10px; border-radius: 10px; cursor: pointer; font-size: 0.7rem; font-family: var(--tech-font); text-align: center; }
-        .cons-btn:hover { border-color: var(--adr-blue); background: var(--adr-blue-light); }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -93,142 +91,57 @@
     </nav>
 
     <header class="energy-hero">
-        <h1 class="tech-font" style="font-size: 1.8rem;">OFFERTE <span style="color:var(--adr-blue)">ENERGIA</span></h1>
-        <p style="font-size: 0.8rem; opacity: 0.8;">Tariffe aggiornate Gennaio 2026. Scegli e contatta il tuo consulente.</p>
+        <h1 class="tech-font" style="font-size: 2rem; letter-spacing: 2px;">STRATEGIA <span style="color:var(--adr-blue)">ENERGETICA</span></h1>
+        <p style="font-size: 0.9rem; opacity: 0.8; max-width: 600px; margin: 15px auto;">Non siamo legati ad un singolo fornitore. Analizziamo il mercato per darti il prezzo reale più basso.</p>
     </header>
 
     <div class="container">
-        
-        <div class="section-header">ENERGIA ELETTRICA</div>
-        <div class="grid-offerte">
-            
-            <div class="card">
-                <div class="label">TOP FISSO</div>
-                <div class="gestore">Acea Energia</div>
-                <h3 class="tech-font">ACEA FIX CASA</h3>
-                <div class="price">0.1201 <span>€/kWh*</span></div>
-                <ul class="features">
-                    <li><strong>Prezzo Fisso 12 Mesi</strong></li>
-                    <li>Compreso Perdite di Rete (10%)</li>
-                    <li>Zero sorprese in bolletta</li>
-                </ul>
-                <button class="btn-main" onclick="openSelector(this)">CONSULENZA WHATSAPP</button>
-                <div class="consultant-selector">
-                    <div class="cons-grid">
-                        <div class="cons-btn" onclick="contact('Andrea', 'Acea Fix Luce')">🏢 Andrea</div>
-                        <div class="cons-btn" onclick="contact('Daniel', 'Acea Fix Luce')">👤 Daniel</div>
-                        <div class="cons-btn" onclick="contact('Luca', 'Acea Fix Luce')">👤 Luca</div>
-                        <div class="cons-btn" onclick="contact('Daniele', 'Acea Fix Luce')">👤 Daniele</div>
-                    </div>
-                </div>
-            </div>
+        <div class="method-card">
+            <span class="section-header">IL NOSTRO METODO</span>
+            <h2 class="tech-font" style="font-size: 1.4rem;">Selezioniamo le offerte migliori. <br>Le compariamo per te.</h2>
+            <p style="margin-top: 15px; color: #556;">
+                In ADR Seregno monitoriamo quotidianamente l'andamento del mercato energetico nazionale (PUN e PSV). <br> 
+                <strong>Il nostro lavoro è filtrare le centinaia di tariffe esistenti per isolare solo quelle che garantiscono il risparmio effettivo più alto.</strong>
+            </p>
 
-            <div class="card">
-                <div class="gestore">E.ON Energia</div>
-                <h3 class="tech-font">FLEX CASA LUCE</h3>
-                <div class="price">PUN <span>+ Spread</span></div>
-                <ul class="features">
-                    <li><strong>Assistenza Casa h24</strong></li>
-                    <li>Energia 100% Rinnovabile</li>
-                    <li>Servizio Europ Assistance</li>
-                </ul>
-                <button class="btn-main" onclick="openSelector(this)">CONSULENZA WHATSAPP</button>
-                <div class="consultant-selector">
-                    <div class="cons-grid">
-                        <div class="cons-btn" onclick="contact('Andrea', 'E.ON Flex Luce')">🏢 Andrea</div>
-                        <div class="cons-btn" onclick="contact('Daniel', 'E.ON Flex Luce')">👤 Daniel</div>
-                        <div class="cons-btn" onclick="contact('Luca', 'E.ON Flex Luce')">👤 Luca</div>
-                        <div class="cons-btn" onclick="contact('Daniele', 'E.ON Flex Luce')">👤 Daniele</div>
-                    </div>
+            <div class="grid-features">
+                <div class="feature-box">
+                    <h3>🔍 Scouting Costante</h3>
+                    <p>Analizziamo i listini di oltre 20 fornitori per trovare le "offerte civetta" ed eliminarle dai nostri consigli.</p>
                 </div>
-            </div>
-
-            <div class="card">
-                <div class="label" style="background:#2ed573">FINO AL 2026</div>
-                <div class="gestore">Bluenergy</div>
-                <h3 class="tech-font">RELAX CASA LUCE</h3>
-                <div class="price">0.143 <span>€/kWh*</span></div>
-                <ul class="features">
-                    <li><strong>Bloccato al 31/12/2026</strong></li>
-                    <li>Protezione rincari a lungo termine</li>
-                    <li>Energia prodotta in Italia</li>
-                </ul>
-                <button class="btn-main" onclick="openSelector(this)">CONSULENZA WHATSAPP</button>
-                <div class="consultant-selector">
-                    <div class="cons-grid">
-                        <div class="cons-btn" onclick="contact('Andrea', 'Bluenergy Relax Luce')">🏢 Andrea</div>
-                        <div class="cons-btn" onclick="contact('Daniel', 'Bluenergy Relax Luce')">👤 Daniel</div>
-                        <div class="cons-btn" onclick="contact('Luca', 'Bluenergy Relax Luce')">👤 Luca</div>
-                        <div class="cons-btn" onclick="contact('Daniele', 'Bluenergy Relax Luce')">👤 Daniele</div>
-                    </div>
+                <div class="feature-box">
+                    <h3>📊 Comparazione Tecnica</h3>
+                    <p>Confrontiamo le quote fisse e le componenti energia per trovare la combinazione più bassa in base ai tuoi consumi.</p>
+                </div>
+                <div class="feature-box">
+                    <h3>🛡️ Tutela del Prezzo</h3>
+                    <p>Ti avvisiamo noi quando il mercato scende o quando è il momento di bloccare la tariffa per evitare rincari.</p>
                 </div>
             </div>
         </div>
 
-        <div class="section-header" style="margin-top: 60px;">GAS NATURALE</div>
-        <div class="grid-offerte">
-            
-            <div class="card">
-                <div class="label" style="background:var(--danger)">SUPER FISSO</div>
-                <div class="gestore">Bluenergy</div>
-                <h3 class="tech-font">RELAX GAS CASA</h3>
-                <div class="price">0.482 <span>€/Smc*</span></div>
-                <ul class="features">
-                    <li><strong>Bloccato fino al 30/09/2027</strong></li>
-                    <li>Massima durata sul mercato</li>
-                    <li>Zero rincari per 2 inverni</li>
-                </ul>
-                <button class="btn-main" onclick="openSelector(this)">CONSULENZA WHATSAPP</button>
-                <div class="consultant-selector">
-                    <div class="cons-grid">
-                        <div class="cons-btn" onclick="contact('Andrea', 'Bluenergy Relax Gas')">🏢 Andrea</div>
-                        <div class="cons-btn" onclick="contact('Daniel', 'Bluenergy Relax Gas')">👤 Daniel</div>
-                        <div class="cons-btn" onclick="contact('Luca', 'Bluenergy Relax Gas')">👤 Luca</div>
-                        <div class="cons-btn" onclick="contact('Daniele', 'Bluenergy Relax Gas')">👤 Daniele</div>
+        <div class="upload-container">
+            <div class="upload-card">
+                <h2 class="tech-font" style="font-size: 1.2rem; text-align: center;">OTTIENI UN'ANALISI GRATUITA</h2>
+                <p style="text-align: center; font-size: 0.85rem; opacity: 0.8; margin-top: 10px;">Carica la tua bolletta attuale: i nostri esperti la comparianno con le migliori tariffe di Gennaio 2026.</p>
+                
+                <form class="upload-form" action="processa_bolletta.php" method="POST" enctype="multipart/form-data">
+                    <div class="file-drop-area" onclick="document.getElementById('bolletta-file').click()">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">📄</div>
+                        <p class="tech-font" style="font-size: 0.7rem;">TRASCINA O CLICCA PER CARICARE</p>
+                        <p style="font-size: 0.6rem; opacity: 0.5;">PDF, JPG o PNG (Max 10MB)</p>
+                        <input type="file" id="bolletta-file" name="bolletta" hidden accept=".pdf, .jpg, .jpeg, .png" onchange="updateFileName(this)">
+                        <div id="file-name"></div>
                     </div>
-                </div>
-            </div>
 
-            <div class="card">
-                <div class="gestore">E.ON Energia</div>
-                <h3 class="tech-font">GAS VERDE PROTETTO</h3>
-                <div class="price">0.546 <span>€/Smc*</span></div>
-                <ul class="features">
-                    <li><strong>Polizza Casa Inclusa</strong></li>
-                    <li>Prezzo Fisso 12 Mesi</li>
-                    <li>CO2 Compensata (Green)</li>
-                </ul>
-                <button class="btn-main" onclick="openSelector(this)">CONSULENZA WHATSAPP</button>
-                <div class="consultant-selector">
-                    <div class="cons-grid">
-                        <div class="cons-btn" onclick="contact('Andrea', 'E.ON Gas Verde')">🏢 Andrea</div>
-                        <div class="cons-btn" onclick="contact('Daniel', 'E.ON Gas Verde')">👤 Daniel</div>
-                        <div class="cons-btn" onclick="contact('Luca', 'E.ON Gas Verde')">👤 Luca</div>
-                        <div class="cons-btn" onclick="contact('Daniele', 'E.ON Gas Verde')">👤 Daniele</div>
-                    </div>
-                </div>
-            </div>
+                    <input type="email" name="email" placeholder="La tua Email per il report" required>
+                    <input type="tel" name="telefono" placeholder="Telefono (opzionale)">
 
-            <div class="card">
-                <div class="gestore">E.ON Energia</div>
-                <h3 class="tech-font">FLEX GAS PROTETTA</h3>
-                <div class="price">PSV <span>+ Spread</span></div>
-                <ul class="features">
-                    <li><strong>Assicurazione Guasti</strong></li>
-                    <li>Prezzo all'ingrosso (PSV)</li>
-                    <li>Team tecnico H24 incluso</li>
-                </ul>
-                <button class="btn-main" onclick="openSelector(this)">CONSULENZA WHATSAPP</button>
-                <div class="consultant-selector">
-                    <div class="cons-grid">
-                        <div class="cons-btn" onclick="contact('Andrea', 'E.ON Flex Gas')">🏢 Andrea</div>
-                        <div class="cons-btn" onclick="contact('Daniel', 'E.ON Flex Gas')">👤 Daniel</div>
-                        <div class="cons-btn" onclick="contact('Luca', 'E.ON Flex Gas')">👤 Luca</div>
-                        <div class="cons-btn" onclick="contact('Daniele', 'E.ON Flex Gas')">👤 Daniele</div>
-                    </div>
-                </div>
+                    <button type="submit" class="btn-upload tech-font">SCOPRI QUANTO RISPARMI</button>
+                    
+                    <p class="footer-note">I tuoi dati sono protetti e saranno utilizzati esclusivamente per fornirti la comparazione richiesta.</p>
+                </form>
             </div>
-
         </div>
     </div>
 
@@ -237,21 +150,9 @@
             document.getElementById('navMenu').classList.toggle('active');
         }
 
-        function openSelector(btn) {
-            document.querySelectorAll('.consultant-selector').forEach(s => s.classList.remove('active'));
-            btn.nextElementSibling.classList.add('active');
-        }
-
-        function contact(consulente, offerta) {
-            const numeri = { 
-                'Andrea': '393515910955', 
-                'Daniel': '393423218269', 
-                'Luca': '393277545377', 
-                'Daniele': '393491795387' 
-            };
-            const msg = `Ciao ${consulente}, sto navigando sul sito ADR e vorrei maggiori informazioni sull'offerta "${offerta}". Possiamo fissare una consulenza?`;
-            const url = `https://wa.me/${numeri[consulente]}?text=${encodeURIComponent(msg)}`;
-            window.open(url, '_blank');
+        function updateFileName(input) {
+            const fileName = input.files[0] ? input.files[0].name : "";
+            document.getElementById('file-name').innerHTML = fileName ? `✓ File pronto: ${fileName}` : "";
         }
     </script>
 </body>
