@@ -32,7 +32,19 @@
             line-height: 1.6;
         }
 
-        /* BARRA PROGRESSO */
+        /* BANNER PRIVACY AGGIUNTIVO (A COMPARSA TUTTO SITO) */
+        #cookie-banner {
+            position: fixed; bottom: 0; left: 0; width: 100%; 
+            background: var(--adr-dark); color: white; padding: 20px;
+            z-index: 50000; display: flex; flex-direction: column; align-items: center;
+            text-align: center; border-top: 3px solid var(--adr-blue);
+            transform: translateY(100%); transition: 0.5s ease-in-out;
+        }
+        #cookie-banner.active { transform: translateY(0); }
+        #cookie-banner p { font-size: 0.75rem; margin-bottom: 15px; max-width: 800px; }
+        .cookie-btns { display: flex; gap: 10px; }
+
+        /* PROGRESS BAR */
         #progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 20000; pointer-events: none; }
         #progress-bar { height: 100%; background: var(--adr-blue); width: 0%; box-shadow: 0 0 10px var(--adr-blue-neon); }
 
@@ -50,39 +62,40 @@
         .nav-link { font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; color: var(--adr-dark); text-decoration: none; transition: 0.3s; }
         .nav-link:hover, .nav-link.active { color: var(--adr-blue); }
 
-        /* SEZIONE SERVIZI */
-        .service-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 25px; }
-        .service-opt { 
-            border: 2px solid #eee; padding: 15px 5px; border-radius: 15px; cursor: pointer; text-align: center;
-            transition: 0.3s; font-family: var(--tech-font); font-size: 0.65rem; font-weight: 700;
-        }
-        .service-opt:hover { border-color: var(--adr-blue); background: var(--adr-blue-light); }
-        .service-opt.selected { border-color: var(--adr-blue); background: var(--adr-blue); color: white; }
+        @media (max-width: 850px) { .nav-menu { display: none; } }
+
+        .area-clienti-btn { background: var(--adr-blue); color: white; padding: 8px 18px; border-radius: 50px; font-family: var(--tech-font); font-size: 0.65rem; font-weight: 800; text-decoration: none; }
 
         /* TICKER */
         .market-ticker { background: var(--adr-blue); color: white; padding: 8px 0; overflow: hidden; white-space: nowrap; position: relative; z-index: 5000; }
         .ticker-content { display: inline-block; animation: ticker 40s linear infinite; }
         .ticker-item { display: inline-block; padding: 0 30px; font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; }
 
+        /* SEZIONE SERVIZI */
+        .service-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+        .service-opt { 
+            border: 2px solid #eee; padding: 15px 5px; border-radius: 15px; cursor: pointer; text-align: center;
+            transition: 0.3s; font-family: var(--tech-font); font-size: 0.65rem; font-weight: 700; background: white;
+        }
+        .service-opt.selected { border-color: var(--adr-blue); background: var(--adr-blue); color: white; box-shadow: var(--neon-shadow); }
+
+        /* UPLOAD */
+        #upload-zone { border: 2px dashed #ccc; border-radius: 20px; padding: 30px; text-align: center; cursor: pointer; transition: 0.3s; margin-top: 15px; }
+        #upload-zone.ready { border-color: var(--adr-blue); background: var(--adr-blue-light); }
+
         /* REVEAL & CARDS */
         .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
         .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .glass-card {
-            background: white; border: 1px solid rgba(0, 168, 255, 0.15);
-            border-radius: 24px; padding: 30px; box-shadow: 0 15px 35px rgba(0, 168, 255, 0.1);
-        }
+        .glass-card { background: white; border: 1px solid rgba(0, 168, 255, 0.15); border-radius: 24px; padding: 30px; box-shadow: 0 15px 35px rgba(0, 168, 255, 0.1); }
 
-        .btn {
-            background: var(--adr-blue); color: white; border: none; padding: 15px;
-            border-radius: 12px; font-family: var(--tech-font); font-weight: 700;
-            width: 100%; cursor: pointer; transition: 0.3s; text-decoration: none; display: block; text-align: center;
-        }
+        .btn { background: var(--adr-blue); color: white; border: none; padding: 15px; border-radius: 12px; font-family: var(--tech-font); font-weight: 700; width: 100%; cursor: pointer; transition: 0.3s; text-decoration: none; display: block; text-align: center; }
         .btn-green { background: #2ecc71; border-bottom: 4px solid #27ae60; font-size: 0.7rem; }
+        .btn-outline { background: transparent; border: 1px solid white; color: white; padding: 8px 15px; font-size: 0.6rem; }
 
-        /* PARTNERS */
-        .partners-section { margin: 40px 0; text-align: center; overflow: hidden; }
-        .partners-wrapper { display: flex; overflow-x: auto; padding: 20px 0; gap: 30px; scrollbar-width: none; }
+        /* PARTNER */
+        .partners-section { margin: 50px 0; text-align: center; }
+        .partners-wrapper { display: flex; overflow-x: auto; padding: 20px 0; gap: 40px; scrollbar-width: none; }
         .partners-wrapper::-webkit-scrollbar { display: none; }
         .partner-card img { height: 45px; filter: grayscale(1); opacity: 0.6; transition: 0.3s; }
         .partner-card:hover img { filter: grayscale(0); opacity: 1; }
@@ -91,12 +104,25 @@
         .footer-privacy { text-align: center; padding: 40px 20px; font-size: 0.7rem; color: #888; border-top: 1px solid rgba(0,0,0,0.05); margin-top: 50px; }
         .privacy-link { color: var(--adr-blue); text-decoration: none; font-weight: 700; cursor: pointer; }
 
-        /* MODAL */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 30000; align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: white; padding: 30px; border-radius: 20px; max-width: 500px; font-size: 0.8rem; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 60000; align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: white; padding: 30px; border-radius: 20px; max-width: 500px; font-size: 0.8rem; color: var(--adr-dark); }
+        
+        @keyframes pulse-green {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+        }
     </style>
 </head>
 <body>
+
+    <div id="cookie-banner">
+        <p>Utilizziamo i dati personali per offrirti la migliore consulenza sul risparmio. Continuando a navigare o cliccando su "Accetto", acconsenti al trattamento dei dati secondo la nostra Privacy Policy e il GDPR.</p>
+        <div class="cookie-btns">
+            <button class="btn btn-outline" style="background: var(--adr-blue); border:none;" onclick="acceptPrivacy()">ACCETTO</button>
+            <button class="btn btn-outline" onclick="openPrivacy()">LEGGI DI PIÙ</button>
+        </div>
+    </div>
 
     <div id="progress-container"><div id="progress-bar"></div></div>
 
@@ -124,46 +150,33 @@
 
     <div class="container">
         <header style="text-align: center; margin: 30px 0;" class="reveal">
-            <h1 style="font-family: var(--tech-font); font-size: 1.6rem;">AGENZIA DEL <span style="color:var(--adr-blue)">RISPARMIO</span></h1>
-            <p style="color: #666; font-size: 0.8rem;">Consulenza Energetica e Digitale Seregno</p>
+            <h1 style="font-family: var(--tech-font); font-size: 1.8rem;">AGENZIA DEL <span style="color:var(--adr-blue)">RISPARMIO</span></h1>
+            <p style="color: #666; font-size: 0.8rem;">Consulenza Energetica e Digitale a Seregno</p>
         </header>
 
-        <div class="glass-card reveal" style="margin-bottom: 40px;">
-            <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-                <h3 style="font-family: var(--tech-font); margin-bottom: 20px; font-size: 0.9rem;">1. SCEGLI IL SERVIZIO</h3>
-                
-                <div class="service-selector">
-                    <div class="service-opt" onclick="selectService(this, 'Luce e Gas')">⚡ LUCE/GAS</div>
-                    <div class="service-opt" onclick="selectService(this, 'Wi-Fi')">🌐 WI-FI</div>
-                    <div class="service-opt" onclick="selectService(this, 'Sky TV')">📺 SKY</div>
+        <div class="glass-card reveal" style="margin-bottom: 40px; text-align: center;">
+            <h3 style="font-family: var(--tech-font); font-size: 1rem; margin-bottom: 20px;">DI COSA HAI BISOGNO?</h3>
+            
+            <div class="service-selector">
+                <div class="service-opt" onclick="setService(this, 'Luce e Gas')">⚡<br>LUCE/GAS</div>
+                <div class="service-opt" onclick="setService(this, 'Wi-Fi / Fibra')">🌐<br>WI-FI</div>
+                <div class="service-opt" onclick="setService(this, 'Sky TV')">📺<br>SKY</div>
+            </div>
+
+            <div id="action-area" style="display: none;">
+                <input type="file" id="bill-upload" style="display: none;" onchange="handleFile()">
+                <div id="upload-zone" onclick="triggerUpload()">
+                    <div id="up-icon" style="font-size: 2.5rem; margin-bottom: 10px;">📎</div>
+                    <p id="up-text" style="font-family: var(--tech-font); font-size: 0.7rem; color: var(--adr-blue);">ALLEGA LA TUA ULTIMA BOLLETTA</p>
                 </div>
-
-                <div id="step-2" style="display: none;">
-                    <h3 style="font-family: var(--tech-font); margin-bottom: 20px; font-size: 0.9rem;">2. TRATTAMENTO DATI E ALLEGATO</h3>
-                    
-                    <div style="background: #f9f9f9; padding: 15px; border-radius: 12px; text-align: left; margin-bottom: 20px; border: 1px solid #eee;">
-                        <label style="font-size: 0.7rem; cursor: pointer; display: flex; align-items: flex-start; gap: 10px;">
-                            <input type="checkbox" id="privacy-consent" style="margin-top: 3px;">
-                            <span>Dichiaro di aver letto l'informativa e acconsento al trattamento dei dati personali (GDPR) per l'analisi della bolletta. <a onclick="openPrivacy()" class="privacy-link">Leggi Informativa</a></span>
-                        </label>
-                    </div>
-
-                    <input type="file" id="file-upload" style="display: none;" onchange="handleFileUpload()">
-                    <div id="drop-zone" onclick="checkPrivacyAndTriggerUpload()" style="border: 2px dashed var(--adr-blue); border-radius: 20px; padding: 30px; cursor: pointer;">
-                        <div id="up-icon" style="font-size: 2rem;">📎</div>
-                        <p id="up-text" style="font-size: 0.7rem; font-family: var(--tech-font); color: var(--adr-blue);">ALLEGA BOLLETTA / CONTRATTO</p>
-                    </div>
-                </div>
-
-                <div id="success-box" style="display: none; padding: 20px; background: #e8f5e9; border-radius: 15px; margin-top: 15px;">
-                    <p style="color: #2e7d32; font-weight: 800; font-size: 0.8rem;">✅ FILE PRONTO PER L'INVIO!</p>
-                    <p style="font-size: 0.7rem;">Scegli il consulente qui sotto per avviare la chat WhatsApp.</p>
+                <div id="success-notice" style="display: none; margin-top: 20px; color: #2ecc71; font-weight: 800; font-size: 0.8rem;">
+                    ✅ DOCUMENTO PRONTO PER IL CONSULENTE!
                 </div>
             </div>
         </div>
 
         <div class="partners-section reveal">
-            <p style="font-family: var(--tech-font); font-size: 0.6rem; color: #aaa; letter-spacing: 2px; margin-bottom: 10px;">I NOSTRI PARTNER UFFICIALI</p>
+            <h2 style="font-family: var(--tech-font); font-size: 0.8rem; letter-spacing: 4px; color: var(--adr-blue); margin-bottom: 20px;">I NOSTRI PARTNER</h2>
             <div class="partners-wrapper">
                 <div class="partner-card"><img src="logo-acea.png" alt="Acea"></div>
                 <div class="partner-card"><img src="logo-enel.png" alt="Enel"></div>
@@ -176,80 +189,101 @@
         </div>
 
         <div id="team-section" class="reveal">
-            <h2 style="font-family: var(--tech-font); text-align: center; font-size: 0.9rem; margin-bottom: 30px;">3. PARLA CON UN <span style="color:var(--adr-blue)">CONSULENTE</span></h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                <div class="glass-card team-card" style="text-align: center; border-bottom: 4px solid var(--adr-blue);">
-                    <div style="font-size: 2.5rem;">🏢</div>
+            <h2 style="font-family: var(--tech-font); text-align: center; font-size: 0.9rem; margin-bottom: 30px;">SCEGLI UN CONSULENTE</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px;">
+                <div class="glass-card" style="text-align: center; border: 3px solid var(--adr-blue);">
+                    <div style="font-size: 3rem; margin-bottom: 10px;">🏢</div>
                     <h4 class="tech-font">Andrea</h4>
-                    <p style="font-size: 0.6rem; margin-bottom: 15px;">RESP. CAF & PATRONATO</p>
-                    <button class="btn btn-green" onclick="contactWhatsApp('Andrea')">INVIA A ANDREA</button>
+                    <p style="background: var(--adr-blue); color: white; font-size: 0.6rem; padding: 5px; border-radius: 5px; margin: 10px 0;">RESPONSABILE CAF</p>
+                    <button class="btn btn-green" onclick="sendTo('Andrea')" style="animation: pulse-green 2s infinite;">INVIA RICHIESTA</button>
                 </div>
-                <div class="glass-card team-card" style="text-align: center;">
-                    <div style="font-size: 2.5rem;">👤</div>
+                <div class="glass-card" style="text-align: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
                     <h4 class="tech-font">Daniel</h4>
-                    <p style="font-size: 0.6rem; margin-bottom: 15px;">CONSULENTE ADR</p>
-                    <button class="btn btn-green" onclick="contactWhatsApp('Daniel')">INVIA A DANIEL</button>
+                    <p style="font-size: 0.6rem; color: #666; margin: 10px 0;">SPECIALISTA RISPARMIO</p>
+                    <button class="btn btn-green" onclick="sendTo('Daniel')">INVIA RICHIESTA</button>
                 </div>
-                <div class="glass-card team-card" style="text-align: center;">
-                    <div style="font-size: 2.5rem;">👤</div>
+                <div class="glass-card" style="text-align: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
                     <h4 class="tech-font">Luca</h4>
-                    <p style="font-size: 0.6rem; margin-bottom: 15px;">CONSULENTE ADR</p>
-                    <button class="btn btn-green" onclick="contactWhatsApp('Luca')">INVIA A LUCA</button>
+                    <p style="font-size: 0.6rem; color: #666; margin: 10px 0;">SPECIALISTA RISPARMIO</p>
+                    <button class="btn btn-green" onclick="sendTo('Luca')">INVIA RICHIESTA</button>
+                </div>
+                <div class="glass-card" style="text-align: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
+                    <h4 class="tech-font">Daniele</h4>
+                    <p style="font-size: 0.6rem; color: #666; margin: 10px 0;">SPECIALISTA RISPARMIO</p>
+                    <button class="btn btn-green" onclick="sendTo('Daniele')">INVIA RICHIESTA</button>
                 </div>
             </div>
         </div>
     </div>
 
     <footer class="footer-privacy">
-        <p>© 2026 Agenzia del Risparmio Seregno | <span class="privacy-link" onclick="openPrivacy()">Informativa Privacy</span></p>
+        <p>© 2026 Agenzia del Risparmio Seregno | <span class="privacy-link" onclick="openPrivacy()">Informativa Privacy Completa</span></p>
     </footer>
 
     <div id="privacy-modal" class="modal-overlay">
         <div class="modal-content">
-            <h3 class="tech-font" style="font-size: 1rem; margin-bottom: 15px;">Trattamento Dati</h3>
-            <p>I dati forniti e i documenti caricati saranno utilizzati esclusivamente per l'analisi dei costi energetici e delle tariffe telefoniche al fine di proporre un risparmio, nel rispetto del Regolamento UE 2016/679 (GDPR).</p>
-            <button class="btn" style="margin-top: 20px;" onclick="closePrivacy()">CHIUDI</button>
+            <h3 class="tech-font" style="margin-bottom: 15px; color: var(--adr-blue);">Trattamento Dati</h3>
+            <p><strong>Informativa GDPR:</strong> I dati personali e i documenti (bollette/contratti) caricati su questo sito vengono utilizzati esclusivamente dai consulenti ADR per l'analisi delle tariffe e la formulazione di proposte di risparmio.</p>
+            <p style="margin-top:10px;">I dati non saranno ceduti a società di marketing terze. Inviando il file su WhatsApp, confermi il consenso al contatto commerciale richiesto.</p>
+            <button class="btn" style="margin-top: 20px;" onclick="closePrivacy()">HO CAPITO</button>
         </div>
     </div>
 
     <script>
-        let selectedService = "";
-        let fileAttached = false;
+        let chosenService = "";
+        let fileReady = false;
+        let privacyAccepted = false;
 
-        function selectService(el, s) {
+        // Mostra il banner dopo 1 secondo
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('cookie-banner').classList.add('active');
+            }, 1000);
+        };
+
+        function acceptPrivacy() {
+            privacyAccepted = true;
+            document.getElementById('cookie-banner').classList.remove('active');
+        }
+
+        function setService(el, name) {
             document.querySelectorAll('.service-opt').forEach(o => o.classList.remove('selected'));
             el.classList.add('selected');
-            selectedService = s;
-            document.getElementById('step-2').style.display = 'block';
-            document.getElementById('step-2').scrollIntoView({ behavior: 'smooth' });
+            chosenService = name;
+            document.getElementById('action-area').style.display = 'block';
         }
 
-        function checkPrivacyAndTriggerUpload() {
-            if (!document.getElementById('privacy-consent').checked) {
-                alert("Per procedere devi accettare il trattamento dei dati personali.");
+        function triggerUpload() {
+            if(!privacyAccepted) {
+                document.getElementById('cookie-banner').classList.add('active');
+                alert("Per favore, accetta il trattamento dei dati personali nel banner in basso.");
                 return;
             }
-            document.getElementById('file-upload').click();
+            document.getElementById('bill-upload').click();
         }
 
-        function handleFileUpload() {
-            const input = document.getElementById('file-upload');
-            if (input.files.length > 0) {
-                fileAttached = true;
+        function handleFile() {
+            const input = document.getElementById('bill-upload');
+            if(input.files.length > 0) {
+                fileReady = true;
+                document.getElementById('upload-zone').classList.add('ready');
                 document.getElementById('up-icon').innerHTML = "📄";
-                document.getElementById('up-text').innerHTML = "FILE PRONTO: " + input.files[0].name;
-                document.getElementById('success-box').style.display = 'block';
+                document.getElementById('up-text').innerHTML = "PRONTO: " + input.files[0].name;
+                document.getElementById('success-notice').style.display = 'block';
                 document.getElementById('team-section').scrollIntoView({ behavior: 'smooth' });
             }
         }
 
-        function contactWhatsApp(consulente) {
-            if (!fileAttached) {
-                alert("Per favore, allega prima la bolletta per permetterci di aiutarti.");
+        function sendTo(consulente) {
+            if(!fileReady) {
+                alert("Allega prima la bolletta per permetterci di analizzare i tuoi costi.");
                 return;
             }
-            const numeri = { 'Andrea': '393515910955', 'Daniel': '393423218269', 'Luca': '393277545377' };
-            const msg = `Ciao ${consulente}, ho accettato la privacy sul sito e ho pronta la bolletta per ${selectedService}. Ti sto inviando il file qui sotto per una consulenza!`;
+            const numeri = { 'Andrea': '393515910955', 'Daniel': '393423218269', 'Luca': '393277545377', 'Daniele': '393491795387' };
+            const msg = `Ciao ${consulente}, ho accettato la privacy sul sito ADR e ti allego la mia bolletta per ${chosenService}.`;
             window.open(`https://wa.me/${numeri[consulente]}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
@@ -257,17 +291,18 @@
         function closePrivacy() { document.getElementById('privacy-modal').style.display = 'none'; }
 
         function reveal() {
-            const reveals = document.querySelectorAll(".reveal");
-            reveals.forEach(el => {
+            document.querySelectorAll(".reveal").forEach(el => {
                 if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add("active");
             });
         }
         window.addEventListener("scroll", reveal);
-        window.addEventListener("load", reveal);
         window.onscroll = function() {
             let scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
             document.getElementById("progress-bar").style.width = scrolled + "%";
         };
     </script>
+    <style> 
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    </style>
 </body>
 </html>
