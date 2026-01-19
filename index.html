@@ -32,7 +32,7 @@
             line-height: 1.6;
         }
 
-        /* BANNER PRIVACY AGGIUNTIVO (A COMPARSA TUTTO SITO) */
+        /* BANNER PRIVACY AGGIUNTIVO */
         #cookie-banner {
             position: fixed; bottom: 0; left: 0; width: 100%; 
             background: var(--adr-dark); color: white; padding: 20px;
@@ -62,9 +62,25 @@
         .nav-link { font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; color: var(--adr-dark); text-decoration: none; transition: 0.3s; }
         .nav-link:hover, .nav-link.active { color: var(--adr-blue); }
 
-        @media (max-width: 850px) { .nav-menu { display: none; } }
+        /* MOBILE TOGGLE (HAMBURGER) */
+        .mobile-toggle { display: none; cursor: pointer; background: none; border: none; z-index: 10001; padding: 10px; }
+        .mobile-toggle .bar { display: block; width: 25px; height: 3px; background: var(--adr-blue); margin: 5px 0; transition: 0.4s; border-radius: 3px; }
 
-        .area-clienti-btn { background: var(--adr-blue); color: white; padding: 8px 18px; border-radius: 50px; font-family: var(--tech-font); font-size: 0.65rem; font-weight: 800; text-decoration: none; }
+        @media (max-width: 850px) {
+            .mobile-toggle { display: block; }
+            .nav-menu { 
+                position: fixed; top: 0; right: -100%; width: 75%; height: 100vh; 
+                background: white; flex-direction: column; padding: 100px 40px; 
+                transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+                box-shadow: -10px 0 30px rgba(0,0,0,0.1); gap: 30px;
+            }
+            .nav-menu.active { right: 0; }
+            .mobile-toggle.open .bar:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+            .mobile-toggle.open .bar:nth-child(2) { opacity: 0; }
+            .mobile-toggle.open .bar:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+        }
+
+        .area-clienti-btn { background: var(--adr-blue); color: white; padding: 8px 18px; border-radius: 50px; font-family: var(--tech-font); font-size: 0.65rem; font-weight: 800; text-decoration: none; box-shadow: var(--neon-shadow); }
 
         /* TICKER */
         .market-ticker { background: var(--adr-blue); color: white; padding: 8px 0; overflow: hidden; white-space: nowrap; position: relative; z-index: 5000; }
@@ -100,13 +116,9 @@
         .partner-card img { height: 45px; filter: grayscale(1); opacity: 0.6; transition: 0.3s; }
         .partner-card:hover img { filter: grayscale(0); opacity: 1; }
 
-        /* FOOTER */
-        .footer-privacy { text-align: center; padding: 40px 20px; font-size: 0.7rem; color: #888; border-top: 1px solid rgba(0,0,0,0.05); margin-top: 50px; }
-        .privacy-link { color: var(--adr-blue); text-decoration: none; font-weight: 700; cursor: pointer; }
-
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 60000; align-items: center; justify-content: center; padding: 20px; }
         .modal-content { background: white; padding: 30px; border-radius: 20px; max-width: 500px; font-size: 0.8rem; color: var(--adr-dark); }
-        
+
         @keyframes pulse-green {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
             70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
@@ -138,13 +150,16 @@
     <nav class="main-nav">
         <div class="nav-container">
             <a href="index.html"><img src="logo.png" alt="ADR Logo" class="nav-logo"></a>
-            <div class="nav-menu">
+            <div class="nav-menu" id="navMenu">
                 <a href="index.html" class="nav-link active">HOME</a>
                 <a href="telefonia.html" class="nav-link">TELEFONIA</a>
                 <a href="caf.html" class="nav-link">CAF</a>
                 <a href="contatti.html" class="nav-link">CONTATTI</a>
                 <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
             </div>
+            <button class="mobile-toggle" onclick="toggleMenu()" id="hamburger">
+                <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            </button>
         </div>
     </nav>
 
@@ -156,7 +171,6 @@
 
         <div class="glass-card reveal" style="margin-bottom: 40px; text-align: center;">
             <h3 style="font-family: var(--tech-font); font-size: 1rem; margin-bottom: 20px;">DI COSA HAI BISOGNO?</h3>
-            
             <div class="service-selector">
                 <div class="service-opt" onclick="setService(this, 'Luce e Gas')">⚡<br>LUCE/GAS</div>
                 <div class="service-opt" onclick="setService(this, 'Wi-Fi / Fibra')">🌐<br>WI-FI</div>
@@ -226,8 +240,7 @@
     <div id="privacy-modal" class="modal-overlay">
         <div class="modal-content">
             <h3 class="tech-font" style="margin-bottom: 15px; color: var(--adr-blue);">Trattamento Dati</h3>
-            <p><strong>Informativa GDPR:</strong> I dati personali e i documenti (bollette/contratti) caricati su questo sito vengono utilizzati esclusivamente dai consulenti ADR per l'analisi delle tariffe e la formulazione di proposte di risparmio.</p>
-            <p style="margin-top:10px;">I dati non saranno ceduti a società di marketing terze. Inviando il file su WhatsApp, confermi il consenso al contatto commerciale richiesto.</p>
+            <p><strong>Informativa GDPR:</strong> I dati personali e i documenti caricati vengono utilizzati esclusivamente per l'analisi delle tariffe. Non saranno ceduti a terzi senza mandato commerciale.</p>
             <button class="btn" style="margin-top: 20px;" onclick="closePrivacy()">HO CAPITO</button>
         </div>
     </div>
@@ -237,11 +250,13 @@
         let fileReady = false;
         let privacyAccepted = false;
 
-        // Mostra il banner dopo 1 secondo
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+            document.getElementById('hamburger').classList.toggle('open');
+        }
+
         window.onload = () => {
-            setTimeout(() => {
-                document.getElementById('cookie-banner').classList.add('active');
-            }, 1000);
+            setTimeout(() => { document.getElementById('cookie-banner').classList.add('active'); }, 1000);
         };
 
         function acceptPrivacy() {
@@ -259,7 +274,7 @@
         function triggerUpload() {
             if(!privacyAccepted) {
                 document.getElementById('cookie-banner').classList.add('active');
-                alert("Per favore, accetta il trattamento dei dati personali nel banner in basso.");
+                alert("Accetta il trattamento dei dati personali nel banner in basso.");
                 return;
             }
             document.getElementById('bill-upload').click();
@@ -278,12 +293,9 @@
         }
 
         function sendTo(consulente) {
-            if(!fileReady) {
-                alert("Allega prima la bolletta per permetterci di analizzare i tuoi costi.");
-                return;
-            }
+            if(!fileReady) { alert("Allega prima la bolletta."); return; }
             const numeri = { 'Andrea': '393515910955', 'Daniel': '393423218269', 'Luca': '393277545377', 'Daniele': '393491795387' };
-            const msg = `Ciao ${consulente}, ho accettato la privacy sul sito ADR e ti allego la mia bolletta per ${chosenService}.`;
+            const msg = `Ciao ${consulente}, ho accettato la privacy e ti allego la mia bolletta per ${chosenService}.`;
             window.open(`https://wa.me/${numeri[consulente]}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
@@ -301,8 +313,5 @@
             document.getElementById("progress-bar").style.width = scrolled + "%";
         };
     </script>
-    <style> 
-        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    </style>
 </body>
 </html>
