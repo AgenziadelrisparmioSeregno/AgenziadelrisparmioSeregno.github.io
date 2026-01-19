@@ -139,6 +139,20 @@
         }
         .bot-header { background: var(--adr-blue); color: white; padding: 15px; display: flex; justify-content: space-between; font-family: var(--tech-font); font-size: 0.7rem; }
 
+        /* PRIVACY MODAL & FOOTER */
+        .footer-privacy { text-align: center; padding: 40px 20px; font-size: 0.7rem; color: #888; border-top: 1px solid rgba(0,0,0,0.05); margin-top: 50px; }
+        .privacy-link { color: var(--adr-blue); text-decoration: none; font-weight: 700; cursor: pointer; }
+        
+        .modal-overlay { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.7); z-index: 30000; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-content { 
+            background: white; padding: 30px; border-radius: 20px; max-width: 600px; max-height: 80%; 
+            overflow-y: auto; position: relative; font-size: 0.8rem; line-height: 1.5;
+        }
+        .close-modal { position: sticky; top: 0; float: right; font-size: 1.5rem; cursor: pointer; color: var(--adr-blue); font-weight: bold; }
+
     </style>
 </head>
 <body>
@@ -183,7 +197,15 @@
                     <h3 style="font-family: var(--tech-font); margin-bottom: 10px; font-size: 0.9rem;">Scanner Bolletta IA</h3>
                     <div id="ui-home-default">
                         <input type="file" id="file-input-home" style="display: none;" onchange="eseguiScansioneReale()">
-                        <button class="btn" onclick="document.getElementById('file-input-home').click()">CARICA BOLLETTA</button>
+                        
+                        <div style="margin-bottom: 15px; text-align: left;">
+                            <label style="font-size: 0.65rem; color: #666; cursor: pointer; display: flex; align-items: flex-start; gap: 8px;">
+                                <input type="checkbox" id="privacy-check" style="margin-top: 3px;">
+                                <span>Acconsento al <a class="privacy-link" onclick="openPrivacy()">trattamento dei dati personali</a> per l'analisi della bolletta.</span>
+                            </label>
+                        </div>
+                        
+                        <button class="btn" onclick="checkPrivacyAndUpload()">CARICA BOLLETTA</button>
                     </div>
                     <div id="ui-home-risultato" style="display: none; text-align: center;">
                         <div id="voto-box" class="voto-cerchio">?</div>
@@ -192,7 +214,7 @@
                         <button onclick="location.reload()" style="background: none; border: 1px solid #ddd; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.6rem; font-family: var(--tech-font);">ANALYZE NEW</button>
                     </div>
                 </div>
-                <div id="drop-zone" onclick="document.getElementById('file-input-home').click()" style="border: 2px dashed var(--adr-blue); border-radius: 20px; padding: 40px; text-align: center; cursor: pointer;">
+                <div id="drop-zone" onclick="checkPrivacyAndUpload()" style="border: 2px dashed var(--adr-blue); border-radius: 20px; padding: 40px; text-align: center; cursor: pointer;">
                     <div id="scan-status-icon" style="font-size: 2rem; margin-bottom: 10px;">📄</div>
                     <p id="scan-status-text" style="font-size: 0.7rem; font-family: var(--tech-font); color: var(--adr-blue);">TRASCINA O CLICCA PER ANALISI IA</p>
                 </div>
@@ -201,7 +223,6 @@
 
         <div class="partners-section reveal">
             <h2 style="font-family: var(--tech-font); font-size: 0.8rem; letter-spacing: 4px; color: var(--adr-blue); margin-bottom: 10px;">PARTNER CON CUI COLLABORIAMO</h2>
-            <p style="font-size: 0.85rem; color: #555; max-width: 800px; margin: 0 auto; line-height: 1.6;">Compareremo la migliore offerta per te per farti risparmiare.</p>
             <div class="partners-wrapper">
                 <div class="partner-card"><div class="partner-inner"><img src="logo-acea.png" alt="Acea"></div></div>
                 <div class="partner-card"><div class="partner-inner"><img src="logo-audax.png" alt="Audax"></div></div>
@@ -218,58 +239,53 @@
 
         <div class="reveal">
             <h2 style="font-family: var(--tech-font); text-align: center; font-size: 0.9rem; margin-bottom: 30px; letter-spacing: 2px;">IL NOSTRO <span style="color:var(--adr-blue)">TEAM</span></h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; align-items: stretch;">
-                
-                <div class="glass-card" style="text-align: center; border: 3px solid var(--adr-blue); background: linear-gradient(145deg, #ffffff, #e3f2fd); transform: scale(1.05); z-index: 10; position: relative; box-shadow: 0 15px 40px rgba(0, 168, 255, 0.2);">
-                    <div style="position: absolute; top: 10px; right: 10px; background: var(--adr-blue); color: white; font-size: 0.5rem; padding: 3px 8px; border-radius: 5px; font-family: var(--tech-font);">UFFICIO AUTORIZZATO</div>
-                    
-                    <div style="font-size: 3.5rem; margin-bottom: 10px;">🏢</div>
-                    <h4 class="tech-font" style="font-size: 1.2rem; color: var(--adr-dark);">Andrea</h4>
-                    
-                    <div style="background: #007bff; color: white; font-weight: 900; padding: 12px; border-radius: 8px; margin: 10px 0; font-family: var(--tech-font); font-size: 0.85rem; box-shadow: 0 4px 10px rgba(0,123,255,0.3); border: 2px solid #fff;">
-                        RESPONSABILE CAF & PATRONATO
-                    </div>
-                    
-                    <p style="font-size: 0.7rem; color: #222; font-weight: 800; margin-bottom: 15px; line-height: 1.5;">
-                        ✅ MODELLO 730 / ISEE / BONUS<br>
-                        ✅ LUCE, GAS, TEL, SKY & FOTOV.
-                    </p>
-                    
-                    <button class="btn btn-green" onclick="prenotaConsulenza('Andrea')" style="animation: pulse-green 2s infinite; padding: 18px; font-size: 0.8rem;">
-                        PRENOTA APPUNTAMENTO
-                    </button>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px;">
+                <div class="glass-card" style="text-align: center; border: 3px solid var(--adr-blue);">
+                    <div style="font-size: 3.5rem;">🏢</div>
+                    <h4 class="tech-font">Andrea</h4>
+                    <div style="background: #007bff; color: white; padding: 10px; border-radius: 8px; margin: 10px 0; font-size: 0.7rem; font-weight: 800;">RESPONSABILE CAF & PATRONATO</div>
+                    <p style="font-size: 0.7rem; color: #222; font-weight: 800;">✅ 730 / ISEE / BONUS / ENERGIA</p>
+                    <button class="btn btn-green" onclick="prenotaConsulenza('Andrea')" style="margin-top:15px; animation: pulse-green 2s infinite;">PRENOTA APPUNTAMENTO</button>
                 </div>
-
-                <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue); align-self: center; opacity: 0.9;">
-                    <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
+                <div class="glass-card" style="text-align: center;">
+                    <div style="font-size: 2.5rem;">👤</div>
                     <h4 class="tech-font">Daniel</h4>
-                    <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px; line-height: 1.8;">
-                        CONSULENTE SPECIALIZZATO IN:<br>
-                        <b>LUCE, GAS, TELEFONIA,<br>SKY & FOTOVOLTAICO</b>
-                    </p>
+                    <p style="font-size: 0.6rem; color: #666; margin: 10px 0;">LUCE, GAS, TEL, SKY & FOTOVOLTAICO</p>
                     <button class="btn btn-green" onclick="prenotaConsulenza('Daniel')">WHATSAPP</button>
                 </div>
-
-                <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue); align-self: center; opacity: 0.9;">
-                    <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
+                <div class="glass-card" style="text-align: center;">
+                    <div style="font-size: 2.5rem;">👤</div>
                     <h4 class="tech-font">Luca</h4>
-                    <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px; line-height: 1.8;">
-                        CONSULENTE SPECIALIZZATO IN:<br>
-                        <b>LUCE, GAS, TELEFONIA,<br>SKY & FOTOVOLTAICO</b>
-                    </p>
+                    <p style="font-size: 0.6rem; color: #666; margin: 10px 0;">LUCE, GAS, TEL, SKY & FOTOVOLTAICO</p>
                     <button class="btn btn-green" onclick="prenotaConsulenza('Luca')">WHATSAPP</button>
                 </div>
-
-                <div class="glass-card" style="text-align: center; border-top: 4px solid var(--adr-blue); align-self: center; opacity: 0.9;">
-                    <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
+                <div class="glass-card" style="text-align: center;">
+                    <div style="font-size: 2.5rem;">👤</div>
                     <h4 class="tech-font">Daniele</h4>
-                    <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px; line-height: 1.8;">
-                        CONSULENTE SPECIALIZZATO IN:<br>
-                        <b>LUCE, GAS, TELEFONIA,<br>SKY & FOTOVOLTAICO</b>
-                    </p>
+                    <p style="font-size: 0.6rem; color: #666; margin: 10px 0;">LUCE, GAS, TEL, SKY & FOTOVOLTAICO</p>
                     <button class="btn btn-green" onclick="prenotaConsulenza('Daniele')">WHATSAPP</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <footer class="footer-privacy">
+        <p>© 2026 Agenzia del Risparmio Seregno | P.IVA 12345678901</p>
+        <p style="margin-top: 10px;">
+            <span class="privacy-link" onclick="openPrivacy()">Informativa Privacy & Trattamento Dati</span> | 
+            <span class="privacy-link" onclick="openPrivacy()">Cookie Policy</span>
+        </p>
+    </footer>
+
+    <div id="privacy-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closePrivacy()">&times;</span>
+            <h3 style="font-family: var(--tech-font); margin-bottom: 15px;">Informativa Trattamento Dati</h3>
+            <p>Ai sensi del Regolamento UE 2016/679 (GDPR), ADR - Agenzia del Risparmio informa che:</p><br>
+            <p><strong>1. Finalità:</strong> I dati (bollette caricate, contatti) vengono utilizzati esclusivamente per l'analisi dei costi energetici e la proposta di risparmio.</p><br>
+            <p><strong>2. Conservazione:</strong> I documenti caricati nello scanner IA vengono analizzati in tempo reale e non vengono memorizzati permanentemente sui nostri server senza esplicito mandato di consulenza.</p><br>
+            <p><strong>3. Diritti:</strong> L'utente può richiedere in ogni momento la cancellazione dei propri dati contattando l'ufficio di Seregno.</p><br>
+            <p><strong>4. Sicurezza:</strong> Utilizziamo protocolli crittografati per garantire che i tuoi dati siano protetti durante la fase di scansione.</p>
         </div>
     </div>
 
@@ -278,10 +294,10 @@
         <div id="bot-window">
             <div class="bot-header">
                 <span>ADR-1: ASSISTENTE</span>
-                <span onclick="toggleBot()" style="cursor: pointer; font-size: 1.2rem;">&times;</span>
+                <span onclick="toggleBot()" style="cursor: pointer;">&times;</span>
             </div>
             <div id="bot-messages" style="flex:1; padding:15px; overflow-y:auto; font-size:0.8rem;">
-                <div style="background:#f0faff; padding:10px; border-radius:10px; margin-bottom:10px;">Sistemi ADR attivi. Come posso aiutarti?</div>
+                <div style="background:#f0faff; padding:10px; border-radius:10px;">Sistemi ADR attivi. Per procedere con l'analisi della bolletta, accetta l'informativa privacy.</div>
             </div>
         </div>
     </div>
@@ -297,6 +313,19 @@
             win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
         }
 
+        // Privacy Functions
+        function openPrivacy() { document.getElementById('privacy-modal').style.display = 'flex'; }
+        function closePrivacy() { document.getElementById('privacy-modal').style.display = 'none'; }
+
+        function checkPrivacyAndUpload() {
+            const isChecked = document.getElementById('privacy-check').checked;
+            if (!isChecked) {
+                alert("Per favore, accetta il trattamento dei dati personali per caricare la bolletta.");
+                return;
+            }
+            document.getElementById('file-input-home').click();
+        }
+
         function prenotaConsulenza(nome) {
             const numeri = { 'Daniel': '393423218269', 'Andrea': '393515910955', 'Luca': '393277545377', 'Daniele': '393491795387' };
             const messaggio = "Ciao, ho visto il vostro sito e vorrei prenotare una consulenza quando sei disponibile??";
@@ -309,10 +338,10 @@
             statusIcon.innerHTML = "🔄";
             statusIcon.style.animation = "spin 1s linear infinite";
             statusText.innerHTML = "ANALISI IA IN CORSO...";
+            
             setTimeout(() => {
                 const voto = Math.floor(Math.random() * 9) + 2; 
-                const votoBox = document.getElementById('voto-box');
-                votoBox.innerHTML = voto;
+                document.getElementById('voto-box').innerHTML = voto;
                 document.getElementById('ui-home-default').style.display = "none";
                 document.getElementById('ui-home-risultato').style.display = "block";
                 statusIcon.style.animation = "none";
@@ -335,6 +364,7 @@
             document.getElementById("progress-bar").style.width = scrolled + "%";
         };
     </script>
+    
     <style> 
         @keyframes spin { 100% { transform: rotate(360deg); } } 
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
