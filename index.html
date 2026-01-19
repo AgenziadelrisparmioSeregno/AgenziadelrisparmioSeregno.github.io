@@ -75,30 +75,14 @@
         .ticker-content { display: inline-block; animation: ticker 40s linear infinite; }
         .ticker-item { display: inline-block; padding: 0 30px; font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; }
 
-        /* SEZIONE PARTNER */
-        .partners-section { margin: 60px 0; text-align: center; overflow: hidden; }
-        .partners-wrapper { 
-            display: flex; 
-            overflow-x: auto; 
-            padding: 30px 10px; 
-            gap: 30px; 
-            scrollbar-width: none; 
-            -ms-overflow-style: none;
+        /* SEZIONE SERVIZI / CARICAMENTO */
+        .service-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px; }
+        .service-opt { 
+            border: 2px solid #eee; padding: 15px; border-radius: 15px; cursor: pointer; text-align: center;
+            transition: 0.3s; font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700;
         }
-        .partners-wrapper::-webkit-scrollbar { display: none; }
-
-        .partner-card { flex: 0 0 110px; height: 90px; perspective: 1000px; display: flex; align-items: center; justify-content: center; }
-        .partner-inner { width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; display: flex; align-items: center; justify-content: center; }
-        .partner-card:hover .partner-inner { transform: rotateY(360deg); }
-        .partner-card img { max-width: 100%; max-height: 70px; object-fit: contain; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.05)); }
-
-        /* SCANNER IA */
-        .voto-cerchio {
-            width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ddd;
-            display: flex; align-items: center; justify-content: center; 
-            margin: 0 auto 15px; font-size: 1.8rem; font-weight: 900;
-            font-family: var(--tech-font); transition: 0.5s;
-        }
+        .service-opt:hover { border-color: var(--adr-blue); background: var(--adr-blue-light); }
+        .service-opt.selected { border-color: var(--adr-blue); background: var(--adr-blue); color: white; }
 
         /* REVEAL & CARDS */
         .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
@@ -123,21 +107,6 @@
             70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
         }
-
-        /* BOT */
-        #bot-container { position: fixed; bottom: 25px; right: 25px; z-index: 10001; }
-        #bot-launcher { 
-            width: 60px; height: 60px; border-radius: 50%; background: var(--adr-blue); 
-            display: flex; align-items: center; justify-content: center; cursor: pointer; 
-            font-size: 1.6rem; box-shadow: 0 10px 25px rgba(0,168,255,0.4); border: 2px solid white;
-        }
-        #bot-window {
-            display: none; width: 320px; height: 450px; background: white;
-            position: absolute; bottom: 75px; right: 0; border-radius: 20px;
-            flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            border: 1px solid var(--adr-blue-light); overflow: hidden;
-        }
-        .bot-header { background: var(--adr-blue); color: white; padding: 15px; display: flex; justify-content: space-between; font-family: var(--tech-font); font-size: 0.7rem; }
 
         /* PRIVACY MODAL & FOOTER */
         .footer-privacy { text-align: center; padding: 40px 20px; font-size: 0.7rem; color: #888; border-top: 1px solid rgba(0,0,0,0.05); margin-top: 50px; }
@@ -192,78 +161,68 @@
         </header>
 
         <div class="glass-card reveal" style="margin-bottom: 40px;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; align-items: center;">
-                <div>
-                    <h3 style="font-family: var(--tech-font); margin-bottom: 10px; font-size: 0.9rem;">Scanner Bolletta IA</h3>
-                    <div id="ui-home-default">
-                        <input type="file" id="file-input-home" style="display: none;" onchange="eseguiScansioneReale()">
-                        
-                        <div style="margin-bottom: 15px; text-align: left;">
-                            <label style="font-size: 0.65rem; color: #666; cursor: pointer; display: flex; align-items: flex-start; gap: 8px;">
-                                <input type="checkbox" id="privacy-check" style="margin-top: 3px;">
-                                <span>Acconsento al <a class="privacy-link" onclick="openPrivacy()">trattamento dei dati personali</a> per l'analisi della bolletta.</span>
-                            </label>
-                        </div>
-                        
-                        <button class="btn" onclick="checkPrivacyAndUpload()">CARICA BOLLETTA</button>
-                    </div>
-                    <div id="ui-home-risultato" style="display: none; text-align: center;">
-                        <div id="voto-box" class="voto-cerchio">?</div>
-                        <p id="voto-label" style="font-weight: 800; font-size: 0.7rem;"></p>
-                        <p id="voto-desc" style="font-size: 0.75rem; color: #555; margin: 10px 0;"></p>
-                        <button onclick="location.reload()" style="background: none; border: 1px solid #ddd; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.6rem; font-family: var(--tech-font);">ANALYZE NEW</button>
-                    </div>
+            <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <h3 style="font-family: var(--tech-font); margin-bottom: 20px; font-size: 1rem;">DI COSA HAI BISOGNO?</h3>
+                
+                <div class="service-selector">
+                    <div class="service-opt" onclick="selectService(this, 'Luce e Gas')">⚡🔥<br>LUCE/GAS</div>
+                    <div class="service-opt" onclick="selectService(this, 'Wi-Fi / Fibra')">🌐<br>WI-FI</div>
+                    <div class="service-opt" onclick="selectService(this, 'Sky TV')">📺<br>SKY</div>
                 </div>
-                <div id="drop-zone" onclick="checkPrivacyAndUpload()" style="border: 2px dashed var(--adr-blue); border-radius: 20px; padding: 40px; text-align: center; cursor: pointer;">
-                    <div id="scan-status-icon" style="font-size: 2rem; margin-bottom: 10px;">📄</div>
-                    <p id="scan-status-text" style="font-size: 0.7rem; font-family: var(--tech-font); color: var(--adr-blue);">TRASCINA O CLICCA PER ANALISI IA</p>
+
+                <div id="upload-box" style="display: none;">
+                    <p style="font-size: 0.75rem; margin-bottom: 15px; color: #555;">Carica una bolletta recente per permetterci di analizzare la tua situazione:</p>
+                    
+                    <input type="file" id="file-upload" style="display: none;" onchange="handleFileUpload()">
+                    
+                    <div id="drop-zone" onclick="document.getElementById('file-upload').click()" style="border: 2px dashed var(--adr-blue); border-radius: 20px; padding: 30px; text-align: center; cursor: pointer; margin-bottom: 20px;">
+                        <div id="scan-status-icon" style="font-size: 2rem; margin-bottom: 10px;">📎</div>
+                        <p id="scan-status-text" style="font-size: 0.7rem; font-family: var(--tech-font); color: var(--adr-blue);">ALLEGA BOLLETTA</p>
+                    </div>
+
+                    <label style="font-size: 0.6rem; color: #888; cursor: pointer; display: flex; align-items: flex-start; gap: 8px; text-align: left;">
+                        <input type="checkbox" id="privacy-check" checked>
+                        <span>Acconsento al <a class="privacy-link" onclick="openPrivacy()">trattamento dati</a>.</span>
+                    </label>
+                </div>
+
+                <div id="success-msg" style="display: none; padding: 20px; background: #e8f5e9; border-radius: 15px; margin-top: 10px;">
+                    <p style="color: #2e7d32; font-weight: 800; font-size: 0.9rem;">✅ BOLLETTA ALLEGATA CON SUCCESSO!</p>
+                    <p style="font-size: 0.75rem; color: #555;">Scegli ora il consulente qui sotto per inviare la richiesta.</p>
                 </div>
             </div>
         </div>
 
-        <div class="partners-section reveal">
-            <h2 style="font-family: var(--tech-font); font-size: 0.8rem; letter-spacing: 4px; color: var(--adr-blue); margin-bottom: 10px;">PARTNER CON CUI COLLABORIAMO</h2>
-            <div class="partners-wrapper">
-                <div class="partner-card"><div class="partner-inner"><img src="logo-acea.png" alt="Acea"></div></div>
-                <div class="partner-card"><div class="partner-inner"><img src="logo-audax.png" alt="Audax"></div></div>
-                <div class="partner-card"><div class="partner-inner"><img src="logo-bluenergy.png" alt="Bluenergy"></div></div>
-                <div class="partner-card"><div class="partner-inner"><img src="logo-enel.png" alt="Enel"></div></div>
-                <div class="partner-card"><div class="partner-inner"><img src="logo-eon.png" alt="Eon"></div></div>
-                <div class="partner-card"><div class="partner-inner"><img src="logo-fastweb.png" alt="Fastweb"></div></div>
-                <div class="partner-card"><div class="partner-inner"><img src="logo-hera.png" alt="Hera"></div></div>
-                <div class="partner-card"><div class="partner-inner"><img src="logo-iliad.png" alt="Iliad"></div></div>
-                <div class="partner-card"><div class="partner-inner"><img src="logo-sky.png" alt="Sky"></div></div>
-                <div class="partner-card"><div class="partner-inner"><img src="logo-vodafone.png" alt="Vodafone"></div></div>
-            </div>
-        </div>
-
-        <div class="reveal">
-            <h2 style="font-family: var(--tech-font); text-align: center; font-size: 0.9rem; margin-bottom: 30px; letter-spacing: 2px;">IL NOSTRO <span style="color:var(--adr-blue)">TEAM</span></h2>
+        <div id="team-section" class="reveal">
+            <h2 style="font-family: var(--tech-font); text-align: center; font-size: 0.9rem; margin-bottom: 30px; letter-spacing: 2px;">SCEGLI UN CONSULENTE PER IL <span style="color:var(--adr-blue)">RISPARMIO</span></h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px;">
-                <div class="glass-card" style="text-align: center; border: 3px solid var(--adr-blue);">
+                
+                <div class="glass-card team-card" style="text-align: center; border: 3px solid var(--adr-blue);">
                     <div style="font-size: 3.5rem;">🏢</div>
                     <h4 class="tech-font">Andrea</h4>
                     <div style="background: #007bff; color: white; padding: 10px; border-radius: 8px; margin: 10px 0; font-size: 0.7rem; font-weight: 800;">RESPONSABILE CAF & PATRONATO</div>
-                    <p style="font-size: 0.7rem; color: #222; font-weight: 800;">✅ 730 / ISEE / BONUS / ENERGIA</p>
-                    <button class="btn btn-green" onclick="prenotaConsulenza('Andrea')" style="margin-top:15px; animation: pulse-green 2s infinite;">PRENOTA APPUNTAMENTO</button>
+                    <button class="btn btn-green" onclick="prenotaConsulenza('Andrea')" style="margin-top:15px; animation: pulse-green 2s infinite;">CHIEDI CONSULENZA</button>
                 </div>
-                <div class="glass-card" style="text-align: center;">
+
+                <div class="glass-card team-card" style="text-align: center;">
                     <div style="font-size: 2.5rem;">👤</div>
                     <h4 class="tech-font">Daniel</h4>
-                    <p style="font-size: 0.6rem; color: #666; margin: 10px 0;">LUCE, GAS, TEL, SKY & FOTOVOLTAICO</p>
-                    <button class="btn btn-green" onclick="prenotaConsulenza('Daniel')">WHATSAPP</button>
+                    <p style="font-size: 0.6rem; color: #666; margin: 10px 0;">SPECIALISTA ENERGIA E FIBRA</p>
+                    <button class="btn btn-green" onclick="prenotaConsulenza('Daniel')">CHIEDI CONSULENZA</button>
                 </div>
-                <div class="glass-card" style="text-align: center;">
+
+                <div class="glass-card team-card" style="text-align: center;">
                     <div style="font-size: 2.5rem;">👤</div>
                     <h4 class="tech-font">Luca</h4>
-                    <p style="font-size: 0.6rem; color: #666; margin: 10px 0;">LUCE, GAS, TEL, SKY & FOTOVOLTAICO</p>
-                    <button class="btn btn-green" onclick="prenotaConsulenza('Luca')">WHATSAPP</button>
+                    <p style="font-size: 0.6rem; color: #666; margin: 10px 0;">SPECIALISTA ENERGIA E FIBRA</p>
+                    <button class="btn btn-green" onclick="prenotaConsulenza('Luca')">CHIEDI CONSULENZA</button>
                 </div>
-                <div class="glass-card" style="text-align: center;">
+
+                <div class="glass-card team-card" style="text-align: center;">
                     <div style="font-size: 2.5rem;">👤</div>
                     <h4 class="tech-font">Daniele</h4>
-                    <p style="font-size: 0.6rem; color: #666; margin: 10px 0;">LUCE, GAS, TEL, SKY & FOTOVOLTAICO</p>
-                    <button class="btn btn-green" onclick="prenotaConsulenza('Daniele')">WHATSAPP</button>
+                    <p style="font-size: 0.6rem; color: #666; margin: 10px 0;">SPECIALISTA ENERGIA E FIBRA</p>
+                    <button class="btn btn-green" onclick="prenotaConsulenza('Daniele')">CHIEDI CONSULENZA</button>
                 </div>
             </div>
         </div>
@@ -272,7 +231,7 @@
     <footer class="footer-privacy">
         <p>© 2026 Agenzia del Risparmio Seregno | P.IVA 12345678901</p>
         <p style="margin-top: 10px;">
-            <span class="privacy-link" onclick="openPrivacy()">Informativa Privacy & Trattamento Dati</span> | 
+            <span class="privacy-link" onclick="openPrivacy()">Informativa Privacy</span> | 
             <span class="privacy-link" onclick="openPrivacy()">Cookie Policy</span>
         </p>
     </footer>
@@ -281,74 +240,57 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closePrivacy()">&times;</span>
             <h3 style="font-family: var(--tech-font); margin-bottom: 15px;">Informativa Trattamento Dati</h3>
-            <p>Ai sensi del Regolamento UE 2016/679 (GDPR), ADR - Agenzia del Risparmio informa che:</p><br>
-            <p><strong>1. Finalità:</strong> I dati (bollette caricate, contatti) vengono utilizzati esclusivamente per l'analisi dei costi energetici e la proposta di risparmio.</p><br>
-            <p><strong>2. Conservazione:</strong> I documenti caricati nello scanner IA vengono analizzati in tempo reale e non vengono memorizzati permanentemente sui nostri server senza esplicito mandato di consulenza.</p><br>
-            <p><strong>3. Diritti:</strong> L'utente può richiedere in ogni momento la cancellazione dei propri dati contattando l'ufficio di Seregno.</p><br>
-            <p><strong>4. Sicurezza:</strong> Utilizziamo protocolli crittografati per garantire che i tuoi dati siano protetti durante la fase di scansione.</p>
-        </div>
-    </div>
-
-    <div id="bot-container">
-        <div id="bot-launcher" onclick="toggleBot()">🤖</div>
-        <div id="bot-window">
-            <div class="bot-header">
-                <span>ADR-1: ASSISTENTE</span>
-                <span onclick="toggleBot()" style="cursor: pointer;">&times;</span>
-            </div>
-            <div id="bot-messages" style="flex:1; padding:15px; overflow-y:auto; font-size:0.8rem;">
-                <div style="background:#f0faff; padding:10px; border-radius:10px;">Sistemi ADR attivi. Per procedere con l'analisi della bolletta, accetta l'informativa privacy.</div>
-            </div>
+            <p>I tuoi dati e i documenti caricati saranno trattati esclusivamente dai nostri consulenti per fornirti la migliore offerta di risparmio richiesta.</p>
         </div>
     </div>
 
     <script>
+        let selectedService = "";
+
+        function selectService(el, service) {
+            // Rimuovi selezione precedente
+            document.querySelectorAll('.service-opt').forEach(opt => opt.classList.remove('selected'));
+            // Seleziona attuale
+            el.classList.add('selected');
+            selectedService = service;
+            // Mostra area upload
+            document.getElementById('upload-box').style.display = 'block';
+            document.getElementById('success-msg').style.display = 'none';
+        }
+
+        function handleFileUpload() {
+            const statusText = document.getElementById('scan-status-text');
+            const statusIcon = document.getElementById('scan-status-icon');
+            
+            statusIcon.innerHTML = "⏳";
+            statusText.innerHTML = "CARICAMENTO...";
+
+            setTimeout(() => {
+                document.getElementById('upload-box').style.display = 'none';
+                document.getElementById('success-msg').style.display = 'block';
+                
+                // Scroll automatico verso il team
+                document.getElementById('team-section').scrollIntoView({ behavior: 'smooth' });
+                
+                // Animazione di evidenziazione team
+                const cards = document.querySelectorAll('.team-card');
+                cards.forEach(card => card.style.boxShadow = "0 0 20px var(--adr-blue)");
+            }, 1500);
+        }
+
+        function prenotaConsulenza(nome) {
+            const numeri = { 'Daniel': '393423218269', 'Andrea': '393515910955', 'Luca': '393277545377', 'Daniele': '393491795387' };
+            const msg = `Ciao ${nome}, ho appena caricato la mia bolletta per una consulenza ${selectedService}. Vorrei info su come risparmiare!`;
+            window.open(`https://wa.me/${numeri[nome]}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
         function toggleMenu() {
             document.getElementById('navMenu').classList.toggle('active');
             document.getElementById('hamburger').classList.toggle('open');
         }
 
-        function toggleBot() {
-            const win = document.getElementById('bot-window');
-            win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
-        }
-
-        // Privacy Functions
         function openPrivacy() { document.getElementById('privacy-modal').style.display = 'flex'; }
         function closePrivacy() { document.getElementById('privacy-modal').style.display = 'none'; }
-
-        function checkPrivacyAndUpload() {
-            const isChecked = document.getElementById('privacy-check').checked;
-            if (!isChecked) {
-                alert("Per favore, accetta il trattamento dei dati personali per caricare la bolletta.");
-                return;
-            }
-            document.getElementById('file-input-home').click();
-        }
-
-        function prenotaConsulenza(nome) {
-            const numeri = { 'Daniel': '393423218269', 'Andrea': '393515910955', 'Luca': '393277545377', 'Daniele': '393491795387' };
-            const messaggio = "Ciao, ho visto il vostro sito e vorrei prenotare una consulenza quando sei disponibile??";
-            window.open(`https://wa.me/${numeri[nome]}?text=${encodeURIComponent(messaggio)}`, '_blank');
-        }
-
-        function eseguiScansioneReale() {
-            const statusText = document.getElementById('scan-status-text');
-            const statusIcon = document.getElementById('scan-status-icon');
-            statusIcon.innerHTML = "🔄";
-            statusIcon.style.animation = "spin 1s linear infinite";
-            statusText.innerHTML = "ANALISI IA IN CORSO...";
-            
-            setTimeout(() => {
-                const voto = Math.floor(Math.random() * 9) + 2; 
-                document.getElementById('voto-box').innerHTML = voto;
-                document.getElementById('ui-home-default').style.display = "none";
-                document.getElementById('ui-home-risultato').style.display = "block";
-                statusIcon.style.animation = "none";
-                statusIcon.innerHTML = "✅";
-                statusText.innerHTML = "ANALISI COMPLETATA";
-            }, 2500);
-        }
 
         function reveal() {
             const reveals = document.querySelectorAll(".reveal");
@@ -364,9 +306,8 @@
             document.getElementById("progress-bar").style.width = scrolled + "%";
         };
     </script>
-    
+
     <style> 
-        @keyframes spin { 100% { transform: rotate(360deg); } } 
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     </style>
 </body>
