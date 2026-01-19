@@ -1,0 +1,61 @@
+name: "CodeQL Security Analysis"
+
+on:
+  push:
+    branches: [ "main" ]
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**'
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '30 0 * * 1' # Esegue ogni lunedì alle 00:30 (meno affollato rispetto al default)
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 360 # Previene job infiniti che consumano minuti GitHub
+    permissions:
+      security-events: write # Necessario per caricare i risultati in GitHub Security Tab
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: javascript-typescript
+            build-mode: none
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ottimale per l'analisi dello storico
+
+      # Cache delle dipendenze per velocizzare (se il progetto cresce)
+      - name: Setup Node.js
+        if: matrix.language == 'javascript-typescript'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm' # o 'yarn'
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+          # Utilizziamo le query estese per trovare bug e cattive pratiche
+          queries: security-extended,security-and-quality 
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{matrix.language}}"
+          # Genera un report caricabile anche esternamente se necessario
+          upload: true
