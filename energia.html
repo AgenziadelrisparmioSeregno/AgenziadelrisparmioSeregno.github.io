@@ -65,7 +65,7 @@
         .btn-upload { background: var(--adr-blue); color: white; width: 100%; padding: 18px; border: none; border-radius: 12px; font-family: var(--tech-font); font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 1rem; }
         .btn-upload:hover { transform: scale(1.02); filter: brightness(1.1); }
         
-        #file-name { margin-top: 10px; font-size: 0.8rem; color: var(--success); font-family: var(--tech-font); }
+        #file-name { margin-top: 15px; font-size: 0.8rem; color: var(--success); font-family: var(--tech-font); }
         
         .footer-note { font-size: 0.7rem; opacity: 0.6; margin-top: 15px; text-align: center; }
 
@@ -123,23 +123,27 @@
         <div class="upload-container">
             <div class="upload-card">
                 <h2 class="tech-font" style="font-size: 1.2rem; text-align: center;">OTTIENI UN'ANALISI GRATUITA</h2>
-                <p style="text-align: center; font-size: 0.85rem; opacity: 0.8; margin-top: 10px;">Carica la tua bolletta attuale: i nostri esperti la comparianno con le migliori tariffe di Gennaio 2026.</p>
+                <p style="text-align: center; font-size: 0.85rem; opacity: 0.8; margin-top: 10px;">Carica la tua bolletta attuale: i nostri esperti la confronteranno con le migliori tariffe di Gennaio 2026.</p>
                 
-                <form class="upload-form" action="processa_bolletta.php" method="POST" enctype="multipart/form-data">
+                <form class="upload-form" action="https://formspree.io/f/mdaazawl" method="POST" enctype="multipart/form-data">
+                    
                     <div class="file-drop-area" onclick="document.getElementById('bolletta-file').click()">
                         <div style="font-size: 2rem; margin-bottom: 10px;">📄</div>
                         <p class="tech-font" style="font-size: 0.7rem;">TRASCINA O CLICCA PER CARICARE</p>
                         <p style="font-size: 0.6rem; opacity: 0.5;">PDF, JPG o PNG (Max 10MB)</p>
-                        <input type="file" id="bolletta-file" name="bolletta" hidden accept=".pdf, .jpg, .jpeg, .png" onchange="updateFileName(this)">
+                        
+                        <input type="file" id="bolletta-file" name="Allegato_Bolletta" hidden accept=".pdf, .jpg, .jpeg, .png" required onchange="updateFileName(this)">
+                        
                         <div id="file-name"></div>
                     </div>
 
-                    <input type="email" name="email" placeholder="La tua Email per il report" required>
-                    <input type="tel" name="telefono" placeholder="Telefono (opzionale)">
+                    <input type="email" name="Email_Cliente" placeholder="La tua Email per il report" required>
+                    
+                    <input type="tel" name="Telefono_Cliente" placeholder="Telefono (opzionale)">
 
                     <button type="submit" class="btn-upload tech-font">SCOPRI QUANTO RISPARMI</button>
                     
-                    <p class="footer-note">I tuoi dati sono protetti e saranno utilizzati esclusivamente per fornirti la comparazione richiesta.</p>
+                    <p class="footer-note">I tuoi dati sono protetti e saranno utilizzati esclusivamente per fornirti la comparazione richiesta. Servizio gestito via Formspree.</p>
                 </form>
             </div>
         </div>
@@ -150,9 +154,16 @@
             document.getElementById('navMenu').classList.toggle('active');
         }
 
+        // Funzione per mostrare il nome del file e dare feedback visivo
         function updateFileName(input) {
-            const fileName = input.files[0] ? input.files[0].name : "";
-            document.getElementById('file-name').innerHTML = fileName ? `✓ File pronto: ${fileName}` : "";
+            const fileNameDisplay = document.getElementById('file-name');
+            if (input.files && input.files[0]) {
+                const fileName = input.files[0].name;
+                fileNameDisplay.innerHTML = `✓ File pronto: ${fileName}`;
+                fileNameDisplay.style.color = "var(--success)";
+            } else {
+                fileNameDisplay.innerHTML = "";
+            }
         }
     </script>
 </body>
