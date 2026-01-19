@@ -21,7 +21,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body { background: var(--adr-blue-light); color: var(--adr-dark); font-family: var(--body-font); line-height: 1.6; }
 
-        /* NAVBAR & HAMBURGER (Identici alla Home) */
+        /* NAVBAR */
         .main-nav { position: sticky; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); z-index: 10000; border-bottom: 1px solid rgba(0, 168, 255, 0.1); padding: 12px 0; }
         .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; }
         .nav-logo { height: 35px; }
@@ -40,39 +40,35 @@
         /* HERO */
         .energy-hero { background: var(--adr-dark); color: white; padding: 60px 20px; text-align: center; }
 
-        /* OFFER CARDS */
+        /* SECTIONS */
         .container { max-width: 1200px; margin: -50px auto 50px; padding: 0 20px; }
+        .section-header { font-family: var(--tech-font); font-size: 1rem; color: var(--adr-dark); margin: 40px 0 20px; display: flex; align-items: center; gap: 10px; }
+        .section-header::after { content: ""; flex: 1; height: 1px; background: #ccd; }
+
         .grid-offerte { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
 
-        .card { 
-            background: white; border-radius: 24px; padding: 30px; border: 1px solid #eee;
-            transition: 0.3s; position: relative; overflow: hidden;
-        }
-        .card:hover { border-color: var(--adr-blue); transform: translateY(-5px); }
-        .label { position: absolute; top: 15px; right: -30px; background: var(--adr-blue); color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.6rem; font-family: var(--tech-font); }
+        /* CARDS */
+        .card { background: white; border-radius: 24px; padding: 30px; border: 1px solid #eee; transition: 0.3s; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .card:hover { border-color: var(--adr-blue); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,168,255,0.1); }
+        .label { position: absolute; top: 15px; right: -30px; background: var(--adr-blue); color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.6rem; font-family: var(--tech-font); z-index: 1; }
 
-        .price { font-size: 2.5rem; font-weight: 900; margin: 15px 0; color: var(--adr-dark); }
-        .price span { font-size: 0.9rem; color: #888; }
+        .gestore { font-size: 0.65rem; font-weight: 800; color: var(--adr-blue); text-transform: uppercase; margin-bottom: 5px; }
+        .price { font-size: 2.3rem; font-weight: 900; margin: 10px 0; color: var(--adr-dark); }
+        .price span { font-size: 0.8rem; color: #888; font-weight: 400; }
 
-        .features { list-style: none; margin-bottom: 25px; }
-        .features li { font-size: 0.85rem; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .features { list-style: none; margin-bottom: 25px; flex-grow: 1; }
+        .features li { font-size: 0.8rem; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
         .features li::before { content: "✓"; color: var(--success); font-weight: 800; }
 
-        /* CONSULTANT SELECTOR (HIDDEN BY DEFAULT) */
+        /* SELECTOR */
+        .btn-main { background: var(--adr-blue); color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-family: var(--tech-font); font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .btn-main:hover { filter: brightness(1.1); }
+
         .consultant-selector { display: none; margin-top: 15px; background: #f8f9fa; padding: 15px; border-radius: 15px; border: 1px dashed var(--adr-blue); }
         .consultant-selector.active { display: block; animation: fadeIn 0.3s; }
         .cons-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px; }
-        
-        .cons-btn { 
-            background: white; border: 1px solid #ddd; padding: 8px; border-radius: 10px; 
-            cursor: pointer; font-size: 0.7rem; font-family: var(--tech-font); display: flex; align-items: center; gap: 5px;
-        }
+        .cons-btn { background: white; border: 1px solid #ddd; padding: 10px; border-radius: 10px; cursor: pointer; font-size: 0.7rem; font-family: var(--tech-font); text-align: center; }
         .cons-btn:hover { border-color: var(--adr-blue); background: var(--adr-blue-light); }
-
-        .btn-main { 
-            background: var(--adr-blue); color: white; width: 100%; padding: 15px; 
-            border: none; border-radius: 12px; font-family: var(--tech-font); font-weight: 700; cursor: pointer;
-        }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
@@ -86,7 +82,7 @@
                 <a href="index.html" class="nav-link">HOME</a>
                 <a href="energia.html" class="nav-link" style="color:var(--adr-blue)">ENERGIA</a>
                 <a href="telefonia.html" class="nav-link">TELEFONIA</a>
-                <a href="fotovoltaico.html" class="nav-link" style="color:var(--adr-blue)">FOTOVOLTAICO</a>
+                <a href="fotovoltaico.html" class="nav-link">FOTOVOLTAICO</a>
                 <a href="contatti.html" class="nav-link">CONTATTI</a>
                 <a href="dashboard.html" class="area-clienti-btn" style="background:var(--adr-blue); color:white; padding:8px 15px; border-radius:20px;">AREA CLIENTI</a>
             </div>
@@ -97,47 +93,47 @@
     </nav>
 
     <header class="energy-hero">
-        <h1 class="tech-font" style="font-size: 1.8rem;">SELEZIONE <span style="color:var(--adr-blue)">PREMIUM</span></h1>
-        <p style="font-size: 0.8rem; opacity: 0.8;">Scegli l'offerta e il tuo consulente dedicato.</p>
+        <h1 class="tech-font" style="font-size: 1.8rem;">OFFERTE <span style="color:var(--adr-blue)">ENERGIA</span></h1>
+        <p style="font-size: 0.8rem; opacity: 0.8;">Tariffe aggiornate Gennaio 2026. Scegli e contatta il tuo consulente.</p>
     </header>
 
     <div class="container">
+        
+        <div class="section-header">ENERGIA ELETTRICA</div>
         <div class="grid-offerte">
             
             <div class="card">
-                <div class="label">BEST PRICE</div>
+                <div class="label">TOP FISSO</div>
+                <div class="gestore">Acea Energia</div>
                 <h3 class="tech-font">ACEA FIX CASA</h3>
-                <p style="font-size: 0.7rem; color: #666;">Energia a Prezzo Fisso 12 Mesi</p>
                 <div class="price">0.1201 <span>€/kWh*</span></div>
                 <ul class="features">
-                    <li>Prezzo bloccato per 1 anno</li>
-                    <li>Senza rincari di mercato</li>
-                    <li>Attivazione immediata</li>
+                    <li><strong>Prezzo Fisso 12 Mesi</strong></li>
+                    <li>Compreso Perdite di Rete (10%)</li>
+                    <li>Zero sorprese in bolletta</li>
                 </ul>
-                <button class="btn-main" onclick="openSelector(this)">SCEGLI IL TUO CONSULENTE</button>
+                <button class="btn-main" onclick="openSelector(this)">CONSULENZA WHATSAPP</button>
                 <div class="consultant-selector">
-                    <p style="font-size: 0.6rem; font-weight: 800; text-align: center;">CON CHI VUOI PARLARE?</p>
                     <div class="cons-grid">
-                        <div class="cons-btn" onclick="contact('Andrea', 'Acea Fix Casa')">🏢 Andrea</div>
-                        <div class="cons-btn" onclick="contact('Daniel', 'Acea Fix Casa')">👤 Daniel</div>
-                        <div class="cons-btn" onclick="contact('Luca', 'Acea Fix Casa')">👤 Luca</div>
-                        <div class="cons-btn" onclick="contact('Daniele', 'Acea Fix Casa')">👤 Daniele</div>
+                        <div class="cons-btn" onclick="contact('Andrea', 'Acea Fix Luce')">🏢 Andrea</div>
+                        <div class="cons-btn" onclick="contact('Daniel', 'Acea Fix Luce')">👤 Daniel</div>
+                        <div class="cons-btn" onclick="contact('Luca', 'Acea Fix Luce')">👤 Luca</div>
+                        <div class="cons-btn" onclick="contact('Daniele', 'Acea Fix Luce')">👤 Daniele</div>
                     </div>
                 </div>
             </div>
 
             <div class="card">
-                <h3 class="tech-font">E.ON FLEX LUCE</h3>
-                <p style="font-size: 0.7rem; color: #666;">Variabile con Assistenza Inclusa</p>
-                <div class="price">PUN <span>+ 0.031€</span></div>
+                <div class="gestore">E.ON Energia</div>
+                <h3 class="tech-font">FLEX CASA LUCE</h3>
+                <div class="price">PUN <span>+ Spread</span></div>
                 <ul class="features">
-                    <li>Assistenza Casa h24 Gratis</li>
-                    <li>Energia 100% Green</li>
-                    <li>Polizza Guasti Premium</li>
+                    <li><strong>Assistenza Casa h24</strong></li>
+                    <li>Energia 100% Rinnovabile</li>
+                    <li>Servizio Europ Assistance</li>
                 </ul>
-                <button class="btn-main" onclick="openSelector(this)">SCEGLI IL TUO CONSULENTE</button>
+                <button class="btn-main" onclick="openSelector(this)">CONSULENZA WHATSAPP</button>
                 <div class="consultant-selector">
-                    <p style="font-size: 0.6rem; font-weight: 800; text-align: center;">CON CHI VUOI PARLARE?</p>
                     <div class="cons-grid">
                         <div class="cons-btn" onclick="contact('Andrea', 'E.ON Flex Luce')">🏢 Andrea</div>
                         <div class="cons-btn" onclick="contact('Daniel', 'E.ON Flex Luce')">👤 Daniel</div>
@@ -148,23 +144,87 @@
             </div>
 
             <div class="card">
-                <div class="label" style="background: var(--danger);">ULTRA LONG</div>
+                <div class="label" style="background:#2ed573">FINO AL 2026</div>
+                <div class="gestore">Bluenergy</div>
+                <h3 class="tech-font">RELAX CASA LUCE</h3>
+                <div class="price">0.143 <span>€/kWh*</span></div>
+                <ul class="features">
+                    <li><strong>Bloccato al 31/12/2026</strong></li>
+                    <li>Protezione rincari a lungo termine</li>
+                    <li>Energia prodotta in Italia</li>
+                </ul>
+                <button class="btn-main" onclick="openSelector(this)">CONSULENZA WHATSAPP</button>
+                <div class="consultant-selector">
+                    <div class="cons-grid">
+                        <div class="cons-btn" onclick="contact('Andrea', 'Bluenergy Relax Luce')">🏢 Andrea</div>
+                        <div class="cons-btn" onclick="contact('Daniel', 'Bluenergy Relax Luce')">👤 Daniel</div>
+                        <div class="cons-btn" onclick="contact('Luca', 'Bluenergy Relax Luce')">👤 Luca</div>
+                        <div class="cons-btn" onclick="contact('Daniele', 'Bluenergy Relax Luce')">👤 Daniele</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header" style="margin-top: 60px;">GAS NATURALE</div>
+        <div class="grid-offerte">
+            
+            <div class="card">
+                <div class="label" style="background:var(--danger)">SUPER FISSO</div>
+                <div class="gestore">Bluenergy</div>
                 <h3 class="tech-font">RELAX GAS CASA</h3>
-                <p style="font-size: 0.7rem; color: #666;">Fisso fino al 30/09/2027</p>
                 <div class="price">0.482 <span>€/Smc*</span></div>
                 <ul class="features">
-                    <li>Bloccato per due inverni</li>
-                    <li>Nessun aumento fino al 2027</li>
-                    <li>Consulenza locale Seregno</li>
+                    <li><strong>Bloccato fino al 30/09/2027</strong></li>
+                    <li>Massima durata sul mercato</li>
+                    <li>Zero rincari per 2 inverni</li>
                 </ul>
-                <button class="btn-main" onclick="openSelector(this)">SCEGLI IL TUO CONSULENTE</button>
+                <button class="btn-main" onclick="openSelector(this)">CONSULENZA WHATSAPP</button>
                 <div class="consultant-selector">
-                    <p style="font-size: 0.6rem; font-weight: 800; text-align: center;">CON CHI VUOI PARLARE?</p>
                     <div class="cons-grid">
-                        <div class="cons-btn" onclick="contact('Andrea', 'Relax Gas Casa')">🏢 Andrea</div>
-                        <div class="cons-btn" onclick="contact('Daniel', 'Relax Gas Casa')">👤 Daniel</div>
-                        <div class="cons-btn" onclick="contact('Luca', 'Relax Gas Casa')">👤 Luca</div>
-                        <div class="cons-btn" onclick="contact('Daniele', 'Relax Gas Casa')">👤 Daniele</div>
+                        <div class="cons-btn" onclick="contact('Andrea', 'Bluenergy Relax Gas')">🏢 Andrea</div>
+                        <div class="cons-btn" onclick="contact('Daniel', 'Bluenergy Relax Gas')">👤 Daniel</div>
+                        <div class="cons-btn" onclick="contact('Luca', 'Bluenergy Relax Gas')">👤 Luca</div>
+                        <div class="cons-btn" onclick="contact('Daniele', 'Bluenergy Relax Gas')">👤 Daniele</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="gestore">E.ON Energia</div>
+                <h3 class="tech-font">GAS VERDE PROTETTO</h3>
+                <div class="price">0.546 <span>€/Smc*</span></div>
+                <ul class="features">
+                    <li><strong>Polizza Casa Inclusa</strong></li>
+                    <li>Prezzo Fisso 12 Mesi</li>
+                    <li>CO2 Compensata (Green)</li>
+                </ul>
+                <button class="btn-main" onclick="openSelector(this)">CONSULENZA WHATSAPP</button>
+                <div class="consultant-selector">
+                    <div class="cons-grid">
+                        <div class="cons-btn" onclick="contact('Andrea', 'E.ON Gas Verde')">🏢 Andrea</div>
+                        <div class="cons-btn" onclick="contact('Daniel', 'E.ON Gas Verde')">👤 Daniel</div>
+                        <div class="cons-btn" onclick="contact('Luca', 'E.ON Gas Verde')">👤 Luca</div>
+                        <div class="cons-btn" onclick="contact('Daniele', 'E.ON Gas Verde')">👤 Daniele</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="gestore">E.ON Energia</div>
+                <h3 class="tech-font">FLEX GAS PROTETTA</h3>
+                <div class="price">PSV <span>+ Spread</span></div>
+                <ul class="features">
+                    <li><strong>Assicurazione Guasti</strong></li>
+                    <li>Prezzo all'ingrosso (PSV)</li>
+                    <li>Team tecnico H24 incluso</li>
+                </ul>
+                <button class="btn-main" onclick="openSelector(this)">CONSULENZA WHATSAPP</button>
+                <div class="consultant-selector">
+                    <div class="cons-grid">
+                        <div class="cons-btn" onclick="contact('Andrea', 'E.ON Flex Gas')">🏢 Andrea</div>
+                        <div class="cons-btn" onclick="contact('Daniel', 'E.ON Flex Gas')">👤 Daniel</div>
+                        <div class="cons-btn" onclick="contact('Luca', 'E.ON Flex Gas')">👤 Luca</div>
+                        <div class="cons-btn" onclick="contact('Daniele', 'E.ON Flex Gas')">👤 Daniele</div>
                     </div>
                 </div>
             </div>
@@ -178,9 +238,7 @@
         }
 
         function openSelector(btn) {
-            // Chiude altri selettori aperti
             document.querySelectorAll('.consultant-selector').forEach(s => s.classList.remove('active'));
-            // Apre quello corrente
             btn.nextElementSibling.classList.add('active');
         }
 
@@ -191,7 +249,6 @@
                 'Luca': '393277545377', 
                 'Daniele': '393491795387' 
             };
-            
             const msg = `Ciao ${consulente}, sto navigando sul sito ADR e vorrei maggiori informazioni sull'offerta "${offerta}". Possiamo fissare una consulenza?`;
             const url = `https://wa.me/${numeri[consulente]}?text=${encodeURIComponent(msg)}`;
             window.open(url, '_blank');
