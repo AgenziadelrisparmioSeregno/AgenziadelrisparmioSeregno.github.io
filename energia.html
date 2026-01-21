@@ -58,7 +58,7 @@
         .file-drop-area { border: 2px dashed rgba(255,255,255,0.3); border-radius: 20px; padding: 40px; text-align: center; cursor: pointer; transition: 0.3s; margin: 25px 0; }
         .file-drop-area:hover { border-color: var(--adr-blue); background: rgba(0,168,255,0.05); }
         
-        .upload-form input[type="email"], .upload-form input[type="tel"] {
+        .upload-form input[type="text"], .upload-form input[type="email"], .upload-form input[type="tel"] {
             width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; margin-bottom: 15px; font-family: var(--body-font);
         }
 
@@ -92,7 +92,7 @@
 
     <header class="energy-hero">
         <h1 class="tech-font" style="font-size: 2rem; letter-spacing: 2px;">STRATEGIA <span style="color:var(--adr-blue)">ENERGETICA</span></h1>
-        <p style="font-size: 0.9rem; opacity: 0.8; max-width: 600px; margin: 15px auto;">Non siamo legati ad un singolo fornitore. Analizziamo il mercato per darti il prezzo reale più basso.</p>
+        <p style="font-size: 0.9rem; opacity: 0.8; max-width: 600px; margin: 15px auto;">Analizziamo il mercato per darti il prezzo reale più basso. Senza vincoli con i fornitori.</p>
     </header>
 
     <div class="container">
@@ -101,21 +101,21 @@
             <h2 class="tech-font" style="font-size: 1.4rem;">Selezioniamo le offerte migliori. <br>Le compariamo per te.</h2>
             <p style="margin-top: 15px; color: #556;">
                 In ADR Seregno monitoriamo quotidianamente l'andamento del mercato energetico nazionale (PUN e PSV). <br> 
-                <strong>Il nostro lavoro è filtrare le centinaia di tariffe esistenti per isolare solo quelle che garantiscono il risparmio effettivo più alto.</strong>
+                <strong>Filtriamo le centinaia di tariffe esistenti per isolare solo quelle che garantiscono il risparmio effettivo più alto.</strong>
             </p>
 
             <div class="grid-features">
                 <div class="feature-box">
                     <h3>🔍 Scouting Costante</h3>
-                    <p>Analizziamo i listini di oltre 20 fornitori per trovare le "offerte civetta" ed eliminarle dai nostri consigli.</p>
+                    <p>Analizziamo i listini di oltre 20 fornitori per trovare le offerte migliori.</p>
                 </div>
                 <div class="feature-box">
                     <h3>📊 Comparazione Tecnica</h3>
-                    <p>Confrontiamo le quote fisse e le componenti energia per trovare la combinazione più bassa in base ai tuoi consumi.</p>
+                    <p>Confrontiamo le quote fisse e le componenti energia per trovare la combinazione più bassa.</p>
                 </div>
                 <div class="feature-box">
                     <h3>🛡️ Tutela del Prezzo</h3>
-                    <p>Ti avvisiamo noi quando il mercato scende o quando è il momento di bloccare la tariffa per evitare rincari.</p>
+                    <p>Ti avvisiamo noi quando il mercato scende o quando è il momento di bloccare la tariffa.</p>
                 </div>
             </div>
         </div>
@@ -123,22 +123,23 @@
         <div class="upload-container">
             <div class="upload-card">
                 <h2 class="tech-font" style="font-size: 1.2rem; text-align: center;">OTTIENI UN'ANALISI GRATUITA</h2>
-                <p style="text-align: center; font-size: 0.85rem; opacity: 0.8; margin-top: 10px;">Carica la tua bolletta attuale: i nostri esperti la confronteranno con le migliori tariffe di Gennaio 2026.</p>
+                <p style="text-align: center; font-size: 0.85rem; opacity: 0.8; margin-top: 10px;">Carica la tua bolletta: i nostri esperti la confronteranno con le migliori tariffe di Gennaio 2026.</p>
                 
                 <form class="upload-form" action="https://forminit.com/f/3ur0nhp2mzr" method="POST" enctype="multipart/form-data">
                     
                     <div class="file-drop-area" onclick="document.getElementById('bolletta-file').click()">
                         <div style="font-size: 2rem; margin-bottom: 10px;">📄</div>
-                        <p class="tech-font" style="font-size: 0.7rem;">TRASCINA O CLICCA PER CARICARE</p>
+                        <p class="tech-font" style="font-size: 0.7rem;">TRASCINA O CLICCA PER CARICARE LA BOLLETTA</p>
                         <p style="font-size: 0.6rem; opacity: 0.5;">PDF, JPG o PNG (Max 10MB)</p>
                         
                         <input type="file" id="bolletta-file" name="fi-file-bolletta" hidden accept=".pdf, .jpg, .jpeg, .png" required onchange="updateFileName(this)">
-                        
                         <div id="file-name"></div>
                     </div>
 
-                    <input type="email" name="fi-sender-email" placeholder="La tua Email per il report" required>
-                    <input type="tel" name="fi-sender-phone" placeholder="Telefono (opzionale)">
+                    <input type="text" name="fi-first-name" placeholder="Nome" required>
+                    <input type="text" name="fi-last-name" placeholder="Cognome" required>
+                    <input type="email" name="fi-sender-email" placeholder="Indirizzo Email" required>
+                    <input type="tel" name="fi-sender-phone" placeholder="Numero di Cellulare" required>
 
                     <button type="submit" class="btn-upload tech-font">SCOPRI QUANTO RISPARMI</button>
                     
