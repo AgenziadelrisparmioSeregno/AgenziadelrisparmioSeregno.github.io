@@ -7,6 +7,8 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    
     <style>
         :root { 
             --adr-blue: #00a8ff; 
@@ -41,7 +43,6 @@
 
         /* SEZIONE METODO */
         .container { max-width: 1200px; margin: -40px auto 60px; padding: 0 20px; }
-        
         .method-card { background: white; border-radius: 24px; padding: 40px; border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
         .section-header { font-family: var(--tech-font); font-size: 1.2rem; color: var(--adr-blue); margin-bottom: 20px; display: block; }
         
@@ -52,7 +53,7 @@
 
         /* SEZIONE UPLOAD */
         .upload-container { max-width: 800px; margin: 40px auto; }
-        .upload-card { background: var(--adr-dark); color: white; padding: 40px; border-radius: 30px; position: relative; overflow: hidden; }
+        .upload-card { background: var(--adr-dark); color: white; padding: 40px; border-radius: 30px; position: relative; overflow: hidden; min-height: 400px; display: flex; flex-direction: column; justify-content: center; }
         .upload-card::before { content: ""; position: absolute; top: 0; right: 0; width: 150px; height: 150px; background: var(--adr-blue); filter: blur(100px); opacity: 0.3; }
 
         .file-drop-area { border: 2px dashed rgba(255,255,255,0.3); border-radius: 20px; padding: 40px; text-align: center; cursor: pointer; transition: 0.3s; margin: 25px 0; }
@@ -63,12 +64,16 @@
         }
 
         .btn-upload { background: var(--adr-blue); color: white; width: 100%; padding: 18px; border: none; border-radius: 12px; font-family: var(--tech-font); font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 1rem; }
-        .btn-upload:hover { transform: scale(1.02); filter: brightness(1.1); }
+        .btn-upload:disabled { background: #555; cursor: not-allowed; }
         
         #file-name { margin-top: 15px; font-size: 0.8rem; color: var(--success); font-family: var(--tech-font); }
-        
         .footer-note { font-size: 0.7rem; opacity: 0.6; margin-top: 15px; text-align: center; }
+        .captcha-container { display: flex; justify-content: center; margin-bottom: 20px; }
 
+        /* Messaggio di Successo */
+        #success-message { display: none; text-align: center; padding: 20px; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .success-icon { font-size: 4rem; color: var(--success); margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -92,60 +97,56 @@
 
     <header class="energy-hero">
         <h1 class="tech-font" style="font-size: 2rem; letter-spacing: 2px;">STRATEGIA <span style="color:var(--adr-blue)">ENERGETICA</span></h1>
-        <p style="font-size: 0.9rem; opacity: 0.8; max-width: 600px; margin: 15px auto;">Analizziamo il mercato per darti il prezzo reale più basso. Senza vincoli con i fornitori.</p>
+        <p style="font-size: 0.9rem; opacity: 0.8; max-width: 600px; margin: 15px auto;">Analizziamo il mercato per darti il prezzo reale più basso.</p>
     </header>
 
     <div class="container">
         <div class="method-card">
             <span class="section-header">IL NOSTRO METODO</span>
-            <h2 class="tech-font" style="font-size: 1.4rem;">Selezioniamo le offerte migliori. <br>Le compariamo per te.</h2>
-            <p style="margin-top: 15px; color: #556;">
-                In ADR Seregno monitoriamo quotidianamente l'andamento del mercato energetico nazionale (PUN e PSV). <br> 
-                <strong>Filtriamo le centinaia di tariffe esistenti per isolare solo quelle che garantiscono il risparmio effettivo più alto.</strong>
-            </p>
-
+            <h2 class="tech-font" style="font-size: 1.4rem;">Selezioniamo le offerte migliori.</h2>
             <div class="grid-features">
-                <div class="feature-box">
-                    <h3>🔍 Scouting Costante</h3>
-                    <p>Analizziamo i listini di oltre 20 fornitori per trovare le offerte migliori.</p>
-                </div>
-                <div class="feature-box">
-                    <h3>📊 Comparazione Tecnica</h3>
-                    <p>Confrontiamo le quote fisse e le componenti energia per trovare la combinazione più bassa.</p>
-                </div>
-                <div class="feature-box">
-                    <h3>🛡️ Tutela del Prezzo</h3>
-                    <p>Ti avvisiamo noi quando il mercato scende o quando è il momento di bloccare la tariffa.</p>
-                </div>
+                <div class="feature-box"><h3>🔍 Scouting</h3><p>Analizziamo oltre 20 fornitori.</p></div>
+                <div class="feature-box"><h3>📊 Analisi</h3><p>Confrontiamo le quote fisse.</p></div>
+                <div class="feature-box"><h3>🛡️ Tutela</h3><p>Ti avvisiamo sui rincari.</p></div>
             </div>
         </div>
 
         <div class="upload-container">
-            <div class="upload-card">
-                <h2 class="tech-font" style="font-size: 1.2rem; text-align: center;">OTTIENI UN'ANALISI GRATUITA</h2>
-                <p style="text-align: center; font-size: 0.85rem; opacity: 0.8; margin-top: 10px;">Carica la tua bolletta: i nostri esperti la confronteranno con le migliori tariffe di Gennaio 2026.</p>
+            <div class="upload-card" id="form-card">
                 
-                <form class="upload-form" action="https://forminit.com/f/3ur0nhp2mzr" method="POST" enctype="multipart/form-data">
-                    
-                    <div class="file-drop-area" onclick="document.getElementById('bolletta-file').click()">
-                        <div style="font-size: 2rem; margin-bottom: 10px;">📄</div>
-                        <p class="tech-font" style="font-size: 0.7rem;">TRASCINA O CLICCA PER CARICARE LA BOLLETTA</p>
-                        <p style="font-size: 0.6rem; opacity: 0.5;">PDF, JPG o PNG (Max 10MB)</p>
-                        
-                        <input type="file" id="bolletta-file" name="fi-file-bolletta" hidden accept=".pdf, .jpg, .jpeg, .png" required onchange="updateFileName(this)">
-                        <div id="file-name"></div>
-                    </div>
+                <div id="success-message">
+                    <div class="success-icon">✓</div>
+                    <h2 class="tech-font" style="font-size: 1.5rem; color: white;">RICHIESTA INVIATA!</h2>
+                    <p style="opacity: 0.8; margin-top: 10px;">Grazie per aver scelto ADR Seregno. I nostri esperti analizzeranno la tua bolletta e ti ricontatteranno entro 24 ore.</p>
+                    <button onclick="location.reload()" class="btn-upload tech-font" style="margin-top: 30px; width: auto; padding: 10px 30px;">INVIA UN'ALTRA</button>
+                </div>
 
-                    <input type="text" name="fi-first-name" placeholder="Nome" required>
-                    <input type="text" name="fi-last-name" placeholder="Cognome" required>
-                    <input type="email" name="fi-sender-email" placeholder="Indirizzo Email" required>
+                <div id="form-content">
+                    <h2 class="tech-font" style="font-size: 1.2rem; text-align: center;">OTTIENI UN'ANALISI GRATUITA</h2>
+                    <p style="text-align: center; font-size: 0.85rem; opacity: 0.8; margin: 10px 0 20px;">Carica la tua bolletta: ti risponderemo con il report di risparmio.</p>
                     
-                    <input type="tel" name="Cellulare" placeholder="Numero di Cellulare" required>
+                    <form id="bollettaForm" class="upload-form" enctype="multipart/form-data">
+                        <div class="file-drop-area" onclick="document.getElementById('bolletta-file').click()">
+                            <div style="font-size: 2rem; margin-bottom: 10px;">📄</div>
+                            <p class="tech-font" style="font-size: 0.7rem;">TRASCINA O CLICCA PER CARICARE</p>
+                            <input type="file" id="bolletta-file" name="fi-file-bolletta" hidden accept=".pdf, .jpg, .jpeg, .png" required onchange="updateFileName(this)">
+                            <div id="file-name"></div>
+                        </div>
 
-                    <button type="submit" class="btn-upload tech-font">SCOPRI QUANTO RISPARMI</button>
-                    
-                    <p class="footer-note">I tuoi dati sono protetti. Servizio di analisi gratuita ADR Seregno tramite Forminit.</p>
-                </form>
+                        <input type="text" name="fi-first-name" placeholder="Nome" required>
+                        <input type="text" name="fi-last-name" placeholder="Cognome" required>
+                        <input type="email" name="fi-sender-email" placeholder="Indirizzo Email" required>
+                        <input type="tel" name="Cellulare" placeholder="Numero di Cellulare" required>
+
+                        <div class="captcha-container">
+                            <div class="g-recaptcha" data-sitekey="6LdQ61EsAAAAADstrSYGbpg1tCPoao5EG3Tzd1U6"></div>
+                        </div>
+
+                        <button type="submit" id="submitBtn" class="btn-upload tech-font">SCOPRI QUANTO RISPARMI</button>
+                        <p class="footer-note">I tuoi dati sono protetti da crittografia end-to-end.</p>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
@@ -158,13 +159,50 @@
         function updateFileName(input) {
             const fileNameDisplay = document.getElementById('file-name');
             if (input.files && input.files[0]) {
-                const fileName = input.files[0].name;
-                fileNameDisplay.innerHTML = `✓ File pronto: ${fileName}`;
+                fileNameDisplay.innerHTML = `✓ File pronto: ${input.files[0].name}`;
                 fileNameDisplay.style.color = "var(--success)";
-            } else {
-                fileNameDisplay.innerHTML = "";
             }
         }
+
+        // GESTIONE INVIO MODULO SENZA REFRESH
+        const form = document.getElementById('bollettaForm');
+        const btn = document.getElementById('submitBtn');
+        const formContent = document.getElementById('form-content');
+        const successMsg = document.getElementById('success-message');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Controllo reCAPTCHA
+            const captchaResponse = grecaptcha.getResponse();
+            if(captchaResponse.length == 0) {
+                alert("Per favore, conferma che non sei un robot.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = "INVIO IN CORSO...";
+
+            const formData = new FormData(form);
+
+            fetch('https://forminit.com/f/3ur0nhp2mzr', {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors' // Forminit accetta richieste cross-origin
+            })
+            .then(() => {
+                // Nascondi il form e mostra il successo
+                formContent.style.display = 'none';
+                successMsg.style.display = 'block';
+                window.scrollTo({ top: document.getElementById('form-card').offsetTop - 100, behavior: 'smooth' });
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert("Si è verificato un errore. Riprova tra poco.");
+                btn.disabled = false;
+                btn.innerHTML = "SCOPRI QUANTO RISPARMI";
+            });
+        });
     </script>
 </body>
 </html>
