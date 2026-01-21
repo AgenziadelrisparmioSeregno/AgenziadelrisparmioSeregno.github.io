@@ -139,7 +139,7 @@
                         <input type="tel" name="Cellulare" placeholder="Numero di Cellulare" required>
 
                         <div class="captcha-container">
-                            <div class="g-recaptcha" data-sitekey="6LdQ61EsAAAAADstrSYGbpg1tCPoao5EG3Tzd1U6"></div>
+                            <div class="g-recaptcha" data-sitekey="6LcQN1IsAAAAAHWGSLIXU6ArZHBWSh1dtSI8JU0L"></div>
                         </div>
 
                         <button type="submit" id="submitBtn" class="btn-upload tech-font">SCOPRI QUANTO RISPARMI</button>
@@ -164,7 +164,6 @@
             }
         }
 
-        // GESTIONE INVIO MODULO SENZA REFRESH
         const form = document.getElementById('bollettaForm');
         const btn = document.getElementById('submitBtn');
         const formContent = document.getElementById('form-content');
@@ -173,7 +172,6 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Controllo reCAPTCHA
             const captchaResponse = grecaptcha.getResponse();
             if(captchaResponse.length == 0) {
                 alert("Per favore, conferma che non sei un robot.");
@@ -188,10 +186,9 @@
             fetch('https://forminit.com/f/3ur0nhp2mzr', {
                 method: 'POST',
                 body: formData,
-                mode: 'no-cors' // Forminit accetta richieste cross-origin
+                mode: 'no-cors'
             })
             .then(() => {
-                // Nascondi il form e mostra il successo
                 formContent.style.display = 'none';
                 successMsg.style.display = 'block';
                 window.scrollTo({ top: document.getElementById('form-card').offsetTop - 100, behavior: 'smooth' });
