@@ -22,7 +22,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body { background: var(--adr-blue-light); color: var(--adr-dark); font-family: var(--body-font); line-height: 1.6; }
 
-        /* NAVBAR */
         .main-nav { position: sticky; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); z-index: 10000; border-bottom: 1px solid rgba(0, 168, 255, 0.1); padding: 12px 0; }
         .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; }
         .nav-logo { height: 35px; }
@@ -38,10 +37,8 @@
             .nav-menu.active { right: 0; }
         }
 
-        /* HERO */
         .energy-hero { background: var(--adr-dark); color: white; padding: 80px 20px; text-align: center; }
 
-        /* SEZIONE METODO */
         .container { max-width: 1200px; margin: -40px auto 60px; padding: 0 20px; }
         .method-card { background: white; border-radius: 24px; padding: 40px; border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
         .section-header { font-family: var(--tech-font); font-size: 1.2rem; color: var(--adr-blue); margin-bottom: 20px; display: block; }
@@ -51,7 +48,6 @@
         .feature-box h3 { font-family: var(--tech-font); font-size: 0.9rem; margin-bottom: 10px; color: var(--adr-dark); }
         .feature-box p { font-size: 0.85rem; opacity: 0.8; }
 
-        /* SEZIONE UPLOAD */
         .upload-container { max-width: 800px; margin: 40px auto; }
         .upload-card { background: var(--adr-dark); color: white; padding: 40px; border-radius: 30px; position: relative; overflow: hidden; min-height: 400px; display: flex; flex-direction: column; justify-content: center; }
         .upload-card::before { content: ""; position: absolute; top: 0; right: 0; width: 150px; height: 150px; background: var(--adr-blue); filter: blur(100px); opacity: 0.3; }
@@ -59,7 +55,7 @@
         .file-drop-area { border: 2px dashed rgba(255,255,255,0.3); border-radius: 20px; padding: 40px; text-align: center; cursor: pointer; transition: 0.3s; margin: 25px 0; }
         .file-drop-area:hover { border-color: var(--adr-blue); background: rgba(0,168,255,0.05); }
         
-        .upload-form input[type="text"], .upload-form input[type="email"], .upload-form input[type="tel"] {
+        .upload-form input {
             width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; margin-bottom: 15px; font-family: var(--body-font);
         }
 
@@ -70,7 +66,6 @@
         .footer-note { font-size: 0.7rem; opacity: 0.6; margin-top: 15px; text-align: center; }
         .captcha-container { display: flex; justify-content: center; margin-bottom: 20px; }
 
-        /* Messaggio di Successo */
         #success-message { display: none; text-align: center; padding: 20px; animation: fadeIn 0.5s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .success-icon { font-size: 4rem; color: var(--success); margin-bottom: 20px; }
@@ -117,15 +112,15 @@
                 <div id="success-message">
                     <div class="success-icon">✓</div>
                     <h2 class="tech-font" style="font-size: 1.5rem; color: white;">RICHIESTA INVIATA!</h2>
-                    <p style="opacity: 0.8; margin-top: 10px;">Grazie per aver scelto ADR Seregno. I nostri esperti analizzeranno la tua bolletta e ti ricontatteranno entro 24 ore.</p>
+                    <p style="opacity: 0.8; margin-top: 10px;">Grazie per aver scelto ADR Seregno. Ti ricontatteremo entro 24 ore.</p>
                     <button onclick="location.reload()" class="btn-upload tech-font" style="margin-top: 30px; width: auto; padding: 10px 30px;">INVIA UN'ALTRA</button>
                 </div>
 
                 <div id="form-content">
                     <h2 class="tech-font" style="font-size: 1.2rem; text-align: center;">OTTIENI UN'ANALISI GRATUITA</h2>
-                    <p style="text-align: center; font-size: 0.85rem; opacity: 0.8; margin: 10px 0 20px;">Carica la tua bolletta: ti risponderemo con il report di risparmio.</p>
+                    <p style="text-align: center; font-size: 0.85rem; opacity: 0.8; margin: 10px 0 20px;">Carica la tua bolletta.</p>
                     
-                    <form id="bollettaForm" class="upload-form" enctype="multipart/form-data">
+                    <form id="bollettaForm" class="upload-form" action="https://forminit.com/f/3ur0nhp2mzr" method="POST" enctype="multipart/form-data">
                         <div class="file-drop-area" onclick="document.getElementById('bolletta-file').click()">
                             <div style="font-size: 2rem; margin-bottom: 10px;">📄</div>
                             <p class="tech-font" style="font-size: 0.7rem;">TRASCINA O CLICCA PER CARICARE</p>
@@ -143,10 +138,9 @@
                         </div>
 
                         <button type="submit" id="submitBtn" class="btn-upload tech-font">SCOPRI QUANTO RISPARMI</button>
-                        <p class="footer-note">I tuoi dati sono protetti da crittografia end-to-end.</p>
+                        <p class="footer-note">I tuoi dati sono protetti.</p>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>
@@ -159,7 +153,7 @@
         function updateFileName(input) {
             const fileNameDisplay = document.getElementById('file-name');
             if (input.files && input.files[0]) {
-                fileNameDisplay.innerHTML = `✓ File pronto: ${input.files[0].name}`;
+                fileNameDisplay.innerHTML = `✓ File: ${input.files[0].name}`;
                 fileNameDisplay.style.color = "var(--success)";
             }
         }
@@ -181,24 +175,23 @@
             btn.disabled = true;
             btn.innerHTML = "INVIO IN CORSO...";
 
+            // Usiamo XMLHttpRequest invece di fetch per una compatibilità migliore con i tag di Forminit
+            const xhr = new XMLHttpRequest();
             const formData = new FormData(form);
 
-            fetch('https://forminit.com/f/3ur0nhp2mzr', {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors'
-            })
-            .then(() => {
+            xhr.open("POST", form.action, true);
+            xhr.onload = function () {
+                // Anche se CORS blocca la risposta leggibile, l'invio avviene.
                 formContent.style.display = 'none';
                 successMsg.style.display = 'block';
                 window.scrollTo({ top: document.getElementById('form-card').offsetTop - 100, behavior: 'smooth' });
-            })
-            .catch(error => {
-                console.error('Errore:', error);
-                alert("Si è verificato un errore. Riprova tra poco.");
+            };
+            xhr.onerror = function () {
+                alert("Errore di connessione. Riprova.");
                 btn.disabled = false;
                 btn.innerHTML = "SCOPRI QUANTO RISPARMI";
-            });
+            };
+            xhr.send(formData);
         });
     </script>
 </body>
