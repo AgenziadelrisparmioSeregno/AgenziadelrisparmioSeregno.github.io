@@ -32,25 +32,25 @@
         .news-hero p { opacity: 0.8; font-size: 0.9rem; margin-top: 10px; }
 
         /* GRID NEWS */
-        .news-grid { max-width: 1200px; margin: 50px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .news-grid { max-width: 1200px; margin: 50px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
 
         /* CARD ARTICOLO */
         .news-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee; transition: 0.4s; display: flex; flex-direction: column; text-decoration: none; color: inherit; }
         .news-card:hover { transform: translateY(-10px); border-color: var(--adr-blue); box-shadow: 0 20px 40px rgba(0,168,255,0.1); }
         
-        .news-image-placeholder { height: 200px; background: var(--adr-dark); display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; overflow: hidden; }
-        .news-image-placeholder::after { content: ""; position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, transparent, rgba(0,168,255,0.1)); }
+        .news-image-placeholder { height: 180px; background: var(--adr-dark); display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; }
 
         .news-content { padding: 25px; flex-grow: 1; }
-        .news-date { font-family: var(--tech-font); font-size: 0.7rem; color: var(--adr-blue); font-weight: 700; display: block; margin-bottom: 10px; }
-        .news-title { font-family: var(--tech-font); font-size: 1.1rem; color: var(--adr-dark); margin-bottom: 15px; line-height: 1.4; }
-        .news-excerpt { font-size: 0.85rem; color: #555; margin-bottom: 20px; }
+        .news-date { font-family: var(--tech-font); font-size: 0.65rem; color: var(--adr-blue); font-weight: 700; display: block; margin-bottom: 10px; }
+        .news-title { font-family: var(--tech-font); font-size: 1rem; color: var(--adr-dark); margin-bottom: 15px; line-height: 1.4; height: 3em; overflow: hidden; }
+        .news-excerpt { font-size: 0.8rem; color: #555; margin-bottom: 20px; height: 4.5em; overflow: hidden; }
         
-        .btn-read { font-family: var(--tech-font); font-size: 0.75rem; font-weight: 900; color: var(--adr-blue); text-transform: uppercase; }
+        .btn-read { font-family: var(--tech-font); font-size: 0.7rem; font-weight: 900; color: var(--adr-blue); text-transform: uppercase; }
 
         /* FOOTER CTA */
         .news-cta { background: var(--adr-blue); color: white; text-align: center; padding: 40px 20px; margin-top: 50px; }
-        .btn-cta { background: var(--adr-dark); color: white; padding: 15px 30px; border-radius: 12px; text-decoration: none; font-family: var(--tech-font); display: inline-block; margin-top: 20px; }
+        .btn-cta { background: var(--adr-dark); color: white; padding: 15px 30px; border-radius: 12px; text-decoration: none; font-family: var(--tech-font); display: inline-block; margin-top: 20px; transition: 0.3s; }
+        .btn-cta:hover { background: #152d4b; }
 
         @media (max-width: 600px) {
             .news-grid { grid-template-columns: 1fr; }
@@ -73,7 +73,7 @@
 
     <header class="news-hero">
         <h1 class="tech-font">ADR <span style="color:var(--adr-blue)">NEWS</span></h1>
-        <p>Il tuo osservatorio indipendente sul mercato dell'energia a Seregno.</p>
+        <p>Tieniti aggiornato sulle ultime novità del mercato energetico.</p>
     </header>
 
     <main class="news-grid">
@@ -81,9 +81,9 @@
         <a href="articoli/allerta-truffe-seregno.html" class="news-card">
             <div class="news-image-placeholder">⚠️</div>
             <div class="news-content">
-                <span class="news-date">22 GENNAIO 2026</span>
-                <h2 class="news-title">Allerta truffe telefoniche in Brianza</h2>
-                <p class="news-excerpt">Segnalati tentativi di recupero codici POD e PDR da parte di finti operatori. Ecco come difendersi.</p>
+                <span class="news-date">22 GEN 2026</span>
+                <h2 class="news-title">Allerta truffe telefoniche a Seregno</h2>
+                <p class="news-excerpt">Segnalati finti operatori nella zona. Scopri come riconoscere i 3 segnali di pericolo e proteggere i tuoi dati.</p>
                 <span class="btn-read">Leggi Articolo →</span>
             </div>
         </a>
@@ -91,29 +91,39 @@
         <a href="articoli/prezzi-energia-2026.html" class="news-card">
             <div class="news-image-placeholder">📊</div>
             <div class="news-content">
-                <span class="news-date">15 GENNAIO 2026</span>
-                <h2 class="news-title">Andamento Prezzi: cosa cambia questo mese</h2>
-                <p class="news-excerpt">Analisi dettagliata delle tariffe di inizio anno. Conviene passare al prezzo fisso o variabile?</p>
+                <span class="news-date">22 GEN 2026</span>
+                <h2 class="news-title">Prezzi 2026: rincari sulle quote fisse</h2>
+                <p class="news-excerpt">Il costo dell'energia è stabile, ma le bollette salgono. Analizziamo insieme l'aumento dei costi di commercializzazione.</p>
                 <span class="btn-read">Leggi Articolo →</span>
             </div>
         </a>
 
-        <a href="articoli/vantaggi-analisi-bolletta.html" class="news-card">
-            <div class="news-image-placeholder">🛡️</div>
+        <a href="articoli/vantaggi-fotovoltaico.html" class="news-card">
+            <div class="news-image-placeholder">☀️</div>
             <div class="news-content">
-                <span class="news-date">10 GENNAIO 2026</span>
-                <h2 class="news-title">Perché l'analisi gratuita ti salva il portafoglio</h2>
-                <p class="news-excerpt">Non è solo questione di prezzo al kWh. Scopri come ADR analizza i costi fissi nascosti.</p>
+                <span class="news-date">22 GEN 2026</span>
+                <h2 class="news-title">Fotovoltaico: conviene ancora in Brianza?</h2>
+                <p class="news-excerpt">Tutto quello che devi sapere sull'installazione dei pannelli solari e sull'importanza dei sistemi di accumulo oggi.</p>
                 <span class="btn-read">Leggi Articolo →</span>
             </div>
         </a>
 
-        </main>
+        <a href="articoli/guida-voci-bolletta.html" class="news-card">
+            <div class="news-image-placeholder">📄</div>
+            <div class="news-content">
+                <span class="news-date">22 GEN 2026</span>
+                <h2 class="news-title">Guida alle voci della tua bolletta</h2>
+                <p class="news-excerpt">Oneri di sistema, quote fisse e accise: impariamo a leggere tra le righe per capire cosa stiamo pagando realmente.</p>
+                <span class="btn-read">Leggi Articolo →</span>
+            </div>
+        </a>
+
+    </main>
 
     <section class="news-cta">
-        <h2 class="tech-font">Vuoi una consulenza personalizzata?</h2>
-        <p>Inviaci la tua ultima bolletta e ti diremo subito se puoi risparmiare.</p>
-        <a href="energia.html" class="btn-cta">ANALIZZA ORA</a>
+        <h2 class="tech-font">Non farti cogliere impreparato.</h2>
+        <p>Inviaci la tua bolletta per un controllo tecnico gratuito dei costi.</p>
+        <a href="energia.html" class="btn-cta">ANALIZZA LA BOLLETTA</a>
     </section>
 
 </body>
