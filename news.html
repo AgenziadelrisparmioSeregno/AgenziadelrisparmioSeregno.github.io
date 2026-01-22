@@ -3,128 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News & Aggiornamenti | ADR Seregno</title>
-    
+    <title>News | ADR Seregno</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    
     <style>
-        :root { 
-            --adr-blue: #00a8ff; 
-            --adr-dark: #0b1e33;
-            --adr-blue-light: #f0faff;
-            --tech-font: 'Orbitron', sans-serif;
-            --body-font: 'Inter', sans-serif;
-        }
+        :root { --adr-blue: #00a8ff; --adr-dark: #0b1e33; --adr-blue-light: #f0faff; --tech-font: 'Orbitron', sans-serif; }
+        body { font-family: 'Inter', sans-serif; background: var(--adr-blue-light); color: var(--adr-dark); margin: 0; }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--adr-blue-light); color: var(--adr-dark); font-family: var(--body-font); line-height: 1.6; }
+        /* Navbar */
+        .main-nav { position: sticky; top: 0; background: white; z-index: 1000; padding: 12px 0; border-bottom: 1px solid #eee; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .nav-menu a { font-family: var(--tech-font); font-size: 0.7rem; text-decoration: none; color: var(--adr-dark); margin-left: 20px; font-weight: 700; }
 
-        /* NAVBAR */
-        .main-nav { position: sticky; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); z-index: 10000; border-bottom: 1px solid rgba(0, 168, 255, 0.1); padding: 12px 0; }
-        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; }
-        .nav-logo { height: 35px; }
-        .nav-menu a { font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; color: var(--adr-dark); text-decoration: none; margin-left: 20px; transition: 0.3s; }
-        .nav-menu a:hover { color: var(--adr-blue); }
-
-        /* HERO NEWS */
-        .news-hero { background: var(--adr-dark); color: white; padding: 60px 20px; text-align: center; border-bottom: 4px solid var(--adr-blue); }
-        .news-hero h1 { font-family: var(--tech-font); font-size: 2rem; letter-spacing: 2px; }
-        .news-hero p { opacity: 0.8; font-size: 0.9rem; margin-top: 10px; }
-
-        /* GRID NEWS */
-        .news-grid { max-width: 1200px; margin: 50px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-
-        /* CARD ARTICOLO */
-        .news-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee; transition: 0.4s; display: flex; flex-direction: column; text-decoration: none; color: inherit; }
-        .news-card:hover { transform: translateY(-10px); border-color: var(--adr-blue); box-shadow: 0 20px 40px rgba(0,168,255,0.1); }
+        .news-hero { background: var(--adr-dark); color: white; padding: 50px 20px; text-align: center; }
         
-        .news-image-placeholder { height: 180px; background: var(--adr-dark); display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; }
+        /* Titoli Sezioni */
+        .section-divider { max-width: 1200px; margin: 40px auto 20px; padding: 0 20px; display: flex; align-items: center; gap: 20px; }
+        .section-divider h2 { font-family: var(--tech-font); font-size: 1.2rem; color: var(--adr-dark); white-space: nowrap; }
+        .section-divider .line { height: 2px; background: var(--adr-blue); width: 100%; opacity: 0.3; }
 
-        .news-content { padding: 25px; flex-grow: 1; }
-        .news-date { font-family: var(--tech-font); font-size: 0.65rem; color: var(--adr-blue); font-weight: 700; display: block; margin-bottom: 10px; }
-        .news-title { font-family: var(--tech-font); font-size: 1rem; color: var(--adr-dark); margin-bottom: 15px; line-height: 1.4; height: 3em; overflow: hidden; }
-        .news-excerpt { font-size: 0.8rem; color: #555; margin-bottom: 20px; height: 4.5em; overflow: hidden; }
+        .news-grid { max-width: 1200px; margin: 0 auto 50px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
         
-        .btn-read { font-family: var(--tech-font); font-size: 0.7rem; font-weight: 900; color: var(--adr-blue); text-transform: uppercase; }
-
-        /* FOOTER CTA */
-        .news-cta { background: var(--adr-blue); color: white; text-align: center; padding: 40px 20px; margin-top: 50px; }
-        .btn-cta { background: var(--adr-dark); color: white; padding: 15px 30px; border-radius: 12px; text-decoration: none; font-family: var(--tech-font); display: inline-block; margin-top: 20px; transition: 0.3s; }
-        .btn-cta:hover { background: #152d4b; }
-
-        @media (max-width: 600px) {
-            .news-grid { grid-template-columns: 1fr; }
-        }
+        .news-card { background: white; border-radius: 15px; overflow: hidden; border: 1px solid #eee; transition: 0.3s; text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+        .news-card:hover { transform: translateY(-5px); border-color: var(--adr-blue); }
+        .news-icon { height: 120px; background: var(--adr-dark); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+        .news-content { padding: 20px; }
+        .news-tag { color: var(--adr-blue); font-size: 0.6rem; font-weight: 800; font-family: var(--tech-font); text-transform: uppercase; }
+        .news-title { font-size: 1rem; margin: 10px 0; font-weight: 700; }
+        .news-excerpt { font-size: 0.8rem; opacity: 0.7; }
     </style>
 </head>
 <body>
 
     <nav class="main-nav">
         <div class="nav-container">
-            <a href="index.html"><img src="logo.png" alt="ADR Logo" class="nav-logo"></a>
+            <a href="index.html"><img src="logo.png" alt="ADR" style="height:30px;"></a>
             <div class="nav-menu">
                 <a href="index.html">HOME</a>
                 <a href="energia.html">ENERGIA</a>
                 <a href="news.html" style="color:var(--adr-blue)">NEWS</a>
-                <a href="contatti.html">CONTATTI</a>
             </div>
         </div>
     </nav>
 
     <header class="news-hero">
-        <h1 class="tech-font">ADR <span style="color:var(--adr-blue)">NEWS</span></h1>
-        <p>Tieniti aggiornato sulle ultime novità del mercato energetico.</p>
+        <h1 style="font-family: var(--tech-font);">ADR <span style="color:var(--adr-blue)">REPORTS</span></h1>
+        <p>Analisi e consigli per Luce, Gas e Telefonia.</p>
     </header>
 
-    <main class="news-grid">
+    <div class="section-divider">
+        <h2>ENERGIA & GAS</h2>
+        <div class="line"></div>
+    </div>
 
+    <div class="news-grid">
         <a href="articoli/allerta-truffe-seregno.html" class="news-card">
-            <div class="news-image-placeholder">⚠️</div>
+            <div class="news-icon">⚠️</div>
             <div class="news-content">
-                <span class="news-date">22 GEN 2026</span>
-                <h2 class="news-title">Allerta truffe telefoniche a Seregno</h2>
-                <p class="news-excerpt">Segnalati finti operatori nella zona. Scopri come riconoscere i 3 segnali di pericolo e proteggere i tuoi dati.</p>
-                <span class="btn-read">Leggi Articolo →</span>
+                <span class="news-tag">Sicurezza</span>
+                <h3 class="news-title">Allerta truffe a Seregno</h3>
+                <p class="news-excerpt">Finti operatori in zona: ecco come proteggere i tuoi codici.</p>
             </div>
         </a>
-
         <a href="articoli/prezzi-energia-2026.html" class="news-card">
-            <div class="news-image-placeholder">📊</div>
+            <div class="news-icon">📊</div>
             <div class="news-content">
-                <span class="news-date">22 GEN 2026</span>
-                <h2 class="news-title">Prezzi 2026: rincari sulle quote fisse</h2>
-                <p class="news-excerpt">Il costo dell'energia è stabile, ma le bollette salgono. Analizziamo insieme l'aumento dei costi di commercializzazione.</p>
-                <span class="btn-read">Leggi Articolo →</span>
+                <span class="news-tag">Mercato</span>
+                <h3 class="news-title">Rincari Quote Fisse 2026</h3>
+                <p class="news-excerpt">Analisi dell'aumento dei costi fissi di commercializzazione.</p>
             </div>
         </a>
+    </div>
 
-        <a href="articoli/vantaggi-fotovoltaico.html" class="news-card">
-            <div class="news-image-placeholder">☀️</div>
+    <div class="section-divider">
+        <h2 style="color: #ff007f;">TELEFONIA & FIBRA</h2>
+        <div class="line" style="background: #ff007f;"></div>
+    </div>
+
+    <div class="news-grid">
+        <a href="articoli/trucchi-telefonia-mobile.html" class="news-card">
+            <div class="news-icon" style="background: #1e0b21;">📱</div>
             <div class="news-content">
-                <span class="news-date">22 GEN 2026</span>
-                <h2 class="news-title">Fotovoltaico: conviene ancora in Brianza?</h2>
-                <p class="news-excerpt">Tutto quello che devi sapere sull'installazione dei pannelli solari e sull'importanza dei sistemi di accumulo oggi.</p>
-                <span class="btn-read">Leggi Articolo →</span>
+                <span class="news-tag" style="color: #ff007f;">Rimodulazioni</span>
+                <h3 class="news-title">Stop agli aumenti Mobile</h3>
+                <p class="news-excerpt">Come evitare che la tua tariffa aumenti ogni 6 mesi.</p>
             </div>
         </a>
-
-        <a href="articoli/guida-voci-bolletta.html" class="news-card">
-            <div class="news-image-placeholder">📄</div>
+        <a href="articoli/fibra-seregno-guida.html" class="news-card">
+            <div class="news-icon" style="background: #1e0b21;">🌐</div>
             <div class="news-content">
-                <span class="news-date">22 GEN 2026</span>
-                <h2 class="news-title">Guida alle voci della tua bolletta</h2>
-                <p class="news-excerpt">Oneri di sistema, quote fisse e accise: impariamo a leggere tra le righe per capire cosa stiamo pagando realmente.</p>
-                <span class="btn-read">Leggi Articolo →</span>
+                <span class="news-tag" style="color: #ff007f;">Connettività</span>
+                <h3 class="news-title">La Fibra a Seregno</h3>
+                <p class="news-excerpt">Guida alla copertura FTTH: navighi davvero al massimo?</p>
             </div>
         </a>
-
-    </main>
-
-    <section class="news-cta">
-        <h2 class="tech-font">Non farti cogliere impreparato.</h2>
-        <p>Inviaci la tua bolletta per un controllo tecnico gratuito dei costi.</p>
-        <a href="energia.html" class="btn-cta">ANALIZZA LA BOLLETTA</a>
-    </section>
+    </div>
 
 </body>
 </html>
