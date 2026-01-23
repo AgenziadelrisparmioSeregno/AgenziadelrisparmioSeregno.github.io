@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Telefonia & Sky | Agenzia del Risparmio</title>
+    <title>Telefonia & Fibra | Agenzia del Risparmio</title>
     
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="apple-touch-icon" href="logo.png">
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        /* ============================================================
-           ADR GLOBAL SYSTEM - TELEFONIA TECH STYLE (FIXED 2026)
-           ============================================================ */
         :root { 
             --adr-blue: #00a8ff; 
             --adr-blue-neon: #00d2ff;
             --adr-dark: #0b1e33;
             --adr-blue-light: #f0faff;
+            --neon-green: #2ecc71;
             --white: #ffffff;
             --tech-font: 'Orbitron', sans-serif;
             --body-font: 'Inter', sans-serif;
@@ -35,22 +33,12 @@
             line-height: 1.6;
         }
 
-        /* PROGRESS BAR */
         #progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 20000; pointer-events: none; }
         #progress-bar { height: 100%; background: var(--adr-blue); width: 0%; box-shadow: 0 0 10px var(--adr-blue-neon); }
 
         .tech-font { font-family: var(--tech-font); text-transform: uppercase; letter-spacing: 1px; }
 
-        /* MARKET TICKER */
-        .market-ticker { 
-            background: var(--adr-blue); color: white; padding: 8px 0; 
-            overflow: hidden; white-space: nowrap; position: relative; z-index: 5000;
-        }
-        .ticker-content { display: inline-block; animation: ticker 30s linear infinite; }
-        .ticker-item { display: inline-block; padding: 0 30px; font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; }
-        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        /* NAVBAR ADR MODERNA */
+        /* NAVBAR */
         .main-nav {
             position: sticky; top: 0; width: 100%;
             background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
@@ -58,21 +46,15 @@
             padding: 10px 0;
         }
         .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; }
-        .nav-logo { height: 38px; filter: drop-shadow(0 0 5px rgba(0,168,255,0.2)); }
+        .nav-logo { height: 38px; }
         .nav-menu { display: flex; gap: 20px; }
         .nav-link { font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; color: var(--adr-dark); text-decoration: none; transition: 0.3s; }
         .nav-link:hover, .nav-link.active { color: var(--adr-blue); }
+        
         .area-clienti-btn {
             background: var(--adr-blue); color: white; padding: 8px 16px; border-radius: 50px; 
             font-family: var(--tech-font); font-size: 0.65rem; font-weight: 800; text-decoration: none;
             box-shadow: var(--neon-shadow); transition: 0.3s;
-        }
-        .mobile-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
-        .bar { width: 22px; height: 2px; background: var(--adr-blue); }
-        .mobile-nav { 
-            display: none; flex-direction: column; background: white; position: absolute; 
-            top: 100%; left: 0; width: 100%; padding: 20px; border-bottom: 3px solid var(--adr-blue); 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
         /* CARDS */
@@ -84,42 +66,39 @@
             background: white; border: 1px solid rgba(0, 168, 255, 0.15);
             border-radius: 24px; padding: 35px; 
             box-shadow: 0 15px 35px rgba(0, 168, 255, 0.1);
-            position: relative; overflow: hidden; height: 100%;
-            transition: 0.3s; display: flex; flex-direction: column;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            transition: 0.3s;
         }
         .glass-card:hover { transform: translateY(-5px); box-shadow: var(--neon-shadow); }
-        .glass-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%; 
-            background: var(--adr-blue);
+
+        .price-list { margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; }
+        .price-item { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 8px; font-weight: 600; }
+        .brand-name { color: var(--adr-blue); font-family: var(--tech-font); font-size: 0.7rem; }
+
+        .script-box {
+            margin-top: 20px; padding: 15px; background: var(--adr-dark);
+            color: white; border-radius: 12px; font-size: 0.8rem;
+        }
+        .script-box h4 { 
+            font-family: var(--tech-font); color: var(--adr-blue); 
+            margin-bottom: 8px; font-size: 0.7rem; 
         }
 
         .btn {
             background: var(--adr-blue); color: white; border: none; padding: 12px;
             border-radius: 12px; font-family: var(--tech-font); font-weight: 700;
-            width: 100%; cursor: pointer; transition: 0.3s; font-size: 0.75rem;
+            width: 100%; cursor: pointer; transition: 0.3s; font-size: 0.7rem;
         }
-        .btn:hover { background: var(--adr-blue-neon); }
-        .btn-green { background: #2ecc71; }
+        .btn-green { background: var(--neon-green); }
 
-        /* BOT ADR-1 CONNECT */
-        #bot-container { position: fixed; bottom: 25px; right: 25px; z-index: 10001; }
-        #bot-launcher { width: 60px; height: 60px; border-radius: 50%; background: var(--adr-blue); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.6rem; border: 2px solid white; box-shadow: 0 10px 25px rgba(0,168,255,0.4); }
-        #bot-window {
-            display: none; width: 340px; height: 500px; background: white;
-            position: absolute; bottom: 75px; right: 0; border-radius: 20px;
-            flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            border: 1px solid var(--adr-blue-light); overflow: hidden;
-        }
-        .bot-header { background: var(--adr-blue); color: white; padding: 15px; display: flex; justify-content: space-between; font-family: var(--tech-font); font-size: 0.7rem; }
-        #bot-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem; }
-        .msg-bot { background: var(--adr-blue-light); padding: 12px; border-radius: 15px 15px 15px 0; align-self: flex-start; border-left: 3px solid var(--adr-blue); }
-        .msg-user { background: var(--adr-blue); color: white; padding: 10px; border-radius: 15px 15px 0 15px; align-self: flex-end; }
+        /* TICKER */
+        .market-ticker { background: var(--adr-blue); color: white; padding: 8px 0; overflow: hidden; white-space: nowrap; }
+        .ticker-content { display: inline-block; animation: ticker 30s linear infinite; }
+        .ticker-item { display: inline-block; padding: 0 30px; font-family: var(--tech-font); font-size: 0.65rem; font-weight: 700; }
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        @media (max-width: 992px) {
-            .nav-menu { display: none; }
-            .mobile-toggle { display: flex; }
-            .glass-card { padding: 25px; }
-        }
+        @media (max-width: 768px) { .nav-menu { display: none; } }
     </style>
 </head>
 <body>
@@ -128,155 +107,96 @@
 
     <div class="market-ticker">
         <div class="ticker-content">
-            <span class="ticker-item">📱 FIBRA 2.5GB: DISPONIBILE</span>
-            <span class="ticker-item">📺 SKY STREAM: NUOVA OFFERTA</span>
-            <span class="ticker-item">🚀 5G ULTRA: COPERTURA 99%</span>
-            <span class="ticker-item">💻 BUSINESS: SOLUZIONI DEDICATE</span>
-            <span class="ticker-item">📱 FIBRA 2.5GB: DISPONIBILE</span>
+            <span class="ticker-item">🚀 FIBRA 2.5GB DISPONIBILE</span>
+            <span class="ticker-item">📱 5G ULTRA COPERTURA 99%</span>
+            <span class="ticker-item">💼 PARTNER FASTWEB - ILIAD - WIND3 - SKY</span>
+            <span class="ticker-item">🚀 FIBRA 2.5GB DISPONIBILE</span>
         </div>
     </div>
 
     <nav class="main-nav">
         <div class="nav-container">
-            <a href="index.html">
-                <img src="logo.png" alt="ADR Logo" class="nav-logo">
-            </a>
+            <a href="index.html"><img src="logo.png" alt="ADR Logo" class="nav-logo"></a>
             <div class="nav-menu">
                 <a href="index.html" class="nav-link">HOME</a>
-                <a href="energia.html" class="nav-link">ENERGIA</a
+                <a href="energia.html" class="nav-link">ENERGIA</a>
                 <a href="telefonia.html" class="nav-link active">TELEFONIA</a>
+                <a href="sky.html" class="nav-link">SKY</a>
                 <a href="fotovoltaico.html" class="nav-link">FOTOVOLTAICO</a>
                 <a href="contatti.html" class="nav-link">CONTATTI</a>
-                <a href="caf.html" class="nav-link">CAF</a>
             </div>
-            <div class="nav-actions" style="display:flex; align-items:center; gap:15px;">
-                <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
-                <button class="mobile-toggle" onclick="toggleMobileMenu()">
-                    <span class="bar"></span><span class="bar"></span>
-                </button>
-            </div>
-        </div>
-        <div id="mobile-dropdown" class="mobile-nav">
-            <a href="index.html" style="padding:15px 0; text-decoration:none; color:var(--adr-dark); font-family:var(--tech-font); font-size:0.8rem;">HOME</a>
-            <a href="energia.html" style="padding:15px 0; text-decoration:none; color:var(--adr-dark); font-family:var(--tech-font); font-size:0.8rem;">ENERGIA</a>
-            <a href="telefonia.html" style="padding:15px 0; text-decoration:none; color:var(--adr-dark); font-family:var(--tech-font); font-size:0.8rem;">TELEFONIA</a>
-            <a href="fotovoltaico.html" style="padding:15px 0; text-decoration:none; color:var(--adr-dark); font-family:var(--tech-font); font-size:0.8rem;">FOTOVOLTAICO</a>
-            <a href="caf.html" style="padding:15px 0; text-decoration:none; color:var(--adr-dark); font-family:var(--tech-font); font-size:0.8rem;">CAF</a>
-            <a href="contatti.html" style="padding:15px 0; text-decoration:none; color:var(--adr-dark); font-family:var(--tech-font); font-size:0.8rem;">CONTATTI</a>
+            <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
         </div>
     </nav>
 
     <div class="container">
-        <header style="text-align: center; margin: 40px 0;" class="reveal">
-            <h1 class="tech-font" style="font-size: 2.2rem;">Connettività & <span style="color:var(--adr-blue)">Intrattenimento</span></h1>
-            <p style="color: #666; max-width: 600px; margin: 15px auto;">Analisi multibrand e verifica copertura reale per la tua abitazione o ufficio.</p>
+        <header style="text-align: center; margin-bottom: 60px;" class="reveal">
+            <span class="tech-font" style="color: var(--adr-blue); font-size: 0.7rem; letter-spacing: 5px; font-weight: 900;">CONNECTIVITY DIVISION</span>
+            <h1 class="tech-font" style="font-size: 2.2rem; margin-top: 15px;">Fibra & <span style="color: var(--adr-blue);">Mobile 5G</span></h1>
+            <p style="color: #666; max-width: 650px; margin: 15px auto;">Confrontiamo i migliori operatori per garantirti la massima velocità al miglior prezzo di mercato.</p>
         </header>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;" class="reveal">
+            
             <div class="glass-card">
-                <h3 class="tech-font" style="font-size: 1.1rem; color: var(--adr-blue);">Sky Wifi + TV</h3>
-                <p style="font-size: 0.85rem; color: #666; margin: 20px 0;">Cinema, Sport e Fibra ultraveloce senza cali di prestazione. Gestione pratica completa ADR.</p>
-                <div style="font-size: 1.8rem; font-weight: 800; margin-bottom: 25px; color: var(--adr-dark); margin-top: auto;">da 35,90€<span style="font-size: 0.8rem; font-weight: 400; color: #aaa;"> /mese</span></div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <button class="btn" onclick="contactAgent('Daniel', 'Sky')">DANIEL</button>
-                    <button class="btn btn-green" onclick="contactAgent('Andrea', 'Sky')">ANDREA</button>
+                <h3 class="tech-font" style="font-size: 1.1rem; color: var(--adr-blue);">Connessione Illimitata</h3>
+                <p style="font-size: 0.85rem; color: #666; margin: 10px 0;">Analisi delle tariffe attive dei principali partner nazionali:</p>
+                
+                <div class="price-list">
+                    <div class="price-item"><span class="brand-name">SKY WIFI</span> <span>22,90€ <small>(20,90€ se Sky TV)</small></span></div>
+                    <div class="price-item"><span class="brand-name">FASTWEB</span> <span>da 24,95€ a 29,95€</span></div>
+                    <div class="price-item"><span class="brand-name">WIND3</span> <span>24,99€ <small>(19,99€ se già cliente)</small></span></div>
+                    <div class="price-item"><span class="brand-name">ILIADBOX</span> <span>22,99€ <small>(o 29,99€ Super)</small></span></div>
+                </div>
+
+                <div class="script-box">
+                    <h4>PROTOCOLLO ANALISI</h4>
+                    <p>"Verifichiamo se oggi c'è una soluzione più veloce o conveniente. Se la tua attuale linea è già la migliore, te lo diciamo chiaramente."</p>
+                </div>
+
+                <div style="margin-top: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <button class="btn tech-font" onclick="contactAgent('Luca', 'Fibra')">LUCA</button>
+                    <button class="btn tech-font" onclick="contactAgent('Daniele', 'Fibra')">DANIELE</button>
                 </div>
             </div>
 
             <div class="glass-card">
-                <h3 class="tech-font" style="font-size: 1.1rem; color: var(--adr-blue);">Fibra & Mobile 5G</h3>
-                <p style="font-size: 0.85rem; color: #666; margin: 20px 0;">Portabilità e nuove attivazioni con i migliori brand nazionali. Zero vincoli, solo risparmio.</p>
-                <div style="font-size: 1.8rem; font-weight: 800; margin-bottom: 25px; color: var(--adr-dark); margin-top: auto;">da 20,90€<span style="font-size: 0.8rem; font-weight: 400; color: #aaa;"> /mese</span></div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <button class="btn" onclick="contactAgent('Luca', 'Fibra')">LUCA</button>
-                    <button class="btn" onclick="contactAgent('Daniele', 'Fibra')">DANIELE</button>
+                <h3 class="tech-font" style="font-size: 1.1rem; color: var(--adr-blue);">Mobile & Business</h3>
+                <p style="font-size: 0.9rem; color: #666; margin: 15px 0;">Soluzioni 5G con Giga illimitati e tariffe bloccate per privati e partite IVA. Gestione portabilità zero pensieri.</p>
+                
+                <div class="script-box">
+                    <h4>SOLUZIONI SMART</h4>
+                    <p>Nessun vincolo nascosto. Solo i brand più affidabili con la rete migliore nella tua zona di residenza o lavoro.</p>
+                </div>
+
+                <div style="margin-top: auto; padding-top: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <button class="btn tech-font" onclick="contactAgent('Daniel', 'Mobile')">DANIEL</button>
+                    <button class="btn tech-font btn-green" onclick="contactAgent('Andrea', 'Mobile')">ANDREA</button>
                 </div>
             </div>
+
         </div>
     </div>
 
-    <div id="bot-container">
-        <div id="bot-launcher" onclick="toggleBot()">🤖</div>
-        <div id="bot-window">
-            <div class="bot-header">
-                <span>ADR-1: CONNECT SCANNER</span>
-                <span onclick="toggleBot()" style="cursor: pointer; font-size: 1.2rem;">×</span>
-            </div>
-            <div id="bot-messages">
-                <div class="msg-bot">Sistemi ADR attivi. Per verificare la tua copertura fibra, scrivi qui sotto l'<b>indirizzo completo</b>.</div>
-            </div>
-            <div style="padding:10px; display:flex; gap:5px; border-top:1px solid #eee;">
-                <input type="text" id="user-input" placeholder="Via, Civico, Città..." style="flex:1; padding:10px; border-radius:20px; border:1px solid #ddd;" onkeypress="if(event.key==='Enter') inviaMessaggioConnettivita()">
-                <button onclick="inviaMessaggioConnettivita()" style="background:var(--adr-blue); border:none; color:white; width:40px; border-radius:50%; cursor:pointer;">></button>
-            </div>
-        </div>
-    </div>
-
-    <footer style="text-align: center; padding: 40px; border-top: 1px solid #eee;">
-        <p style="font-size: 0.6rem; color: #aaa; font-family: var(--tech-font);">© 2026 ADR SEREGNO - CONNECTIVITY DIVISION</p>
+    <footer style="text-align: center; padding: 30px; border-top: 1px solid #eee;">
+        <p class="tech-font" style="font-size: 0.6rem; color: #aaa;">© 2026 ADR SEREGNO - CONNECTIVITY DIVISION</p>
     </footer>
 
     <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-dropdown');
-            menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
-        }
-
-        let step = 0; 
-        let indirizzoUtente = "";
-
-        function toggleBot() {
-            const win = document.getElementById('bot-window');
-            win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
-        }
-
-        function inviaMessaggioConnettivita() {
-            const input = document.getElementById('user-input');
-            const msgContainer = document.getElementById('bot-messages');
-            const testo = input.value.trim();
-            if(!testo) return;
-
-            msgContainer.innerHTML += `<div class="msg-user">${testo}</div>`;
-            input.value = "";
-            msgContainer.scrollTop = msgContainer.scrollHeight;
-
-            if(step === 0) {
-                indirizzoUtente = testo;
-                setTimeout(() => {
-                    msgContainer.innerHTML += `<div class="msg-bot">🔍 Scansione nodi di rete per <b>${indirizzoUtente}</b>...</div>`;
-                    msgContainer.scrollTop = msgContainer.scrollHeight;
-                    
-                    setTimeout(() => {
-                        msgContainer.innerHTML += `<div class="msg-bot">✅ Risultato: <b>FIBRA FTTH 2.5 Gbps</b> rilevata.<br><br>Vuoi parlare con un tecnico per l'offerta?<br>
-                        <button class="btn" style="margin-top:10px; font-size:0.6rem; width:auto; padding:8px 15px;" onclick="inviaAResoconto()">SÌ, CONNETTIMI</button></div>`;
-                        msgContainer.scrollTop = msgContainer.scrollHeight;
-                        step = 1;
-                    }, 1500);
-                }, 600);
-            }
-        }
-
-        function inviaAResoconto() {
-            const testoFinale = `Ciao ADR! Ho verificato copertura su sito per ${indirizzoUtente}. Vorrei attivare la fibra.`;
-            window.open(`https://wa.me/393515910955?text=${encodeURIComponent(testoFinale)}`, '_blank');
-        }
-
-        function contactAgent(agente, servizio) {
-            const numeri = { 'Daniel': '393423218269', 'Daniele': '393491795387', 'Luca': '393277545377', 'Andrea': '393515910955' };
-            const testo = `Ciao ${agente}, vorrei info su ${servizio}.`;
-            window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(testo)}`, '_blank');
-        }
-
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             reveals.forEach(el => {
-                var windowHeight = window.innerHeight;
-                var elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 50) el.classList.add("active");
+                if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add("active");
             });
         }
         window.addEventListener("scroll", reveal);
         window.onload = reveal;
+
+        function contactAgent(agente, servizio) {
+            const numeri = { 'Daniel': '393423218269', 'Daniele': '393491795387', 'Luca': '393277545377', 'Andrea': '393515910955' };
+            const testo = `Ciao ${agente}, vorrei un'analisi per la mia linea ${servizio} con ADR.`;
+            window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(testo)}`, '_blank');
+        }
 
         window.onscroll = function() {
             let scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
