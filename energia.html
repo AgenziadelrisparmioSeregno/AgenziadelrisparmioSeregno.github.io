@@ -48,6 +48,18 @@
         .feature-box h3 { font-family: var(--tech-font); font-size: 0.9rem; margin-bottom: 10px; color: var(--adr-dark); }
         .feature-box p { font-size: 0.85rem; opacity: 0.8; }
 
+        /* Stile per il nuovo Script Section */
+        .script-display {
+            background: #fff;
+            border-left: 4px solid var(--adr-blue);
+            padding: 20px;
+            margin: 30px 0;
+            text-align: left;
+            border-radius: 0 15px 15px 0;
+            font-size: 0.9rem;
+        }
+        .script-display h4 { font-family: var(--tech-font); color: var(--adr-blue); margin-bottom: 10px; font-size: 0.8rem; }
+
         .upload-container { max-width: 800px; margin: 40px auto; }
         .upload-card { background: var(--adr-dark); color: white; padding: 40px; border-radius: 30px; position: relative; overflow: hidden; min-height: 400px; display: flex; flex-direction: column; justify-content: center; }
         .upload-card::before { content: ""; position: absolute; top: 0; right: 0; width: 150px; height: 150px; background: var(--adr-blue); filter: blur(100px); opacity: 0.3; }
@@ -82,7 +94,7 @@
                 <a href="telefonia.html" class="nav-link">TELEFONIA</a>
                 <a href="fotovoltaico.html" class="nav-link">FOTOVOLTAICO</a>
                 <a href="contatti.html" class="nav-link">CONTATTI</a>
-                <a href="dashboard.html" class="area-clienti-btn" style="background:var(--adr-blue); color:white; padding:8px 15px; border-radius:20px;">AREA CLIENTI</a>
+                <a href="dashboard.html" class="area-clienti-btn" style="background:var(--adr-blue); color:white; padding:8px 15px; border-radius:20px; font-family: var(--tech-font); font-size: 0.6rem;">AREA CLIENTI</a>
             </div>
             <button class="mobile-toggle" onclick="toggleMenu()">
                 <div class="bar"></div><div class="bar"></div><div class="bar"></div>
@@ -91,18 +103,26 @@
     </nav>
 
     <header class="energy-hero">
-        <h1 class="tech-font" style="font-size: 2rem; letter-spacing: 2px;">STRATEGIA <span style="color:var(--adr-blue)">ENERGETICA</span></h1>
+        <h1 class="tech-font" style="font-family: var(--tech-font); font-size: 2rem; letter-spacing: 2px;">STRATEGIA <span style="color:var(--adr-blue)">ENERGETICA</span></h1>
         <p style="font-size: 0.9rem; opacity: 0.8; max-width: 600px; margin: 15px auto;">Analizziamo il mercato per darti il prezzo reale più basso.</p>
     </header>
 
     <div class="container">
         <div class="method-card">
             <span class="section-header">IL NOSTRO METODO</span>
-            <h2 class="tech-font" style="font-size: 1.4rem;">Selezioniamo le offerte migliori.</h2>
+            <h2 class="tech-font" style="font-family: var(--tech-font); font-size: 1.4rem;">Selezioniamo le offerte migliori.</h2>
+            
             <div class="grid-features">
                 <div class="feature-box"><h3>🔍 Scouting</h3><p>Analizziamo oltre 20 fornitori.</p></div>
                 <div class="feature-box"><h3>📊 Analisi</h3><p>Confrontiamo le quote fisse.</p></div>
                 <div class="feature-box"><h3>🛡️ Tutela</h3><p>Ti avvisiamo sui rincari.</p></div>
+            </div>
+
+            <div class="script-display">
+                <h4>SCRIPT TELEFONICO UNIFICATO (VERSIONE BREVE)</h4>
+                <p><strong>Intro:</strong> "Buongiorno, sono Luca di ADR Seregno. La chiamo per un aggiornamento sulle utenze luce e gas." [cite: 3, 4, 5]</p>
+                <p><strong>Valore:</strong> "Confrontiamo i fornitori per trovarle il prezzo più basso. Se non c'è risparmio, glielo diciamo chiaramente." [cite: 6, 11]</p>
+                <p><strong>Appuntamento:</strong> "Visto i rincari, facciamo un controllo veloce? Preferisce in settimana o la prossima?" [cite: 8, 9, 10]</p>
             </div>
         </div>
 
@@ -111,19 +131,19 @@
                 
                 <div id="success-message">
                     <div class="success-icon">✓</div>
-                    <h2 class="tech-font" style="font-size: 1.5rem; color: white;">RICHIESTA INVIATA!</h2>
+                    <h2 class="tech-font" style="font-family: var(--tech-font); font-size: 1.5rem; color: white;">RICHIESTA INVIATA!</h2>
                     <p style="opacity: 0.8; margin-top: 10px;">Grazie per aver scelto ADR Seregno. Ti ricontatteremo entro 24 ore.</p>
                     <button onclick="location.reload()" class="btn-upload tech-font" style="margin-top: 30px; width: auto; padding: 10px 30px;">INVIA UN'ALTRA</button>
                 </div>
 
                 <div id="form-content">
-                    <h2 class="tech-font" style="font-size: 1.2rem; text-align: center;">OTTIENI UN'ANALISI GRATUITA</h2>
-                    <p style="text-align: center; font-size: 0.85rem; opacity: 0.8; margin: 10px 0 20px;">Carica la tua bolletta.</p>
+                    <h2 class="tech-font" style="font-family: var(--tech-font); font-size: 1.2rem; text-align: center;">OTTIENI UN'ANALISI GRATUITA</h2>
+                    <p style="text-align: center; font-size: 0.85rem; opacity: 0.8; margin: 10px 0 20px;">Carica la tua bolletta per una consulenza senza impegno. [cite: 7, 9]</p>
                     
                     <form id="bollettaForm" class="upload-form" action="https://forminit.com/f/3ur0nhp2mzr" method="POST" enctype="multipart/form-data">
                         <div class="file-drop-area" onclick="document.getElementById('bolletta-file').click()">
                             <div style="font-size: 2rem; margin-bottom: 10px;">📄</div>
-                            <p class="tech-font" style="font-size: 0.7rem;">TRASCINA O CLICCA PER CARICARE</p>
+                            <p class="tech-font" style="font-family: var(--tech-font); font-size: 0.7rem;">TRASCINA O CLICCA PER CARICARE</p>
                             <input type="file" id="bolletta-file" name="fi-file-bolletta" hidden accept=".pdf, .jpg, .jpeg, .png" required onchange="updateFileName(this)">
                             <div id="file-name"></div>
                         </div>
@@ -137,8 +157,8 @@
                             <div class="g-recaptcha" data-sitekey="6LcQN1IsAAAAAHWGSLIXU6ArZHBWSh1dtSI8JU0L"></div>
                         </div>
 
-                        <button type="submit" id="submitBtn" class="btn-upload tech-font">SCOPRI QUANTO RISPARMI</button>
-                        <p class="footer-note">I tuoi dati sono protetti.</p>
+                        <button type="submit" id="submitBtn" class="btn-upload tech-font" style="font-family: var(--tech-font);">SCOPRI QUANTO RISPARMI</button>
+                        <p class="footer-note">I tuoi dati sono protetti secondo le normative vigenti.</p>
                     </form>
                 </div>
             </div>
@@ -175,13 +195,11 @@
             btn.disabled = true;
             btn.innerHTML = "INVIO IN CORSO...";
 
-            // Usiamo XMLHttpRequest invece di fetch per una compatibilità migliore con i tag di Forminit
             const xhr = new XMLHttpRequest();
             const formData = new FormData(form);
 
             xhr.open("POST", form.action, true);
             xhr.onload = function () {
-                // Anche se CORS blocca la risposta leggibile, l'invio avviene.
                 formContent.style.display = 'none';
                 successMsg.style.display = 'block';
                 window.scrollTo({ top: document.getElementById('form-card').offsetTop - 100, behavior: 'smooth' });
