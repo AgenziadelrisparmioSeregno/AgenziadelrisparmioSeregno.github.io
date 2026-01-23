@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sky & Entertainment | Agenzia del Risparmio</title>
+    
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="logo.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { 
+            --adr-blue: #00a8ff; 
+            --adr-blue-neon: #00d2ff;
+            --adr-dark: #0b1e33;
+            --white: #ffffff;
+            --tech-font: 'Orbitron', sans-serif;
+            --body-font: 'Inter', sans-serif;
+            --neon-shadow: 0 0 15px rgba(0, 168, 255, 0.4);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+
+        body { 
+            background: #050b14; 
+            color: var(--white); 
+            font-family: var(--body-font); 
+            overflow-x: hidden;
+        }
+
+        #progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: var(--adr-blue); width: 0%; z-index: 20000; box-shadow: 0 0 10px var(--adr-blue-neon); }
+
+        .tech-font { font-family: var(--tech-font); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* NAVBAR */
+        .main-nav {
+            position: sticky; top: 0; width: 100%;
+            background: rgba(11, 30, 51, 0.95); backdrop-filter: blur(15px);
+            z-index: 10000; border-bottom: 1px solid rgba(0, 168, 255, 0.2);
+            padding: 10px 0;
+        }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { height: 38px; }
+        .nav-menu { display: flex; gap: 20px; }
+        .nav-link { font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; color: white; text-decoration: none; transition: 0.3s; }
+        .nav-link:hover, .nav-link.active { color: var(--adr-blue); }
+
+        /* HERO */
+        .hero-sky {
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(0, 168, 255, 0.1) 0%, transparent 70%);
+            padding: 20px;
+        }
+
+        /* CARDS */
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .sky-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 168, 255, 0.2);
+            border-radius: 24px; padding: 35px; 
+            display: flex; flex-direction: column;
+            transition: 0.3s;
+            height: 100%;
+        }
+        .sky-card:hover { border-color: var(--adr-blue); box-shadow: var(--neon-shadow); }
+
+        .price-placeholder { 
+            font-size: 2rem; 
+            font-weight: 900; 
+            color: var(--adr-blue); 
+            margin: 20px 0; 
+            font-family: var(--tech-font);
+        }
+
+        .feature-list { list-style: none; margin-bottom: 30px; flex-grow: 1; }
+        .feature-list li { margin-bottom: 12px; font-size: 0.85rem; color: #ccc; display: flex; align-items: center; gap: 10px; }
+        .feature-list li::before { content: '→'; color: var(--adr-blue); }
+
+        .btn {
+            background: var(--adr-blue); color: white; border: none; padding: 15px;
+            border-radius: 12px; font-family: var(--tech-font); font-weight: 700;
+            width: 100%; cursor: pointer; transition: 0.3s; font-size: 0.75rem;
+        }
+
+        @media (max-width: 768px) { .nav-menu { display: none; } }
+    </style>
+</head>
+<body>
+
+    <div id="progress-bar"></div>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html"><img src="logo.png" alt="ADR Logo" class="nav-logo"></a>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">HOME</a>
+                <a href="energia.html" class="nav-link">ENERGIA</a>
+                <a href="telefonia.html" class="nav-link">TELEFONIA</a>
+                <a href="sky.html" class="nav-link active">SKY</a>
+                <a href="fotovoltaico.html" class="nav-link">FOTOVOLTAICO</a>
+                <a href="contatti.html" class="nav-link">CONTATTI</a>
+            </div>
+            <a href="dashboard.html" style="background: var(--adr-blue); color: white; padding: 8px 16px; border-radius: 50px; font-family: var(--tech-font); font-size: 0.65rem; font-weight: 800; text-decoration: none;">AREA CLIENTI</a>
+        </div>
+    </nav>
+
+    <section class="hero-sky reveal">
+        <span class="tech-font" style="color: var(--adr-blue); font-size: 0.7rem; letter-spacing: 5px;">ADR ENTERTAINMENT</span>
+        <h1 class="tech-font" style="font-size: 2.5rem; margin-top: 10px;">Sky <span style="color: var(--adr-blue);">Solutions</span></h1>
+        <p style="color: #aaa; max-width: 600px;">Configura il tuo abbonamento Sky con la consulenza dedicata di ADR Seregno.</p>
+    </section>
+
+    <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+            
+            <div class="sky-card reveal">
+                <h3 class="tech-font">Sky Wi-Fi</h3>
+                <div class="price-placeholder">OFFERTA ADR</div>
+                <ul class="feature-list">
+                    <li>Fibra FTTH 2.5 Gbps</li>
+                    <li>Ottimizzata per Streaming</li>
+                    <li>Modem Sky Wifi Hub</li>
+                </ul>
+                <button class="btn" onclick="contactAgent('Luca', 'Sky Wifi')">SCOPRI IL PREZZO</button>
+            </div>
+
+            <div class="sky-card reveal" style="background: rgba(0, 168, 255, 0.05); border-color: var(--adr-blue);">
+                <h3 class="tech-font">Sky TV + Wifi</h3>
+                <div class="price-placeholder">PROMO COMBO</div>
+                <ul class="feature-list">
+                    <li>Intrattenimento Sky TV</li>
+                    <li>Sky Stream incluso</li>
+                    <li>Fibra ultraveloce</li>
+                </ul>
+                <button class="btn" onclick="contactAgent('Andrea', 'Sky Wifi + TV')">VEDI DETTAGLI</button>
+            </div>
+
+            <div class="sky-card reveal">
+                <h3 class="tech-font">Sky Business</h3>
+                <div class="price-placeholder">P. IVA / LOCALI</div>
+                <ul class="feature-list">
+                    <li>Soluzioni per Bar e Hotel</li>
+                    <li>Tutta la Serie A e Coppe</li>
+                    <li>Gestione ADR Seregno</li>
+                </ul>
+                <button class="btn" onclick="contactAgent('Daniele', 'Sky Business')">RICHIEDI QUOTAZIONE</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            reveals.forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add("active");
+            });
+        }
+        window.addEventListener("scroll", reveal);
+        window.onload = reveal;
+
+        function contactAgent(agente, servizio) {
+            const numeri = { 'Daniel': '393423218269', 'Daniele': '393491795387', 'Luca': '393277545377', 'Andrea': '393515910955' };
+            const testo = `Ciao ${agente}, vorrei conoscere i prezzi Sky per ${servizio}.`;
+            window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(testo)}`, '_blank');
+        }
+
+        window.onscroll = function() {
+            let scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+</html>
