@@ -28,130 +28,41 @@
             line-height: 1.6;
         }
 
-        /* NAVBAR */
+        /* NAVBAR OTTIMIZZATA PER PC E MOBILE */
         .main-nav {
             position: sticky; top: 0; width: 100%;
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
             z-index: 10000; border-bottom: 1px solid #eee;
             padding: 12px 0;
         }
-        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; }
-        .nav-logo { height: 35px; }
+        .nav-container { 
+            max-width: 1200px; margin: 0 auto; padding: 0 5%; 
+            display: flex; align-items: center; justify-content: space-between; 
+        }
         
+        /* Logo cliccabile per tornare alla Home */
+        .nav-logo-link { display: flex; align-items: center; text-decoration: none; }
+        .nav-logo { height: 35px; cursor: pointer; }
+        
+        /* Menu per PC */
+        .nav-menu { display: flex; gap: 25px; align-items: center; }
+        .nav-link { 
+            text-decoration: none; color: var(--adr-dark); 
+            font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700;
+            transition: 0.3s;
+        }
+        .nav-link:hover { color: var(--adr-blue); }
+        .nav-link.active { color: var(--adr-blue); }
+
+        /* Tasto Area Clienti */
         .area-clienti-btn {
             background: var(--adr-blue); color: white; padding: 8px 18px; border-radius: 50px; 
             font-family: var(--tech-font); font-size: 0.65rem; font-weight: 800; text-decoration: none;
         }
 
-        /* CONTAINER PRINCIPALE */
-        .main-wrapper {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        /* BOX SEZIONI (STILE ILIAD) */
-        .offer-section {
-            background: var(--white);
-            border-radius: 30px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .section-header h2 {
-            font-family: var(--tech-font);
-            color: var(--adr-blue);
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        /* LISTA OFFERTE INTERNA */
-        .price-card {
-            border-bottom: 1px solid #f0f0f0;
-            padding: 20px 0;
-        }
-        .price-card:last-of-type { border-bottom: none; }
-
-        .brand-label { font-family: var(--tech-font); font-size: 0.7rem; color: var(--adr-blue); font-weight: 700; }
-        .offer-details { display: flex; justify-content: space-between; align-items: center; margin-top: 5px; }
-        .offer-name { font-weight: 800; font-size: 1.1rem; }
-        .offer-price { font-weight: 900; font-size: 1.3rem; color: var(--adr-dark); }
-        .offer-price span { font-size: 0.8rem; font-weight: 400; color: #888; }
-        .offer-info { font-size: 0.85rem; color: #666; margin-top: 4px; }
-
-        /* AREA AZIONE / CONSULENTI */
-        .action-area {
-            margin-top: auto;
-            padding-top: 30px;
-            border-top: 2px solid var(--bg-light);
-        }
-
-        .btn-more {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            background: var(--adr-dark);
-            color: var(--white);
-            text-align: center;
-            padding: 15px;
-            border-radius: 15px;
-            text-decoration: none;
-            font-family: var(--tech-font);
-            font-weight: 700;
-            font-size: 0.8rem;
-            margin-bottom: 0px;
-            transition: 0.3s;
-            cursor: pointer;
-            border: none;
-        }
-        .btn-more:hover { background: var(--adr-blue); }
-        .btn-more svg { width: 12px; fill: white; transition: 0.3s; }
-        .btn-more.active svg { transform: rotate(180deg); }
-
-        /* FISARMONICA CONSULENTI */
-        .consultant-wrapper {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out;
-        }
-        .consultant-wrapper.open {
-            max-height: 300px;
-            margin-top: 20px;
-        }
-
-        .consultant-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .consultant-btn {
-            background: var(--white);
-            border: 1px solid var(--adr-blue);
-            color: var(--adr-blue);
-            padding: 12px;
-            border-radius: 12px;
-            font-family: var(--tech-font);
-            font-size: 0.65rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .consultant-btn:hover {
-            background: var(--adr-blue);
-            color: var(--white);
-        }
+        /* Menu Mobile (Hamburger) */
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
+        .menu-toggle span { width: 25px; height: 3px; background: var(--adr-dark); border-radius: 2px; transition: 0.3s; }
 
         /* TICKER */
         .market-ticker { background: var(--adr-blue); color: white; padding: 10px 0; overflow: hidden; white-space: nowrap; }
@@ -159,8 +70,62 @@
         .ticker-item { display: inline-block; padding: 0 30px; font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; }
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
+        /* MAIN WRAPPER */
+        .main-wrapper {
+            max-width: 1200px; margin: 40px auto; padding: 0 20px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+        }
+
+        .offer-section {
+            background: var(--white); border-radius: 30px; padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); display: flex; flex-direction: column;
+        }
+
+        .section-header { text-align: center; margin-bottom: 30px; }
+        .section-header h2 { font-family: var(--tech-font); color: var(--adr-blue); font-size: 1.5rem; margin-bottom: 10px; }
+
+        .price-card { border-bottom: 1px solid #f0f0f0; padding: 20px 0; }
+        .price-card:last-of-type { border-bottom: none; }
+        .brand-label { font-family: var(--tech-font); font-size: 0.7rem; color: var(--adr-blue); font-weight: 700; }
+        .offer-details { display: flex; justify-content: space-between; align-items: center; margin-top: 5px; }
+        .offer-name { font-weight: 800; font-size: 1.1rem; }
+        .offer-price { font-weight: 900; font-size: 1.3rem; color: var(--adr-dark); }
+        .offer-price span { font-size: 0.8rem; font-weight: 400; color: #888; }
+        .offer-info { font-size: 0.85rem; color: #666; margin-top: 4px; }
+
+        .action-area { margin-top: auto; padding-top: 30px; border-top: 2px solid var(--bg-light); }
+        .btn-more {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: 100%; background: var(--adr-dark); color: var(--white);
+            padding: 15px; border-radius: 15px; text-decoration: none;
+            font-family: var(--tech-font); font-weight: 700; font-size: 0.8rem;
+            cursor: pointer; border: none; transition: 0.3s;
+        }
+        .btn-more:hover { background: var(--adr-blue); }
+        .btn-more svg { width: 12px; fill: white; transition: 0.3s; }
+        .btn-more.active svg { transform: rotate(180deg); }
+
+        .consultant-wrapper { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
+        .consultant-wrapper.open { max-height: 300px; margin-top: 20px; }
+        .consultant-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .consultant-btn {
+            background: var(--white); border: 1px solid var(--adr-blue); color: var(--adr-blue);
+            padding: 12px; border-radius: 12px; font-family: var(--tech-font);
+            font-size: 0.65rem; font-weight: 700; cursor: pointer; transition: 0.3s;
+        }
+        .consultant-btn:hover { background: var(--adr-blue); color: var(--white); }
+
+        /* RESPONSIVE DESIGN */
         @media (max-width: 900px) {
             .main-wrapper { grid-template-columns: 1fr; }
+            .nav-menu { 
+                display: none; position: absolute; top: 100%; left: 0; width: 100%; 
+                background: white; flex-direction: column; padding: 20px; gap: 15px;
+                border-bottom: 1px solid #eee; box-shadow: 0 10px 10px rgba(0,0,0,0.05);
+            }
+            .nav-menu.active { display: flex; }
+            .menu-toggle { display: flex; }
+            .area-clienti-btn { font-size: 0.6rem; padding: 6px 12px; }
         }
     </style>
 </head>
@@ -177,8 +142,23 @@
 
     <nav class="main-nav">
         <div class="nav-container">
-            <img src="logo.png" alt="ADR Logo" class="nav-logo">
-            <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
+            <a href="index.html" class="nav-logo-link">
+                <img src="logo.png" alt="ADR Logo" class="nav-logo">
+            </a>
+
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">HOME</a>
+                <a href="energia.html" class="nav-link">ENERGIA</a>
+                <a href="sky.html" class="nav-link">SKY</a>
+                <a href="telefonia.html" class="nav-link active">TELEFONIA</a>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <a href="dashboard.html" class="area-clienti-btn">AREA CLIENTI</a>
+                <div class="menu-toggle" onclick="toggleNavbar()">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -317,6 +297,10 @@
             'Luca': '393277545377', 
             'Andrea': '393515910955' 
         };
+
+        function toggleNavbar() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
 
         function toggleMenu(btn) {
             const wrapper = btn.nextElementSibling;
