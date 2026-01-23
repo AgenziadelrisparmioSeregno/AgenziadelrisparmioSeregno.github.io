@@ -97,7 +97,10 @@
         }
 
         .btn-more {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             width: 100%;
             background: var(--adr-dark);
             color: var(--white);
@@ -108,10 +111,25 @@
             font-family: var(--tech-font);
             font-weight: 700;
             font-size: 0.8rem;
-            margin-bottom: 20px;
+            margin-bottom: 0px;
             transition: 0.3s;
+            cursor: pointer;
+            border: none;
         }
         .btn-more:hover { background: var(--adr-blue); }
+        .btn-more svg { width: 12px; fill: white; transition: 0.3s; }
+        .btn-more.active svg { transform: rotate(180deg); }
+
+        /* FISARMONICA CONSULENTI */
+        .consultant-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        .consultant-wrapper.open {
+            max-height: 300px;
+            margin-top: 20px;
+        }
 
         .consultant-grid {
             display: grid;
@@ -209,13 +227,19 @@
             </div>
 
             <div class="action-area">
-                <a href="#" class="btn-more" onclick="contactGeneral('Wi-Fi')">SCOPRI DI PIÙ</a>
-                <p style="text-align: center; font-size: 0.7rem; font-family: var(--tech-font); margin-bottom: 10px;">PARLA CON UN CONSULENTE:</p>
-                <div class="consultant-grid">
-                    <button class="consultant-btn" onclick="contactAgent('Daniele', 'Wi-Fi')">DANIELE</button>
-                    <button class="consultant-btn" onclick="contactAgent('Daniel', 'Wi-Fi')">DANIEL</button>
-                    <button class="consultant-btn" onclick="contactAgent('Luca', 'Wi-Fi')">LUCA</button>
-                    <button class="consultant-btn" onclick="contactAgent('Andrea', 'Wi-Fi')">ANDREA</button>
+                <button class="btn-more" onclick="toggleMenu(this)">
+                    SCOPRI DI PIÙ
+                    <svg viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                </button>
+                
+                <div class="consultant-wrapper">
+                    <p style="text-align: center; font-size: 0.7rem; font-family: var(--tech-font); margin-bottom: 15px;">SCEGLI UN CONSULENTE:</p>
+                    <div class="consultant-grid">
+                        <button class="consultant-btn" onclick="contactAgent('Daniele', 'Wi-Fi')">DANIELE</button>
+                        <button class="consultant-btn" onclick="contactAgent('Daniel', 'Wi-Fi')">DANIEL</button>
+                        <button class="consultant-btn" onclick="contactAgent('Luca', 'Wi-Fi')">LUCA</button>
+                        <button class="consultant-btn" onclick="contactAgent('Andrea', 'Wi-Fi')">ANDREA</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -263,13 +287,19 @@
             </div>
 
             <div class="action-area">
-                <a href="#" class="btn-more" onclick="contactGeneral('Mobile')">SCOPRI DI PIÙ</a>
-                <p style="text-align: center; font-size: 0.7rem; font-family: var(--tech-font); margin-bottom: 10px;">PARLA CON UN CONSULENTE:</p>
-                <div class="consultant-grid">
-                    <button class="consultant-btn" onclick="contactAgent('Daniele', 'Mobile')">DANIELE</button>
-                    <button class="consultant-btn" onclick="contactAgent('Daniel', 'Mobile')">DANIEL</button>
-                    <button class="consultant-btn" onclick="contactAgent('Luca', 'Mobile')">LUCA</button>
-                    <button class="consultant-btn" onclick="contactAgent('Andrea', 'Mobile')">ANDREA</button>
+                <button class="btn-more" onclick="toggleMenu(this)">
+                    SCOPRI DI PIÙ
+                    <svg viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                </button>
+
+                <div class="consultant-wrapper">
+                    <p style="text-align: center; font-size: 0.7rem; font-family: var(--tech-font); margin-bottom: 15px;">SCEGLI UN CONSULENTE:</p>
+                    <div class="consultant-grid">
+                        <button class="consultant-btn" onclick="contactAgent('Daniele', 'Mobile')">DANIELE</button>
+                        <button class="consultant-btn" onclick="contactAgent('Daniel', 'Mobile')">DANIEL</button>
+                        <button class="consultant-btn" onclick="contactAgent('Luca', 'Mobile')">LUCA</button>
+                        <button class="consultant-btn" onclick="contactAgent('Andrea', 'Mobile')">ANDREA</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -288,15 +318,15 @@
             'Andrea': '393515910955' 
         };
 
-        function contactAgent(agente, servizio) {
-            const testo = `Ciao ${agente}, vorrei una consulenza per il settore ${servizio} con ADR.`;
-            window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(testo)}`, '_blank');
+        function toggleMenu(btn) {
+            const wrapper = btn.nextElementSibling;
+            btn.classList.toggle('active');
+            wrapper.classList.toggle('open');
         }
 
-        function contactGeneral(servizio) {
-            // Rimanda a Daniel come contatto principale per "Scopri di più" o puoi cambiarlo
-            const testo = `Ciao, vorrei scoprire di più sulle offerte ${servizio} di ADR Seregno.`;
-            window.open(`https://wa.me/393423218269?text=${encodeURIComponent(testo)}`, '_blank');
+        function contactAgent(agente, servizio) {
+            const testo = `Ciao ${agente}, vorrei diventare cliente per il settore ${servizio}, possiamo fissare un appuntamento??`;
+            window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(testo)}`, '_blank');
         }
     </script>
 </body>
