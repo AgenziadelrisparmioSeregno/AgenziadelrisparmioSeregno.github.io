@@ -49,7 +49,7 @@
 
         /* HERO */
         .hero-sky {
-            height: 50vh;
+            height: 40vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -67,30 +67,77 @@
         .sky-card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(0, 168, 255, 0.2);
-            border-radius: 24px; padding: 35px; 
+            border-radius: 24px; padding: 30px; 
             display: flex; flex-direction: column;
             transition: 0.3s;
-            height: 100%;
+            height: fit-content;
         }
-        .sky-card:hover { border-color: var(--adr-blue); box-shadow: var(--neon-shadow); }
+        .sky-card:hover { border-color: var(--adr-blue); }
 
-        .price-placeholder { 
-            font-size: 2rem; 
+        .price-tag { 
+            font-size: 1.8rem; 
             font-weight: 900; 
             color: var(--adr-blue); 
-            margin: 20px 0; 
+            margin: 15px 0; 
             font-family: var(--tech-font);
         }
 
-        .feature-list { list-style: none; margin-bottom: 30px; flex-grow: 1; }
-        .feature-list li { margin-bottom: 12px; font-size: 0.85rem; color: #ccc; display: flex; align-items: center; gap: 10px; }
-        .feature-list li::before { content: '→'; color: var(--adr-blue); }
+        .feature-list { list-style: none; margin-bottom: 25px; }
+        .feature-list li { margin-bottom: 10px; font-size: 0.85rem; color: #ccc; display: flex; align-items: center; gap: 10px; }
+        .feature-list li::before { content: '✓'; color: var(--adr-blue); font-weight: bold; }
 
-        .btn {
-            background: var(--adr-blue); color: white; border: none; padding: 15px;
-            border-radius: 12px; font-family: var(--tech-font); font-weight: 700;
-            width: 100%; cursor: pointer; transition: 0.3s; font-size: 0.75rem;
+        /* BUTTONS & ACCORDION */
+        .btn-discover {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--adr-blue);
+            padding: 12px;
+            border-radius: 12px;
+            font-family: var(--tech-font);
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.75rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
+        .btn-discover:hover { background: rgba(0, 168, 255, 0.1); }
+        .btn-discover svg { width: 12px; transition: 0.3s; fill: white; }
+        .btn-discover.active svg { transform: rotate(180deg); }
+
+        .agent-selector {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            margin-top: 0;
+        }
+        .agent-selector.open {
+            max-height: 300px;
+            margin-top: 20px;
+        }
+
+        .agent-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .agent-btn {
+            background: var(--adr-blue);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: var(--tech-font);
+            font-size: 0.65rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .agent-btn:hover { background: var(--adr-blue-neon); transform: scale(1.05); }
 
         @media (max-width: 768px) { .nav-menu { display: none; } }
     </style>
@@ -107,7 +154,6 @@
                 <a href="energia.html" class="nav-link">ENERGIA</a>
                 <a href="telefonia.html" class="nav-link">TELEFONIA</a>
                 <a href="sky.html" class="nav-link active">SKY</a>
-                <a href="fotovoltaico.html" class="nav-link">FOTOVOLTAICO</a>
                 <a href="contatti.html" class="nav-link">CONTATTI</a>
             </div>
             <a href="dashboard.html" style="background: var(--adr-blue); color: white; padding: 8px 16px; border-radius: 50px; font-family: var(--tech-font); font-size: 0.65rem; font-weight: 800; text-decoration: none;">AREA CLIENTI</a>
@@ -116,44 +162,80 @@
 
     <section class="hero-sky reveal">
         <span class="tech-font" style="color: var(--adr-blue); font-size: 0.7rem; letter-spacing: 5px;">ADR ENTERTAINMENT</span>
-        <h1 class="tech-font" style="font-size: 2.5rem; margin-top: 10px;">Sky <span style="color: var(--adr-blue);">Solutions</span></h1>
-        <p style="color: #aaa; max-width: 600px;">Configura il tuo abbonamento Sky con la consulenza dedicata di ADR Seregno.</p>
+        <h1 class="tech-font" style="font-size: 2.2rem; margin-top: 10px;">Sky <span style="color: var(--adr-blue);">Solutions</span></h1>
+        <p style="color: #aaa; max-width: 600px; font-size: 0.9rem;">Scegli il tuo pacchetto e prenota un appuntamento con i nostri esperti.</p>
     </section>
 
     <div class="container">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
             
             <div class="sky-card reveal">
-                <h3 class="tech-font">Sky Wi-Fi</h3>
-                <div class="price-placeholder">OFFERTA ADR</div>
+                <h3 class="tech-font">Sky TV + Cinema</h3>
+                <div class="price-tag">29,90€ <span>/mese</span></div>
                 <ul class="feature-list">
-                    <li>Fibra FTTH 2.5 Gbps</li>
-                    <li>Ottimizzata per Streaming</li>
-                    <li>Modem Sky Wifi Hub</li>
+                    <li>Sky TV & Paramount+ incluso</li>
+                    <li>Tutto il Cinema di Sky</li>
+                    <li>Sky Stream (senza parabola)</li>
                 </ul>
-                <button class="btn" onclick="contactAgent('Luca', 'Sky Wifi')">SCOPRI IL PREZZO</button>
+                <button class="btn-discover" onclick="toggleAgents(this)">
+                    SCOPRI DI PIÙ 
+                    <svg viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                </button>
+                <div class="agent-selector">
+                    <p style="font-size: 0.6rem; margin-bottom: 10px; color: var(--adr-blue);" class="tech-font">SCEGLI IL TUO CONSULENTE:</p>
+                    <div class="agent-grid">
+                        <button class="agent-btn" onclick="contactAgent('Luca')">LUCA</button>
+                        <button class="agent-btn" onclick="contactAgent('Daniele')">DANIELE</button>
+                        <button class="agent-btn" onclick="contactAgent('Daniel')">DANIEL</button>
+                        <button class="agent-btn" onclick="contactAgent('Andrea')">ANDREA</button>
+                    </div>
+                </div>
             </div>
 
-            <div class="sky-card reveal" style="background: rgba(0, 168, 255, 0.05); border-color: var(--adr-blue);">
-                <h3 class="tech-font">Sky TV + Wifi</h3>
-                <div class="price-placeholder">PROMO COMBO</div>
+            <div class="sky-card reveal" style="background: rgba(0, 168, 255, 0.08); border-color: var(--adr-blue);">
+                <h3 class="tech-font">Sky TV + Sport</h3>
+                <div class="price-tag">24,90€ <span>/mese</span></div>
                 <ul class="feature-list">
-                    <li>Intrattenimento Sky TV</li>
-                    <li>Sky Stream incluso</li>
-                    <li>Fibra ultraveloce</li>
+                    <li>Champions & Coppe Europee</li>
+                    <li>Tutta la Formula 1® e MotoGP™</li>
+                    <li>Tennis, Basket e molto altro</li>
                 </ul>
-                <button class="btn" onclick="contactAgent('Andrea', 'Sky Wifi + TV')">VEDI DETTAGLI</button>
+                <button class="btn-discover" onclick="toggleAgents(this)">
+                    SCOPRI DI PIÙ 
+                    <svg viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                </button>
+                <div class="agent-selector">
+                    <p style="font-size: 0.6rem; margin-bottom: 10px; color: var(--adr-blue);" class="tech-font">SCEGLI IL TUO CONSULENTE:</p>
+                    <div class="agent-grid">
+                        <button class="agent-btn" onclick="contactAgent('Luca')">LUCA</button>
+                        <button class="agent-btn" onclick="contactAgent('Daniele')">DANIELE</button>
+                        <button class="agent-btn" onclick="contactAgent('Daniel')">DANIEL</button>
+                        <button class="agent-btn" onclick="contactAgent('Andrea')">ANDREA</button>
+                    </div>
+                </div>
             </div>
 
             <div class="sky-card reveal">
-                <h3 class="tech-font">Sky Business</h3>
-                <div class="price-placeholder">P. IVA / LOCALI</div>
+                <h3 class="tech-font">Sky Glass / Biz</h3>
+                <div class="price-tag">SU MISURA</div>
                 <ul class="feature-list">
+                    <li>Sky Glass: La TV all-in-one</li>
                     <li>Soluzioni per Bar e Hotel</li>
-                    <li>Tutta la Serie A e Coppe</li>
-                    <li>Gestione ADR Seregno</li>
+                    <li>Assistenza Diretta ADR</li>
                 </ul>
-                <button class="btn" onclick="contactAgent('Daniele', 'Sky Business')">RICHIEDI QUOTAZIONE</button>
+                <button class="btn-discover" onclick="toggleAgents(this)">
+                    SCOPRI DI PIÙ 
+                    <svg viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                </button>
+                <div class="agent-selector">
+                    <p style="font-size: 0.6rem; margin-bottom: 10px; color: var(--adr-blue);" class="tech-font">SCEGLI IL TUO CONSULENTE:</p>
+                    <div class="agent-grid">
+                        <button class="agent-btn" onclick="contactAgent('Luca')">LUCA</button>
+                        <button class="agent-btn" onclick="contactAgent('Daniele')">DANIELE</button>
+                        <button class="agent-btn" onclick="contactAgent('Daniel')">DANIEL</button>
+                        <button class="agent-btn" onclick="contactAgent('Andrea')">ANDREA</button>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -169,9 +251,20 @@
         window.addEventListener("scroll", reveal);
         window.onload = reveal;
 
-        function contactAgent(agente, servizio) {
-            const numeri = { 'Daniel': '393423218269', 'Daniele': '393491795387', 'Luca': '393277545377', 'Andrea': '393515910955' };
-            const testo = `Ciao ${agente}, vorrei conoscere i prezzi Sky per ${servizio}.`;
+        function toggleAgents(btn) {
+            const selector = btn.nextElementSibling;
+            btn.classList.toggle('active');
+            selector.classList.toggle('open');
+        }
+
+        function contactAgent(agente) {
+            const numeri = { 
+                'Daniel': '393423218269', 
+                'Daniele': '393491795387', 
+                'Luca': '393277545377', 
+                'Andrea': '393515910955' 
+            };
+            const testo = `Ciao ${agente}, vorrei diventare cliente SKY possiamo fissare un appuntamento??`;
             window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(testo)}`, '_blank');
         }
 
