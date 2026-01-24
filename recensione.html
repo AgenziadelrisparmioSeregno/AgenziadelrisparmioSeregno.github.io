@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Recensioni | ADR Seregno</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { 
+            --adr-blue: #00a8ff; 
+            --adr-dark: #0b1e33;
+            --adr-blue-light: #f0faff;
+            --tech-font: 'Orbitron', sans-serif;
+            --body-font: 'Inter', sans-serif;
+            --success: #2ed573;
+            --star-gold: #ffbc00;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #fff; color: var(--adr-dark); font-family: var(--body-font); line-height: 1.6; }
+
+        /* NAVBAR */
+        .main-nav { position: sticky; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); z-index: 10000; border-bottom: 1px solid rgba(0, 168, 255, 0.1); padding: 12px 0; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { height: 35px; }
+        .nav-link { font-family: var(--tech-font); font-size: 0.75rem; font-weight: 700; color: var(--adr-dark); text-decoration: none; margin-left: 20px; }
+
+        .header-section { background: var(--adr-blue-light); padding: 80px 20px; text-align: center; }
+        .header-section h1 { font-family: var(--tech-font); font-size: 2rem; margin-bottom: 10px; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+
+        /* BOX SCRIVI RECENSIONE */
+        .add-review-box { 
+            background: var(--adr-dark); 
+            color: white; 
+            border-radius: 24px; 
+            margin-bottom: 50px; 
+            overflow: hidden;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .review-toggle { 
+            padding: 25px; 
+            cursor: pointer; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+
+        .review-toggle h3 { font-family: var(--tech-font); font-size: 1rem; letter-spacing: 1px; }
+
+        .review-form-content { 
+            max-height: 0; 
+            padding: 0 25px; 
+            transition: 0.4s ease-out;
+            opacity: 0;
+        }
+
+        .review-form-content.active { 
+            max-height: 800px; 
+            padding: 0 25px 30px 25px; 
+            opacity: 1;
+        }
+
+        /* STELLE INTERATTIVE */
+        .star-rating { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 10px; margin: 15px 0; }
+        .star-rating input { display: none; }
+        .star-rating label { font-size: 2rem; color: #444; cursor: pointer; transition: 0.2s; }
+        .star-rating input:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label { color: var(--star-gold); }
+
+        textarea, input[type="text"] { 
+            width: 100%; padding: 15px; border-radius: 12px; border: none; 
+            background: rgba(255,255,255,0.1); color: white; margin-bottom: 15px; font-family: var(--body-font);
+        }
+        
+        .btn-send { 
+            background: var(--adr-blue); color: white; border: none; padding: 15px 40px; 
+            border-radius: 50px; font-family: var(--tech-font); font-weight: 800; cursor: pointer;
+        }
+
+        /* FEEDBACK LIST */
+        .review-card { 
+            padding: 30px; border-radius: 20px; background: #f9fbfd; 
+            border: 1px solid #eee; margin-bottom: 20px;
+        }
+        .rev-stars { color: var(--star-gold); margin-bottom: 10px; }
+        .rev-text { font-style: italic; font-size: 1rem; color: #444; }
+        .rev-author { margin-top: 15px; font-family: var(--tech-font); font-size: 0.75rem; color: var(--adr-blue); font-weight: 700; }
+
+    </style>
+</head>
+<body>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html"><img src="logo.png" alt="ADR" class="nav-logo"></a>
+            <div>
+                <a href="index.html" class="nav-link">HOME</a>
+                <a href="recensioni.html" class="nav-link" style="color:var(--adr-blue)">FEEDBACK</a>
+                <a href="contatti.html" class="nav-link">CONTATTI</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="header-section">
+        <h1>COSA DICONO DI <span style="color:var(--adr-blue)">NOI</span></h1>
+        <p>Trasparenza e Risparmio certificati dai nostri clienti.</p>
+    </div>
+
+    <div class="container">
+        
+        <div class="add-review-box">
+            <div class="review-toggle" onclick="toggleReviewForm()">
+                <h3>LASCIA LA TUA RECENSIONE</h3>
+                <span id="toggle-icon" style="font-size: 1.5rem;">+</span>
+            </div>
+            
+            <div class="review-form-content" id="reviewForm">
+                <form action="https://forminit.com/f/3ur0nhp2mzr" method="POST">
+                    <input type="hidden" name="_subject" value="Nuova Recensione ADR Seregno">
+                    
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="valutazione" value="5" required/><label for="star5">★</label>
+                        <input type="radio" id="star4" name="valutazione" value="4"/><label for="star4">★</label>
+                        <input type="radio" id="star3" name="valutazione" value="3"/><label for="star3">★</label>
+                        <input type="radio" id="star2" name="valutazione" value="2"/><label for="star2">★</label>
+                        <input type="radio" id="star1" name="valutazione" value="1"/><label for="star1">★</label>
+                    </div>
+
+                    <input type="text" name="nome_cliente" placeholder="Il tuo Nome" required>
+                    <textarea name="opinione" rows="4" placeholder="Cosa ne pensi del nostro servizio?" required></textarea>
+                    
+                    <button type="submit" class="btn-send">INVIA OPINIONE</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="reviews-list">
+            <div class="review-card">
+                <div class="rev-stars">★★★★★</div>
+                <p class="rev-text">"Finalmente un'agenzia seria a Seregno. Mi hanno spiegato tutto chiaramente e la bolletta è scesa davvero."</p>
+                <p class="rev-author">MARCO R.</p>
+            </div>
+
+            <div class="review-card">
+                <div class="rev-stars">★★★★★</div>
+                <p class="rev-text">"Ottima assistenza per il cambio fornitore gas. Veloci e professionali."</p>
+                <p class="rev-author">SARA L.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleReviewForm() {
+            const form = document.getElementById('reviewForm');
+            const icon = document.getElementById('toggle-icon');
+            
+            form.classList.toggle('active');
+            
+            if(form.classList.contains('active')) {
+                icon.innerText = "-";
+            } else {
+                icon.innerText = "+";
+            }
+        }
+    </script>
+
+</body>
+</html>
