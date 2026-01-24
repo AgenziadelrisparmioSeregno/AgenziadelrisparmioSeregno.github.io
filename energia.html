@@ -48,17 +48,20 @@
         .feature-box h3 { font-family: var(--tech-font); font-size: 0.9rem; margin-bottom: 10px; color: var(--adr-dark); }
         .feature-box p { font-size: 0.85rem; opacity: 0.8; }
 
-        /* Stile per il nuovo Script Section */
-        .script-display {
-            background: #fff;
-            border-left: 4px solid var(--adr-blue);
-            padding: 20px;
-            margin: 30px 0;
-            text-align: left;
-            border-radius: 0 15px 15px 0;
-            font-size: 0.9rem;
-        }
-        .script-display h4 { font-family: var(--tech-font); color: var(--adr-blue); margin-bottom: 10px; font-size: 0.8rem; }
+        /* NUOVA SEZIONE ANDAMENTO MERCATO */
+        .market-analysis { margin-top: 50px; padding-top: 40px; border-top: 1px solid #eee; }
+        .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
+        .table-wrapper { background: #f9fbfd; padding: 20px; border-radius: 20px; border: 1px solid #f0f0f0; }
+        .table-wrapper h4 { font-family: var(--tech-font); font-size: 0.8rem; color: var(--adr-dark); margin-bottom: 15px; text-align: left; }
+        
+        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; text-align: left; }
+        th { font-family: var(--tech-font); font-size: 0.6rem; padding: 10px; color: var(--adr-blue); border-bottom: 2px solid #eee; }
+        td { padding: 10px; border-bottom: 1px solid #eee; color: #555; }
+        .val-highlight { font-weight: 800; color: var(--adr-blue); }
+        .loading-msg { font-size: 0.7rem; color: var(--adr-blue); font-family: var(--tech-font); animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        @media (max-width: 768px) { .market-grid { grid-template-columns: 1fr; } }
 
         .upload-container { max-width: 800px; margin: 40px auto; }
         .upload-card { background: var(--adr-dark); color: white; padding: 40px; border-radius: 30px; position: relative; overflow: hidden; min-height: 400px; display: flex; flex-direction: column; justify-content: center; }
@@ -117,9 +120,39 @@
             
             <div class="grid-features">
                 <div class="feature-box"><h3>🔍 Scouting</h3><p>Confrontiamo oltre 20 fornitori per proporre l'offerta migliore.</p></div>
-                <div class="feature-box"><h3>📊 Analisi</h3><p>Analiziamo le tariffe e le quote fisse.</p></div>
+                <div class="feature-box"><h3>📊 Analisi</h3><p>Analizziamo le tariffe e le quote fisse.</p></div>
                 <div class="feature-box"><h3>🛡️ Tutela</h3><p>Ti avvisiamo su eventuali rincari.</p></div>
             </div>
+
+            <div class="market-analysis">
+                <span class="section-header">ANDAMENTO DEL MERCATO</span>
+                <p style="font-size: 0.85rem; opacity: 0.7;">Monitoraggio storico degli indici PUN e PSV.</p>
+                
+                <div class="market-grid">
+                    <div class="table-wrapper" id="pun-container">
+                        <h4>⚡ INDICE PUN (LUCE)</h4>
+                        <div class="loading-msg" id="pun-load">SINCRONIZZAZIONE INDICI...</div>
+                        <table id="table-pun" style="display:none">
+                            <thead>
+                                <tr><th>PERIODO</th><th>VALORE (€/kWh)</th></tr>
+                            </thead>
+                            <tbody id="pun-body"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-wrapper" id="psv-container">
+                        <h4>🔥 INDICE PSV (GAS)</h4>
+                        <div class="loading-msg" id="psv-load">SINCRONIZZAZIONE INDICI...</div>
+                        <table id="table-psv" style="display:none">
+                            <thead>
+                                <tr><th>PERIODO</th><th>VALORE (€/Smc)</th></tr>
+                            </thead>
+                            <tbody id="psv-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
             <div class="upload-container">
             <div class="upload-card" id="form-card">
                 
@@ -132,7 +165,7 @@
 
                 <div id="form-content">
                     <h2 class="tech-font" style="font-family: var(--tech-font); font-size: 1.2rem; text-align: center;">OTTIENI UN'ANALISI GRATUITA</h2>
-                    <p style="text-align: center; font-size: 0.85rem; opacity: 0.8; margin: 10px 0 20px;">Carica la tua bolletta per una consulenza senza impegno. [cite: 7, 9]</p>
+                    <p style="text-align: center; font-size: 0.85rem; opacity: 0.8; margin: 10px 0 20px;">Carica la tua bolletta per una consulenza senza impegno.</p>
                     
                     <form id="bollettaForm" class="upload-form" action="https://forminit.com/f/3ur0nhp2mzr" method="POST" enctype="multipart/form-data">
                         <div class="file-drop-area" onclick="document.getElementById('bolletta-file').click()">
@@ -171,6 +204,50 @@
                 fileNameDisplay.style.color = "var(--success)";
             }
         }
+
+        // AGGIORNAMENTO TABELLE MERCATO (PUN/PSV)
+        async function fetchMarketData() {
+            const proxy = "https://api.allorigins.win/get?url=";
+            const urlLuce = "https://luce-gas.it/guida/mercato/andamento-prezzi/energia-elettrica";
+            const urlGas = "https://luce-gas.it/guida/mercato/andamento-prezzi/gas-metano";
+
+            try {
+                // Fetch Luce
+                const resLuce = await fetch(proxy + encodeURIComponent(urlLuce));
+                const dataLuce = await resLuce.json();
+                renderTable(dataLuce.contents, 'pun-body', 'pun-load', 'table-pun');
+
+                // Fetch Gas
+                const resGas = await fetch(proxy + encodeURIComponent(urlGas));
+                const dataGas = await resGas.json();
+                renderTable(dataGas.contents, 'psv-body', 'psv-load', 'table-psv');
+            } catch (e) {
+                console.log("Errore aggiornamento tabelle");
+            }
+        }
+
+        function renderTable(html, bodyId, loadId, tableId) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const sourceTable = doc.querySelector('table');
+            const targetBody = document.getElementById(bodyId);
+            
+            if(sourceTable) {
+                const rows = Array.from(sourceTable.querySelectorAll('tr')).slice(1, 7); // Prende le ultime 6 righe
+                rows.forEach(row => {
+                    const cols = row.querySelectorAll('td');
+                    if(cols.length >= 2) {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `<td>${cols[0].innerText}</td><td class="val-highlight">${cols[1].innerText}</td>`;
+                        targetBody.appendChild(tr);
+                    }
+                });
+                document.getElementById(loadId).style.display = 'none';
+                document.getElementById(tableId).style.display = 'table';
+            }
+        }
+
+        window.addEventListener('load', fetchMarketData);
 
         const form = document.getElementById('bollettaForm');
         const btn = document.getElementById('submitBtn');
