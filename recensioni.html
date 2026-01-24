@@ -28,18 +28,28 @@
         .header-section { background: var(--adr-dark); color: white; padding: 100px 20px; text-align: center; }
         .header-section h1 { font-family: var(--tech-font); font-size: 2.2rem; letter-spacing: 2px; }
         
-        .container { max-width: 1000px; margin: 0 auto; padding: 60px 20px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
 
-        .google-card { 
-            background: var(--adr-blue-light); 
+        /* BOX PRINCIPALE RECENSIONI LIVE */
+        .live-reviews-box { 
+            background: #ffffff; 
             border-radius: 40px; 
-            padding: 60px 40px; 
-            text-align: center; 
-            border: 2px solid rgba(0, 168, 255, 0.1);
+            padding: 20px; 
             margin-top: -80px;
             box-shadow: 0 30px 60px rgba(0,0,0,0.1);
             position: relative;
             z-index: 10;
+            margin-bottom: 50px;
+        }
+
+        /* BOX CTA PER GOOGLE */
+        .google-card { 
+            background: var(--adr-blue-light); 
+            border-radius: 40px; 
+            padding: 50px 40px; 
+            text-align: center; 
+            border: 2px solid rgba(0, 168, 255, 0.1);
+            margin-bottom: 40px;
         }
 
         .stars-container { color: var(--star-gold); font-size: 2.5rem; margin-bottom: 20px; }
@@ -71,18 +81,6 @@
 
         .btn-google img { height: 25px; }
 
-        .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 80px; }
-        .review-item { 
-            background: #fff; 
-            padding: 30px; 
-            border-radius: 20px; 
-            border: 1px solid #eee;
-            transition: 0.3s;
-        }
-        .review-item:hover { border-color: var(--adr-blue); transform: translateY(-5px); }
-        .rev-text { font-style: italic; color: #444; margin-bottom: 20px; }
-        .rev-author { font-family: var(--tech-font); font-size: 0.7rem; color: var(--adr-blue); font-weight: 800; }
-
         footer { text-align: center; padding: 60px; color: #aaa; font-size: 0.8rem; }
     </style>
 </head>
@@ -102,6 +100,12 @@
     </header>
 
     <div class="container">
+        
+        <div class="live-reviews-box">
+            <script src="https://elfsightcdn.com/platform.js" async></script>
+            <div class="elfsight-app-04d1bc16-3c6f-49bb-b8a7-7e7d067ed1d7" data-elfsight-app-lazy></div>
+        </div>
+
         <div class="google-card">
             <div class="stars-container">★★★★★</div>
             <h2>LA TUA OPINIONE È FONDAMENTALE</h2>
@@ -115,29 +119,10 @@
             </a>
         </div>
 
-        <div class="review-grid">
-            <div class="review-item">
-                <div style="color:var(--star-gold); margin-bottom:10px;">★★★★★</div>
-                <p class="rev-text">"Consulenza trasparente e risparmio garantito. ADR Seregno è diventato il mio punto di riferimento."</p>
-                <span class="rev-author">GIULIA M.</span>
-            </div>
-
-            <div class="review-item">
-                <div style="color:var(--star-gold); margin-bottom:10px;">★★★★★</div>
-                <p class="rev-text">"Serietà e professionalità difficili da trovare oggi. Mi hanno risolto un problema con il vecchio fornitore in pochi giorni."</p>
-                <span class="rev-author">ROBERTO F.</span>
-            </div>
-
-            <div class="review-item">
-                <div style="color:var(--star-gold); margin-bottom:10px;">★★★★★</div>
-                <p class="rev-text">"Prezzi chiari e assistenza impeccabile. Finalmente capisco cosa pago in bolletta!"</p>
-                <span class="rev-author">STEFANO L.</span>
-            </div>
-        </div>
     </div>
 
     <footer>
-        <p>© 2026 Agenzia del Risparmio Seregno | Feedback Reali dai nostri Clienti</p>
+        <p>© 2026 Agenzia del Risparmio Seregno | Feedback Live in tempo reale</p>
     </footer>
 
 </body>
