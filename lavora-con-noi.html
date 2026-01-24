@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lavora con noi | ADR Seregno</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { 
+            --adr-blue: #00a8ff; 
+            --adr-dark: #0b1e33;
+            --adr-blue-light: #f0faff;
+            --tech-font: 'Orbitron', sans-serif;
+            --body-font: 'Inter', sans-serif;
+            --success: #2ed573;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--adr-blue-light); color: var(--adr-dark); font-family: var(--body-font); line-height: 1.6; }
+
+        /* NAVBAR COERENTE */
+        .main-nav { position: sticky; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); z-index: 10000; border-bottom: 1px solid rgba(0, 168, 255, 0.1); padding: 12px 0; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { height: 35px; }
+        .nav-link { font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; color: var(--adr-dark); text-decoration: none; margin-left: 20px; }
+
+        .hero { background: var(--adr-dark); color: white; padding: 80px 20px; text-align: center; }
+        .hero h1 { font-family: var(--tech-font); font-size: 2rem; letter-spacing: 2px; margin-bottom: 15px; }
+
+        .container { max-width: 800px; margin: -40px auto 60px; padding: 0 20px; }
+        
+        .form-card { 
+            background: white; 
+            border-radius: 30px; 
+            padding: 40px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+        }
+
+        .form-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; font-family: var(--tech-font); font-size: 0.7rem; color: var(--adr-blue); margin-bottom: 8px; font-weight: 700; }
+        
+        input, select, textarea { 
+            width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #eee; 
+            background: #f8f9fa; font-family: var(--body-font); font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        input:focus { border-color: var(--adr-blue); outline: none; background: white; }
+
+        /* File Upload Styling */
+        .file-input-wrapper {
+            border: 2px dashed #ddd;
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .file-input-wrapper:hover { border-color: var(--adr-blue); background: var(--adr-blue-light); }
+
+        .btn-submit { 
+            background: var(--adr-blue); color: white; width: 100%; padding: 20px; 
+            border: none; border-radius: 12px; font-family: var(--tech-font); 
+            font-weight: 900; cursor: pointer; transition: 0.3s; font-size: 1rem;
+            margin-top: 20px;
+        }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,168,255,0.3); }
+
+        .success-overlay { display: none; text-align: center; padding: 40px; }
+        .success-icon { font-size: 4rem; color: var(--success); margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html"><img src="logo.png" alt="ADR" class="nav-logo"></a>
+            <div>
+                <a href="index.html" class="nav-link">HOME</a>
+                <a href="lavora-con-noi.html" class="nav-link" style="color:var(--adr-blue)">CARRIERA</a>
+                <a href="contatti.html" class="nav-link">CONTATTI</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>JOIN THE <span style="color:var(--adr-blue)">TEAM</span></h1>
+        <p style="font-size: 0.9rem; opacity: 0.8;">Inviaci la tua candidatura e lavora con ADR Seregno</p>
+    </header>
+
+    <div class="container">
+        <div class="form-card" id="main-card">
+            
+            <div id="success-view" class="success-overlay">
+                <div class="success-icon">✓</div>
+                <h2 style="font-family: var(--tech-font);">CV INVIATO!</h2>
+                <p>La tua candidatura è stata inoltrata correttamente alla nostra email.</p>
+                <button onclick="location.reload()" class="btn-submit" style="width: auto; padding: 10px 30px;">INDIETRO</button>
+            </div>
+
+            <form id="jobForm" action="https://forminit.com/f/3ur0nhp2mzr" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_subject" value="Nuova Candidatura Lavora Con Noi - ADR Seregno">
+                
+                <div class="form-group">
+                    <label>NOME E COGNOME</label>
+                    <input type="text" name="nome_candidato" placeholder="Inserisci il tuo nome completo" required>
+                </div>
+
+                <div class="form-group">
+                    <label>EMAIL DI CONTATTO</label>
+                    <input type="email" name="email_candidato" placeholder="Esempio: nome@gmail.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>RUOLO DI INTERESSE</label>
+                    <select name="ruolo">
+                        <option value="Consulente Energetico">Consulente Energetico</option>
+                        <option value="Back Office">Back Office</option>
+                        <option value="Settore Telefonia">Settore Telefonia</option>
+                        <option value="Altro">Altro...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>CARICA IL TUO CV (PDF, JPG, PNG)</label>
+                    <div class="file-input-wrapper" onclick="document.getElementById('cv-file').click()">
+                        <div style="font-size: 1.5rem;">📁</div>
+                        <p id="file-label" style="font-size: 0.8rem; font-weight: 600;">CLICCA PER SELEZIONARE IL FILE</p>
+                        <input type="file" id="cv-file" name="allegato_cv" hidden accept=".pdf,.jpg,.jpeg,.png" required onchange="updateFileName(this)">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>BREVE PRESENTAZIONE</label>
+                    <textarea name="messaggio" rows="4" placeholder="Raccontaci qualcosa di te..."></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn" class="btn-submit">INVIA CANDIDATURA</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function updateFileName(input) {
+            const label = document.getElementById('file-label');
+            if (input.files.length > 0) {
+                label.innerText = "✓ " + input.files[0].name;
+                label.style.color = "var(--success)";
+            }
+        }
+
+        const form = document.getElementById('jobForm');
+        const btn = document.getElementById('submitBtn');
+        const successView = document.getElementById('success-view');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            btn.disabled = true;
+            btn.innerHTML = "INVIO IN CORSO...";
+
+            const formData = new FormData(form);
+            const xhr = new XMLHttpRequest();
+
+            xhr.open("POST", form.action, true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    form.style.display = 'none';
+                    successView.style.display = 'block';
+                } else {
+                    alert("Errore nell'invio. Prova a scrivere a agenziadelrisparmioseregno@gmail.com");
+                    btn.disabled = false;
+                    btn.innerHTML = "INVIA CANDIDATURA";
+                }
+            };
+            xhr.send(formData);
+        });
+    </script>
+</body>
+</html>
