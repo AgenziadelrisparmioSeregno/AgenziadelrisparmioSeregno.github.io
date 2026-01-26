@@ -20,7 +20,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: var(--adr-blue-light); color: var(--adr-dark); font-family: var(--body-font); line-height: 1.6; }
 
-        /* NAVBAR COERENTE */
         .main-nav { position: sticky; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); z-index: 10000; border-bottom: 1px solid rgba(0, 168, 255, 0.1); padding: 12px 0; }
         .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; }
         .nav-logo { height: 35px; }
@@ -48,9 +47,6 @@
             transition: 0.3s;
         }
 
-        input:focus { border-color: var(--adr-blue); outline: none; background: white; }
-
-        /* File Upload Styling */
         .file-input-wrapper {
             border: 2px dashed #ddd;
             padding: 30px;
@@ -67,7 +63,6 @@
             font-weight: 900; cursor: pointer; transition: 0.3s; font-size: 1rem;
             margin-top: 20px;
         }
-        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,168,255,0.3); }
 
         .success-overlay { display: none; text-align: center; padding: 40px; }
         .success-icon { font-size: 4rem; color: var(--success); margin-bottom: 20px; }
@@ -88,7 +83,7 @@
 
     <header class="hero">
         <h1>JOIN THE <span style="color:var(--adr-blue)">TEAM</span></h1>
-        <p style="font-size: 0.9rem; opacity: 0.8;">Inviaci la tua candidatura e lavora con ADR Seregno</p>
+        <p style="font-size: 0.9rem; opacity: 0.8;">Inviaci la tua candidatura per ADR Seregno</p>
     </header>
 
     <div class="container">
@@ -97,51 +92,47 @@
             <div id="success-view" class="success-overlay">
                 <div class="success-icon">✓</div>
                 <h2 style="font-family: var(--tech-font);">CV INVIATO!</h2>
-                <p>La tua candidatura è stata inoltrata correttamente alla nostra email.</p>
+                <p>Grazie! La tua candidatura è stata ricevuta correttamente.</p>
                 <button onclick="location.reload()" class="btn-submit" style="width: auto; padding: 10px 30px;">INDIETRO</button>
             </div>
 
-            <form id="jobForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="access_key" value="4db02fa7-1d99-4204-8f51-e623b8c93ae0">
-                <input type="hidden" name="subject" value="Nuova Candidatura Lavora Con Noi - ADR Seregno">
-                <input type="hidden" name="from_name" value="ADR Career Portal">
+            <form id="jobForm" action="https://formbold.com/s/9E4xK" method="POST" enctype="multipart/form-data">
                 
                 <div class="form-group">
                     <label>NOME E COGNOME</label>
-                    <input type="text" name="name" placeholder="Inserisci il tuo nome completo" required>
+                    <input type="text" name="name" placeholder="Inserisci il tuo nome" required>
                 </div>
 
                 <div class="form-group">
-                    <label>EMAIL DI CONTATTO</label>
+                    <label>EMAIL</label>
                     <input type="email" name="email" placeholder="Esempio: nome@gmail.com" required>
                 </div>
 
                 <div class="form-group">
-                    <label>RUOLO DI INTERESSE</label>
-                    <select name="ruolo" required>
-                        <option value="" disabled selected>Seleziona una mansione...</option>
+                    <label>MANSIONE DESIDERATA</label>
+                    <select name="mansione" required>
+                        <option value="" disabled selected>Scegli una posizione...</option>
                         <option value="Broker Utenze">Broker Utenze</option>
                         <option value="Presa Appuntamenti">Presa Appuntamenti</option>
                         <option value="Gestione Clienti">Gestione Clienti</option>
-                        <option value="Altro">Altro...</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>CARICA IL TUO CV (PDF, JPG, PNG)</label>
+                    <label>ALLEGATO CV (PDF, JPG, PNG)</label>
                     <div class="file-input-wrapper" onclick="document.getElementById('cv-file').click()">
                         <div style="font-size: 1.5rem;">📁</div>
-                        <p id="file-label" style="font-size: 0.8rem; font-weight: 600;">CLICCA PER SELEZIONARE IL FILE</p>
-                        <input type="file" id="cv-file" name="attachment" hidden accept=".pdf,.jpg,.jpeg,.png" required onchange="updateFileName(this)">
+                        <p id="file-label" style="font-size: 0.8rem; font-weight: 600;">CLICCA PER CARICARE IL FILE</p>
+                        <input type="file" id="cv-file" name="file" hidden accept=".pdf,.jpg,.jpeg,.png" required onchange="updateFileName(this)">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>BREVE PRESENTAZIONE</label>
-                    <textarea name="message" rows="4" placeholder="Raccontaci qualcosa di te..."></textarea>
+                    <label>MESSAGGIO DI PRESENTAZIONE</label>
+                    <textarea name="message" rows="4" placeholder="Scrivi qui..."></textarea>
                 </div>
 
-                <button type="submit" id="submitBtn" class="btn-submit">INVIA CANDIDATURA</button>
+                <button type="submit" id="submitBtn" class="btn-submit">INVIA ORA</button>
             </form>
         </div>
     </div>
@@ -162,28 +153,24 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             btn.disabled = true;
-            btn.innerHTML = "INVIO IN CORSO...";
+            btn.innerHTML = "CARICAMENTO...";
 
             const formData = new FormData(form);
             const xhr = new XMLHttpRequest();
 
             xhr.open("POST", form.action, true);
+            xhr.setRequestHeader("Accept", "application/json");
+
             xhr.onload = function() {
-                // Web3Forms restituisce 200 se l'invio ha successo
-                if (xhr.status === 200) {
+                if (xhr.status === 200 || xhr.status === 201) {
                     form.style.display = 'none';
                     successView.style.display = 'block';
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
-                    alert("Errore nell'invio. Prova a scrivere a agenziadelrisparmioseregno@gmail.com");
+                    alert("Errore nell'invio. Assicurati di aver attivato il form tramite l'email di Formbold.");
                     btn.disabled = false;
-                    btn.innerHTML = "INVIA CANDIDATURA";
+                    btn.innerHTML = "INVIA ORA";
                 }
-            };
-            xhr.onerror = function() {
-                alert("Errore di rete. Controlla la connessione.");
-                btn.disabled = false;
-                btn.innerHTML = "INVIA CANDIDATURA";
             };
             xhr.send(formData);
         });
