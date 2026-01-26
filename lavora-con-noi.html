@@ -123,6 +123,7 @@
                         <option value="Broker Utenze">Broker Utenze</option>
                         <option value="Presa Appuntamenti">Presa Appuntamenti</option>
                         <option value="Gestione Clienti">Gestione Clienti</option>
+                        <option value="Altro">Altro...</option>
                     </select>
                 </div>
 
@@ -168,6 +169,7 @@
 
             xhr.open("POST", form.action, true);
             xhr.onload = function() {
+                // Web3Forms restituisce 200 se l'invio ha successo
                 if (xhr.status === 200) {
                     form.style.display = 'none';
                     successView.style.display = 'block';
@@ -179,7 +181,7 @@
                 }
             };
             xhr.onerror = function() {
-                alert("Errore di rete. Riprova più tardi.");
+                alert("Errore di rete. Controlla la connessione.");
                 btn.disabled = false;
                 btn.innerHTML = "INVIA CANDIDATURA";
             };
