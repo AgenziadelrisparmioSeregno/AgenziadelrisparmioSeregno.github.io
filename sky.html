@@ -34,28 +34,48 @@
 
         .tech-font { font-family: var(--tech-font); text-transform: uppercase; letter-spacing: 1px; }
 
-        /* NAVBAR */
+        /* NAVBAR CON HAMBURGER */
         .main-nav {
             position: sticky; top: 0; width: 100%;
             background: rgba(11, 30, 51, 0.95); backdrop-filter: blur(15px);
             z-index: 10000; border-bottom: 1px solid rgba(0, 168, 255, 0.2);
-            padding: 10px 0;
+            padding: 12px 0;
         }
         .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; }
-        .nav-logo { height: 38px; }
-        .nav-menu { display: flex; gap: 20px; }
+        .nav-logo { height: 38px; z-index: 10001; }
+
+        .nav-menu { display: flex; gap: 20px; align-items: center; transition: 0.5s ease-in-out; }
         .nav-link { font-family: var(--tech-font); font-size: 0.7rem; font-weight: 700; color: white; text-decoration: none; transition: 0.3s; }
         .nav-link:hover, .nav-link.active { color: var(--adr-blue); }
 
+        /* Mobile Menu */
+        .hamburger { display: none; cursor: pointer; background: none; border: none; z-index: 10001; }
+        .hamburger div { width: 25px; height: 3px; background-color: white; margin: 5px; transition: 0.4s; }
+
+        @media (max-width: 992px) {
+            .hamburger { display: block; }
+            .nav-menu {
+                position: fixed; right: -100%; top: 0; height: 100vh; width: 75%; 
+                background: #0b1e33; flex-direction: column; justify-content: center;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.5); padding: 40px;
+            }
+            .nav-menu.active { right: 0; }
+            .nav-link { font-size: 1.1rem; padding: 15px 0; border-bottom: 1px solid rgba(0, 168, 255, 0.1); width: 100%; text-align: center; }
+        }
+
+        .toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
+        .toggle .line2 { opacity: 0; }
+        .toggle .line3 { transform: rotate(45deg) translate(-5px, -6px); }
+
         /* HERO */
         .hero-sky {
-            height: 40vh;
+            height: 45vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: radial-gradient(circle at center, rgba(0, 168, 255, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle at center, rgba(0, 168, 255, 0.15) 0%, transparent 70%);
             padding: 20px;
         }
 
@@ -64,34 +84,36 @@
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
+        .sky-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+
         .sky-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(0, 168, 255, 0.2);
-            border-radius: 24px; padding: 30px; 
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 168, 255, 0.15);
+            border-radius: 24px; padding: 35px; 
             display: flex; flex-direction: column;
-            transition: 0.3s;
-            height: fit-content;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .sky-card:hover { border-color: var(--adr-blue); }
+        .sky-card:hover { border-color: var(--adr-blue); background: rgba(255, 255, 255, 0.05); transform: translateY(-10px); box-shadow: var(--neon-shadow); }
 
         .price-tag { 
-            font-size: 1.8rem; 
+            font-size: 1.85rem; 
             font-weight: 900; 
             color: var(--adr-blue); 
             margin: 15px 0; 
             font-family: var(--tech-font);
         }
+        .price-tag span { font-size: 0.8rem; color: #777; font-weight: 400; }
 
-        .feature-list { list-style: none; margin-bottom: 25px; }
-        .feature-list li { margin-bottom: 10px; font-size: 0.85rem; color: #ccc; display: flex; align-items: center; gap: 10px; }
-        .feature-list li::before { content: '✓'; color: var(--adr-blue); font-weight: bold; }
+        .feature-list { list-style: none; margin-bottom: 25px; flex-grow: 1; }
+        .feature-list li { margin-bottom: 12px; font-size: 0.85rem; color: #bbb; display: flex; align-items: center; gap: 10px; }
+        .feature-list li::before { content: '✦'; color: var(--adr-blue); font-size: 0.7rem; }
 
         /* BUTTONS & ACCORDION */
         .btn-discover {
             background: transparent;
             color: var(--white);
             border: 1px solid var(--adr-blue);
-            padding: 12px;
+            padding: 14px;
             border-radius: 12px;
             font-family: var(--tech-font);
             font-weight: 700;
@@ -104,42 +126,33 @@
             align-items: center;
             gap: 10px;
         }
-        .btn-discover:hover { background: rgba(0, 168, 255, 0.1); }
-        .btn-discover svg { width: 12px; transition: 0.3s; fill: white; }
+        .btn-discover:hover { background: var(--adr-blue); color: #0b1e33; }
+        .btn-discover svg { width: 12px; transition: 0.3s; fill: currentColor; }
         .btn-discover.active svg { transform: rotate(180deg); }
 
         .agent-selector {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease-out;
-            margin-top: 0;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
         }
-        .agent-selector.open {
-            max-height: 300px;
-            margin-top: 20px;
-        }
+        .agent-selector.open { max-height: 500px; transition: max-height 1s ease-in-out; margin-top: 20px; }
 
-        .agent-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
+        .agent-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
         .agent-btn {
-            background: var(--adr-blue);
+            background: rgba(255, 255, 255, 0.05);
             color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 12px;
+            border-radius: 10px;
             font-family: var(--tech-font);
             font-size: 0.65rem;
             font-weight: 700;
             cursor: pointer;
             transition: 0.2s;
         }
-        .agent-btn:hover { background: var(--adr-blue-neon); transform: scale(1.05); }
+        .agent-btn:hover { background: var(--adr-blue); border-color: var(--adr-blue); transform: scale(1.05); }
 
-        @media (max-width: 768px) { .nav-menu { display: none; } }
     </style>
 </head>
 <body>
@@ -149,44 +162,50 @@
     <nav class="main-nav">
         <div class="nav-container">
             <a href="index.html"><img src="logo.png" alt="ADR Logo" class="nav-logo"></a>
-            <div class="nav-menu">
+            
+            <div class="nav-menu" id="nav-menu">
                 <a href="index.html" class="nav-link">HOME</a>
                 <a href="energia.html" class="nav-link">ENERGIA</a>
                 <a href="telefonia.html" class="nav-link">TELEFONIA</a>
                 <a href="sky.html" class="nav-link active">SKY</a>
                 <a href="contatti.html" class="nav-link">CONTATTI</a>
+                <a href="dashboard.html" style="background: var(--adr-blue); color: #0b1e33; padding: 8px 16px; border-radius: 50px; font-family: var(--tech-font); font-size: 0.65rem; font-weight: 800; text-decoration: none;">AREA CLIENTI</a>
             </div>
-            <a href="dashboard.html" style="background: var(--adr-blue); color: white; padding: 8px 16px; border-radius: 50px; font-family: var(--tech-font); font-size: 0.65rem; font-weight: 800; text-decoration: none;">AREA CLIENTI</a>
+
+            <button class="hamburger" id="hamburger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </button>
         </div>
     </nav>
 
     <section class="hero-sky reveal">
         <span class="tech-font" style="color: var(--adr-blue); font-size: 0.7rem; letter-spacing: 5px;">ADR ENTERTAINMENT</span>
-        <h1 class="tech-font" style="font-size: 2.2rem; margin-top: 10px;">Sky <span style="color: var(--adr-blue);">Solutions</span></h1>
-        <p style="color: #aaa; max-width: 600px; font-size: 0.9rem;">Scegli il tuo pacchetto e prenota un appuntamento con i nostri esperti.</p>
+        <h1 class="tech-font" style="font-size: 2.5rem; margin-top: 10px; line-height: 1.1;">Sky <span style="color: var(--adr-blue);">Experience</span></h1>
+        <p style="color: #888; max-width: 600px; font-size: 0.95rem; margin-top: 15px;">L'intrattenimento di nuova generazione con l'assistenza locale di Seregno.</p>
     </section>
 
     <div class="container">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
+        <div class="sky-grid">
             
             <div class="sky-card reveal">
                 <h3 class="tech-font">Sky TV + Cinema</h3>
                 <div class="price-tag">29,90€ <span>/mese</span></div>
                 <ul class="feature-list">
                     <li>Sky TV & Paramount+ incluso</li>
-                    <li>Tutto il Cinema di Sky</li>
-                    <li>Sky Stream (senza parabola)</li>
+                    <li>Le grandi uscite Sky Original</li>
+                    <li>Oltre 200 canali in HD</li>
+                    <li>Sky Stream (Plug & Play)</li>
                 </ul>
                 <button class="btn-discover" onclick="toggleAgents(this)">
                     SCOPRI DI PIÙ 
                     <svg viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
                 </button>
                 <div class="agent-selector">
-                    <p style="font-size: 0.6rem; margin-bottom: 10px; color: var(--adr-blue);" class="tech-font">SCEGLI IL TUO CONSULENTE:</p>
+                    <p style="font-size: 0.6rem; margin-bottom: 12px; color: var(--adr-blue);" class="tech-font">CONTATTA UN CONSULENTE:</p>
                     <div class="agent-grid">
                         <button class="agent-btn" onclick="contactAgent('Luca')">LUCA</button>
-                        <button class="agent-btn" onclick="contactAgent('Daniele')">DANIELE</button>
-                        <button class="agent-btn" onclick="contactAgent('Daniel')">DANIEL</button>
                         <button class="agent-btn" onclick="contactAgent('Andrea')">ANDREA</button>
                     </div>
                 </div>
@@ -196,44 +215,42 @@
                 <h3 class="tech-font">Sky TV + Sport</h3>
                 <div class="price-tag">24,90€ <span>/mese</span></div>
                 <ul class="feature-list">
-                    <li>Champions & Coppe Europee</li>
-                    <li>Tutta la Formula 1® e MotoGP™</li>
-                    <li>Tennis, Basket e molto altro</li>
+                    <li>Champions League & Coppe</li>
+                    <li>Formula 1® & MotoGP™ in diretta</li>
+                    <li>ATP Tour & Wimbledon</li>
+                    <li>Basket NBA & Eurolega</li>
                 </ul>
-                <button class="btn-discover" onclick="toggleAgents(this)">
-                    SCOPRI DI PIÙ 
-                    <svg viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                <button class="btn-discover" onclick="toggleAgents(this)" style="background: var(--adr-blue); color: #0b1e33;">
+                    PRENOTA ORA
+                    <svg viewBox="0 0 448 512" style="fill: #0b1e33;"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
                 </button>
                 <div class="agent-selector">
-                    <p style="font-size: 0.6rem; margin-bottom: 10px; color: var(--adr-blue);" class="tech-font">SCEGLI IL TUO CONSULENTE:</p>
+                    <p style="font-size: 0.6rem; margin-bottom: 12px; color: var(--adr-blue);" class="tech-font">DISPONIBILI ORA:</p>
                     <div class="agent-grid">
-                        <button class="agent-btn" onclick="contactAgent('Luca')">LUCA</button>
-                        <button class="agent-btn" onclick="contactAgent('Daniele')">DANIELE</button>
                         <button class="agent-btn" onclick="contactAgent('Daniel')">DANIEL</button>
-                        <button class="agent-btn" onclick="contactAgent('Andrea')">ANDREA</button>
+                        <button class="agent-btn" onclick="contactAgent('Daniele')">DANIELE</button>
                     </div>
                 </div>
             </div>
 
             <div class="sky-card reveal">
                 <h3 class="tech-font">Sky Glass / Biz</h3>
-                <div class="price-tag">SU MISURA</div>
+                <div class="price-tag">PERSONALIZZATO</div>
                 <ul class="feature-list">
-                    <li>Sky Glass: La TV all-in-one</li>
-                    <li>Soluzioni per Bar e Hotel</li>
-                    <li>Assistenza Diretta ADR</li>
+                    <li>Sky Glass: La TV senza cavi</li>
+                    <li>Soluzioni Business per Locali</li>
+                    <li>Eventi Sportivi per Partita IVA</li>
+                    <li>Installazione Professionale</li>
                 </ul>
                 <button class="btn-discover" onclick="toggleAgents(this)">
-                    SCOPRI DI PIÙ 
+                    CONSULENZA BIZ
                     <svg viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
                 </button>
                 <div class="agent-selector">
-                    <p style="font-size: 0.6rem; margin-bottom: 10px; color: var(--adr-blue);" class="tech-font">SCEGLI IL TUO CONSULENTE:</p>
+                    <p style="font-size: 0.6rem; margin-bottom: 12px; color: var(--adr-blue);" class="tech-font">ESPERTI BUSINESS:</p>
                     <div class="agent-grid">
-                        <button class="agent-btn" onclick="contactAgent('Luca')">LUCA</button>
-                        <button class="agent-btn" onclick="contactAgent('Daniele')">DANIELE</button>
                         <button class="agent-btn" onclick="contactAgent('Daniel')">DANIEL</button>
-                        <button class="agent-btn" onclick="contactAgent('Andrea')">ANDREA</button>
+                        <button class="agent-btn" onclick="contactAgent('Luca')">LUCA</button>
                     </div>
                 </div>
             </div>
@@ -242,6 +259,16 @@
     </div>
 
     <script>
+        // Menu Hamburger
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('toggle');
+        });
+
+        // Reveal Animations
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             reveals.forEach(el => {
@@ -251,12 +278,14 @@
         window.addEventListener("scroll", reveal);
         window.onload = reveal;
 
+        // Toggle Agents Accordion
         function toggleAgents(btn) {
             const selector = btn.nextElementSibling;
             btn.classList.toggle('active');
             selector.classList.toggle('open');
         }
 
+        // WhatsApp Action
         function contactAgent(agente) {
             const numeri = { 
                 'Daniel': '393423218269', 
@@ -264,10 +293,11 @@
                 'Luca': '393277545377', 
                 'Andrea': '393515910955' 
             };
-            const testo = `Ciao ${agente}, vorrei diventare cliente SKY possiamo fissare un appuntamento??`;
+            const testo = `Ciao ${agente}, vorrei informazioni sui pacchetti SKY. Possiamo sentirci?`;
             window.open(`https://wa.me/${numeri[agente]}?text=${encodeURIComponent(testo)}`, '_blank');
         }
 
+        // Progress Bar Scroll
         window.onscroll = function() {
             let scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
             document.getElementById("progress-bar").style.width = scrolled + "%";
