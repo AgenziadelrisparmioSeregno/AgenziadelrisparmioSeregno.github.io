@@ -72,9 +72,13 @@
         .upload-card { background: var(--adr-dark); color: white; padding: 40px; border-radius: 30px; position: relative; overflow: hidden; min-height: 400px; display: flex; flex-direction: column; justify-content: center; }
         .upload-card::before { content: ""; position: absolute; top: 0; right: 0; width: 150px; height: 150px; background: var(--adr-blue); filter: blur(100px); opacity: 0.3; }
 
-        .file-drop-area { border: 2px dashed rgba(255,255,255,0.3); border-radius: 20px; padding: 40px; text-align: center; cursor: pointer; transition: 0.3s; margin: 25px 0; }
+        /* Doppia area file */
+        .dual-upload { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
+        .file-drop-area { border: 2px dashed rgba(255,255,255,0.3); border-radius: 20px; padding: 20px; text-align: center; cursor: pointer; transition: 0.3s; }
         .file-drop-area:hover { border-color: var(--adr-blue); background: rgba(0,168,255,0.05); }
         
+        @media (max-width: 500px) { .dual-upload { grid-template-columns: 1fr; } }
+
         .upload-form input {
             width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; margin-bottom: 15px; font-family: var(--body-font);
         }
@@ -82,7 +86,7 @@
         .btn-upload { background: var(--adr-blue); color: white; width: 100%; padding: 18px; border: none; border-radius: 12px; font-family: var(--tech-font); font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 1rem; }
         .btn-upload:disabled { background: #555; cursor: not-allowed; }
         
-        #file-name { margin-top: 15px; font-size: 0.8rem; color: var(--success); font-family: var(--tech-font); }
+        .file-name-label { margin-top: 10px; font-size: 0.65rem; color: var(--success); font-family: var(--tech-font); word-break: break-all; }
         .footer-note { font-size: 0.7rem; opacity: 0.6; margin-top: 15px; text-align: center; }
         .captcha-container { display: flex; justify-content: center; margin-bottom: 20px; }
 
@@ -179,14 +183,23 @@
 
                     <div id="form-content">
                         <h2 class="tech-font" style="font-size: 1.2rem; text-align: center;">OTTIENI UN'ANALISI GRATUITA</h2>
-                        <p style="text-align: center; font-size: 0.85rem; opacity: 0.8; margin: 10px 0 20px;">Carica la tua bolletta per una consulenza senza impegno.</p>
+                        <p style="text-align: center; font-size: 0.85rem; opacity: 0.8; margin: 10px 0 20px;">Carica le tue bollette per una consulenza senza impegno.</p>
                         
                         <form id="bollettaForm" class="upload-form" action="https://forminit.com/f/3ur0nhp2mzr" method="POST" enctype="multipart/form-data">
-                            <div class="file-drop-area" onclick="document.getElementById('bolletta-file').click()">
-                                <div style="font-size: 2rem; margin-bottom: 10px;">📄</div>
-                                <p class="tech-font" style="font-size: 0.7rem;">TRASCINA O CLICCA PER CARICARE</p>
-                                <input type="file" id="bolletta-file" name="fi-file-bolletta" hidden accept=".pdf, .jpg, .jpeg, .png" required onchange="updateFileName(this)">
-                                <div id="file-name"></div>
+                            
+                            <div class="dual-upload">
+                                <div class="file-drop-area" onclick="document.getElementById('file-1').click()">
+                                    <div style="font-size: 1.2rem; margin-bottom: 5px;">📄</div>
+                                    <p class="tech-font" style="font-size: 0.55rem;">BOLL. LUCE</p>
+                                    <input type="file" id="file-1" name="fi-file-1" hidden accept=".pdf, .jpg, .jpeg, .png" required onchange="updateFileName(this, 'name-1')">
+                                    <div id="name-1" class="file-name-label"></div>
+                                </div>
+                                <div class="file-drop-area" onclick="document.getElementById('file-2').click()">
+                                    <div style="font-size: 1.2rem; margin-bottom: 5px;">🔥</div>
+                                    <p class="tech-font" style="font-size: 0.55rem;">BOLL. GAS</p>
+                                    <input type="file" id="file-2" name="fi-file-2" hidden accept=".pdf, .jpg, .jpeg, .png" onchange="updateFileName(this, 'name-2')">
+                                    <div id="name-2" class="file-name-label"></div>
+                                </div>
                             </div>
 
                             <input type="text" name="fi-first-name" placeholder="Nome" required>
@@ -212,11 +225,10 @@
             document.getElementById('navMenu').classList.toggle('active');
         }
 
-        function updateFileName(input) {
-            const fileNameDisplay = document.getElementById('file-name');
+        function updateFileName(input, targetId) {
+            const display = document.getElementById(targetId);
             if (input.files && input.files[0]) {
-                fileNameDisplay.innerHTML = `✓ File: ${input.files[0].name}`;
-                fileNameDisplay.style.color = "var(--success)";
+                display.innerHTML = `✓ ${input.files[0].name.substring(0, 15)}...`;
             }
         }
 
