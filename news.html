@@ -2,57 +2,126 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>News | ADR Seregno</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --adr-blue: #00a8ff; --adr-dark: #0b1e33; --adr-blue-light: #f0faff; --tech-font: 'Orbitron', sans-serif; }
-        body { font-family: 'Inter', sans-serif; background: var(--adr-blue-light); color: var(--adr-dark); margin: 0; }
-
-        /* Navbar */
-        .main-nav { position: sticky; top: 0; background: white; z-index: 1000; padding: 12px 0; border-bottom: 1px solid #eee; }
-        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-        .nav-menu a { font-family: var(--tech-font); font-size: 0.7rem; text-decoration: none; color: var(--adr-dark); margin-left: 20px; font-weight: 700; }
-
-        .news-hero { background: var(--adr-dark); color: white; padding: 50px 20px; text-align: center; }
+        :root { 
+            --adr-blue: #00a8ff; 
+            --adr-dark: #0b1e33; 
+            --adr-blue-light: #f0faff; 
+            --tech-font: 'Orbitron', sans-serif; 
+            --magenta: #ff007f;
+        }
         
-        /* Titoli Sezioni */
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+        
+        body { font-family: 'Inter', sans-serif; background: var(--adr-blue-light); color: var(--adr-dark); overflow-x: hidden; }
+
+        /* NAVBAR CON HAMBURGER */
+        .main-nav { 
+            position: sticky; 
+            top: 0; 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px);
+            z-index: 10000; 
+            padding: 12px 0; 
+            border-bottom: 1px solid rgba(0,0,0,0.05); 
+        }
+        .nav-container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .nav-logo { height: 30px; z-index: 10001; }
+
+        .nav-menu { display: flex; align-items: center; gap: 20px; }
+        .nav-menu a { 
+            font-family: var(--tech-font); 
+            font-size: 0.7rem; 
+            text-decoration: none; 
+            color: var(--adr-dark); 
+            font-weight: 700; 
+            transition: 0.3s;
+        }
+        .nav-menu a:hover { color: var(--adr-blue); }
+
+        /* Mobile Menu */
+        .hamburger { display: none; cursor: pointer; background: none; border: none; z-index: 10001; }
+        .hamburger div { width: 25px; height: 3px; background-color: var(--adr-dark); margin: 5px; transition: 0.4s; }
+
+        @media (max-width: 992px) {
+            .hamburger { display: block; }
+            .nav-menu {
+                position: fixed; right: -100%; top: 0; height: 100vh; width: 70%; 
+                background: white; flex-direction: column; justify-content: center;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.1); transition: 0.5s ease-in-out;
+                padding: 40px;
+            }
+            .nav-menu.active { right: 0; }
+            .nav-menu a { font-size: 1.1rem; width: 100%; text-align: center; padding: 15px 0; border-bottom: 1px solid #f0f0f0; }
+        }
+
+        .toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
+        .toggle .line2 { opacity: 0; }
+        .toggle .line3 { transform: rotate(45deg) translate(-5px, -6px); }
+
+        /* HERO & CONTENT */
+        .news-hero { background: var(--adr-dark); color: white; padding: 60px 20px; text-align: center; }
+        
         .section-divider { max-width: 1200px; margin: 40px auto 20px; padding: 0 20px; display: flex; align-items: center; gap: 20px; }
-        .section-divider h2 { font-family: var(--tech-font); font-size: 1.2rem; color: var(--adr-dark); white-space: nowrap; }
+        .section-divider h2 { font-family: var(--tech-font); font-size: 1.1rem; color: var(--adr-dark); white-space: nowrap; }
         .section-divider .line { height: 2px; background: var(--adr-blue); width: 100%; opacity: 0.3; }
 
         .news-grid { max-width: 1200px; margin: 0 auto 50px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
         
-        .news-card { background: white; border-radius: 15px; overflow: hidden; border: 1px solid #eee; transition: 0.3s; text-decoration: none; color: inherit; display: flex; flex-direction: column; }
-        .news-card:hover { transform: translateY(-5px); border-color: var(--adr-blue); }
-        .news-icon { height: 120px; background: var(--adr-dark); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
-        .news-content { padding: 20px; }
-        .news-tag { color: var(--adr-blue); font-size: 0.6rem; font-weight: 800; font-family: var(--tech-font); text-transform: uppercase; }
-        .news-title { font-size: 1rem; margin: 10px 0; font-weight: 700; }
-        .news-excerpt { font-size: 0.8rem; opacity: 0.7; }
+        .news-card { 
+            background: white; border-radius: 15px; overflow: hidden; border: 1px solid #eee; 
+            transition: 0.3s; text-decoration: none; color: inherit; display: flex; flex-direction: column; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        }
+        .news-card:hover { transform: translateY(-5px); border-color: var(--adr-blue); box-shadow: 0 10px 25px rgba(0,168,255,0.15); }
+        .news-icon { height: 140px; background: var(--adr-dark); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; transition: 0.3s; }
+        .news-card:hover .news-icon { background: #162e4a; }
+        
+        .news-content { padding: 25px; }
+        .news-tag { color: var(--adr-blue); font-size: 0.6rem; font-weight: 800; font-family: var(--tech-font); text-transform: uppercase; letter-spacing: 1px; }
+        .news-title { font-size: 1.1rem; margin: 12px 0; font-weight: 700; line-height: 1.3; }
+        .news-excerpt { font-size: 0.85rem; opacity: 0.7; line-height: 1.5; }
+
+        footer { text-align: center; padding: 40px; border-top: 1px solid #ddd; background: white; margin-top: 40px; }
     </style>
 </head>
 <body>
 
     <nav class="main-nav">
         <div class="nav-container">
-            <a href="index.html"><img src="logo.png" alt="ADR" style="height:30px;"></a>
-            <div class="nav-menu">
+            <a href="index.html"><img src="logo.png" alt="ADR" class="nav-logo"></a>
+            
+            <div class="nav-menu" id="nav-menu">
                 <a href="index.html">HOME</a>
                 <a href="energia.html">ENERGIA</a>
                 <a href="news.html" style="color:var(--adr-blue)">NEWS</a>
-                <a href="telefonia.html" style="color:var(--adr-blue)">TELEFONIA</a>
-                <a href="sky.html" style="color:var(--adr-blue)">SKY</a>
-                <a href="fotovoltaico.html" style="color:var(--adr-blue)">FOTOVOLTAICO</a>
-                <a href="contatti.html" style="color:var(--adr-blue)">CONTATTI</a>
-                <a href="caf.html" style="color:var(--adr-blue)">CAF</a>
+                <a href="telefonia.html">TELEFONIA</a>
+                <a href="fotovoltaico.html">FOTOVOLTAICO</a>
+                <a href="contatti.html">CONTATTI</a>
+                <a href="caf.html">CAF</a>
             </div>
+
+            <button class="hamburger" id="hamburger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </button>
         </div>
     </nav>
 
     <header class="news-hero">
-        <h1 style="font-family: var(--tech-font);">ADR <span style="color:var(--adr-blue)">REPORTS</span></h1>
-        <p>Analisi e consigli per Luce, Gas e Telefonia.</p>
+        <h1 style="font-family: var(--tech-font); letter-spacing: 3px;">ADR <span style="color:var(--adr-blue)">REPORTS</span></h1>
+        <p style="opacity: 0.8; margin-top: 10px; font-weight: 300;">Analisi, trasparenza e consigli per i cittadini di Seregno.</p>
     </header>
 
     <div class="section-divider">
@@ -66,7 +135,7 @@
             <div class="news-content">
                 <span class="news-tag">Sicurezza</span>
                 <h3 class="news-title">Allerta truffe a Seregno</h3>
-                <p class="news-excerpt">Finti operatori in zona: ecco come proteggere i tuoi codici.</p>
+                <p class="news-excerpt">Finti operatori in zona: ecco come riconoscere i veri consulenti e proteggere i tuoi codici POD e PDR.</p>
             </div>
         </a>
         <a href="articoli/prezzi-energia-2026.html" class="news-card">
@@ -74,34 +143,55 @@
             <div class="news-content">
                 <span class="news-tag">Mercato</span>
                 <h3 class="news-title">Rincari Quote Fisse 2026</h3>
-                <p class="news-excerpt">Analisi dell'aumento dei costi fissi di commercializzazione.</p>
+                <p class="news-excerpt">Le ultime decisioni ARERA sulle quote di commercializzazione. Quanto incideranno sulla tua bolletta annuale?</p>
             </div>
         </a>
     </div>
 
     <div class="section-divider">
-        <h2 style="color: #ff007f;">TELEFONIA & FIBRA</h2>
-        <div class="line" style="background: #ff007f;"></div>
+        <h2 style="color: var(--magenta);">TELEFONIA & FIBRA</h2>
+        <div class="line" style="background: var(--magenta);"></div>
     </div>
 
     <div class="news-grid">
         <a href="articoli/trucchi-telefonia-mobile.html" class="news-card">
             <div class="news-icon" style="background: #1e0b21;">📱</div>
             <div class="news-content">
-                <span class="news-tag" style="color: #ff007f;">Rimodulazioni</span>
+                <span class="news-tag" style="color: var(--magenta);">Rimodulazioni</span>
                 <h3 class="news-title">Stop agli aumenti Mobile</h3>
-                <p class="news-excerpt">Come evitare che la tua tariffa aumenti ogni 6 mesi.</p>
+                <p class="news-excerpt">Come blindare la tua tariffa ed evitare le rimodulazioni automatiche previste dai grandi operatori.</p>
             </div>
         </a>
         <a href="articoli/fibra-seregno-guida.html" class="news-card">
             <div class="news-icon" style="background: #1e0b21;">🌐</div>
             <div class="news-content">
-                <span class="news-tag" style="color: #ff007f;">Connettività</span>
+                <span class="news-tag" style="color: var(--magenta);">Connettività</span>
                 <h3 class="news-title">La Fibra a Seregno</h3>
-                <p class="news-excerpt">Guida alla copertura FTTH: navighi davvero al massimo?</p>
+                <p class="news-excerpt">Stato dei lavori FTTH e consigli tecnici per ottimizzare il Wi-Fi dentro le vecchie mura del centro storico.</p>
             </div>
         </a>
     </div>
 
+    <footer>
+        <p style="font-family: var(--tech-font); font-size: 0.6rem; color: #999;">© 2026 ADR SEREGNO - CENTRO INFORMAZIONE RISPARMIO</p>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('toggle');
+        });
+
+        // Chiude il menu quando si clicca su un link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('toggle');
+            });
+        });
+    </script>
 </body>
 </html>
