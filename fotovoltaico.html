@@ -156,7 +156,7 @@
                     <input type="number" id="calc-spesa" placeholder="Es: 1500" class="simulator-input">
                 </div>
                 <div style="flex: 1; min-width: 200px; text-align: center; background: white; padding: 15px; border-radius: 12px;">
-                    <p class="tech-font" style="font-size: 0.6rem; color: #999; margin-bottom: 5px;">Risparmio stimato (20 anni)</p>
+                    <p class="tech-font" style="font-size: 0.6rem; color: #999; margin-bottom: 5px;">Risparmio stimato (10 anni)</p>
                     <div id="calc-result" class="tech-font" style="color: var(--neon-green); font-size: 1.6rem; font-weight: 900;">€ 0</div>
                 </div>
                 <button class="btn tech-font" onclick="calculateSavings()" style="width: auto; padding: 15px 30px; background: var(--neon-green);">CALCOLA</button>
@@ -169,14 +169,16 @@
     </footer>
 
     <script>
-        // ... (Script di calcolo e scroll rimangono invariati)
+        // Calcolo aggiornato a 10 anni
         function calculateSavings() {
             const spesa = document.getElementById('calc-spesa').value;
             if(spesa > 0) {
-                const totale = (spesa * 0.78) * 20; 
+                // Formula: (Spesa annua * 78% di risparmio stimato) * 10 anni
+                const totale = (spesa * 0.78) * 10; 
                 document.getElementById('calc-result').innerText = "€ " + Math.round(totale).toLocaleString();
             }
         }
+
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             reveals.forEach(el => {
