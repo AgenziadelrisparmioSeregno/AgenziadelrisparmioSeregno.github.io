@@ -101,26 +101,28 @@
                 <button onclick="location.reload()" class="btn-submit" style="width: auto; padding: 10px 30px;">INDIETRO</button>
             </div>
 
-            <form id="jobForm" action="https://forminit.com/f/3ur0nhp2mzr" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="_subject" value="Nuova Candidatura Lavora Con Noi - ADR Seregno">
+            <form id="jobForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="access_key" value="4db02fa7-1d99-4204-8f51-e623b8c93ae0">
+                <input type="hidden" name="subject" value="Nuova Candidatura Lavora Con Noi - ADR Seregno">
+                <input type="hidden" name="from_name" value="ADR Career Portal">
                 
                 <div class="form-group">
                     <label>NOME E COGNOME</label>
-                    <input type="text" name="nome_candidato" placeholder="Inserisci il tuo nome completo" required>
+                    <input type="text" name="name" placeholder="Inserisci il tuo nome completo" required>
                 </div>
 
                 <div class="form-group">
                     <label>EMAIL DI CONTATTO</label>
-                    <input type="email" name="email_candidato" placeholder="Esempio: nome@gmail.com" required>
+                    <input type="email" name="email" placeholder="Esempio: nome@gmail.com" required>
                 </div>
 
                 <div class="form-group">
                     <label>RUOLO DI INTERESSE</label>
-                    <select name="ruolo">
-                        <option value="Consulente Energetico">Consulente Energetico</option>
-                        <option value="Back Office">Back Office</option>
-                        <option value="Settore Telefonia">Settore Telefonia</option>
-                        <option value="Altro">Altro...</option>
+                    <select name="ruolo" required>
+                        <option value="" disabled selected>Seleziona una mansione...</option>
+                        <option value="Broker Utenze">Broker Utenze</option>
+                        <option value="Presa Appuntamenti">Presa Appuntamenti</option>
+                        <option value="Gestione Clienti">Gestione Clienti</option>
                     </select>
                 </div>
 
@@ -129,13 +131,13 @@
                     <div class="file-input-wrapper" onclick="document.getElementById('cv-file').click()">
                         <div style="font-size: 1.5rem;">📁</div>
                         <p id="file-label" style="font-size: 0.8rem; font-weight: 600;">CLICCA PER SELEZIONARE IL FILE</p>
-                        <input type="file" id="cv-file" name="allegato_cv" hidden accept=".pdf,.jpg,.jpeg,.png" required onchange="updateFileName(this)">
+                        <input type="file" id="cv-file" name="attachment" hidden accept=".pdf,.jpg,.jpeg,.png" required onchange="updateFileName(this)">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>BREVE PRESENTAZIONE</label>
-                    <textarea name="messaggio" rows="4" placeholder="Raccontaci qualcosa di te..."></textarea>
+                    <textarea name="message" rows="4" placeholder="Raccontaci qualcosa di te..."></textarea>
                 </div>
 
                 <button type="submit" id="submitBtn" class="btn-submit">INVIA CANDIDATURA</button>
@@ -169,11 +171,17 @@
                 if (xhr.status === 200) {
                     form.style.display = 'none';
                     successView.style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
                     alert("Errore nell'invio. Prova a scrivere a agenziadelrisparmioseregno@gmail.com");
                     btn.disabled = false;
                     btn.innerHTML = "INVIA CANDIDATURA";
                 }
+            };
+            xhr.onerror = function() {
+                alert("Errore di rete. Riprova più tardi.");
+                btn.disabled = false;
+                btn.innerHTML = "INVIA CANDIDATURA";
             };
             xhr.send(formData);
         });
